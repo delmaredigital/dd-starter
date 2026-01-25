@@ -15,11 +15,11 @@ importers:
         specifier: ^0.3.4
         version: 0.3.4(638df221363d82cc560b92692aa4481e)
       '@delmaredigital/payload-page-tree':
-        specifier: ^0.3.5
-        version: 0.3.5(2eea9a7ee78f11c0bf3038a39b4f43a5)
+        specifier: ^0.3.6
+        version: 0.3.6(2eea9a7ee78f11c0bf3038a39b4f43a5)
       '@delmaredigital/payload-puck':
-        specifier: ^0.6.10
-        version: 0.6.10(ccb17efd15ef8dd642d9059dd6d6e0f0)
+        specifier: ^0.6.12
+        version: 0.6.12(ccb17efd15ef8dd642d9059dd6d6e0f0)
       '@payloadcms/admin-bar':
         specifier: 3.72.0
         version: 3.72.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -397,8 +397,8 @@ packages:
       payload: '>=3.69.0'
       react: '>=19.2.1'
 
-  '@delmaredigital/payload-page-tree@0.3.5':
-    resolution: {integrity: sha512-yJBAy7ZPcZKQfS9Ysd0xEWcAzHcSrHSxc+VJwGey+tZa0Ay0bxtSym2Zfnhur3e3cUW7Q9PQ9S0/4U/0z6XHRw==}
+  '@delmaredigital/payload-page-tree@0.3.6':
+    resolution: {integrity: sha512-Ypo61PiENNDbqiOTBUH+ANVWwazPzLA4jFs93ljmy0AKImTxeRpg9g6eqekhJh17Qqp5Eyqux8LZrF9YoA+aBw==}
     engines: {node: ^18.20.2 || >=20.9.0}
     peerDependencies:
       '@payloadcms/next': '>=3.0.0'
@@ -412,8 +412,8 @@ packages:
       '@payloadcms/ui':
         optional: true
 
-  '@delmaredigital/payload-puck@0.6.10':
-    resolution: {integrity: sha512-KhCe+nda3sWzaTo6O6YWi2RBpOPFhyMBMyoJfv9cGXY+SyeL2JNkuLEVeckV9pEYDfMgh8eGpdh1LoOlq9zohw==}
+  '@delmaredigital/payload-puck@0.6.12':
+    resolution: {integrity: sha512-NHbre5VdE3ih7IBiJCOVRCDKvZ/cuo/bHSr62mxSFUhaDSiB6quhcfIIj6YlU5N584pox7WKPCcCBCXHhR0fgA==}
     engines: {node: ^18.20.2 || >=20.9.0}
     peerDependencies:
       '@payloadcms/next': '>=3.69.0'
@@ -6393,7 +6393,7 @@ snapshots:
       - better-call
       - nanostores
 
-  '@delmaredigital/payload-page-tree@0.3.5(2eea9a7ee78f11c0bf3038a39b4f43a5)':
+  '@delmaredigital/payload-page-tree@0.3.6(2eea9a7ee78f11c0bf3038a39b4f43a5)':
     dependencies:
       next: 16.1.2(@babel/core@7.28.6)(@opentelemetry/api@1.9.0)(@playwright/test@1.56.1)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.77.4)
       payload: 3.72.0(bufferutil@4.1.0)(graphql@16.12.0)(typescript@5.7.3)(utf-8-validate@6.0.6)
@@ -6409,7 +6409,7 @@ snapshots:
       - '@types/react'
       - react-dom
 
-  '@delmaredigital/payload-puck@0.6.10(ccb17efd15ef8dd642d9059dd6d6e0f0)':
+  '@delmaredigital/payload-puck@0.6.12(ccb17efd15ef8dd642d9059dd6d6e0f0)':
     dependencies:
       '@puckeditor/cloud-client': 0.5.0
       '@puckeditor/core': 0.21.1(@floating-ui/dom@1.7.4)(@types/react-dom@19.2.1(@types/react@19.2.1))(@types/react@19.2.1)(bufferutil@4.1.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(use-sync-external-store@1.6.0(react@19.2.1))(utf-8-validate@6.0.6)

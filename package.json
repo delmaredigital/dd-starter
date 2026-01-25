@@ -29,8 +29,8 @@
   "dependencies": {
     "@better-auth/passkey": "^1.4.17",
     "@delmaredigital/payload-better-auth": "^0.3.4",
-    "@delmaredigital/payload-page-tree": "^0.3.5",
-    "@delmaredigital/payload-puck": "^0.6.10",
+    "@delmaredigital/payload-page-tree": "^0.3.6",
+    "@delmaredigital/payload-puck": "^0.6.12",
     "@payloadcms/admin-bar": "3.72.0",
     "@payloadcms/db-vercel-postgres": "3.72.0",
     "@payloadcms/live-preview-react": "3.72.0",
