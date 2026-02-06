@@ -126,9 +126,7 @@ export interface Config {
     footer: FooterSelect<false> | FooterSelect<true>;
   };
   locale: null;
-  user: User & {
-    collection: 'users';
-  };
+  user: User;
   jobs: {
     tasks: {
       schedulePublish: TaskSchedulePublish;
@@ -472,6 +470,7 @@ export interface User {
   twoFactorEnabled?: boolean | null;
   updatedAt: string;
   createdAt: string;
+  collection: 'users';
 }
 /**
  * Auto-generated from Better Auth schema (session)

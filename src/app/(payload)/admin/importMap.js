@@ -16,14 +16,14 @@ import { MetaTitleComponent as MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c08
 import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
-import { SlugField as SlugField_3817bf644402e67bfe6577f60ef982de } from '@payloadcms/ui'
-import { FolderTableCell as FolderTableCell_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
-import { FolderField as FolderField_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
+import { SlugField as SlugField_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
+import { FolderTableCell as FolderTableCell_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
+import { FolderField as FolderField_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 import { EditWithPuckButton as EditWithPuckButton_d72027e0f0541e23dd1e340e47e71267 } from '@delmaredigital/payload-puck/admin/client'
 import { EditWithPuckCell as EditWithPuckCell_d72027e0f0541e23dd1e340e47e71267 } from '@delmaredigital/payload-puck/admin/client'
 import { LinkToDoc as LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { ReindexButton as ReindexButton_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
-import { FolderTypeField as FolderTypeField_3817bf644402e67bfe6577f60ef982de } from '@payloadcms/ui'
+import { FolderTypeField as FolderTypeField_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
 import { RowLabel as RowLabel_ec255a65fa6fa8d1faeb09cf35284224 } from '@/Header/RowLabel'
 import { RowLabel as RowLabel_1f6ff6ff633e3695d348f4f3c58f1466 } from '@/Footer/RowLabel'
 import { LogoutButton as LogoutButton_aa8e4427b70b37c7820895ace344eb78 } from '@delmaredigital/payload-better-auth/components'
@@ -36,9 +36,9 @@ import { LoginViewWrapper as LoginViewWrapper_76e4fd5e0c2ccc05732c17408c72107e }
 import { TwoFactorView as TwoFactorView_76e4fd5e0c2ccc05732c17408c72107e } from '@delmaredigital/payload-better-auth/rsc'
 import { ApiKeysView as ApiKeysView_76e4fd5e0c2ccc05732c17408c72107e } from '@delmaredigital/payload-better-auth/rsc'
 import { PasskeysView as PasskeysView_76e4fd5e0c2ccc05732c17408c72107e } from '@delmaredigital/payload-better-auth/rsc'
-import { PageTreeView as PageTreeView_05df9824c06b5116cee652a5b2bbd184 } from '@delmaredigital/payload-page-tree/rsc'
 import { PuckEditorView as PuckEditorView_3b27b37268b8e78cccc06ea6de889aa6 } from '@delmaredigital/payload-puck/rsc'
-import { CollectionCards as CollectionCards_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
+import { PageTreeView as PageTreeView_05df9824c06b5116cee652a5b2bbd184 } from '@delmaredigital/payload-page-tree/rsc'
+import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 export const importMap = {
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -59,14 +59,14 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
-  "@payloadcms/ui#SlugField": SlugField_3817bf644402e67bfe6577f60ef982de,
-  "@payloadcms/ui/rsc#FolderTableCell": FolderTableCell_ab83ff7e88da8d3530831f296ec4756a,
-  "@payloadcms/ui/rsc#FolderField": FolderField_ab83ff7e88da8d3530831f296ec4756a,
+  "@payloadcms/next/client#SlugField": SlugField_2b8867833a34864a02ddf429b0728a40,
+  "@payloadcms/next/rsc#FolderTableCell": FolderTableCell_f9c02e79a4aed9a3924487c0cd4cafb1,
+  "@payloadcms/next/rsc#FolderField": FolderField_f9c02e79a4aed9a3924487c0cd4cafb1,
   "@delmaredigital/payload-puck/admin/client#EditWithPuckButton": EditWithPuckButton_d72027e0f0541e23dd1e340e47e71267,
   "@delmaredigital/payload-puck/admin/client#EditWithPuckCell": EditWithPuckCell_d72027e0f0541e23dd1e340e47e71267,
   "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,
   "@payloadcms/plugin-search/client#ReindexButton": ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
-  "@payloadcms/ui#FolderTypeField": FolderTypeField_3817bf644402e67bfe6577f60ef982de,
+  "@payloadcms/next/client#FolderTypeField": FolderTypeField_2b8867833a34864a02ddf429b0728a40,
   "@/Header/RowLabel#RowLabel": RowLabel_ec255a65fa6fa8d1faeb09cf35284224,
   "@/Footer/RowLabel#RowLabel": RowLabel_1f6ff6ff633e3695d348f4f3c58f1466,
   "@delmaredigital/payload-better-auth/components#LogoutButton": LogoutButton_aa8e4427b70b37c7820895ace344eb78,
@@ -79,7 +79,7 @@ export const importMap = {
   "@delmaredigital/payload-better-auth/rsc#TwoFactorView": TwoFactorView_76e4fd5e0c2ccc05732c17408c72107e,
   "@delmaredigital/payload-better-auth/rsc#ApiKeysView": ApiKeysView_76e4fd5e0c2ccc05732c17408c72107e,
   "@delmaredigital/payload-better-auth/rsc#PasskeysView": PasskeysView_76e4fd5e0c2ccc05732c17408c72107e,
-  "@delmaredigital/payload-page-tree/rsc#PageTreeView": PageTreeView_05df9824c06b5116cee652a5b2bbd184,
   "@delmaredigital/payload-puck/rsc#PuckEditorView": PuckEditorView_3b27b37268b8e78cccc06ea6de889aa6,
-  "@payloadcms/ui/rsc#CollectionCards": CollectionCards_ab83ff7e88da8d3530831f296ec4756a
+  "@delmaredigital/payload-page-tree/rsc#PageTreeView": PageTreeView_05df9824c06b5116cee652a5b2bbd184,
+  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }
