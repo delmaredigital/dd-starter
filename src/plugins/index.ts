@@ -66,6 +66,9 @@ export const plugins: Plugin[] = [
         enablePasskey: true, // Enable passkey sign-in option
         afterLoginPath: '/admin/page-tree', // Redirect to page tree after login
       },
+      apiKey: {
+        requiredRole: 'admin',
+      },
     },
   }),
   // Puck - visual page editor (must run BEFORE page-tree so Pages collection exists)
