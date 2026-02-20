@@ -30,7 +30,7 @@
     "@better-auth/passkey": "^1.4.18",
     "@delmaredigital/payload-better-auth": "^0.4.3",
     "@delmaredigital/payload-page-tree": "^0.3.8",
-    "@delmaredigital/payload-puck": "^0.6.14",
+    "@delmaredigital/payload-puck": "^0.6.15",
     "@payloadcms/admin-bar": "^3.77.0",
     "@payloadcms/db-vercel-postgres": "^3.77.0",
     "@payloadcms/live-preview-react": "^3.77.0",

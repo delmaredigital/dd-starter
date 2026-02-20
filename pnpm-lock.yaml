@@ -18,8 +18,8 @@ importers:
         specifier: ^0.3.8
         version: 0.3.8(9cc6c68abc08364a225c2eff79e71d8b)
       '@delmaredigital/payload-puck':
-        specifier: ^0.6.14
-        version: 0.6.14(a42d66062fbaecaaec79d7588256e583)
+        specifier: ^0.6.15
+        version: 0.6.15(a42d66062fbaecaaec79d7588256e583)
       '@payloadcms/admin-bar':
         specifier: ^3.77.0
         version: 3.77.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -204,20 +204,20 @@ importers:
 
 packages:
 
-  '@ai-sdk/gateway@2.0.43':
-    resolution: {integrity: sha512-wVrXKw0ldcU04Y8EY3vR+qPdogZCZEj8pnkpRNRF552jqYPPVY88atPiC9s6XOyE+k6Y1YnusYXqwp6KKaBGAA==}
+  '@ai-sdk/gateway@3.0.52':
+    resolution: {integrity: sha512-lYCXP8T3YnIDiz8DP7loAMT27wnblc3IAYzQ7igg89RCRyTUjk6ffbxHXXQ5Pmv8jrdLF0ZIJnH54Dsr1OCKHg==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
 
-  '@ai-sdk/provider-utils@3.0.21':
-    resolution: {integrity: sha512-veuMwTLxsgh31Jjn0SnBABnM1f7ebHhRWcV2ZuY3hP3iJDCZ8VXBaYqcHXoOQDqUXTCas08sKQcHyWK+zl882Q==}
+  '@ai-sdk/provider-utils@4.0.15':
+    resolution: {integrity: sha512-8XiKWbemmCbvNN0CLR9u3PQiet4gtEVIrX4zzLxnCj06AwsEDJwJVBbKrEI4t6qE8XRSIvU2irka0dcpziKW6w==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
 
-  '@ai-sdk/provider@2.0.1':
-    resolution: {integrity: sha512-KCUwswvsC5VsW2PWFqF8eJgSCu5Ysj7m1TxiHTVA6g7k360bk0RNQENT8KTMAYEs+8fWPD3Uu4dEmzGHc+jGng==}
+  '@ai-sdk/provider@3.0.8':
+    resolution: {integrity: sha512-oGMAgGoQdBXbZqNG0Ze56CHjDZ1IDYOwGYxYjO5KLSlz5HiNQ9udIXsPZ61VWaHGZ5XW/jyjmr6t2xz2jGVwbQ==}
     engines: {node: '>=18'}
 
   '@alloc/quick-lru@5.2.0':
@@ -416,8 +416,8 @@ packages:
       '@payloadcms/ui':
         optional: true
 
-  '@delmaredigital/payload-puck@0.6.14':
-    resolution: {integrity: sha512-vzw5EU4u0GzrRAZ/ge+7WaPj4zRdWZbOCJ3jz79SIuLF+N9iVs40Hhh8I4HJ9dg562nlnzn5I4hMjP7NKU6WqA==}
+  '@delmaredigital/payload-puck@0.6.15':
+    resolution: {integrity: sha512-Pu24HtmJLndIWKUWviO6AbaJXcLAdMdABdO6XEZAvtORIKEEIe2brpmxxC5bnD+8MRiMDzOKfWIs2Ktmk8rmQw==}
     engines: {node: ^18.20.2 || >=20.9.0}
     peerDependencies:
       '@payloadcms/next': '>=3.69.0'
@@ -1584,16 +1584,16 @@ packages:
   '@preact/signals-core@1.13.0':
     resolution: {integrity: sha512-slT6XeTCAbdql61GVLlGU4x7XHI7kCZV5Um5uhE4zLX4ApgiiXc0UYFvVOKq06xcovzp7p+61l68oPi563ARKg==}
 
-  '@puckeditor/cloud-client@0.5.0':
-    resolution: {integrity: sha512-v04eFeiWf1fa07Z2NbbUgCcmu0QN9Ud4wiPEJs0XykZLpwhw3ydQtXARV3hlAWZaCqLgXRlb/kocHtVtt7PnHw==}
+  '@puckeditor/cloud-client@0.6.0':
+    resolution: {integrity: sha512-xzTVIhfPFo2Naad+yjIn4mRzhAgyNLzxu33zRiSH0xV5KDLwxR3VnU+4PS6xasj4NW7WN8qr/dgi1SeofeMwpQ==}
 
   '@puckeditor/core@0.21.1':
     resolution: {integrity: sha512-Mk25WAHR8QLzHk+BtOO4bOu+y3pjzo0GowMHAJKNhrbxGVh3ETJx/bAZHaxA9dv8lKyuqK9a9AeRr7HYgg/sVw==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
 
-  '@puckeditor/plugin-ai@0.5.0':
-    resolution: {integrity: sha512-j/MSkqvPpSn2Z8rSTCKD+e6iGG47QCwuajIwi5/CsdG38MsNV2B0/lDXKTHn3rIonm1WH90/7SCsKSsavSII9g==}
+  '@puckeditor/plugin-ai@0.6.0':
+    resolution: {integrity: sha512-VW1mSMBQR2vs3yD+77N0Ll2bt3E8tu42ujHKzy0p7OuJfr5jWG78FG5Pw+VS0Wtij2xhJgUsPhSqU+CvUI5QTw==}
     peerDependencies:
       '@puckeditor/core': ^0.21.0 || 0.21.0-canary.de0baf39
       react: ^18.0.0 || ^19.0.0
@@ -2727,8 +2727,8 @@ packages:
     resolution: {integrity: sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==}
     engines: {node: '>= 14'}
 
-  ai@5.0.137:
-    resolution: {integrity: sha512-ZPqvIG5HlTEaTsf91p5CvOMWYoTxsGpHckgc8qk7FNVM9O375A1A5cvLq6CpkCdTWrdyNZMMs3brnfUIlJP20g==}
+  ai@6.0.94:
+    resolution: {integrity: sha512-/F9wh262HbK05b/5vILh38JvPiheonT+kBj1L97712E7VPchqmcx7aJuZN3QSk5Pj6knxUJLm2FFpYJI1pHXUA==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -6036,21 +6036,21 @@ packages:
 
 snapshots:
 
-  '@ai-sdk/gateway@2.0.43(zod@4.3.6)':
+  '@ai-sdk/gateway@3.0.52(zod@4.3.6)':
     dependencies:
-      '@ai-sdk/provider': 2.0.1
-      '@ai-sdk/provider-utils': 3.0.21(zod@4.3.6)
+      '@ai-sdk/provider': 3.0.8
+      '@ai-sdk/provider-utils': 4.0.15(zod@4.3.6)
       '@vercel/oidc': 3.1.0
       zod: 4.3.6
 
-  '@ai-sdk/provider-utils@3.0.21(zod@4.3.6)':
+  '@ai-sdk/provider-utils@4.0.15(zod@4.3.6)':
     dependencies:
-      '@ai-sdk/provider': 2.0.1
+      '@ai-sdk/provider': 3.0.8
       '@standard-schema/spec': 1.1.0
       eventsource-parser: 3.0.6
       zod: 4.3.6
 
-  '@ai-sdk/provider@2.0.1':
+  '@ai-sdk/provider@3.0.8':
     dependencies:
       json-schema: 0.4.0
 
@@ -6270,11 +6270,11 @@ snapshots:
       - '@types/react'
       - react-dom
 
-  '@delmaredigital/payload-puck@0.6.14(a42d66062fbaecaaec79d7588256e583)':
+  '@delmaredigital/payload-puck@0.6.15(a42d66062fbaecaaec79d7588256e583)':
     dependencies:
-      '@puckeditor/cloud-client': 0.5.0
+      '@puckeditor/cloud-client': 0.6.0
       '@puckeditor/core': 0.21.1(@floating-ui/dom@1.7.5)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(bufferutil@4.1.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4))(utf-8-validate@6.0.6)
-      '@puckeditor/plugin-ai': 0.5.0(@puckeditor/core@0.21.1(@floating-ui/dom@1.7.5)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(bufferutil@4.1.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4))(utf-8-validate@6.0.6))(@types/react@19.2.14)(react@19.2.4)(zod@4.3.6)
+      '@puckeditor/plugin-ai': 0.6.0(@puckeditor/core@0.21.1(@floating-ui/dom@1.7.5)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(bufferutil@4.1.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4))(utf-8-validate@6.0.6))(@types/react@19.2.14)(react@19.2.4)(zod@4.3.6)
       '@puckeditor/plugin-heading-analyzer': 0.21.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@radix-ui/react-popover': 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@tiptap/core': 3.20.0(@tiptap/pm@3.20.0)
@@ -7533,7 +7533,7 @@ snapshots:
 
   '@preact/signals-core@1.13.0': {}
 
-  '@puckeditor/cloud-client@0.5.0': {}
+  '@puckeditor/cloud-client@0.6.0': {}
 
   '@puckeditor/core@0.21.1(@floating-ui/dom@1.7.5)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(bufferutil@4.1.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4))(utf-8-validate@6.0.6)':
     dependencies:
@@ -7580,10 +7580,10 @@ snapshots:
       - use-sync-external-store
       - utf-8-validate
 
-  '@puckeditor/plugin-ai@0.5.0(@puckeditor/core@0.21.1(@floating-ui/dom@1.7.5)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(bufferutil@4.1.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4))(utf-8-validate@6.0.6))(@types/react@19.2.14)(react@19.2.4)(zod@4.3.6)':
+  '@puckeditor/plugin-ai@0.6.0(@puckeditor/core@0.21.1(@floating-ui/dom@1.7.5)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(bufferutil@4.1.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4))(utf-8-validate@6.0.6))(@types/react@19.2.14)(react@19.2.4)(zod@4.3.6)':
     dependencies:
       '@puckeditor/core': 0.21.1(@floating-ui/dom@1.7.5)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(bufferutil@4.1.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4))(utf-8-validate@6.0.6)
-      ai: 5.0.137(zod@4.3.6)
+      ai: 6.0.94(zod@4.3.6)
       html2canvas-pro: 1.6.7
       qler: 0.6.2
       react: 19.2.4
@@ -8662,11 +8662,11 @@ snapshots:
 
   agent-base@7.1.4: {}
 
-  ai@5.0.137(zod@4.3.6):
+  ai@6.0.94(zod@4.3.6):
     dependencies:
-      '@ai-sdk/gateway': 2.0.43(zod@4.3.6)
-      '@ai-sdk/provider': 2.0.1
-      '@ai-sdk/provider-utils': 3.0.21(zod@4.3.6)
+      '@ai-sdk/gateway': 3.0.52(zod@4.3.6)
+      '@ai-sdk/provider': 3.0.8
+      '@ai-sdk/provider-utils': 4.0.15(zod@4.3.6)
       '@opentelemetry/api': 1.9.0
       zod: 4.3.6
 
