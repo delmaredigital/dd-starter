@@ -29,7 +29,7 @@
   "dependencies": {
     "@better-auth/api-key": "^1.5.0",
     "@better-auth/passkey": "^1.5.0",
-    "@delmaredigital/payload-better-auth": "^0.5.2",
+    "@delmaredigital/payload-better-auth": "^0.5.3",
     "@delmaredigital/payload-page-tree": "^0.3.8",
     "@delmaredigital/payload-puck": "^0.6.15",
     "@payloadcms/admin-bar": "^3.77.0",

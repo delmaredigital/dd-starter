@@ -1,8 +1,10 @@
 'use client'
 
-import { createPayloadAuthClient } from '@delmaredigital/payload-better-auth/client'
+import { createAuthClient, payloadAuthPlugins } from '@delmaredigital/payload-better-auth/client'
+import { passkeyClient } from '@better-auth/passkey/client'
 
-// Pre-configured with twoFactor, apiKey, and passkey plugins
-export const authClient = createPayloadAuthClient()
+export const authClient = createAuthClient({
+  plugins: [...payloadAuthPlugins, passkeyClient()],
+})
 
 export const { useSession, signIn, signUp, signOut, twoFactor, passkey } = authClient
