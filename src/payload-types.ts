@@ -545,11 +545,12 @@ export interface TwoFactor {
  */
 export interface Apikey {
   id: number;
+  configId: string;
   name?: string | null;
   start?: string | null;
+  referenceId: string;
   prefix?: string | null;
   key: string;
-  user: number | User;
   refillInterval?: number | null;
   refillAmount?: number | null;
   lastRefillAt?: string | null;
@@ -1095,11 +1096,12 @@ export interface TwoFactorsSelect<T extends boolean = true> {
  * via the `definition` "apikeys_select".
  */
 export interface ApikeysSelect<T extends boolean = true> {
+  configId?: T;
   name?: T;
   start?: T;
+  referenceId?: T;
   prefix?: T;
   key?: T;
-  user?: T;
   refillInterval?: T;
   refillAmount?: T;
   lastRefillAt?: T;
