@@ -33,7 +33,6 @@ import { SecurityNavLinks as SecurityNavLinks_e3642e6c1e5dbb92bcf178f42e87e19e }
 import { PageTreeNavLink as PageTreeNavLink_11b13d26a0022dae5ea66a055ed30952 } from '@delmaredigital/payload-page-tree/client'
 import { BeforeLogin as BeforeLogin_aa8e4427b70b37c7820895ace344eb78 } from '@delmaredigital/payload-better-auth/components'
 import { default as default_116afe01689361f25bab019beee1ee0a } from '@/components/admin/PuckProvider'
-import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 import { LoginViewWrapper as LoginViewWrapper_76e4fd5e0c2ccc05732c17408c72107e } from '@delmaredigital/payload-better-auth/rsc'
 import { ApiKeysView as ApiKeysView_6234f869b6abd89bf631f5883bc67bd5 } from '@delmaredigital/payload-better-auth/rsc/api-key'
 import { PuckEditorView as PuckEditorView_3b27b37268b8e78cccc06ea6de889aa6 } from '@delmaredigital/payload-puck/rsc'
@@ -76,7 +75,6 @@ export const importMap = {
   "@delmaredigital/payload-page-tree/client#PageTreeNavLink": PageTreeNavLink_11b13d26a0022dae5ea66a055ed30952,
   "@delmaredigital/payload-better-auth/components#BeforeLogin": BeforeLogin_aa8e4427b70b37c7820895ace344eb78,
   "@/components/admin/PuckProvider#default": default_116afe01689361f25bab019beee1ee0a,
-  "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e,
   "@delmaredigital/payload-better-auth/rsc#LoginViewWrapper": LoginViewWrapper_76e4fd5e0c2ccc05732c17408c72107e,
   "@delmaredigital/payload-better-auth/rsc/api-key#ApiKeysView": ApiKeysView_6234f869b6abd89bf631f5883bc67bd5,
   "@delmaredigital/payload-puck/rsc#PuckEditorView": PuckEditorView_3b27b37268b8e78cccc06ea6de889aa6,
