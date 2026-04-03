@@ -4,7 +4,7 @@ export function createUploadImageTool(_accessors: PuckStateAccessors) {
   return {
     name: 'upload_image',
     description:
-      'Uploads an image to the Payload media library. Provide either a URL (fetched client-side) or base64 data (for local files). Returns the media ID for use in Image and Card component props (set the "image" prop to the returned ID). The upload uses the current admin session for authentication. Note: URL fetch may fail for non-CDN origins due to CORS — prefer base64 for images from servers without permissive CORS headers.',
+      'Uploads an image to the Payload media library. Provide either a URL (fetched client-side) or base64 data (for local files). Returns a mediaReference object — set the "image" prop in Image or Card components to this entire object (not just the id). The upload uses the current admin session for authentication. Note: URL fetch may fail for non-CDN origins due to CORS — prefer base64 for images from servers without permissive CORS headers.',
     inputSchema: {
       type: 'object' as const,
       properties: {
@@ -97,17 +97,25 @@ export function createUploadImageTool(_accessors: PuckStateAccessors) {
           }
         }
 
+        // Return a MediaReference object that can be used directly as the
+        // "image" prop in Image or Card components. The Puck MediaField expects:
+        // { id: string | number, url: string, alt?: string, width?: number, height?: number }
+        const mediaRef = {
+          id: media.doc.id,
+          url: media.doc.url,
+          alt: params.alt || media.doc.alt || '',
+          width: media.doc.width,
+          height: media.doc.height,
+        }
+
         return {
           content: [{
             type: 'text',
             text: JSON.stringify({
-              id: media.doc.id,
-              url: media.doc.url,
+              mediaReference: mediaRef,
               filename: media.doc.filename,
               mimeType: media.doc.mimeType,
-              width: media.doc.width,
-              height: media.doc.height,
-              usage: 'Use the "id" value as the "image" prop in Image or Card components.',
+              usage: 'Set the "image" prop to the "mediaReference" object above (the full object, not just the id).',
             }, null, 2),
           }],
         }
