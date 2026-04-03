@@ -9,6 +9,7 @@ import {
   createGetComponentSchemaTool,
   createUpdatePageTool,
   createUpdateRootPropsTool,
+  createUploadImageTool,
   type PuckStateAccessors,
 } from '@/lib/webmcp/tools'
 
@@ -32,6 +33,7 @@ function WebMCPToolRegistration() {
       createGetComponentSchemaTool(accessors),
       createUpdatePageTool(accessors),
       createUpdateRootPropsTool(accessors),
+      createUploadImageTool(accessors),
     ] as AgentTool[]
 
     registerTools(tools)

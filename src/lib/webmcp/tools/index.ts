@@ -2,3 +2,4 @@ export { createGetPageStateTool, type PuckStateAccessors } from './get-page-stat
 export { createGetComponentSchemaTool } from './get-component-schema'
 export { createUpdatePageTool } from './update-page'
 export { createUpdateRootPropsTool } from './update-root-props'
+export { createUploadImageTool } from './upload-image'

@@ -27,6 +27,7 @@ Tools are exposed two ways:
 | `get_component_schema` | Yes | Returns field definitions, defaults, enums for all or one component |
 | `update_page` | No | Replaces entire page content, editor updates live |
 | `update_root_props` | No | Merges partial root props (title, layout, etc.) |
+| `upload_image` | No | Fetches image from URL, uploads to Payload media, returns ID for use in Image/Card props |
 
 ## Connecting an Agent
 
