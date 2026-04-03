@@ -8,6 +8,67 @@ AI agents can co-edit pages with humans in the Puck visual editor via self-descr
 - **Puck editor**: `https://payload-cms-production-e365.up.railway.app/admin/puck-editor/pages/:id`
 - Tools are available on any Puck editor page (the plugin registers them on load)
 
+## Quick Start — Connecting to the Puck Editor
+
+### Prerequisites (one-time setup)
+
+1. **Chrome 144+** (check `chrome://version`)
+2. **Enable remote debugging in Chrome**: go to `chrome://inspect/#remote-debugging` and enable it
+3. **MCP server configured in Claude Code** (already done for this project):
+   ```bash
+   claude mcp add chrome-devtools-live npx chrome-devtools-mcp@latest -- --autoConnect
+   ```
+
+### Connecting (each session)
+
+1. Open Chrome normally (with your default profile — saved passwords and sessions carry over)
+2. Navigate to the Puck editor page, e.g.:
+   `https://payload-cms-production-e365.up.railway.app/admin/puck-editor/pages/2`
+   (Log in if needed — your saved credentials should autofill)
+3. Start a Claude Code session — the `chrome-devtools-live` MCP connects to your Chrome automatically
+4. Chrome shows a permission dialog on first connect — accept it
+5. The agent can now discover and call WebMCP tools on the page
+
+### Verifying tools are available
+
+The agent should run:
+```js
+evaluate_script({ function: '() => window.__puckAgentTools?.map(t => t.name)' })
+// Expected: ['get_page_state', 'get_component_schema', 'update_page', 'update_root_props', 'upload_image']
+```
+
+### Troubleshooting
+
+- **Tools return `null`**: Agent may be on the wrong page. Navigate to a `/admin/puck-editor/pages/:id` URL.
+- **MCP can't connect**: Check that remote debugging is enabled in `chrome://inspect/#remote-debugging`.
+- **Two Chrome DevTools MCPs conflict**: If the Chrome DevTools MCP plugin is also installed, disable it to avoid the plugin launching its own headless browser. The `chrome-devtools-live` server (with `--autoConnect`) is preferred.
+
+## Available Tools
+
+| Tool | Read-only | Description |
+|------|-----------|-------------|
+| `get_page_state` | Yes | Returns current puckData JSON + component summary |
+| `get_component_schema` | Yes | Returns field definitions, defaults, enums for all or one component |
+| `update_page` | No | Replaces entire page content, editor updates live |
+| `update_root_props` | No | Merges partial root props (title, layout, etc.) |
+| `upload_image` | No | Uploads image via URL or base64 to Payload media, returns ID for use in Image/Card props |
+
+### Calling tools via evaluate_script
+
+```js
+// Read page state
+evaluate_script({ function: 'async () => { const t = window.__puckAgentTools.find(t => t.name === "get_page_state"); return JSON.parse((await t.execute({})).content[0].text).summary }' })
+
+// Get component schema (all components)
+evaluate_script({ function: 'async () => { const t = window.__puckAgentTools.find(t => t.name === "get_component_schema"); return JSON.parse((await t.execute({})).content[0].text) }' })
+
+// Update page content
+evaluate_script({ function: 'async () => { const t = window.__puckAgentTools.find(t => t.name === "update_page"); return (await t.execute({ puckData: { root: { props: { title: "My Page" } }, content: [...], zones: {} } })).content[0].text }' })
+
+// Upload image from URL
+evaluate_script({ function: 'async () => { const t = window.__puckAgentTools.find(t => t.name === "upload_image"); return JSON.parse((await t.execute({ url: "https://example.com/image.jpg", alt: "Description" })).content[0].text) }' })
+```
+
 ## Architecture
 
 Tools are registered client-side when the Puck editor loads. They operate on the editor's in-memory state (not the Payload API), so changes appear live in the canvas.
@@ -24,60 +85,6 @@ The plugin is injected via `PuckConfigProvider`'s `plugins` prop in `src/compone
 Tools are exposed two ways:
 - `window.__puckAgentTools` — fallback for direct `page.evaluate()` access
 - `navigator.modelContext` — WebMCP standard path via `@mcp-b/webmcp-polyfill`
-
-## Available Tools
-
-| Tool | Read-only | Description |
-|------|-----------|-------------|
-| `get_page_state` | Yes | Returns current puckData JSON + component summary |
-| `get_component_schema` | Yes | Returns field definitions, defaults, enums for all or one component |
-| `update_page` | No | Replaces entire page content, editor updates live |
-| `update_root_props` | No | Merges partial root props (title, layout, etc.) |
-| `upload_image` | No | Uploads image via URL or base64 to Payload media, returns ID for use in Image/Card props |
-
-## Connecting an Agent
-
-### Via Chrome DevTools MCP (recommended)
-
-The Chrome DevTools MCP plugin (installed in Claude Code) launches and manages its own
-browser instance automatically. No manual Chrome launch needed.
-
-**Agent workflow:**
-1. Use `navigate_page` to go to the Payload admin login page
-2. Ask the user to type credentials in the browser window that appeared
-3. Use `navigate_page` to go to the Puck editor page
-4. Use `evaluate_script` to call `window.__puckAgentTools` for tool access
-
-```bash
-# Plugin is pre-installed. If not, install once:
-# claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
-```
-
-**Example agent commands:**
-```js
-// Navigate to Puck editor
-navigate_page({ type: 'url', url: 'https://payload-cms-production-e365.up.railway.app/admin/puck-editor/pages/2' })
-
-// Verify tools are registered
-evaluate_script({ function: '() => window.__puckAgentTools?.map(t => t.name)' })
-
-// Call a tool
-evaluate_script({ function: 'async () => { const t = window.__puckAgentTools.find(t => t.name === "get_page_state"); return JSON.parse((await t.execute({})).content[0].text).summary }' })
-```
-
-### Via Playwright / direct page.evaluate()
-
-```js
-// List tools
-const tools = await page.evaluate(() =>
-  window.__puckAgentTools?.map(t => ({ name: t.name, description: t.description }))
-)
-
-// Call a tool
-const result = await page.evaluate(() =>
-  window.__puckAgentTools?.find(t => t.name === 'get_page_state')?.execute({})
-)
-```
 
 ## Schema Auto-Generation
 
