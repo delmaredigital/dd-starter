@@ -1,6 +1,10 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+/* Poppins — used by competition page components (matches Webflow source) */
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/poppins/700.css';
+
 /* Puck component styles */
 @source "@delmaredigital/payload-puck";
 
@@ -23,6 +27,7 @@
 @theme {
   --font-mono: var(--font-geist-mono);
   --font-sans: var(--font-geist-sans);
+  --font-poppins: 'Poppins', sans-serif;
 }
 
 :root {
