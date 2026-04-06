@@ -29,21 +29,30 @@ export function CompetitionCTA({
   href,
   bgColor,
   textColor,
+  padding = '10px 70px',
+  target,
+  border,
 }: {
   text: string
   href: string
   bgColor: string
   textColor: string
+  padding?: string
+  target?: '_blank'
+  border?: string
 }) {
   if (!text) return null
   return (
     <a
       href={href}
+      target={target}
+      rel={target === '_blank' ? 'noopener noreferrer' : undefined}
       className="rounded text-base font-semibold no-underline inline-block text-center font-poppins"
       style={{
         color: safeHex(textColor),
         backgroundColor: safeHex(bgColor),
-        padding: '10px 70px',
+        padding,
+        border,
       }}
     >
       {text}

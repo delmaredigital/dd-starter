@@ -2,6 +2,7 @@
 @import 'tw-animate-css';
 
 /* Poppins — used by competition page components (matches Webflow source) */
+@import '@fontsource/poppins/500.css';
 @import '@fontsource/poppins/600.css';
 @import '@fontsource/poppins/700.css';
 

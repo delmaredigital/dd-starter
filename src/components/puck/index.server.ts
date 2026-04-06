@@ -14,6 +14,46 @@ import {
   BenefitsGridRender,
   defaultProps as gridDefaults,
 } from './BenefitsGrid.render'
+import {
+  EligibilityStripRender,
+  defaultProps as eligibilityDefaults,
+} from './EligibilityStrip.render'
+import {
+  AboutPartnerRender,
+  defaultProps as aboutDefaults,
+} from './AboutPartner.render'
+import {
+  CompetitionStructureRender,
+  defaultProps as structureDefaults,
+} from './CompetitionStructure.render'
+import {
+  DeadlineTableRender,
+  defaultProps as deadlineDefaults,
+} from './DeadlineTable.render'
+import {
+  CompetitionFormatRender,
+  defaultProps as formatDefaults,
+} from './CompetitionFormat.render'
+import {
+  AwardsSectionRender,
+  defaultProps as awardsDefaults,
+} from './AwardsSection.render'
+import {
+  JoinCTARender,
+  defaultProps as joinDefaults,
+} from './JoinCTA.render'
+import {
+  FeeWaiverRender,
+  defaultProps as feeWaiverDefaults,
+} from './FeeWaiver.render'
+import {
+  AlgoEdFooterRender,
+  defaultProps as algoEdFooterDefaults,
+} from './AlgoEdFooter.render'
+import {
+  CompetitionFooterRender,
+  defaultProps as compFooterDefaults,
+} from './CompetitionFooter.render'
 
 // extendConfig erases component generics to PuckComponent<any>, which is incompatible
 // with our typed render functions due to contravariance. The plugin's own built-in
@@ -34,6 +74,56 @@ export const competitionComponentsServer = {
     label: 'Benefits Grid',
     defaultProps: gridDefaults,
     render: BenefitsGridRender,
+  },
+  EligibilityStrip: {
+    label: 'Eligibility Strip',
+    defaultProps: eligibilityDefaults,
+    render: EligibilityStripRender,
+  },
+  AboutPartner: {
+    label: 'About Partner',
+    defaultProps: aboutDefaults,
+    render: AboutPartnerRender,
+  },
+  CompetitionStructure: {
+    label: 'Competition Structure',
+    defaultProps: structureDefaults,
+    render: CompetitionStructureRender,
+  },
+  DeadlineTable: {
+    label: 'Deadline Table',
+    defaultProps: deadlineDefaults,
+    render: DeadlineTableRender,
+  },
+  CompetitionFormat: {
+    label: 'Competition Format',
+    defaultProps: formatDefaults,
+    render: CompetitionFormatRender,
+  },
+  AwardsSection: {
+    label: 'Awards Section',
+    defaultProps: awardsDefaults,
+    render: AwardsSectionRender,
+  },
+  JoinCTA: {
+    label: 'Join CTA',
+    defaultProps: joinDefaults,
+    render: JoinCTARender,
+  },
+  FeeWaiver: {
+    label: 'Fee Waiver',
+    defaultProps: feeWaiverDefaults,
+    render: FeeWaiverRender,
+  },
+  AlgoEdFooter: {
+    label: 'AlgoEd Footer',
+    defaultProps: algoEdFooterDefaults,
+    render: AlgoEdFooterRender,
+  },
+  CompetitionFooter: {
+    label: 'Competition Footer',
+    defaultProps: compFooterDefaults,
+    render: CompetitionFooterRender,
   },
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- see comment above
 } as any
