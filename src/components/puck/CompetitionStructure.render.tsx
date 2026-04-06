@@ -1,6 +1,13 @@
 /**
  * CompetitionStructure — render function and types.
  * Server-safe: no client-only imports.
+ *
+ * "How does the competition work?" section with team size, categories,
+ * and round details. Each round is a separate visual card with per-bullet icons.
+ *
+ * Reference: docs/reference/webflow/mit-ewb.html section.section-73
+ * Source CSS: .section-73, .heading-115/.116/.117, .div-block-209 through .div-block-216,
+ *            .image-150/.151/.152, .text-block-141/.142, .paragraph-58/.59
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { CompetitionCTA, safeHex } from './shared'
@@ -10,18 +17,28 @@ export interface CategoryItem {
   grades: string
 }
 
+export interface BulletItem {
+  value: string
+  isLink: boolean
+  href: string
+}
+
 export interface RoundItem {
   title: string
-  bullets: { value: string }[]
+  titleIcon: MediaReference | null
+  bulletIcon: MediaReference | null
+  bullets: BulletItem[]
 }
 
 export interface CompetitionStructureProps {
   heading: string
   subheading: string
+  structureBgImage: MediaReference | null
   teamSize: string
   teamIcon: MediaReference | null
   categoriesIcon: MediaReference | null
   categories: CategoryItem[]
+  categoryDivider: MediaReference | null
   rounds: RoundItem[]
   roundsIcon: MediaReference | null
   ctaText: string
@@ -32,6 +49,7 @@ export interface CompetitionStructureProps {
 export const defaultProps: CompetitionStructureProps = {
   heading: 'How does the competition work?',
   subheading: 'Competition Structure and Details',
+  structureBgImage: null,
   teamSize: '2-5 students per team\n(all team members must be from the same school)',
   teamIcon: null,
   categoriesIcon: null,
@@ -39,11 +57,26 @@ export const defaultProps: CompetitionStructureProps = {
     { name: 'Middle School Category', grades: 'Grade 6 - 8 (Year 7 - 9)' },
     { name: 'High School Category', grades: 'Grade 9 - 12 (Year 10 - 13)' },
   ],
+  categoryDivider: null,
   rounds: [
-    { title: 'Preliminary: Test', bullets: [
-      { value: 'Middle School Category: No deep knowledge of any particular subject required.' },
-      { value: 'High School Category: Requires basic biology, chemistry, physics, and math knowledge.' },
-    ]},
+    {
+      title: 'Preliminary: Test',
+      titleIcon: null,
+      bulletIcon: null,
+      bullets: [
+        { value: 'Middle School Category: No deep knowledge required.', isLink: false, href: '' },
+        { value: 'High School Category: Requires basic STEM knowledge.', isLink: false, href: '' },
+        { value: 'Access practice tests here', isLink: true, href: '#' },
+      ],
+    },
+    {
+      title: 'Final: Live Zoom Presentation',
+      titleIcon: null,
+      bulletIcon: null,
+      bullets: [
+        { value: 'Finalist teams present solutions to a judging panel of professors and industry experts.', isLink: false, href: '' },
+      ],
+    },
   ],
   roundsIcon: null,
   ctaText: 'Competition Portal',
@@ -52,8 +85,8 @@ export const defaultProps: CompetitionStructureProps = {
 }
 
 export function CompetitionStructureRender({
-  heading, subheading, teamSize, teamIcon, categoriesIcon,
-  categories, rounds, roundsIcon, ctaText, ctaLink, primaryColor,
+  heading, subheading, structureBgImage, teamSize, teamIcon, categoriesIcon,
+  categories, categoryDivider, rounds, roundsIcon, ctaText, ctaLink, primaryColor,
 }: CompetitionStructureProps) {
   const color = safeHex(primaryColor)
 
@@ -67,10 +100,11 @@ export function CompetitionStructureRender({
           {heading}
         </h2>
 
-        {/* Structure and Details card with bg image overlay */}
+        {/* Structure and Details card */}
         <div
           className="rounded-[20px] pt-[1px]"
           style={{
+            backgroundImage: structureBgImage?.url ? `url(${structureBgImage.url})` : undefined,
             backgroundPosition: '50%',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
@@ -90,10 +124,7 @@ export function CompetitionStructureRender({
             style={{ top: '51px' }}
           >
             {/* Team Size */}
-            <div
-              className="rounded-[20px] p-5"
-              style={{ backgroundColor: '#f2f3f0' }}
-            >
+            <div className="rounded-[20px] p-5" style={{ backgroundColor: '#f2f3f0' }}>
               {teamIcon?.url && <img src={teamIcon.url} alt="" className="w-10" />}
               <h3 className="font-poppins mt-[5px] mb-[15px]" style={{ fontSize: '18px', lineHeight: '24px' }}>
                 Team size
@@ -102,10 +133,7 @@ export function CompetitionStructureRender({
             </div>
 
             {/* Categories */}
-            <div
-              className="rounded-[20px] p-5"
-              style={{ backgroundColor: '#f2f3f0' }}
-            >
+            <div className="rounded-[20px] p-5" style={{ backgroundColor: '#f2f3f0' }}>
               {categoriesIcon?.url && <img src={categoriesIcon.url} alt="" className="w-10" />}
               <h3 className="font-poppins mt-[5px] mb-[15px]" style={{ fontSize: '18px', lineHeight: '24px' }}>
                 Categories
@@ -119,7 +147,10 @@ export function CompetitionStructureRender({
                     {cat.name}
                   </div>
                   <p className="mb-0">{cat.grades}</p>
-                  {i < categories.length - 1 && (
+                  {i < categories.length - 1 && categoryDivider?.url && (
+                    <img src={categoryDivider.url} alt="" className="my-[10px]" />
+                  )}
+                  {i < categories.length - 1 && !categoryDivider?.url && (
                     <div className="my-[10px]" />
                   )}
                 </div>
@@ -128,7 +159,7 @@ export function CompetitionStructureRender({
           </div>
         </div>
 
-        {/* What do teams need to do? */}
+        {/* What do teams need to do? — first round shares the card */}
         <div
           className="rounded-[20px] mt-[70px] p-5"
           style={{ backgroundColor: '#f2f3f0' }}
@@ -138,34 +169,78 @@ export function CompetitionStructureRender({
             What do teams need to do?
           </h3>
 
-          {rounds.map((round, i) => (
-            <div key={i}>
-              {i === 0 ? (
-                <div className="flex items-start mb-0">
-                  <div
-                    className="font-poppins font-semibold"
-                    style={{ color, fontSize: '18px', lineHeight: '24px' }}
-                  >
-                    {round.title}
-                  </div>
-                </div>
-              ) : null}
-              {round.bullets.map((bullet, j) => (
-                <div key={j} className="flex items-center mt-[15px]">
-                  <p className="mb-1">{bullet.value}</p>
-                </div>
-              ))}
-              {i > 0 && (
+          {rounds.length > 0 && (
+            <div>
+              {/* First round title */}
+              <div className="flex items-start">
+                {rounds[0].titleIcon?.url && (
+                  <img src={rounds[0].titleIcon.url} alt="" className="mr-[10px]" />
+                )}
                 <div
-                  className="font-poppins font-semibold mt-4"
+                  className="font-poppins font-semibold"
                   style={{ color, fontSize: '18px', lineHeight: '24px' }}
                 >
-                  {round.title}
+                  {rounds[0].title}
                 </div>
-              )}
+              </div>
+              {/* First round bullets */}
+              {rounds[0].bullets.map((bullet, j) => (
+                <div key={j} className="flex items-center mt-[15px]">
+                  {rounds[0].bulletIcon?.url && (
+                    <img src={rounds[0].bulletIcon.url} alt="" className="mr-[10px]" />
+                  )}
+                  {bullet.isLink ? (
+                    <a href={bullet.href} target="_blank" rel="noopener noreferrer">{bullet.value}</a>
+                  ) : (
+                    <p className="mb-1">{bullet.value}</p>
+                  )}
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
+
+        {/* Subsequent rounds — each in its own card */}
+        {rounds.slice(1).map((round, i) => (
+          <div
+            key={i}
+            className="rounded-[20px] p-5"
+            style={{
+              backgroundColor: '#f2f3f0',
+              backgroundImage: 'url(/competition-assets/final-round-bg.svg)',
+              backgroundPosition: '100% 100%',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'contain',
+              paddingRight: '102px',
+              marginTop: '20px',
+              marginBottom: '35px',
+            }}
+          >
+            <div className="flex items-start">
+              {round.titleIcon?.url && (
+                <img src={round.titleIcon.url} alt="" className="mr-[10px]" />
+              )}
+              <div
+                className="font-poppins font-semibold"
+                style={{ color, fontSize: '18px', lineHeight: '24px' }}
+              >
+                {round.title}
+              </div>
+            </div>
+            {round.bullets.map((bullet, j) => (
+              <div key={j} className="flex items-center mt-[15px]">
+                {round.bulletIcon?.url && (
+                  <img src={round.bulletIcon.url} alt="" className="mr-[10px]" />
+                )}
+                {bullet.isLink ? (
+                  <a href={bullet.href} target="_blank" rel="noopener noreferrer">{bullet.value}</a>
+                ) : (
+                  <p className="mb-1">{bullet.value}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        ))}
 
         <div className="mt-10 flex justify-center">
           <CompetitionCTA text={ctaText} href={ctaLink} bgColor={color} textColor="#ffffff" />
