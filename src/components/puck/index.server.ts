@@ -62,6 +62,10 @@ import {
   CategoryGridRender,
   defaultProps as categoryDefaults,
 } from './CategoryGrid.render'
+import {
+  CompetitionNavRender,
+  defaultProps as navDefaults,
+} from './CompetitionNav.render'
 
 // extendConfig erases component generics to PuckComponent<any>, which is incompatible
 // with our typed render functions due to contravariance. The plugin's own built-in
@@ -142,6 +146,11 @@ export const competitionComponentsServer = {
     label: 'Category Grid',
     defaultProps: categoryDefaults,
     render: CategoryGridRender,
+  },
+  CompetitionNav: {
+    label: 'Competition Nav',
+    defaultProps: navDefaults,
+    render: CompetitionNavRender,
   },
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- see comment above
 } as any

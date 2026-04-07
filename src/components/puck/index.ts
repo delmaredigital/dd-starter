@@ -18,6 +18,7 @@ import { AlgoEdFooterConfig } from './AlgoEdFooter'
 import { CompetitionFooterConfig } from './CompetitionFooter'
 import { SummaryGridConfig } from './SummaryGrid'
 import { CategoryGridConfig } from './CategoryGrid'
+import { CompetitionNavConfig } from './CompetitionNav'
 
 export const competitionComponents = {
   CompetitionHero: CompetitionHeroConfig,
@@ -35,6 +36,7 @@ export const competitionComponents = {
   CompetitionFooter: CompetitionFooterConfig,
   SummaryGrid: SummaryGridConfig,
   CategoryGrid: CategoryGridConfig,
+  CompetitionNav: CompetitionNavConfig,
 }
 
 export const competitionCategories = {
@@ -56,6 +58,7 @@ export const competitionCategories = {
       'CompetitionFooter',
       'SummaryGrid',
       'CategoryGrid',
+      'CompetitionNav',
     ] as string[],
     defaultExpanded: true,
   },
