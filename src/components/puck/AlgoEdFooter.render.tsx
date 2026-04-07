@@ -34,6 +34,7 @@ export function AlgoEdFooterRender({
         <div
           className="flex flex-col justify-center items-center py-[15px] md:py-[30px] px-[10px]"
           style={{
+            backgroundColor: color,
             backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
             backgroundPosition: '0 0',
             backgroundRepeat: 'no-repeat',
