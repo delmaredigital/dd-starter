@@ -32,7 +32,6 @@
     "@delmaredigital/payload-better-auth": "^0.5.6",
     "@delmaredigital/payload-page-tree": "^0.3.10",
     "@delmaredigital/payload-puck": "^0.6.16",
-    "@fontsource/poppins": "^5.2.7",
     "@mcp-b/webmcp-polyfill": "^2.2.0",
     "@mcp-b/webmcp-types": "^2.2.0",
     "@payloadcms/admin-bar": "^3.79.0",

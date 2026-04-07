@@ -23,9 +23,6 @@ importers:
       '@delmaredigital/payload-puck':
         specifier: ^0.6.16
         version: 0.6.16(b00007031ce016083bdde2020f9918dc)
-      '@fontsource/poppins':
-        specifier: ^5.2.7
-        version: 5.2.7
       '@mcp-b/webmcp-polyfill':
         specifier: ^2.2.0
         version: 2.2.0
@@ -1321,9 +1318,6 @@ packages:
 
   '@floating-ui/utils@0.2.11':
     resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
-
-  '@fontsource/poppins@5.2.7':
-    resolution: {integrity: sha512-6uQyPmseo4FgI97WIhA4yWRlNaoLk4vSDK/PyRwdqqZb5zAEuc+Kunt8JTMcsHYUEGYBtN15SNkMajMdqUSUmg==}
 
   '@hexagon/base64@1.1.28':
     resolution: {integrity: sha512-lhqDEAvWixy3bZ+UOYbPwUbBkwBq5C1LAJ/xPC8Oi+lL54oyakv/npbA0aU2hgCsx/1NUd4IBvV03+aUBWxerw==}
@@ -8111,8 +8105,6 @@ snapshots:
       tabbable: 6.4.0
 
   '@floating-ui/utils@0.2.11': {}
-
-  '@fontsource/poppins@5.2.7': {}
 
   '@hexagon/base64@1.1.28': {}
 
