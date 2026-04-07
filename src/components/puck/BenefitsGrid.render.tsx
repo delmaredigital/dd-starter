@@ -47,7 +47,7 @@ export function BenefitsGridRender({
           {benefits.map((benefit, i) => (
             <div key={i} className="flex flex-col items-start">
               {benefit.icon?.url && (
-                <img src={benefit.icon.url} alt={benefit.icon.alt || ''} className="w-[123px] h-[123px] mb-4" />
+                <img src={benefit.icon.url} alt={benefit.icon.alt || ''} className="w-[123px] h-[123px]" />
               )}
               <div className="text-lg font-semibold leading-[25px] mb-5" style={{ color }}>{benefit.heading}</div>
               <p className="text-[15px] leading-[20px] m-0 text-[#333]">{benefit.description}</p>
