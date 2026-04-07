@@ -19,14 +19,12 @@ export interface AwardGroup {
   subtitle: string
   badges: BadgeItem[]
   variant: 'default' | 'final'
-  backgroundImage: MediaReference | null
 }
 
 export interface SpecialAward {
   icon: MediaReference | null
   title: string
   description: string
-  backgroundImage: MediaReference | null
 }
 
 export interface AwardsSectionProps {
@@ -46,7 +44,6 @@ export const defaultProps: AwardsSectionProps = {
       roundTitle: 'Preliminary Round',
       subtitle: 'Country + Regional Awards',
       variant: 'default',
-      backgroundImage: null,
       badges: [
         { icon: null, label: 'Champion', sublabel: '' },
         { icon: null, label: 'Second Place', sublabel: '' },
@@ -59,7 +56,6 @@ export const defaultProps: AwardsSectionProps = {
       roundTitle: 'Final Round',
       subtitle: 'Global Awards',
       variant: 'final',
-      backgroundImage: null,
       badges: [
         { icon: null, label: 'Global Champion', sublabel: '' },
         { icon: null, label: 'Global Second Place', sublabel: '' },
@@ -69,8 +65,8 @@ export const defaultProps: AwardsSectionProps = {
     },
   ],
   specialAwards: [
-    { icon: null, title: 'Individual Awards', description: 'Top participants will receive individual honors, even if their teams may not win any awards.', backgroundImage: null },
-    { icon: null, title: 'Team Awards', description: 'Teams will be awarded based on the sum of their two highest individual scores.', backgroundImage: null },
+    { icon: null, title: 'Individual Awards', description: 'Top participants will receive individual honors, even if their teams may not win any awards.' },
+    { icon: null, title: 'Team Awards', description: 'Teams will be awarded based on the sum of their two highest individual scores.' },
   ],
   noteText: '',
   noteIcon: null,
@@ -80,7 +76,7 @@ function getGroupCardStyle(group: AwardGroup): React.CSSProperties {
   if (group.variant === 'final') {
     return {
       backgroundColor: '#fff5e5',
-      backgroundImage: group.backgroundImage?.url ? `url(${group.backgroundImage.url})` : undefined,
+      backgroundImage: 'url(/competition-assets/award-final-bg.png)',
       backgroundPosition: '50% 0',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
@@ -124,7 +120,7 @@ export function AwardsSectionRender({
 
             {/* Badge grid */}
             <div
-              className="grid grid-cols-2 md:grid-cols-5 mt-5 mb-5"
+              className="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(120px,1fr))] mt-5 mb-5"
               style={{ gap: '20px' }}
             >
               {group.badges.map((badge, bi) => (
@@ -157,7 +153,7 @@ export function AwardsSectionRender({
                     className="rounded-[20px] p-[15px]"
                     style={{
                       backgroundColor: '#fff5e5',
-                      backgroundImage: award.backgroundImage?.url ? `url(${award.backgroundImage.url})` : undefined,
+                      backgroundImage: ai === 0 ? 'url(/competition-assets/award-individual-bg.svg)' : ai === 1 ? 'url(/competition-assets/award-team-bg.svg)' : undefined,
                       backgroundPosition: '100% 100%',
                       backgroundRepeat: 'no-repeat',
                       backgroundSize: 'auto',

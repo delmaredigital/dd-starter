@@ -28,7 +28,6 @@ export const AwardsSectionConfig: ComponentConfig<AwardsSectionProps> = {
             { label: 'Final (gold)', value: 'final' },
           ],
         },
-        backgroundImage: createMediaField({ label: 'Card Background Image (optional)' }),
         badges: {
           type: 'array',
           label: 'Badges',
@@ -47,7 +46,6 @@ export const AwardsSectionConfig: ComponentConfig<AwardsSectionProps> = {
         icon: createMediaField({ label: 'Award Icon' }),
         title: { type: 'text', label: 'Title' },
         description: { type: 'textarea', label: 'Description' },
-        backgroundImage: createMediaField({ label: 'Background Image (optional)' }),
       },
     },
     noteText: { type: 'textarea', label: 'Note Text (leave empty to hide)' },
