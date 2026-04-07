@@ -62,7 +62,7 @@ export function AwardsSectionRender({
     <section style={{ paddingTop: '39px', paddingBottom: '39px' }}>
       <div className="max-w-[940px] mx-auto px-4 md:px-0">
         <h2
-          className="font-poppins text-center"
+          className="text-center"
           style={{ fontSize: '26px', lineHeight: '35px' }}
         >
           {heading}
@@ -79,7 +79,7 @@ export function AwardsSectionRender({
             }}
           >
             <div
-              className="text-center mb-[6px] font-poppins font-bold"
+              className="text-center mb-[6px] font-bold"
               style={{ fontSize: '20px', lineHeight: '25px' }}
             >
               {group.roundTitle}
@@ -134,7 +134,7 @@ export function AwardsSectionRender({
                 >
                   {award.icon?.url && <img src={award.icon.url} alt="" />}
                   <div
-                    className="font-poppins font-semibold"
+                    className="font-semibold"
                     style={{ color: '#f28a15', fontSize: '15px' }}
                   >
                     {award.title}
@@ -155,7 +155,7 @@ export function AwardsSectionRender({
             {noteIcon?.url && <img src={noteIcon.url} alt="" />}
             <div>
               <div
-                className="font-poppins font-medium"
+                className="font-medium"
                 style={{ color: '#850c10', fontSize: '17px', lineHeight: '22px' }}
               >
                 Note

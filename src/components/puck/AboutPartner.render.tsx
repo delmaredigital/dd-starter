@@ -35,7 +35,7 @@ export function AboutPartnerRender({
       <div className="max-w-[940px] mx-auto px-4 md:px-0 flex flex-col items-center">
         <div className="flex flex-col items-start md:items-center mb-[34px]">
           <h2
-            className="font-poppins font-semibold text-white text-right m-0 text-[22px] leading-[32px] md:text-[26px] md:leading-[35px]"
+            className="font-semibold text-white text-right m-0 text-[22px] leading-[32px] md:text-[26px] md:leading-[35px]"
           >
             {heading}
           </h2>

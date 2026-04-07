@@ -58,14 +58,14 @@ export function CompetitionHeroRender({
       <div className="max-w-[940px] mx-auto px-4 md:px-0">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div className="flex flex-col justify-center items-start">
-            <h1 className="text-white font-bold m-0 font-poppins text-[45px] leading-[55px]">{titleLine1}</h1>
+            <h1 className="text-white font-bold m-0 text-[45px] leading-[55px]">{titleLine1}</h1>
             {titleLine2 && (
               <div className="bg-white inline-block my-5 px-2.5 py-[5px]">
-                <h1 className="font-bold m-0 font-poppins text-[42px] leading-[45px]" style={{ color: safeHex(highlightTextColor) }}>{titleLine2}</h1>
+                <h1 className="font-bold m-0 text-[42px] leading-[45px]" style={{ color: safeHex(highlightTextColor) }}>{titleLine2}</h1>
               </div>
             )}
-            <h1 className="text-white font-bold m-0 font-poppins text-[38px] leading-[40px]">{titleLine3}</h1>
-            <h2 className="text-white font-bold mb-0 mt-5 font-poppins text-2xl leading-[30px]">{audienceLabel}</h2>
+            <h1 className="text-white font-bold m-0 text-[38px] leading-[40px]">{titleLine3}</h1>
+            <h2 className="text-white font-bold mb-0 mt-5 text-2xl leading-[30px]">{audienceLabel}</h2>
             {statusText && (
               <div className="flex items-center my-6">
                 {statusIcon?.url && <img src={statusIcon.url} alt="" className="mr-2.5 w-[54px] h-[54px]" />}

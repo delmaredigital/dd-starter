@@ -79,7 +79,7 @@ export function CompetitionFormatRender({
           {/* Right column: heading + rounds + CTA */}
           <div className="flex flex-col items-stretch">
             <h2
-              className="font-poppins mt-0 mb-[30px]"
+              className="mt-0 mb-[30px]"
               style={{ fontSize: '26px', lineHeight: '35px' }}
             >
               {heading}
@@ -99,7 +99,7 @@ export function CompetitionFormatRender({
                 }}
               >
                 <div
-                  className="font-poppins font-semibold mb-5"
+                  className="font-semibold mb-5"
                   style={{
                     color: '#a90733',
                     fontSize: '18px',

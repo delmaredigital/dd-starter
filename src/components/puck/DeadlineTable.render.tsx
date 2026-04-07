@@ -80,7 +80,7 @@ export function DeadlineTableRender({
           {/* Left column: heading + tiers + CTA */}
           <div className="flex flex-col items-stretch">
             <h2
-              className="font-poppins mb-5"
+              className="mb-5"
               style={{ fontSize: '26px', lineHeight: '35px' }}
             >
               {heading}
@@ -102,7 +102,7 @@ export function DeadlineTableRender({
                   }}
                 >
                   <div
-                    className="font-poppins font-bold"
+                    className="font-bold"
                     style={{
                       color: styles.titleColor,
                       fontSize: '22px',

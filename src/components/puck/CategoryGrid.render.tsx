@@ -38,7 +38,7 @@ export function CategoryGridRender({
     <section style={{ paddingTop: '50px', paddingBottom: '50px' }}>
       <div className="max-w-[940px] mx-auto px-4 md:px-0">
         <h2
-          className="font-poppins font-bold text-center mb-8"
+          className="font-bold text-center mb-8"
           style={{ fontSize: '26px', lineHeight: '35px' }}
         >
           {heading}
@@ -48,7 +48,7 @@ export function CategoryGridRender({
             <a
               key={i}
               href={cat.link}
-              className="no-underline rounded-[15px] flex justify-center items-center font-poppins text-center"
+              className="no-underline rounded-[15px] flex justify-center items-center text-center"
               style={{
                 backgroundColor: '#f2f3f0',
                 backgroundImage: cat.backgroundImage?.url ? `url(${cat.backgroundImage.url})` : 'url(/competition-assets/category-card-bg.png)',

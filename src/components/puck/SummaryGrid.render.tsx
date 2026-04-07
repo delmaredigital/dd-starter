@@ -41,7 +41,7 @@ export function SummaryGridRender({
     <section style={{ marginTop: '50px', marginBottom: '50px' }}>
       <div className="max-w-[940px] mx-auto px-4 md:px-0">
         <h2
-          className="font-poppins font-bold text-center"
+          className="font-bold text-center"
           style={{ fontSize: '28px', color: '#3a3a3b', lineHeight: '22px', marginBottom: '19px' }}
         >
           {heading}
@@ -53,7 +53,7 @@ export function SummaryGridRender({
                 <img src={card.icon.url} alt={card.icon.alt || ''} className="w-16 h-16 mb-3" />
               )}
               <div
-                className="font-poppins font-semibold mb-1"
+                className="font-semibold mb-1"
                 style={{ fontSize: '16px', lineHeight: '25px', color: safeHex(primaryColor) }}
               >
                 {card.title}

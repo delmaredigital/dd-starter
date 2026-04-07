@@ -44,7 +44,7 @@ export function CompetitionCTA({
       href={href}
       target={target}
       rel={target === '_blank' ? 'noopener noreferrer' : undefined}
-      className="rounded text-base font-semibold no-underline inline-block text-center font-poppins"
+      className="rounded text-base font-semibold no-underline inline-block text-center"
       style={{
         color: safeHex(textColor),
         backgroundColor: safeHex(bgColor),

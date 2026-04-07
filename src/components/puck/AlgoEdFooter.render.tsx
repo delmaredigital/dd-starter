@@ -41,7 +41,7 @@ export function AlgoEdFooterRender({
           }}
         >
           <div
-            className="font-poppins text-white font-semibold"
+            className="text-white font-semibold"
             style={{ fontSize: '40px', lineHeight: '65px' }}
           >
             About
@@ -55,7 +55,7 @@ export function AlgoEdFooterRender({
         <div className="flex justify-center items-center p-[30px] md:py-[50px] md:px-[65px]">
           <div>
             <p
-              className="font-poppins font-semibold"
+              className="font-semibold"
               style={{ color: '#004785', fontSize: '20px', lineHeight: '28px' }}
             >
               AlgoEd is a platform that hosts curated, prestigious competitions for middle and high school students.

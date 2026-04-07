@@ -74,7 +74,7 @@ export function CompetitionNavRender({
           {dropdownItems.length > 0 && (
             <details className="relative" style={{ height: '100%' }}>
               <summary
-                className="cursor-pointer list-none font-poppins"
+                className="cursor-pointer list-none"
                 style={{ fontSize: '14px', fontWeight: 500, letterSpacing: '-0.01em', padding: '8px 16px' }}
               >
                 Solutions ▾
@@ -123,7 +123,7 @@ export function CompetitionNavRender({
             href={ctaLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="no-underline text-white font-poppins font-semibold text-center"
+            className="no-underline text-white font-semibold text-center"
             style={{
               backgroundColor: color,
               borderRadius: '8px',

@@ -30,7 +30,7 @@ export function FeeWaiverRender({
           {icon?.url && <img src={icon.url} alt="" />}
           <div>
             <h3
-              className="font-poppins mt-0 mb-0"
+              className="mt-0 mb-0"
               style={{ fontSize: '16px', lineHeight: '20px' }}
             >
               Fee Waiver Policy

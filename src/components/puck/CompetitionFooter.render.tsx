@@ -27,16 +27,16 @@ export function CompetitionFooterRender({
       <div className="max-w-[1200px] mx-auto px-4 md:px-0">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mx-5 md:mx-0">
           <Link href="/legal/privacy-policy" className="no-underline">
-            <h6 className="font-poppins text-white font-medium m-0" style={{ fontSize: '16px' }}>
+            <h6 className="text-white font-medium m-0" style={{ fontSize: '16px' }}>
               PRIVACY POLICY
             </h6>
           </Link>
           <Link href="/legal/terms-conditions" className="no-underline">
-            <h6 className="font-poppins text-white font-medium m-0" style={{ fontSize: '16px' }}>
+            <h6 className="text-white font-medium m-0" style={{ fontSize: '16px' }}>
               TERMS &amp; CONDITIONS
             </h6>
           </Link>
-          <h6 className="font-poppins text-white font-semibold m-0" style={{ fontSize: '16px' }}>
+          <h6 className="text-white font-semibold m-0" style={{ fontSize: '16px' }}>
             &copy;AlgoEd 2026
           </h6>
         </div>
