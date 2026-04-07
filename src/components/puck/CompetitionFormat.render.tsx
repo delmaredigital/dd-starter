@@ -68,7 +68,7 @@ export function CompetitionFormatRender({
   return (
     <section style={{ paddingTop: '40px', paddingBottom: '40px' }}>
       <div className="max-w-[940px] mx-auto px-4 md:px-0">
-        <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '35px' }}>
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.25fr]" style={{ gap: '35px' }}>
           {/* Left column: image */}
           <div className="flex justify-center items-center">
             {formatImage?.url && (
@@ -160,7 +160,7 @@ export function CompetitionFormatRender({
               </div>
             ))}
 
-            <CompetitionCTA text={ctaText} href={ctaLink} bgColor={color} textColor="#ffffff" />
+            <CompetitionCTA text={ctaText} href={ctaLink} bgColor={color} textColor="#ffffff" fullWidth />
           </div>
         </div>
       </div>

@@ -76,7 +76,7 @@ export function DeadlineTableRender({
   return (
     <section style={{ paddingTop: '40px', paddingBottom: '40px' }}>
       <div className="max-w-[940px] mx-auto px-4 md:px-0">
-        <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '40px' }}>
+        <div className="grid grid-cols-1 md:grid-cols-[1.25fr_1fr]" style={{ gap: '40px' }}>
           {/* Left column: heading + tiers + CTA */}
           <div className="flex flex-col items-stretch">
             <h2
@@ -136,7 +136,7 @@ export function DeadlineTableRender({
             })}
 
             <div>
-              <CompetitionCTA text={ctaText} href={ctaLink} bgColor={color} textColor="#ffffff" />
+              <CompetitionCTA text={ctaText} href={ctaLink} bgColor={color} textColor="#ffffff" fullWidth />
             </div>
           </div>
 

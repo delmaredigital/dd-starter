@@ -28,6 +28,7 @@ export function CompetitionCTA({
   target,
   border,
   lineHeight,
+  fullWidth,
 }: {
   text: string
   href: string
@@ -37,6 +38,7 @@ export function CompetitionCTA({
   target?: '_blank'
   border?: string
   lineHeight?: string
+  fullWidth?: boolean
 }) {
   if (!text) return null
   return (
@@ -44,7 +46,7 @@ export function CompetitionCTA({
       href={href}
       target={target}
       rel={target === '_blank' ? 'noopener noreferrer' : undefined}
-      className="rounded text-base font-semibold no-underline inline-block text-center"
+      className={`rounded text-base font-semibold no-underline text-center ${fullWidth ? 'block w-full' : 'inline-block'}`}
       style={{
         color: safeHex(textColor),
         backgroundColor: safeHex(bgColor),
