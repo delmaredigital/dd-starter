@@ -207,11 +207,6 @@ export function CompetitionStructureRender({
             className="rounded-[20px] p-5"
             style={{
               backgroundColor: '#f2f3f0',
-              backgroundImage: 'url(/competition-assets/final-round-bg.svg)',
-              backgroundPosition: '100% 100%',
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'contain',
-              paddingRight: '102px',
               marginTop: '20px',
               marginBottom: '35px',
             }}
