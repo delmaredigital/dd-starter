@@ -19,6 +19,7 @@ import { CompetitionFooterConfig } from './CompetitionFooter'
 import { SummaryGridConfig } from './SummaryGrid'
 import { CategoryGridConfig } from './CategoryGrid'
 import { CompetitionNavConfig } from './CompetitionNav'
+import { ResponsiveImageSectionConfig } from './ResponsiveImageSection'
 
 export const competitionComponents = {
   CompetitionHero: CompetitionHeroConfig,
@@ -37,6 +38,7 @@ export const competitionComponents = {
   SummaryGrid: SummaryGridConfig,
   CategoryGrid: CategoryGridConfig,
   CompetitionNav: CompetitionNavConfig,
+  ResponsiveImageSection: ResponsiveImageSectionConfig,
 }
 
 export const competitionCategories = {
@@ -59,6 +61,7 @@ export const competitionCategories = {
       'SummaryGrid',
       'CategoryGrid',
       'CompetitionNav',
+      'ResponsiveImageSection',
     ] as string[],
     defaultExpanded: true,
   },
