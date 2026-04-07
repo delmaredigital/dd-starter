@@ -13,7 +13,6 @@ export interface TwoColumnFeatureProps {
   featureImage: MediaReference | null
   layout: 'image-right' | 'image-left'
   primaryColor: string
-  accentBarImage: MediaReference | null
 }
 
 export const defaultProps: TwoColumnFeatureProps = {
@@ -24,11 +23,10 @@ export const defaultProps: TwoColumnFeatureProps = {
   featureImage: null,
   layout: 'image-right',
   primaryColor: '#a31f35',
-  accentBarImage: null,
 }
 
 export function TwoColumnFeatureRender({
-  heading, body, ctaText, ctaLink, featureImage, layout, primaryColor, accentBarImage,
+  heading, body, ctaText, ctaLink, featureImage, layout, primaryColor,
 }: TwoColumnFeatureProps) {
   const color = safeHex(primaryColor)
   const isImageRight = layout === 'image-right'
@@ -36,7 +34,7 @@ export function TwoColumnFeatureRender({
   const textColumn = (
     <div className="flex flex-col justify-center items-start">
       <h2 className="text-[22px] font-bold leading-[30px] mb-0 font-poppins text-[#333]">{heading}</h2>
-      <AccentBar image={accentBarImage} primaryColor={color} />
+      <AccentBar primaryColor={color} />
       <p className="text-sm leading-5 mb-10 text-[#333] whitespace-pre-line">{body}</p>
       <CompetitionCTA text={ctaText} href={ctaLink} bgColor={color} textColor="#ffffff" />
     </div>

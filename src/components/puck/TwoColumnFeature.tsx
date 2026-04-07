@@ -26,7 +26,6 @@ export const TwoColumnFeatureConfig: ComponentConfig<TwoColumnFeatureProps> = {
       ],
     },
     primaryColor: { type: 'text', label: 'Brand Color (hex)' },
-    accentBarImage: createMediaField({ label: 'Accent Bar Image (optional — falls back to colored bar)' }),
   },
   defaultProps,
   render: TwoColumnFeatureRender,

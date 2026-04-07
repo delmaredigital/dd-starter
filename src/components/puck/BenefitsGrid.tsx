@@ -25,7 +25,6 @@ export const BenefitsGridConfig: ComponentConfig<BenefitsGridProps> = {
     ctaText: { type: 'text', label: 'CTA Button Text (leave empty to hide)' },
     ctaLink: { type: 'text', label: 'CTA Button Link' },
     primaryColor: { type: 'text', label: 'Brand Color (hex)' },
-    accentBarImage: createMediaField({ label: 'Accent Bar Image (optional — falls back to colored bar)' }),
   },
   defaultProps,
   render: BenefitsGridRender,

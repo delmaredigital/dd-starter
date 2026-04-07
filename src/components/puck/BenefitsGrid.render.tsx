@@ -17,7 +17,6 @@ export interface BenefitsGridProps {
   ctaText: string
   ctaLink: string
   primaryColor: string
-  accentBarImage: MediaReference | null
 }
 
 export const defaultProps: BenefitsGridProps = {
@@ -30,11 +29,10 @@ export const defaultProps: BenefitsGridProps = {
   ctaText: 'Competition Portal',
   ctaLink: '/portal',
   primaryColor: '#a31f35',
-  accentBarImage: null,
 }
 
 export function BenefitsGridRender({
-  sectionHeading, benefits, ctaText, ctaLink, primaryColor, accentBarImage,
+  sectionHeading, benefits, ctaText, ctaLink, primaryColor,
 }: BenefitsGridProps) {
   const color = safeHex(primaryColor)
 
@@ -43,7 +41,7 @@ export function BenefitsGridRender({
       <div className="max-w-[940px] mx-auto px-4 md:px-0 flex flex-col items-center">
         <div className="flex flex-col items-start w-full">
           <h2 className="text-[22px] font-bold leading-[30px] mb-0 font-poppins text-[#333]">{sectionHeading}</h2>
-          <AccentBar image={accentBarImage} primaryColor={color} />
+          <AccentBar primaryColor={color} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 md:gap-10 mb-10 w-full">
           {benefits.map((benefit, i) => (

@@ -1,5 +1,7 @@
 /**
  * FeeWaiver — full editor config with field definitions.
+ * Content is hardcoded — identical across all competitions.
+ * Only the icon and divider image are configurable.
  */
 import type { ComponentConfig } from '@puckeditor/core'
 import { createMediaField } from '@delmaredigital/payload-puck/fields'
@@ -12,10 +14,8 @@ export { FeeWaiverRender, defaultProps } from './FeeWaiver.render'
 export const FeeWaiverConfig: ComponentConfig<FeeWaiverProps> = {
   label: 'Fee Waiver',
   fields: {
-    heading: { type: 'text', label: 'Heading' },
-    body: { type: 'textarea', label: 'Body Text' },
-    icon: createMediaField({ label: 'Icon' }),
-    dividerImage: createMediaField({ label: 'Divider Image (optional line above)' }),
+    icon: createMediaField({ label: 'Info Icon' }),
+    dividerImage: createMediaField({ label: 'Divider Line Image' }),
   },
   defaultProps,
   render: FeeWaiverRender,

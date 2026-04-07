@@ -1,32 +1,28 @@
 /**
  * AlgoEdFooter — render function and types.
  * Server-safe: no client-only imports.
+ *
+ * Text content (heading, description, CTA) is identical across all competitions — hardcoded.
+ * Only primaryColor, logo, and backgroundImage vary per competition.
+ * Source CSS: .cell-21, .text-block-80, .image-84, .cell-22, .paragraph-35, .button-11
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { CompetitionCTA, safeHex } from './shared'
 
 export interface AlgoEdFooterProps {
-  heading: string
-  description: string
-  ctaText: string
-  ctaLink: string
   primaryColor: string
   logo: MediaReference | null
   backgroundImage: MediaReference | null
 }
 
 export const defaultProps: AlgoEdFooterProps = {
-  heading: 'About',
-  description: 'AlgoEd is a platform that hosts curated, prestigious competitions for middle and high school students.',
-  ctaText: 'EXPLORE COMPETITIONS',
-  ctaLink: 'https://app.algoed.co/explore-competitions',
   primaryColor: '#a90733',
   logo: null,
   backgroundImage: null,
 }
 
 export function AlgoEdFooterRender({
-  heading, description, ctaText, ctaLink, primaryColor, logo, backgroundImage,
+  primaryColor, logo, backgroundImage,
 }: AlgoEdFooterProps) {
   const color = safeHex(primaryColor)
   const bgUrl = backgroundImage?.url || ''
@@ -46,12 +42,12 @@ export function AlgoEdFooterRender({
         >
           <div
             className="font-poppins text-white font-semibold"
-            style={{ fontSize: '35px', lineHeight: '45px' }}
+            style={{ fontSize: '40px', lineHeight: '65px' }}
           >
-            {heading}
+            About
           </div>
           {logo?.url && (
-            <img src={logo.url} alt="" style={{ width: '150px' }} />
+            <img src={logo.url} alt="" style={{ width: '200px' }} />
           )}
         </div>
 
@@ -62,15 +58,15 @@ export function AlgoEdFooterRender({
               className="font-poppins font-semibold"
               style={{ color: '#004785', fontSize: '20px', lineHeight: '28px' }}
             >
-              {description}
+              AlgoEd is a platform that hosts curated, prestigious competitions for middle and high school students.
             </p>
             <div className="mt-[7px]">
               <CompetitionCTA
-                text={ctaText}
-                href={ctaLink}
+                text="EXPLORE COMPETITIONS"
+                href="https://app.algoed.co/explore-competitions"
                 bgColor="#ffffff"
                 textColor={color}
-                padding="5px 25px"
+                padding="5px 52px"
                 target="_blank"
                 border={`1px solid ${color}`}
               />

@@ -1,54 +1,43 @@
 /**
  * CompetitionFooter — render function and types.
  * Server-safe: no client-only imports.
+ *
+ * Privacy/terms links and copyright are identical across all competitions — hardcoded.
+ * Only primaryColor varies per competition.
+ * Source CSS: .competition-footer, .heading-52, .heading-53, .heading-54, .container-50
  */
 import Link from 'next/link'
 import { safeHex } from './shared'
 
 export interface CompetitionFooterProps {
   primaryColor: string
-  privacyLink: string
-  termsLink: string
-  copyrightText: string
 }
 
 export const defaultProps: CompetitionFooterProps = {
   primaryColor: '#004785',
-  privacyLink: '/legal/privacy-policy',
-  termsLink: '/legal/terms-conditions',
-  copyrightText: '\u00A9AlgoEd 2026',
 }
 
 export function CompetitionFooterRender({
-  primaryColor, privacyLink, termsLink, copyrightText,
+  primaryColor,
 }: CompetitionFooterProps) {
   const color = safeHex(primaryColor)
 
   return (
     <section style={{ backgroundColor: color, paddingTop: '31px', paddingBottom: '31px' }}>
-      <div className="max-w-[940px] mx-auto px-4 md:px-0">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mx-5 md:mx-0" style={{ gap: '20px' }}>
-          <Link href={privacyLink} className="no-underline">
-            <h6
-              className="font-poppins text-white font-medium m-0"
-              style={{ fontSize: '16px' }}
-            >
+      <div className="max-w-[1200px] mx-auto px-4 md:px-0">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mx-5 md:mx-0">
+          <Link href="/legal/privacy-policy" className="no-underline">
+            <h6 className="font-poppins text-white font-medium m-0" style={{ fontSize: '16px' }}>
               PRIVACY POLICY
             </h6>
           </Link>
-          <Link href={termsLink} className="no-underline">
-            <h6
-              className="font-poppins text-white font-medium m-0"
-              style={{ fontSize: '16px' }}
-            >
+          <Link href="/legal/terms-conditions" className="no-underline">
+            <h6 className="font-poppins text-white font-medium m-0" style={{ fontSize: '16px' }}>
               TERMS &amp; CONDITIONS
             </h6>
           </Link>
-          <h6
-            className="font-poppins text-white font-semibold m-0"
-            style={{ fontSize: '16px' }}
-          >
-            {copyrightText}
+          <h6 className="font-poppins text-white font-semibold m-0" style={{ fontSize: '16px' }}>
+            &copy;AlgoEd 2026
           </h6>
         </div>
       </div>

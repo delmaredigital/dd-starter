@@ -4,7 +4,7 @@
  *
  * Grid of selectable category cards with optional background images.
  * Reference: docs/reference/webflow/harvard-quiz-bowl.html section.section-88
- * Source CSS: .section-88, .link-block-34
+ * Source CSS: .section-88, .link-block-34, .heading-137, .text-block-174
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 
@@ -39,7 +39,7 @@ export function CategoryGridRender({
       <div className="max-w-[940px] mx-auto px-4 md:px-0">
         <h2
           className="font-poppins font-bold text-center mb-8"
-          style={{ fontSize: '26px', color: '#333' }}
+          style={{ fontSize: '26px', lineHeight: '35px' }}
         >
           {heading}
         </h2>
@@ -48,19 +48,20 @@ export function CategoryGridRender({
             <a
               key={i}
               href={cat.link}
-              className="no-underline rounded-[15px] flex items-end font-poppins"
+              className="no-underline rounded-[15px] flex justify-center items-center font-poppins text-center"
               style={{
                 backgroundColor: '#f2f3f0',
-                backgroundImage: cat.backgroundImage?.url ? `url(${cat.backgroundImage.url})` : undefined,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
+                backgroundImage: cat.backgroundImage?.url ? `url(${cat.backgroundImage.url})` : 'url(/competition-assets/category-card-bg.png)',
+                backgroundSize: 'auto',
+                backgroundPosition: '100% 100%',
+                backgroundRepeat: 'no-repeat',
+                boxShadow: '5px 5px 8px #0003',
                 padding: '20px 23px',
                 width: '100%',
-                maxWidth: '210px',
-                minHeight: '80px',
+                height: '80px',
                 color: '#000',
                 fontSize: '18px',
-                fontWeight: 700,
+                fontWeight: 500,
                 lineHeight: '22px',
               }}
             >

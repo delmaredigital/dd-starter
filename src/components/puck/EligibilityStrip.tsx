@@ -14,8 +14,9 @@ export const EligibilityStripConfig: ComponentConfig<EligibilityStripProps> = {
   fields: {
     leftText: { type: 'text', label: 'Left Text' },
     rightText: { type: 'text', label: 'Right Text' },
-    leftIcon: createMediaField({ label: 'Left Icon' }),
-    rightIcon: createMediaField({ label: 'Right Icon' }),
+    leftIcon: createMediaField({ label: 'Left Icon (shown on mobile only)' }),
+    rightIcon: createMediaField({ label: 'Right Icon (shown on desktop only)' }),
+    primaryColor: { type: 'text', label: 'Brand Color (hex, for divider lines)' },
   },
   defaultProps,
   render: EligibilityStripRender,

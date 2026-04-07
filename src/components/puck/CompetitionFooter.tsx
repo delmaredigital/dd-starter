@@ -1,5 +1,6 @@
 /**
  * CompetitionFooter — full editor config with field definitions.
+ * Only primaryColor is configurable — links and copyright are shared across all competitions.
  */
 import type { ComponentConfig } from '@puckeditor/core'
 import { CompetitionFooterRender, defaultProps } from './CompetitionFooter.render'
@@ -11,10 +12,7 @@ export { CompetitionFooterRender, defaultProps } from './CompetitionFooter.rende
 export const CompetitionFooterConfig: ComponentConfig<CompetitionFooterProps> = {
   label: 'Competition Footer',
   fields: {
-    primaryColor: { type: 'text', label: 'Background Color (hex)' },
-    privacyLink: { type: 'text', label: 'Privacy Policy Link' },
-    termsLink: { type: 'text', label: 'Terms & Conditions Link' },
-    copyrightText: { type: 'text', label: 'Copyright Text' },
+    primaryColor: { type: 'text', label: 'Brand Color (hex)' },
   },
   defaultProps,
   render: CompetitionFooterRender,

@@ -21,6 +21,7 @@ export const CompetitionFormatConfig: ComponentConfig<CompetitionFormatProps> = 
         title: { type: 'text', label: 'Round Title' },
         description: { type: 'textarea', label: 'Description' },
         date: { type: 'text', label: 'Date' },
+        formatText: { type: 'text', label: 'Format Text (plain text, used when no bullets)' },
         formatBullets: {
           type: 'array',
           label: 'Format Bullets',

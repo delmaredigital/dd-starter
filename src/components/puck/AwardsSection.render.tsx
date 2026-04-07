@@ -89,7 +89,7 @@ export function AwardsSectionRender({
             {/* Badge grid — 5 columns on desktop */}
             <div
               className="grid grid-cols-2 md:grid-cols-5 mt-5 mb-5"
-              style={{ gap: '20px' }}
+              style={{ gap: '19px' }}
             >
               {group.badges.map((badge, bi) => (
                 <div key={bi} className="flex flex-col justify-center items-center">
@@ -97,8 +97,8 @@ export function AwardsSectionRender({
                     <img src={badge.icon.url} alt={badge.icon.alt || ''} style={{ width: '122px' }} />
                   )}
                   <div
-                    className="self-center mt-[10px] text-center"
-                    style={{ fontSize: '14px', lineHeight: '22px' }}
+                    className="self-center mt-[10px]"
+                    style={{ fontSize: '16px', lineHeight: '25px' }}
                   >
                     {badge.label}
                   </div>
@@ -115,7 +115,7 @@ export function AwardsSectionRender({
         {/* Special Awards — outside the groups loop */}
         {specialAwards.length > 0 && (
           <div
-            className="grid grid-cols-1 md:grid-cols-2 inline-grid mt-[30px]"
+            className="grid grid-cols-1 md:grid-cols-2 inline-grid"
             style={{ gap: '16px' }}
           >
             {specialAwards.map((award, ai) => (
@@ -155,7 +155,7 @@ export function AwardsSectionRender({
             {noteIcon?.url && <img src={noteIcon.url} alt="" />}
             <div>
               <div
-                className="font-poppins font-semibold"
+                className="font-poppins font-medium"
                 style={{ color: '#850c10', fontSize: '17px', lineHeight: '22px' }}
               >
                 Note

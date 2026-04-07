@@ -13,6 +13,7 @@ export interface RoundDetail {
   title: string
   description: string
   date: string
+  formatText: string
   formatBullets: FormatBullet[]
   timeAllowed: string
   times: string
@@ -35,6 +36,7 @@ export const defaultProps: CompetitionFormatProps = {
       title: 'Preliminary round',
       description: 'The preliminary round is open to all registered teams worldwide',
       date: 'March 7, 2026',
+      formatText: '',
       formatBullets: [
         { text: 'Test (multiple choice and short questions)' },
         { text: 'Each team member will individually attempt the same set of test questions' },
@@ -47,6 +49,7 @@ export const defaultProps: CompetitionFormatProps = {
       title: 'Final Round: Top 8 teams',
       description: 'The top 8 performing teams from the preliminary round in each of the Middle School and High School Categories will be invited to compete in the global final round',
       date: 'April 4, 2026',
+      formatText: 'Live Zoom presentation to a panel of judges composed of professors and industry experts',
       formatBullets: [],
       timeAllowed: '',
       times: '',
@@ -112,7 +115,7 @@ export function CompetitionFormatRender({
                   </p>
                 )}
 
-                {round.formatBullets && round.formatBullets.length > 0 && (
+                {round.formatBullets && round.formatBullets.length > 0 ? (
                   <div className="mt-0 mb-5 flex">
                     <div><strong>Format:</strong></div>
                     <ul className="mb-0 pl-[30px]">
@@ -126,7 +129,11 @@ export function CompetitionFormatRender({
                       ))}
                     </ul>
                   </div>
-                )}
+                ) : round.formatText ? (
+                  <p className="mt-0 mb-5">
+                    <strong>Format: </strong>{round.formatText}
+                  </p>
+                ) : null}
 
                 {round.date && (
                   <p className="mb-0" style={round.timeAllowed ? { marginBottom: '10px' } : undefined}>
@@ -145,7 +152,7 @@ export function CompetitionFormatRender({
                     <div className="mr-[10px]"><strong>Time: </strong></div>
                     <ul className="m-0 pl-5">
                       {round.times.split('\n').map((time, j) => (
-                        <li key={j} className="mb-[9px]">{time}</li>
+                        <li key={j}>{time}</li>
                       ))}
                     </ul>
                   </div>
