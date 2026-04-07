@@ -120,7 +120,7 @@ export function CompetitionStructureRender({
 
           {/* Two column: Team Size + Categories */}
           <div
-            className="grid grid-cols-1 md:grid-cols-2 gap-5 p-0 relative"
+            className="grid grid-cols-1 md:grid-cols-2 p-0 relative"
             style={{ top: '51px' }}
           >
             {/* Team Size */}

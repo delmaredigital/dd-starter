@@ -36,9 +36,9 @@ export function EligibilityStripRender({
             <div className="font-bold text-[20px] md:text-[25px] leading-[28px] md:leading-[30px] ml-2">{leftText}</div>
           </div>
           {/* Horizontal divider — 383x5px, hidden on desktop (source image-168 is display:none) */}
-          <div className="block md:hidden w-[383px] max-w-full h-[5px] my-2" style={{ backgroundColor: primaryColor }} />
+          <div className="block md:hidden w-[383px] max-w-full h-[5px] my-2 rounded" style={{ backgroundColor: primaryColor }} />
           {/* Vertical divider — 5x99px (source image-147) */}
-          <div className="hidden md:block mx-[21px]" style={{ width: '5px', height: '99px', backgroundColor: primaryColor }} />
+          <div className="hidden md:block mx-[21px] rounded" style={{ width: '5px', height: '99px', backgroundColor: primaryColor }} />
           <div className="flex items-center mt-4 md:mt-0">
             <div className="font-semibold text-[18px] md:text-[25px] leading-[25px] md:leading-[30px]">{rightText}</div>
             {rightIcon?.url && <img src={rightIcon.url} alt="" className="hidden md:block ml-2" />}

@@ -49,7 +49,7 @@ export function TwoColumnFeatureRender({
   return (
     <section className="py-10">
       <div className="max-w-[940px] mx-auto px-4 md:px-0">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2">
           {isImageRight ? <>{textColumn}{imageColumn}</> : <>{imageColumn}{textColumn}</>}
         </div>
       </div>
