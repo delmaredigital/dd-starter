@@ -79,7 +79,7 @@ export function CompetitionFormatRender({
           {/* Right column: heading + rounds + CTA */}
           <div className="flex flex-col items-stretch">
             <h2
-              className="mt-0 mb-[30px]"
+              className="font-bold mt-0 mb-[30px]"
               style={{ fontSize: '26px', lineHeight: '35px' }}
             >
               {heading}

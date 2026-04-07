@@ -94,7 +94,7 @@ export function CompetitionStructureRender({
     <section style={{ paddingTop: '40px', paddingBottom: '40px' }}>
       <div className="max-w-[940px] mx-auto px-4 md:px-0 flex flex-col items-stretch">
         <h2
-          className="text-center mb-5"
+          className="font-bold text-center mb-5"
           style={{ color: '#000', fontSize: '26px', lineHeight: '35px' }}
         >
           {heading}
@@ -112,7 +112,7 @@ export function CompetitionStructureRender({
           }}
         >
           <h3
-            className="text-white text-center mt-[50px] mb-0"
+            className="font-bold text-white text-center mt-[50px] mb-0"
             style={{ fontSize: '22px' }}
           >
             {subheading}
@@ -126,7 +126,7 @@ export function CompetitionStructureRender({
             {/* Team Size */}
             <div className="rounded-[20px] p-5" style={{ backgroundColor: '#f2f3f0' }}>
               {teamIcon?.url && <img src={teamIcon.url} alt="" className="w-10" />}
-              <h3 className="mt-[5px] mb-[15px]" style={{ fontSize: '18px', lineHeight: '24px' }}>
+              <h3 className="font-bold mt-[5px] mb-[15px]" style={{ fontSize: '18px', lineHeight: '24px' }}>
                 Team size
               </h3>
               <p className="whitespace-pre-line m-0">{teamSize}</p>
@@ -135,7 +135,7 @@ export function CompetitionStructureRender({
             {/* Categories */}
             <div className="rounded-[20px] p-5" style={{ backgroundColor: '#f2f3f0' }}>
               {categoriesIcon?.url && <img src={categoriesIcon.url} alt="" className="w-10" />}
-              <h3 className="mt-[5px] mb-[15px]" style={{ fontSize: '18px', lineHeight: '24px' }}>
+              <h3 className="font-bold mt-[5px] mb-[15px]" style={{ fontSize: '18px', lineHeight: '24px' }}>
                 Categories
               </h3>
               {categories.map((cat, i) => (
@@ -165,7 +165,7 @@ export function CompetitionStructureRender({
           style={{ backgroundColor: '#f2f3f0' }}
         >
           {roundsIcon?.url && <img src={roundsIcon.url} alt="" className="w-10" />}
-          <h3 className="mt-[5px] mb-[15px]" style={{ fontSize: '18px', lineHeight: '24px' }}>
+          <h3 className="font-bold mt-[5px] mb-[15px]" style={{ fontSize: '18px', lineHeight: '24px' }}>
             What do teams need to do?
           </h3>
 
