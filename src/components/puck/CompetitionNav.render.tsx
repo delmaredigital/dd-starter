@@ -61,40 +61,43 @@ export function CompetitionNavRender({
           </a>
         </div>
 
-        {/* Right: links + CTA */}
-        <div className="hidden md:flex items-center" style={{ gap: '16px' }}>
-          {/* Nav links — configurable per competition */}
-          {navLinks.map((link, i) => (
+        {/* Right: .navigation-right-wrapper gap: 8px */}
+        <div className="hidden md:flex items-center" style={{ gap: '8px' }}>
+          {/* Nav links — .navigation-menu-2 gap: 16px */}
+          <nav className="flex items-center" style={{ gap: '16px' }}>
+            {navLinks.map((link, i) => (
+              <a
+                key={i}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="no-underline whitespace-nowrap rounded-[12px]"
+                style={{ color: '#000', fontSize: '16px', letterSpacing: '-0.01em', padding: '12px 24px' }}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Divider + CTA — .navigation-button-wrapper-2 gap: 24px */}
+          <div className="flex items-center" style={{ gap: '24px' }}>
+            <div style={{ backgroundColor: '#e0e3de', width: '1px', height: '24px' }} />
             <a
-              key={i}
-              href={link.href}
+              href={ctaLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="no-underline whitespace-nowrap"
-              style={{ color: '#000', fontSize: '14px', fontWeight: 500, letterSpacing: '-0.01em', padding: '8px 16px' }}
+              className="no-underline text-white font-semibold text-center"
+              style={{
+                backgroundColor: color,
+                borderRadius: '8px',
+                padding: '12px 24px',
+                fontSize: '16px',
+                lineHeight: '24px',
+              }}
             >
-              {link.label}
+              {ctaText}
             </a>
-          ))}
-
-          {/* Divider */}
-          <div style={{ backgroundColor: '#e0e3de', width: '1px', height: '24px' }} />
-
-          {/* CTA button */}
-          <a
-            href={ctaLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="no-underline text-white font-semibold text-center"
-            style={{
-              backgroundColor: color,
-              borderRadius: '8px',
-              padding: '12px 24px',
-              fontSize: '16px',
-            }}
-          >
-            {ctaText}
-          </a>
+          </div>
         </div>
       </div>
     </nav>
