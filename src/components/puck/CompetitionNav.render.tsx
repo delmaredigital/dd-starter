@@ -50,8 +50,8 @@ export function CompetitionNavRender({
         className="flex justify-between items-center w-full mx-auto"
         style={{ maxWidth: '1280px' }}
       >
-        {/* Left: logos — flex-shrink-0 so they never compress */}
-        <div className="flex items-center flex-shrink-0">
+        {/* Left: logos */}
+        <div className="flex items-center">
           {partnerLogo?.url && (
             <a href={partnerLink} target="_blank" rel="noopener noreferrer">
               <img src={partnerLogo.url} alt={partnerLogo.alt || ''} className="flex-shrink-0" style={{ width: 'auto', height: '45px', marginRight: '15px' }} />
@@ -63,16 +63,16 @@ export function CompetitionNavRender({
         </div>
 
         {/* Desktop nav — hidden below lg (≈991px source breakpoint) */}
-        <div className="hidden lg:flex items-center" style={{ gap: '8px' }}>
-          <nav className="flex items-center" style={{ gap: '16px' }}>
+        <div className="hidden lg:flex items-center min-w-0" style={{ gap: '8px' }}>
+          <nav className="flex items-center [gap:clamp(4px,1vw,16px)]">
             {navLinks.map((link, i) => (
               <a
                 key={i}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="no-underline whitespace-nowrap rounded-[12px]"
-                style={{ color: '#000', fontSize: '16px', fontWeight: 500, lineHeight: '24px', letterSpacing: '-0.01em', padding: '12px 24px' }}
+                className="no-underline whitespace-nowrap rounded-[12px] [padding:12px_clamp(8px,1.5vw,24px)]"
+                style={{ color: '#000', fontSize: '16px', fontWeight: 500, lineHeight: '24px', letterSpacing: '-0.01em' }}
               >
                 {link.label}
               </a>
