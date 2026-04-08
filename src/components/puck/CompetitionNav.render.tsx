@@ -64,14 +64,14 @@ export function CompetitionNavRender({
 
         {/* Desktop nav — hidden below lg (≈991px source breakpoint) */}
         <div className="hidden lg:flex items-center min-w-0" style={{ gap: '8px' }}>
-          <nav className="flex items-center [gap:clamp(4px,1vw,16px)]">
+          <nav className="flex items-center justify-between flex-1 min-w-0">
             {navLinks.map((link, i) => (
               <a
                 key={i}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="no-underline whitespace-nowrap rounded-[12px] [padding:12px_clamp(8px,1.5vw,24px)]"
+                className="no-underline whitespace-nowrap rounded-[12px] py-3 px-2"
                 style={{ color: '#000', fontSize: '16px', fontWeight: 500, lineHeight: '24px', letterSpacing: '-0.01em' }}
               >
                 {link.label}
