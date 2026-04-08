@@ -13,6 +13,16 @@ import { HybridPageRenderer, type HybridPageData } from '@delmaredigital/payload
 import { puckServerConfig } from '@/puck/config.server'
 import { puckRenderLayouts } from '@/lib/puck/render-layouts'
 
+// Allow on-demand rendering of slugs not in generateStaticParams.
+// Without this, slugs created or changed after build (e.g. via Puck editor)
+// return hard 404 because Next.js refuses to render unknown slugs.
+// This is the Next.js default (true), set explicitly here for clarity.
+// Note: this is separate from revalidation — dynamicParams controls whether
+// a slug CAN render; revalidation controls whether cached content is fresh.
+// TODO: verify this fixes post-publish 404s — remove if not needed, or
+// document the confirmed fix if it works.
+export const dynamicParams = true
+
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const pages = await payload.find({
