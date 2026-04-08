@@ -59,7 +59,7 @@ export function AlgoEdFooterRender({
               className="font-semibold"
               style={{ color: '#004785', fontSize: '20px', lineHeight: '28px' }}
             >
-              AlgoEd is a platform that hosts curated, prestigious competitions for middle and high school students.
+              AlgoEd is a platform that hosts curated competitions for ambitious K-12 students.
             </p>
             <div className="mt-[7px]">
               <CompetitionCTA
