@@ -31,7 +31,7 @@ export async function generateStaticParams() {
       return doc.slug !== 'home'
     })
     .map(({ slug }) => {
-      return { slug }
+      return { slug: slug?.split('/') ?? [] }
     })
 
   return params
@@ -39,18 +39,18 @@ export async function generateStaticParams() {
 
 type Args = {
   params: Promise<{
-    slug?: string
+    slug?: string[]
   }>
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
-  const { slug = 'home' } = await paramsPromise
-  // Decode to support slugs with special characters
-  const decodedSlug = decodeURIComponent(slug)
-  const url = '/' + decodedSlug
+  const { slug: slugSegments } = await paramsPromise
+  // Join segments to support nested paths (e.g. /mit-ewb/engineering-competition)
+  const slug = slugSegments ? slugSegments.map(decodeURIComponent).join('/') : 'home'
+  const url = '/' + slug
   const page = await queryPageBySlug({
-    slug: decodedSlug,
+    slug,
   })
 
   if (!page) {
@@ -80,11 +80,10 @@ export default async function Page({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug = 'home' } = await paramsPromise
-  // Decode to support slugs with special characters
-  const decodedSlug = decodeURIComponent(slug)
+  const { slug: slugSegments } = await paramsPromise
+  const slug = slugSegments ? slugSegments.map(decodeURIComponent).join('/') : 'home'
   const page = await queryPageBySlug({
-    slug: decodedSlug,
+    slug,
   })
 
   return generateMeta({ doc: page })

@@ -8,7 +8,7 @@ import React, { cache } from 'react'
 import Link from 'next/link'
 
 import { generateMeta } from '@/utilities/generateMeta'
-import PageClient from './[slug]/page.client'
+import PageClient from './[...slug]/page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { HybridPageRenderer, type HybridPageData } from '@delmaredigital/payload-puck/render'
 import { puckServerConfig } from '@/puck/config.server'
