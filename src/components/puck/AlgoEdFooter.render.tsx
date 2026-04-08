@@ -29,7 +29,7 @@ export function AlgoEdFooterRender({
 
   return (
     <section>
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr]" style={{ gap: 0 }}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr]" style={{ gap: 0 }}>
         {/* Left: About + Logo */}
         <div
           className="flex flex-col justify-center items-center py-[15px] md:py-[30px] px-[10px]"

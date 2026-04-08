@@ -76,7 +76,7 @@ export function DeadlineTableRender({
   return (
     <section style={{ paddingTop: '40px', paddingBottom: '40px' }}>
       <div className="max-w-[940px] mx-auto px-5 lg:px-0">
-        <div className="grid grid-cols-1 md:grid-cols-[1.25fr_1fr]" style={{ gap: '40px' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_1fr]" style={{ gap: '40px' }}>
           {/* Left column: heading + tiers + CTA */}
           <div className="flex flex-col items-stretch">
             <h2

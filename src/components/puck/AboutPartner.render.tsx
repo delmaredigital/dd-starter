@@ -31,21 +31,21 @@ export function AboutPartnerRender({
   const color = safeHex(primaryColor)
 
   return (
-    <section style={{ backgroundColor: color, paddingTop: '45px', paddingBottom: '45px' }}>
+    <section className="overflow-hidden" style={{ backgroundColor: color, paddingTop: '45px', paddingBottom: '45px' }}>
       <div className="max-w-[940px] mx-auto px-5 lg:px-0 flex flex-col items-center">
         {/* Source .div-block-206: flex row on desktop (heading | divider | body), column on mobile */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-center mb-[34px]">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-center mb-[34px]">
           <h2
-            className="font-semibold text-white text-left md:text-right m-0 text-[24px] leading-[24px] md:text-[26px] md:leading-[35px]"
+            className="font-semibold text-white text-left lg:text-right m-0 text-[24px] leading-[24px] lg:text-[26px] lg:leading-[35px]"
           >
             {heading}
           </h2>
           {/* Decorative dividers — source image-164 (383x5, horizontal, mobile only) + image-148 (5x175, vertical, desktop only) */}
-          <div className="block md:hidden w-[383px] max-w-full h-[5px] my-2 rounded" style={{ backgroundColor: '#fff' }} />
+          <div className="block lg:hidden w-[383px] max-w-full h-[5px] my-2 rounded" style={{ backgroundColor: '#fff' }} />
           {/* Vertical divider — self-stretch to match sibling height dynamically */}
-          <div className="hidden md:block rounded self-stretch" style={{ width: '5px', backgroundColor: '#fff', marginLeft: '25px', marginRight: '25px', flexShrink: 0 }} />
+          <div className="hidden lg:block rounded self-stretch" style={{ width: '5px', backgroundColor: '#fff', marginLeft: '25px', marginRight: '25px', flexShrink: 0 }} />
           <p
-            className="text-white mb-0 whitespace-pre-line text-sm leading-[18px] md:text-base md:leading-[24px]"
+            className="text-white mb-0 whitespace-pre-line text-sm leading-[18px] lg:text-base lg:leading-[24px]"
           >
             {body}
           </p>

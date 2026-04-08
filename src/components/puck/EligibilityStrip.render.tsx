@@ -30,18 +30,18 @@ export function EligibilityStripRender({
   return (
     <section style={{ paddingTop: '15px', paddingBottom: '15px', margin: 0 }}>
       <div className="max-w-[940px] mx-auto px-5 lg:px-0">
-        <div className="flex flex-col md:flex-row justify-center items-start md:items-center">
+        <div className="flex flex-col lg:flex-row justify-center items-start lg:items-center">
           <div className="flex items-center">
-            {leftIcon?.url && <img src={leftIcon.url} alt="" className="block md:hidden" />}
-            <div className="font-bold text-[20px] md:text-[25px] leading-[28px] md:leading-[30px] ml-2">{leftText}</div>
+            {leftIcon?.url && <img src={leftIcon.url} alt="" className="block lg:hidden" />}
+            <div className="font-bold text-[20px] lg:text-[25px] leading-[28px] lg:leading-[30px] ml-2">{leftText}</div>
           </div>
           {/* Horizontal divider — 383x5px, hidden on desktop (source image-168 is display:none) */}
-          <div className="block md:hidden w-[383px] max-w-full h-[5px] my-2 rounded" style={{ backgroundColor: primaryColor }} />
+          <div className="block lg:hidden w-[383px] max-w-full h-[5px] my-2 rounded" style={{ backgroundColor: primaryColor }} />
           {/* Vertical divider — 5x99px (source image-147) */}
-          <div className="hidden md:block mx-[21px] rounded" style={{ width: '5px', height: '99px', backgroundColor: primaryColor }} />
-          <div className="flex items-center mt-4 md:mt-0">
-            <div className="font-semibold text-[18px] md:text-[25px] leading-[25px] md:leading-[30px]">{rightText}</div>
-            {rightIcon?.url && <img src={rightIcon.url} alt="" className="hidden md:block ml-2" />}
+          <div className="hidden lg:block mx-[21px] rounded" style={{ width: '5px', height: '99px', backgroundColor: primaryColor }} />
+          <div className="flex items-center mt-4 lg:mt-0">
+            <div className="font-semibold text-[18px] lg:text-[25px] leading-[25px] lg:leading-[30px]">{rightText}</div>
+            {rightIcon?.url && <img src={rightIcon.url} alt="" className="hidden lg:block ml-2" />}
           </div>
         </div>
       </div>

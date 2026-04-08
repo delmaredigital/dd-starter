@@ -120,7 +120,7 @@ export function AwardsSectionRender({
 
             {/* Badge grid */}
             <div
-              className="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(120px,1fr))] mt-5 mb-5"
+              className="grid grid-cols-1 lg:grid-cols-[repeat(auto-fit,minmax(120px,1fr))] mt-5 mb-5"
               style={{ gap: '20px' }}
             >
               {group.badges.map((badge, bi) => (
@@ -144,7 +144,7 @@ export function AwardsSectionRender({
             {/* Special Awards + Note render inside the FIRST group card (source div-block-305, div-block-308) */}
             {gi === 0 && specialAwards.length > 0 && (
               <div
-                className="grid grid-cols-1 md:grid-cols-2 inline-grid"
+                className="grid grid-cols-1 lg:grid-cols-2 inline-grid"
                 style={{ gap: '16px' }}
               >
                 {specialAwards.map((award, ai) => (
