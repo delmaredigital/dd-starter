@@ -20,7 +20,7 @@ export function createSavePageTool(accessors: PuckStateAccessors) {
         const data = accessors.getState().data
         const rootProps: PuckRootProps = data.root?.props || {}
 
-        // Extract page ID from the current URL: /admin/puck-editor/pages/:id
+        // Extract page ID from the current URL: /<admin-path>/puck-editor/pages/:id
         const pathParts = window.location.pathname.split('/')
         const pageId = pathParts[pathParts.length - 1]
         // The API endpoint follows the pattern /api/puck/:collection

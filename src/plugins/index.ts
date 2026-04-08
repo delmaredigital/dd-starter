@@ -65,7 +65,7 @@ export const plugins: Plugin[] = [
       betterAuthOptions, // Required for management UI auto-detection
       login: {
         enablePasskey: true, // Enable passkey sign-in option
-        afterLoginPath: '/admin/page-tree', // Redirect to page tree after login
+        afterLoginPath: '/p-kcCapdQH/page-tree', // Redirect to page tree after login
       },
       apiKey: {
         requiredRole: 'admin',

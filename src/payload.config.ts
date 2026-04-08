@@ -17,7 +17,10 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-  // Obscured admin path — security through obscurity layer (not sole protection)
+  // Obscured admin path — if changing, also update:
+  // - src/app/(payload)/p-kcCapdQH/ (folder name)
+  // - src/app/(payload)/layout.tsx (importMap import path)
+  // - src/plugins/index.ts (afterLoginPath)
   routes: {
     admin: '/p-kcCapdQH',
   },
