@@ -144,7 +144,7 @@ export function AwardsSectionRender({
             {/* Special Awards + Note render inside the FIRST group card (source div-block-305, div-block-308) */}
             {gi === 0 && specialAwards.length > 0 && (
               <div
-                className="grid grid-cols-1 lg:grid-cols-2 inline-grid"
+                className="grid grid-cols-1 lg:grid-cols-2"
                 style={{ gap: '16px' }}
               >
                 {specialAwards.map((award, ai) => (
