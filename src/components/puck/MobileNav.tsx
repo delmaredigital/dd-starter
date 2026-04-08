@@ -4,7 +4,7 @@
  * MobileNav — client component for hamburger menu on tablet/mobile.
  * Uses Base UI Collapsible for accessible toggle panel with height
  * animation. Matches source Webflow w-nav behavior: click hamburger,
- * panel drops down below nav bar with links on dark background.
+ * panel drops down below nav bar with links on white background.
  * Shown below lg breakpoint (≈991px source breakpoint).
  */
 import { Collapsible } from '@base-ui/react/collapsible'
@@ -38,8 +38,7 @@ export function MobileNav({
         </svg>
       </Collapsible.Trigger>
       <Collapsible.Panel
-        className="absolute left-0 right-0 top-full z-40 flex flex-col items-center overflow-hidden transition-all duration-300 ease-out h-[var(--collapsible-panel-height)] data-[ending-style]:h-0 data-[starting-style]:h-0"
-        style={{ backgroundColor: primaryColor }}
+        className="absolute left-0 right-0 top-full z-40 flex flex-col items-center overflow-hidden bg-white transition-all duration-300 ease-out h-[var(--collapsible-panel-height)] data-[ending-style]:h-0 data-[starting-style]:h-0"
       >
         <nav className="flex flex-col items-center w-full py-6 gap-1">
           {navLinks.map((link, i) => (
@@ -48,8 +47,7 @@ export function MobileNav({
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="block no-underline text-white text-center w-full py-3"
-              style={{ fontSize: '16px', fontWeight: 500 }}
+              className="block no-underline text-center w-full py-3 text-base font-medium"
             >
               {link.label}
             </a>
@@ -59,15 +57,8 @@ export function MobileNav({
               href={ctaLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="block no-underline text-center font-bold mt-2 mx-6"
-              style={{
-                backgroundColor: '#fff',
-                color: primaryColor,
-                borderRadius: '8px',
-                padding: '12px 24px',
-                fontSize: '16px',
-                lineHeight: '24px',
-              }}
+              className="block no-underline text-white text-center text-base font-bold mt-2 mx-6 rounded-lg py-3 px-6"
+              style={{ backgroundColor: primaryColor, lineHeight: '24px' }}
             >
               {ctaText}
             </a>
