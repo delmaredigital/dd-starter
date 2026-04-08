@@ -59,19 +59,19 @@ export function CompetitionHeroRender({
         <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-5">
           <div className="flex flex-col justify-center items-start">
             <h1 className="m-0">
-              <span className="block text-white font-bold text-[28px] leading-[35px] lg:text-[45px] lg:leading-[55px]">{titleLine1}</span>
+              <span className="block text-white font-bold text-[28px] leading-[35px] sm:text-[45px] sm:leading-[55px]">{titleLine1}</span>
               {titleLine2 && (
                 <span className="bg-white inline-block my-5 px-2.5 py-[5px]">
-                  <span className="block font-bold text-[38px] leading-[45px] lg:text-[42px]" style={{ color: safeHex(highlightTextColor) }}>{titleLine2}</span>
+                  <span className="block font-bold text-[38px] sm:text-[42px] leading-[45px]" style={{ color: safeHex(highlightTextColor) }}>{titleLine2}</span>
                 </span>
               )}
-              <span className="block text-white font-bold text-[25px] leading-[33px] lg:text-[38px] lg:leading-[40px]">{titleLine3}</span>
+              <span className="block text-white font-bold text-[25px] leading-[33px] sm:text-[38px] sm:leading-[40px]">{titleLine3}</span>
             </h1>
-            <p className="text-white font-bold mb-0 mt-4 lg:mt-5 text-[18px] leading-[25px] lg:text-2xl lg:leading-[30px]">{audienceLabel}</p>
+            <p className="text-white font-bold mb-0 mt-4 sm:mt-5 text-[18px] leading-[25px] sm:text-2xl sm:leading-[30px]">{audienceLabel}</p>
             {statusText && (
               <div className="flex items-center my-6">
                 {statusIcon?.url && <img src={statusIcon.url} alt="" className="mr-2.5 w-[54px] h-[54px]" />}
-                <span className="text-white font-bold text-base leading-[22px] lg:text-lg lg:leading-6">{statusText}</span>
+                <span className="text-white font-bold text-base leading-[22px] sm:text-lg sm:leading-6">{statusText}</span>
               </div>
             )}
             <CompetitionCTA text={ctaText} href={ctaLink} bgColor="#ffffff" textColor={color} />
