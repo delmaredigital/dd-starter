@@ -74,6 +74,10 @@ export default buildConfig({
     {
       slug: 'pages',
       fields: [], // Fields are added by createPuckPlugin at runtime
+      // read: () => true is required — the plugin's defaultAccess only applies when
+      // it generates a new collection, not when merging into an existing stub.
+      // Without this, build fails with 403 at generateStaticParams.
+      access: { read: () => true },
       hooks: {
         afterChange: [revalidatePage],
         afterDelete: [revalidateDeletePage],
