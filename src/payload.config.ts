@@ -10,7 +10,7 @@ import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
-import { revalidatePage, revalidateDeletePage } from './hooks/revalidatePage'
+import { Pages } from './collections/Pages'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 
@@ -63,26 +63,10 @@ export default buildConfig({
       connectionString: process.env.POSTGRES_URL || '',
     },
   }),
-  // Pages stub — createPuckPlugin merges its fields/config into this (see plugin source
-  // lines 177-226). We define it here solely to attach revalidation hooks that clear
-  // Next.js page cache on publish/unpublish/delete. Without these hooks, content changes
-  // via the Puck editor don't appear on the live site until the next deploy.
-  // Same pattern as Posts collection (src/collections/Posts/hooks/revalidatePost.ts).
-  // On upstream merge: this entry is additive — upstream won't have a pages stub since
-  // createPuckPlugin auto-generates it. No conflict expected.
+  // Pages uses getPuckCollectionConfig() for explicit field/hook ownership.
+  // createPuckPlugin still merges additional config (versions, edit button) at runtime.
   collections: [
-    {
-      slug: 'pages',
-      fields: [], // Fields are added by createPuckPlugin at runtime
-      // read: () => true is required — the plugin's defaultAccess only applies when
-      // it generates a new collection, not when merging into an existing stub.
-      // Without this, build fails with 403 at generateStaticParams.
-      access: { read: () => true },
-      hooks: {
-        afterChange: [revalidatePage],
-        afterDelete: [revalidateDeletePage],
-      },
-    },
+    Pages,
     Posts,
     Media,
     Users,
