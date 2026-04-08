@@ -30,8 +30,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html className={cn(GeistSans.variable, GeistMono.variable, poppins.variable)} lang="en" suppressHydrationWarning>
       <head>
         <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        {/* Favicon and apple-touch-icon handled by Next.js file conventions: app/favicon.ico, app/apple-icon.png */}
       </head>
       <body>
         <Providers>
