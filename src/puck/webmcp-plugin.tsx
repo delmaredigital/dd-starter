@@ -11,6 +11,7 @@ import {
   createUpdateRootPropsTool,
   createUploadImageTool,
   createSavePageTool,
+  createPayloadApiTool,
   type PuckStateAccessors,
 } from '@/lib/webmcp/tools'
 
@@ -36,6 +37,7 @@ function WebMCPToolRegistration() {
       createUpdateRootPropsTool(accessors),
       createUploadImageTool(accessors),
       createSavePageTool(accessors),
+      createPayloadApiTool(),
     ] as AgentTool[]
 
     registerTools(tools)

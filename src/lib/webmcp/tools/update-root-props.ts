@@ -5,7 +5,7 @@ export function createUpdateRootPropsTool(accessors: PuckStateAccessors) {
   return {
     name: 'update_root_props',
     description:
-      'Updates page-level settings (root props) without replacing page content. Merges provided props with existing root props. Common props: title (string), pageLayout ("default" | "full-width" | "landing"), showHeader ("yes" | "no"), showFooter ("yes" | "no"), pageBackground (BackgroundValue | null), pageMaxWidth (string).',
+      'Updates page-level settings (root props) in the Puck editor without replacing page content. Merges provided props with existing root props. Common props: title (string), pageLayout ("default" | "full-width" | "landing"), pageBackground (BackgroundValue | null), pageMaxWidth (string). BackgroundValue format: { type: "solid" | "gradient" | "image" | "none", solid: { hex, opacity } | null, gradient: GradientValue | null, image: ImageValue | null }. Do NOT use this for slug, folder, or pageSegment changes — those must go through payload_api (PATCH /api/pages/:id) to persist correctly.',
     inputSchema: {
       type: 'object' as const,
       properties: {

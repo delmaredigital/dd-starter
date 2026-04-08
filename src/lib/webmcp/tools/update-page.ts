@@ -5,7 +5,7 @@ export function createUpdatePageTool(accessors: PuckStateAccessors) {
   return {
     name: 'update_page',
     description:
-      'Replaces the entire page content in the Puck editor. Takes a complete puckData object with root, content, and optionally zones. The editor canvas updates immediately — the human sees the change live. Call get_page_state first to see current state, get_component_schema to understand valid components and props. The page is NOT saved/published — the human or a separate action does that.',
+      'Replaces the entire page content in the Puck editor. Takes a complete puckData object with root, content, and optionally zones. The editor canvas updates immediately — the human sees the change live. Call get_page_state first to see current state, get_component_schema to understand valid components and props. The page is NOT saved/published — call save_page after. Gotcha: Image components need aspectRatio: "auto" unless parent has explicit height — other values use absolute positioning and collapse to zero height.',
     inputSchema: {
       type: 'object' as const,
       properties: {
