@@ -17,6 +17,10 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  // Obscured admin path — security through obscurity layer (not sole protection)
+  routes: {
+    admin: '/p-kcCapdQH',
+  },
   admin: {
     components: {
       providers: ['@/components/admin/PuckProvider'],
