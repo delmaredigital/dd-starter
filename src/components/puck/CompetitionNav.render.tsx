@@ -43,7 +43,7 @@ export function CompetitionNavRender({
   const color = safeHex(primaryColor)
   return (
     <nav
-      className="w-full flex items-center"
+      className="w-full flex items-center relative"
       style={{ backgroundColor: '#fff', padding: '24px 5%' }}
     >
       <div

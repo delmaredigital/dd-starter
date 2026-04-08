@@ -2,18 +2,12 @@
 
 /**
  * MobileNav — client component for hamburger menu on tablet/mobile.
- * Uses shadcn NavigationMenu (Radix) for accessible nav toggle with
- * focus management, keyboard navigation, and proper aria attributes.
+ * Uses Base UI Collapsible for accessible toggle panel with height
+ * animation. Matches source Webflow w-nav behavior: click hamburger,
+ * panel drops down below nav bar with links on dark background.
  * Shown below lg breakpoint (≈991px source breakpoint).
  */
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu'
+import { Collapsible } from '@base-ui/react/collapsible'
 import type { NavLinkItem } from './CompetitionNav.render'
 
 interface MobileNavProps {
@@ -30,54 +24,56 @@ export function MobileNav({
   primaryColor,
 }: MobileNavProps) {
   return (
-    <NavigationMenu>
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger
-            className="rounded-lg border border-gray-200 bg-white p-3 h-auto"
-          >
-            {/* Hamburger icon — ChevronDown is added by NavigationMenuTrigger */}
-            <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="mr-0">
-              <path d="M0 0H18V2H0V0ZM0 5H18V7H0V5ZM0 10H18V12H0V10Z" fill="currentColor" />
-            </svg>
-          </NavigationMenuTrigger>
-          <NavigationMenuContent className="right-0 left-auto w-[260px]">
-            <div className="py-2">
-              {navLinks.map((link, i) => (
-                <NavigationMenuLink
-                  key={i}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block no-underline px-5 py-3 hover:bg-gray-50"
-                  style={{ color: '#000', fontSize: '16px', fontWeight: 500 }}
-                >
-                  {link.label}
-                </NavigationMenuLink>
-              ))}
-              {ctaText && (
-                <div className="px-4 pt-2 pb-2">
-                  <NavigationMenuLink
-                    href={ctaLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block no-underline text-white font-bold text-center w-full"
-                    style={{
-                      backgroundColor: primaryColor,
-                      borderRadius: '8px',
-                      padding: '12px 24px',
-                      fontSize: '16px',
-                      lineHeight: '24px',
-                    }}
-                  >
-                    {ctaText}
-                  </NavigationMenuLink>
-                </div>
-              )}
-            </div>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+    <Collapsible.Root>
+      <Collapsible.Trigger
+        className="flex items-center justify-center rounded-lg p-3 transition-colors data-[panel-open]:text-white"
+        style={(state) => ({
+          backgroundColor: state.open ? '#3e5ce7' : '#fff',
+          border: `1px solid ${state.open ? '#fff' : '#f3f5fb'}`,
+        })}
+        aria-label="Toggle navigation menu"
+      >
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0H18V2H0V0ZM0 5H18V7H0V5ZM0 10H18V12H0V10Z" fill="currentColor" />
+        </svg>
+      </Collapsible.Trigger>
+      <Collapsible.Panel
+        className="absolute left-0 right-0 top-full z-40 flex flex-col items-center overflow-hidden transition-all duration-300 ease-out h-[var(--collapsible-panel-height)] data-[ending-style]:h-0 data-[starting-style]:h-0"
+        style={{ backgroundColor: primaryColor }}
+      >
+        <nav className="flex flex-col items-center w-full py-6 gap-1">
+          {navLinks.map((link, i) => (
+            <a
+              key={i}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block no-underline text-white text-center w-full py-3"
+              style={{ fontSize: '16px', fontWeight: 500 }}
+            >
+              {link.label}
+            </a>
+          ))}
+          {ctaText && (
+            <a
+              href={ctaLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block no-underline text-center font-bold mt-2 mx-6"
+              style={{
+                backgroundColor: '#fff',
+                color: primaryColor,
+                borderRadius: '8px',
+                padding: '12px 24px',
+                fontSize: '16px',
+                lineHeight: '24px',
+              }}
+            >
+              {ctaText}
+            </a>
+          )}
+        </nav>
+      </Collapsible.Panel>
+    </Collapsible.Root>
   )
 }
