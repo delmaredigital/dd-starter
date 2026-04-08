@@ -92,7 +92,7 @@ export function CompetitionStructureRender({
 
   return (
     <section style={{ paddingTop: '40px', paddingBottom: '40px' }}>
-      <div className="max-w-[940px] mx-auto px-4 md:px-0 flex flex-col items-stretch">
+      <div className="max-w-[940px] mx-auto px-5 lg:px-0 flex flex-col items-stretch">
         <h2
           className="font-bold text-center mb-5"
           style={{ color: '#000', fontSize: '26px', lineHeight: '35px' }}

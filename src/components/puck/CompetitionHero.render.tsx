@@ -55,7 +55,7 @@ export function CompetitionHeroRender({
         backgroundSize: 'auto, cover',
       }}
     >
-      <div className="max-w-[940px] mx-auto px-4 md:px-0">
+      <div className="max-w-[940px] mx-auto px-5 lg:px-0">
         <div className="grid grid-cols-1 md:grid-cols-[1.25fr_1fr] gap-5">
           <div className="flex flex-col justify-center items-start">
             <h1 className="text-white font-bold m-0 text-[45px] leading-[55px]">{titleLine1}</h1>

@@ -30,7 +30,7 @@ export function JoinCTARender({
 
   return (
     <section style={{ paddingTop: '40px', paddingBottom: '40px' }}>
-      <div className="max-w-[940px] mx-auto px-4 md:px-0">
+      <div className="max-w-[940px] mx-auto px-5 lg:px-0">
         <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '35px' }}>
           {/* Left column: decorative image */}
           <div className="flex justify-center items-center">

@@ -25,7 +25,7 @@ export function ResponsiveImageSectionRender({
 }: ResponsiveImageSectionProps) {
   return (
     <section style={{ paddingTop: '40px', paddingBottom: '40px' }}>
-      <div className="max-w-[940px] mx-auto px-4 md:px-0">
+      <div className="max-w-[940px] mx-auto px-5 lg:px-0">
         {heading && (
           <h2
             className="font-bold text-center mt-0 mb-[40px]"

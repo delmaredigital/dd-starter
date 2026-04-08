@@ -39,7 +39,7 @@ export function SummaryGridRender({
 }: SummaryGridProps) {
   return (
     <section style={{ marginTop: '50px', marginBottom: '50px' }}>
-      <div className="max-w-[940px] mx-auto px-4 md:px-0">
+      <div className="max-w-[940px] mx-auto px-5 lg:px-0">
         <h2
           className="font-bold text-center"
           style={{ fontSize: '28px', color: '#3a3a3b', lineHeight: '22px', marginBottom: '19px' }}

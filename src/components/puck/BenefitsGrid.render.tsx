@@ -38,7 +38,7 @@ export function BenefitsGridRender({
 
   return (
     <section className="py-10">
-      <div className="max-w-[940px] mx-auto px-4 md:px-0 flex flex-col items-center">
+      <div className="max-w-[940px] mx-auto px-5 lg:px-0 flex flex-col items-center">
         <div className="flex flex-col items-start">
           <h2 className="text-[22px] font-bold leading-[30px] mb-0 text-[#333]">{sectionHeading}</h2>
           <AccentBar primaryColor={color} />

@@ -32,7 +32,7 @@ export function AboutPartnerRender({
 
   return (
     <section style={{ backgroundColor: color, paddingTop: '45px', paddingBottom: '45px' }}>
-      <div className="max-w-[940px] mx-auto px-4 md:px-0 flex flex-col items-center">
+      <div className="max-w-[940px] mx-auto px-5 lg:px-0 flex flex-col items-center">
         {/* Source .div-block-206: flex row on desktop (heading | divider | body), column on mobile */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-center mb-[34px]">
           <h2
