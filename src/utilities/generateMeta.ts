@@ -26,8 +26,10 @@ export const generateMeta = async (args: {
 
   const ogImage = getImageURL(doc?.meta?.image)
 
-  const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | AlgoEd'
+  const rawTitle = doc?.meta?.title || ''
+  // Append brand suffix unless the title already contains it
+  const title = rawTitle
+    ? rawTitle.toLowerCase().includes('algoed') ? rawTitle : `${rawTitle} | AlgoEd`
     : 'AlgoEd'
 
   return {
