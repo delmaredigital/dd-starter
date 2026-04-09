@@ -83,7 +83,7 @@ export function CompetitionNavRender({
             href={ctaLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="no-underline text-white font-bold text-center whitespace-nowrap rounded-lg py-3 px-6"
+            className="no-underline text-white font-bold text-center rounded-lg py-3 px-6"
             style={{ backgroundColor: color, fontSize: '16px', lineHeight: '24px' }}
           >
             {ctaText}
