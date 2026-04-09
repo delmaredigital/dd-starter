@@ -83,14 +83,14 @@ export function CompetitionHeroRender({
         backgroundPosition: '0 0, 50%',
         backgroundSize: 'auto, cover',
         paddingTop: '2.5rem',
-        paddingBottom: '2.5rem',
+        paddingBottom: hasBadgeStrip ? '6rem' : '2.5rem',
       }}
     >
       <div className="relative max-w-[940px] mx-auto px-5 lg:px-0">
         {/* Floating illustration — behind text on desktop, stacked on mobile */}
         {heroImage?.url && (
-          <div className="lg:absolute lg:right-0 lg:bottom-0 lg:w-1/2 lg:h-[70%] flex items-end justify-center mb-6 lg:mb-0 lg:pb-12">
-            <img src={heroImage.url} alt={heroImage.alt || ''} className="max-w-full max-h-full object-contain" />
+          <div className="lg:absolute lg:right-0 lg:bottom-4 lg:w-1/2 flex items-end justify-end mb-6 lg:mb-0">
+            <img src={heroImage.url} alt={heroImage.alt || ''} className="max-w-full h-auto" />
           </div>
         )}
         {/* Text content — full width, flows naturally */}
