@@ -70,6 +70,10 @@ import {
   ResponsiveImageSectionRender,
   defaultProps as responsiveImageDefaults,
 } from './ResponsiveImageSection.render'
+import {
+  HighlightBadgesRender,
+  defaultProps as highlightBadgesDefaults,
+} from './HighlightBadges.render'
 
 // extendConfig erases component generics to PuckComponent<any>, which is incompatible
 // with our typed render functions due to contravariance. The plugin's own built-in
@@ -160,6 +164,11 @@ export const competitionComponentsServer = {
     label: 'Responsive Image Section',
     defaultProps: responsiveImageDefaults,
     render: ResponsiveImageSectionRender,
+  },
+  HighlightBadges: {
+    label: 'Highlight Badges',
+    defaultProps: highlightBadgesDefaults,
+    render: HighlightBadgesRender,
   },
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- see comment above
 } as any

@@ -20,6 +20,7 @@ import { SummaryGridConfig } from './SummaryGrid'
 import { CategoryGridConfig } from './CategoryGrid'
 import { CompetitionNavConfig } from './CompetitionNav'
 import { ResponsiveImageSectionConfig } from './ResponsiveImageSection'
+import { HighlightBadgesConfig } from './HighlightBadges'
 
 export const competitionComponents = {
   CompetitionHero: CompetitionHeroConfig,
@@ -39,6 +40,7 @@ export const competitionComponents = {
   CategoryGrid: CategoryGridConfig,
   CompetitionNav: CompetitionNavConfig,
   ResponsiveImageSection: ResponsiveImageSectionConfig,
+  HighlightBadges: HighlightBadgesConfig,
 }
 
 export const competitionCategories = {
@@ -62,6 +64,7 @@ export const competitionCategories = {
       'CategoryGrid',
       'CompetitionNav',
       'ResponsiveImageSection',
+      'HighlightBadges',
     ] as string[],
     defaultExpanded: true,
   },
