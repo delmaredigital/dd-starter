@@ -82,7 +82,7 @@ export function CompetitionHeroRender({
         backgroundPosition: '0 0, 50%',
         backgroundSize: 'auto, cover',
         paddingTop: '2.5rem',
-        paddingBottom: hasBadgeStrip ? '0' : '2.5rem',
+        paddingBottom: hasBadgeStrip ? '8rem' : '2.5rem',
       }}
     >
       <div className="relative max-w-[1280px] mx-auto px-5 lg:px-10">
@@ -120,28 +120,29 @@ export function CompetitionHeroRender({
         </div>
       </div>
       {hasBadgeStrip && (
-        <div className="max-w-[940px] mx-auto px-5 lg:px-0 relative z-10 top-[75px]">
+        <div className="max-w-[1270px] mx-auto px-5 lg:px-0 relative z-10 -mt-24 mb-16">
           <div
-            className="rounded-2xl bg-white flex flex-col sm:flex-row justify-around items-center px-5 py-5 shadow-lg"
+            className="rounded-[18px] bg-white py-6 px-8"
+            style={{ boxShadow: '0 -5px 50px rgba(62,63,65,0.08), 0 5px 50px rgba(62,63,65,0.08)' }}
           >
             {badgeStripHeading && (
-              <p className="text-center text-[20px] font-medium leading-[26px] mb-6 text-[#222]">
+              <p className="text-center text-base font-medium leading-[1.3] mb-4 text-[#222]">
                 {badgeStripHeading}
               </p>
             )}
-            <div className="flex flex-col sm:flex-row flex-wrap justify-evenly items-center gap-6 sm:gap-8">
+            <div className="flex flex-col sm:flex-row flex-wrap justify-around items-center gap-6 sm:gap-8">
               {badgeStripItems.map((badge, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div
-                    className="flex-shrink-0 flex items-center justify-center w-[44px] h-[44px] sm:w-[53px] sm:h-[53px] rounded-full"
+                    className="flex-shrink-0 flex items-center justify-center w-[32px] h-[32px] sm:w-[40px] sm:h-[40px] rounded-full"
                     style={{ border: `2px solid ${color}` }}
                   >
                     {badge.icon?.url && (
                       <img src={badge.icon.url} alt={badge.icon.alt || badge.label}
-                        className="w-[22px] h-[22px] sm:w-[28px] sm:h-[28px] object-contain" />
+                        className="w-4 h-4 sm:w-5 sm:h-5 object-contain" />
                     )}
                   </div>
-                  <span className="text-[18px] sm:text-[24px] font-semibold uppercase leading-[24px] sm:leading-[31px]"
+                  <span className="text-[14px] sm:text-[18px] font-semibold uppercase leading-[1.3]"
                     style={{ color }}>
                     {badge.label}
                   </span>
