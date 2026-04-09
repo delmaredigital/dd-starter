@@ -95,13 +95,13 @@ export function CompetitionHeroRender({
         {/* Text content — full width, flows naturally */}
         <div className="relative z-10 lg:w-[60%]">
           <h1 className="m-0">
-            <span className="block text-white font-bold uppercase text-[28px] leading-[1.3] sm:text-[45px] lg:text-[65px]">{titleLine1}</span>
+            <span className="block text-white font-bold uppercase text-[28px] leading-[1.3] sm:text-[45px]">{titleLine1}</span>
             {titleLine2 && (
               <span className="bg-white inline-block my-4 px-3 py-1.5 rounded-[14px]">
-                <span className="block font-bold uppercase text-[28px] leading-[1.7] sm:text-[42px] lg:text-[65px]" style={{ color: safeHex(highlightTextColor) }}>{titleLine2}</span>
+                <span className="block font-bold uppercase text-[28px] leading-[1.7] sm:text-[42px]" style={{ color: safeHex(highlightTextColor) }}>{titleLine2}</span>
               </span>
             )}
-            <span className="block text-white font-bold uppercase text-[25px] leading-[1.3] sm:text-[38px] lg:text-[65px]">{titleLine3}</span>
+            <span className="block text-white font-bold uppercase text-[25px] leading-[1.3] sm:text-[38px]">{titleLine3}</span>
           </h1>
           <p className="font-baskervville italic underline text-white mb-0 mt-4 sm:mt-5 text-[22px] leading-[30px] sm:text-[32px] sm:leading-[40px]">{audienceLabel}</p>
           {statusText && (
