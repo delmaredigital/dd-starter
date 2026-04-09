@@ -5,6 +5,11 @@
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { CompetitionCTA, safeHex } from './shared'
 
+export interface BadgeItem {
+  label: string
+  icon: MediaReference | null
+}
+
 export interface CompetitionHeroProps {
   titleLine1: string
   titleLine2: string
@@ -18,6 +23,8 @@ export interface CompetitionHeroProps {
   ctaLink: string
   heroImage: MediaReference | null
   backgroundImage: MediaReference | null
+  badgeStripHeading: string
+  badgeStripItems: BadgeItem[]
 }
 
 export const defaultProps: CompetitionHeroProps = {
@@ -33,19 +40,23 @@ export const defaultProps: CompetitionHeroProps = {
   ctaLink: '/portal',
   heroImage: null,
   backgroundImage: null,
+  badgeStripHeading: '',
+  badgeStripItems: [],
 }
 
 export function CompetitionHeroRender({
   titleLine1, titleLine2, titleLine3, audienceLabel,
   primaryColor, highlightTextColor, statusText, statusIcon,
   ctaText, ctaLink, heroImage, backgroundImage,
+  badgeStripHeading, badgeStripItems,
 }: CompetitionHeroProps) {
   const color = safeHex(primaryColor)
   const bgImageUrl = backgroundImage?.url || ''
+  const hasBadgeStrip = badgeStripItems && badgeStripItems.length > 0
 
   return (
     <section
-      className="py-10 bg-cover bg-center"
+      className="bg-cover bg-center"
       style={{
         backgroundColor: color,
         backgroundImage: bgImageUrl
@@ -53,6 +64,8 @@ export function CompetitionHeroRender({
           : undefined,
         backgroundPosition: '0 0, 50%',
         backgroundSize: 'auto, cover',
+        paddingTop: '2.5rem',
+        paddingBottom: hasBadgeStrip ? '0' : '2.5rem',
       }}
     >
       <div className="max-w-[940px] mx-auto px-5 lg:px-0">
@@ -81,6 +94,38 @@ export function CompetitionHeroRender({
           </div>
         </div>
       </div>
+      {hasBadgeStrip && (
+        <div className="max-w-[940px] mx-auto px-5 lg:px-0 relative z-10 top-[75px]">
+          <div
+            className="rounded-2xl bg-white flex flex-col sm:flex-row justify-around items-center px-5 py-5 shadow-lg"
+          >
+            {badgeStripHeading && (
+              <p className="text-center text-[20px] font-medium leading-[26px] mb-6 text-[#222]">
+                {badgeStripHeading}
+              </p>
+            )}
+            <div className="flex flex-col sm:flex-row flex-wrap justify-evenly items-center gap-6 sm:gap-8">
+              {badgeStripItems.map((badge, i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <div
+                    className="flex-shrink-0 flex items-center justify-center w-[44px] h-[44px] sm:w-[53px] sm:h-[53px] rounded-full"
+                    style={{ border: `2px solid ${color}` }}
+                  >
+                    {badge.icon?.url && (
+                      <img src={badge.icon.url} alt={badge.icon.alt || badge.label}
+                        className="w-[22px] h-[22px] sm:w-[28px] sm:h-[28px] object-contain" />
+                    )}
+                  </div>
+                  <span className="text-[18px] sm:text-[24px] font-semibold uppercase leading-[24px] sm:leading-[31px]"
+                    style={{ color }}>
+                    {badge.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

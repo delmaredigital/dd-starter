@@ -2,6 +2,21 @@
 
 You are an expert Payload CMS developer. When working with Payload projects, follow these rules:
 
+## ⚠️ PAGE EDITING — MANDATORY WORKFLOW ⚠️
+
+**When creating or editing Puck pages (assembling components, uploading images, filling props), you MUST use WebMCP tools. No exceptions.**
+
+1. Open the Puck editor: `pages.algoed.co/p-kcCapdQH/puck-editor/pages/:id`
+2. Verify tools: `evaluate_script({ function: '() => window.__puckAgentTools?.map(t => t.name)' })`
+3. Use `get_component_schema` to understand fields BEFORE filling them
+4. Use `upload_image` for all media uploads (supports URL or base64, returns MediaReference)
+5. Use `update_page` to set component props (live WYSIWYG preview)
+6. Use `save_page` to persist
+
+**NEVER** manipulate puckData JSON directly via raw fetch/evaluate_script. That bypasses schema validation, produces wrong field names, misplaced images, and broken pages.
+
+Full docs: `.cursor/rules/webmcp-agent-tools.md`
+
 ## Core Principles
 
 1. **TypeScript-First**: Always use TypeScript with proper types from Payload
@@ -1131,13 +1146,6 @@ For deeper exploration of specific topics, refer to the context files located in
     - Using hooks
     - Performance best practices
     - Styling components
-
-14. **`webmcp-agent-tools.md`** - WebMCP tools for AI agent co-editing
-
-    - Available tools and their schemas
-    - Agent connection setup (Chrome DevTools MCP, Playwright)
-    - Architecture and design decisions
-    - Schema auto-generation from Puck config
 
 ## Resources
 

@@ -25,6 +25,16 @@ export const CompetitionHeroConfig: ComponentConfig<CompetitionHeroProps> = {
     ctaLink: { type: 'text', label: 'CTA Button Link' },
     heroImage: createMediaField({ label: 'Hero Illustration (right column)' }),
     backgroundImage: createMediaField({ label: 'Background Image (behind overlay)' }),
+    badgeStripHeading: { type: 'text', label: 'Badge Strip Heading (e.g. "Step into:" — leave empty to hide strip)' },
+    badgeStripItems: {
+      type: 'array',
+      label: 'Badge Strip Items',
+      arrayFields: {
+        label: { type: 'text', label: 'Badge Label' },
+        icon: createMediaField({ label: 'Badge Icon' }),
+      },
+      defaultItemProps: { label: 'Topic', icon: null },
+    },
   },
   defaultProps,
   render: CompetitionHeroRender,
