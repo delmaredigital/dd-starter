@@ -47,7 +47,7 @@ export function CompetitionNavRender({
       style={{ backgroundColor: '#fff', padding: '24px 5%' }}
     >
       <div
-        className="flex items-center w-full mx-auto"
+        className="flex items-center w-full mx-auto gap-4"
         style={{ maxWidth: '1280px' }}
       >
         {/* Left: logos — preferred height, shrinkable on small screens */}
