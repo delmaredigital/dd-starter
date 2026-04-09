@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
-import { Poppins } from 'next/font/google'
+import { Poppins, Baskervville } from 'next/font/google'
 import React from 'react'
 
 // Global Header/Footer (src/Header, src/Footer) removed from layout.
@@ -23,11 +23,19 @@ const poppins = Poppins({
   variable: '--font-poppins-src',
   display: 'swap',
 })
+
+const baskervville = Baskervville({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['italic'],
+  variable: '--font-baskervville-src',
+  display: 'swap',
+})
 import { getServerSideURL } from '@/utilities/getURL'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable, poppins.variable)} lang="en" suppressHydrationWarning>
+    <html className={cn(GeistSans.variable, GeistMono.variable, poppins.variable, baskervville.variable)} lang="en" suppressHydrationWarning>
       <head>
         <InitTheme />
         {/* Favicon and apple-touch-icon handled by Next.js file conventions: app/favicon.ico, app/apple-icon.png */}

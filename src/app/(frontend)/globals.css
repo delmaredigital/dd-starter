@@ -25,6 +25,7 @@
   --font-mono: var(--font-geist-mono);
   --font-sans: var(--font-geist-sans);
   --font-poppins: var(--font-poppins-src);
+  --font-baskervville: var(--font-baskervville-src);
 }
 
 :root {

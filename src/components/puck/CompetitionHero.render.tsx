@@ -18,9 +18,12 @@ export interface CompetitionHeroProps {
   primaryColor: string
   highlightTextColor: string
   statusText: string
+  statusSubtext: string
   statusIcon: MediaReference | null
   ctaText: string
   ctaLink: string
+  secondaryCtaText: string
+  secondaryCtaLink: string
   heroImage: MediaReference | null
   backgroundImage: MediaReference | null
   overlayColor: string
@@ -38,9 +41,12 @@ export const defaultProps: CompetitionHeroProps = {
   primaryColor: '#a31f35',
   highlightTextColor: '#a31f35',
   statusText: 'Registration Open',
+  statusSubtext: '',
   statusIcon: null,
   ctaText: 'Competition Portal',
   ctaLink: '/portal',
+  secondaryCtaText: '',
+  secondaryCtaLink: '',
   heroImage: null,
   backgroundImage: null,
   overlayColor: '',
@@ -52,8 +58,9 @@ export const defaultProps: CompetitionHeroProps = {
 
 export function CompetitionHeroRender({
   titleLine1, titleLine2, titleLine3, audienceLabel,
-  primaryColor, highlightTextColor, statusText, statusIcon,
-  ctaText, ctaLink, heroImage, backgroundImage,
+  primaryColor, highlightTextColor, statusText, statusSubtext, statusIcon,
+  ctaText, ctaLink, secondaryCtaText, secondaryCtaLink,
+  heroImage, backgroundImage,
   overlayColor, overlayOpacity, overlayCSS,
   badgeStripHeading, badgeStripItems,
 }: CompetitionHeroProps) {
@@ -90,14 +97,20 @@ export function CompetitionHeroRender({
               )}
               <span className="block text-white font-bold text-[25px] leading-[33px] sm:text-[38px] sm:leading-[40px]">{titleLine3}</span>
             </h1>
-            <p className="text-white font-bold mb-0 mt-4 sm:mt-5 text-[18px] leading-[25px] sm:text-2xl sm:leading-[30px]">{audienceLabel}</p>
+            <p className="font-baskervville italic underline text-white mb-0 mt-4 sm:mt-5 text-[22px] leading-[30px] sm:text-[32px] sm:leading-[40px]">{audienceLabel}</p>
             {statusText && (
               <div className="flex items-center my-6">
                 {statusIcon?.url && <img src={statusIcon.url} alt="" className="mr-2.5 w-[54px] h-[54px]" />}
-                <span className="text-white font-bold text-base leading-[22px] sm:text-lg sm:leading-6">{statusText}</span>
+                <div>
+                  <span className="block text-white font-semibold text-base leading-[22px] sm:text-lg sm:leading-6">{statusText}</span>
+                  {statusSubtext && <span className="block text-white font-medium text-sm leading-[20px] sm:text-base sm:leading-6">{statusSubtext}</span>}
+                </div>
               </div>
             )}
-            <CompetitionCTA text={ctaText} href={ctaLink} bgColor="#ffffff" textColor={color} />
+            <div className="flex flex-wrap gap-4">
+              <CompetitionCTA text={ctaText} href={ctaLink} bgColor="#ffffff" textColor={color} />
+              <CompetitionCTA text={secondaryCtaText} href={secondaryCtaLink} bgColor="transparent" textColor="#ffffff" border="2px solid #ffffff" />
+            </div>
           </div>
           <div className="flex justify-center items-center">
             {heroImage?.url && <img src={heroImage.url} alt={heroImage.alt || ''} className="max-w-full h-auto" />}
