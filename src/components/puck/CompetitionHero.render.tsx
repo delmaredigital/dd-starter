@@ -73,7 +73,7 @@ export function CompetitionHeroRender({
 
   return (
     <section
-      className="bg-cover bg-center overflow-hidden"
+      className="bg-cover bg-center"
       style={{
         backgroundColor: color,
         backgroundImage: bgImageUrl
