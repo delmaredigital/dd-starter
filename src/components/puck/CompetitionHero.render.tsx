@@ -85,35 +85,37 @@ export function CompetitionHeroRender({
         paddingBottom: hasBadgeStrip ? '0' : '2.5rem',
       }}
     >
-      <div className="max-w-[940px] mx-auto px-5 lg:px-0">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-5">
-          <div className="flex flex-col justify-center items-start">
-            <h1 className="m-0">
-              <span className="block text-white font-bold text-[28px] leading-[35px] sm:text-[45px] sm:leading-[55px]">{titleLine1}</span>
-              {titleLine2 && (
-                <span className="bg-white inline-block my-5 px-2.5 py-[5px]">
-                  <span className="block font-bold text-[28px] leading-[35px] sm:text-[42px] sm:leading-[45px]" style={{ color: safeHex(highlightTextColor) }}>{titleLine2}</span>
-                </span>
-              )}
-              <span className="block text-white font-bold text-[25px] leading-[33px] sm:text-[38px] sm:leading-[40px]">{titleLine3}</span>
-            </h1>
-            <p className="font-baskervville italic underline text-white mb-0 mt-4 sm:mt-5 text-[22px] leading-[30px] sm:text-[32px] sm:leading-[40px]">{audienceLabel}</p>
-            {statusText && (
-              <div className="flex items-center my-6">
-                {statusIcon?.url && <img src={statusIcon.url} alt="" className="mr-2.5 w-[54px] h-[54px]" />}
-                <div>
-                  <span className="block text-white font-semibold text-base leading-[22px] sm:text-lg sm:leading-6">{statusText}</span>
-                  {statusSubtext && <span className="block text-white font-medium text-sm leading-[20px] sm:text-base sm:leading-6">{statusSubtext}</span>}
-                </div>
-              </div>
-            )}
-            <div className="flex flex-wrap gap-4">
-              <CompetitionCTA text={ctaText} href={ctaLink} bgColor="#ffffff" textColor={color} />
-              <CompetitionCTA text={secondaryCtaText} href={secondaryCtaLink} bgColor="transparent" textColor="#ffffff" border="2px solid #ffffff" />
-            </div>
+      <div className="relative max-w-[1280px] mx-auto px-5 lg:px-10">
+        {/* Floating illustration — behind text on desktop, stacked on mobile */}
+        {heroImage?.url && (
+          <div className="lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 lg:w-[45%] flex justify-center mb-6 lg:mb-0">
+            <img src={heroImage.url} alt={heroImage.alt || ''} className="max-w-full h-auto max-h-[500px] object-contain" />
           </div>
-          <div className="flex justify-center items-center">
-            {heroImage?.url && <img src={heroImage.url} alt={heroImage.alt || ''} className="max-w-full h-auto" />}
+        )}
+        {/* Text content — full width, flows naturally */}
+        <div className="relative z-10 lg:w-[60%]">
+          <h1 className="m-0">
+            <span className="block text-white font-bold uppercase text-[28px] leading-[1.3] sm:text-[45px] lg:text-[65px]">{titleLine1}</span>
+            {titleLine2 && (
+              <span className="bg-white inline-block my-4 px-3 py-1.5 rounded-[14px]">
+                <span className="block font-bold uppercase text-[28px] leading-[1.7] sm:text-[42px] lg:text-[65px]" style={{ color: safeHex(highlightTextColor) }}>{titleLine2}</span>
+              </span>
+            )}
+            <span className="block text-white font-bold uppercase text-[25px] leading-[1.3] sm:text-[38px] lg:text-[65px]">{titleLine3}</span>
+          </h1>
+          <p className="font-baskervville italic underline text-white mb-0 mt-4 sm:mt-5 text-[22px] leading-[30px] sm:text-[32px] sm:leading-[40px]">{audienceLabel}</p>
+          {statusText && (
+            <div className="flex items-center my-6">
+              {statusIcon?.url && <img src={statusIcon.url} alt="" className="mr-3 w-[48px] h-[48px] sm:w-[63px] sm:h-[63px]" />}
+              <div>
+                <span className="block text-white font-semibold text-lg leading-6 sm:text-[24px] sm:leading-[31px]">{statusText}</span>
+                {statusSubtext && <span className="block text-white font-medium text-base leading-5 sm:text-[22px] sm:leading-[29px]">{statusSubtext}</span>}
+              </div>
+            </div>
+          )}
+          <div className="flex flex-wrap gap-4">
+            <CompetitionCTA text={ctaText} href={ctaLink} bgColor="#ffffff" textColor={color} />
+            <CompetitionCTA text={secondaryCtaText} href={secondaryCtaLink} bgColor="transparent" textColor="#ffffff" border="2px solid #ffffff" />
           </div>
         </div>
       </div>
