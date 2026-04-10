@@ -45,6 +45,11 @@ export function AlgoEdFooterRender({
             Middle row offset = 63.9px = 88.3 + 79×0.382/2 − 79/2
             (aligns large alpha center in row 2 under small alpha center in row 1)
           */}
+          {/*
+            3 rows via flex-col, middle row interleaved.
+            Offset 44px = half rendered tile width, derived from:
+            panel (pt-9 + content + pb-14 ≈ 192px) / 3 rows × aspect(127.825/93) / 2
+          */}
           <div className="absolute inset-0 pointer-events-none flex flex-col">
             {[0, 1, 2].map(row => (
               <div
@@ -54,7 +59,7 @@ export function AlgoEdFooterRender({
                   backgroundImage: 'url(/competition-assets/alpha-pattern.svg)',
                   backgroundSize: 'auto 100%',
                   backgroundRepeat: 'repeat-x',
-                  backgroundPositionX: row === 1 ? 63.9 : 0,
+                  backgroundPositionX: row === 1 ? 44 : 0,
                 }}
               />
             ))}
