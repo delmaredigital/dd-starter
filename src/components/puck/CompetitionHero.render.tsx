@@ -19,7 +19,6 @@ export interface CompetitionHeroProps {
   highlightTextColor: string
   statusText: string
   statusSubtext: string
-  statusIcon: MediaReference | null
   ctaText: string
   ctaLink: string
   secondaryCtaText: string
@@ -45,7 +44,6 @@ export const defaultProps: CompetitionHeroProps = {
   highlightTextColor: '#a31f35',
   statusText: 'Registration Open',
   statusSubtext: '',
-  statusIcon: null,
   ctaText: 'Competition Portal',
   ctaLink: '/portal',
   secondaryCtaText: '',
@@ -64,7 +62,7 @@ export const defaultProps: CompetitionHeroProps = {
 
 export function CompetitionHeroRender({
   titleLine1, titleLine2, titleLine3, audienceLabel,
-  primaryColor, highlightTextColor, statusText, statusSubtext, statusIcon,
+  primaryColor, highlightTextColor, statusText, statusSubtext,
   ctaText, ctaLink, secondaryCtaText, secondaryCtaLink,
   heroImage, heroImageWidth, heroImageRightOffset, heroImageBottomGap,
   backgroundImage,
@@ -117,7 +115,7 @@ export function CompetitionHeroRender({
           <p className="font-baskervville italic underline text-white mb-0 mt-4 sm:mt-5 text-xl leading-[30px] sm:text-2xl sm:leading-[36px]">{audienceLabel}</p>
           {statusText && (
             <div className="flex items-center my-6">
-              {statusIcon?.url && <img src={statusIcon.url} alt="" className="mr-2.5 w-[54px] h-[54px]" />}
+              <img src="/competition-assets/status-calendar.svg" alt="" className="mr-2.5 w-[54px] h-[54px]" />
               <div>
                 <span className="block text-white font-semibold text-lg leading-7">{statusText}</span>
                 {statusSubtext && <span className="block text-white font-medium text-[15px] leading-6">{statusSubtext}</span>}

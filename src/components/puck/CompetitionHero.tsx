@@ -22,7 +22,6 @@ export const CompetitionHeroConfig: ComponentConfig<CompetitionHeroProps> = {
     highlightTextColor: createColorField({ label: 'Highlight Text Color' }),
     statusText: { type: 'text', label: 'Status Text (e.g. "Registration Open" or "Priority Registration Deadline")' },
     statusSubtext: { type: 'text', label: 'Status Subtext (e.g. "November 18, 2026" — leave empty for single line)' },
-    statusIcon: createMediaField({ label: 'Status Icon' }),
     ctaText: { type: 'text', label: 'CTA Button Text' },
     ctaLink: { type: 'text', label: 'CTA Button Link' },
     secondaryCtaText: { type: 'text', label: 'Secondary CTA Text (leave empty to hide)' },

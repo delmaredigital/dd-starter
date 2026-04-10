@@ -3,7 +3,7 @@
  * Server-safe: no client-only imports.
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
-import { AccentBar, CompetitionCTA, RichText, safeHex } from './shared'
+import { CompetitionCTA, RichText, safeHex } from './shared'
 
 export interface TwoColumnFeatureProps {
   heading: string
@@ -44,8 +44,7 @@ export function TwoColumnFeatureRender({
 
   const textColumn = (
     <div className="flex flex-col justify-center items-start">
-      <h2 className="text-3xl font-bold leading-[1.3] mb-0 text-[#333]">{heading}</h2>
-      <AccentBar primaryColor={color} />
+      <h2 className="text-3xl font-bold leading-[1.3] mb-6 text-[#333]">{heading}</h2>
       <RichText html={body} className="text-[15px] mb-6 text-[#333]" />
       <div className="flex flex-wrap gap-4">
         {ctaVariant === 'outline'
