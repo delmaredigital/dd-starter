@@ -143,6 +143,8 @@ export function CompetitionStructureRender({
   secondaryCtaLink,
   primaryColor,
 }: CompetitionStructureProps) {
+  const cards = infoCards ?? []
+  const roundsList = rounds ?? []
   const color = safeHex(primaryColor)
 
   return (
@@ -181,12 +183,12 @@ export function CompetitionStructureRender({
         {/* Figma: overlap 209→157px, gap 22→16px ≈ gap-4 */}
         {/* Card: #F2F3F0, corners 14→10.5 ≈ rounded-xl, Shadow Large */}
         {/* Padding: L 44→33 ≈ px-8 (32px), T 29→22 ≈ pt-6 (24px) */}
-        {infoCards.length > 0 && (
+        {cards.length > 0 && (
           <div
             className="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10"
             style={{ marginTop: heroImage?.url ? '-157px' : '0' }}
           >
-            {infoCards.map((card, i) => (
+            {cards.map((card, i) => (
               <div
                 key={`card-${card.heading}-${i}`}
                 className="rounded-xl px-8 pt-6 pb-6"
@@ -213,7 +215,7 @@ export function CompetitionStructureRender({
 
                 {/* Structured items (categories) */}
                 {/* Between items: Figma 48→36px = mb-9 (36px) */}
-                {card.items.map((item, j) => (
+                {(card.items ?? []).map((item, j) => (
                   <div
                     key={`item-${item.name}-${j}`}
                     className={j < card.items.length - 1 ? 'mb-9' : ''}
@@ -255,7 +257,7 @@ export function CompetitionStructureRender({
             {roundsHeading}
           </h3>
 
-          {rounds.map((round, i) => (
+          {roundsList.map((round, i) => (
             <div key={`round-${round.title}-${i}`}>
               {/* Divider — Figma 1px #222, spacing 34→26px each side ≈ my-6 (24px) */}
               {i > 0 && (
@@ -286,7 +288,7 @@ export function CompetitionStructureRender({
                 </div>
               </div>
               {/* Round items — Figma 22px Regular/SemiBold #222 → 0.75× 16px = text-base */}
-              {round.items.map((item, j) => (
+              {(round.items ?? []).map((item, j) => (
                 <p
                   key={`detail-${item.label}-${j}`}
                   className="mt-1 mb-2 text-base leading-relaxed"
