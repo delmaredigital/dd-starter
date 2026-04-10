@@ -3,11 +3,11 @@
  */
 import type { ComponentConfig } from '@puckeditor/core'
 import { createMediaField } from '@delmaredigital/payload-puck/fields'
-import { AwardsSectionRender, defaultProps } from './AwardsSection.render'
+import { AwardsSectionRender, defaultProps, badgeIconOptions, specialAwardIconOptions } from './AwardsSection.render'
 import type { AwardsSectionProps } from './AwardsSection.render'
 
 export type { AwardsSectionProps, AwardGroup, BadgeItem, SpecialAward } from './AwardsSection.render'
-export { AwardsSectionRender, defaultProps } from './AwardsSection.render'
+export { AwardsSectionRender, defaultProps, badgeIconOptions, specialAwardIconOptions } from './AwardsSection.render'
 
 export const AwardsSectionConfig: ComponentConfig<AwardsSectionProps> = {
   label: 'Awards Section',
@@ -32,7 +32,11 @@ export const AwardsSectionConfig: ComponentConfig<AwardsSectionProps> = {
           type: 'array',
           label: 'Badges',
           arrayFields: {
-            icon: createMediaField({ label: 'Badge Icon' }),
+            badgeIcon: {
+              type: 'select',
+              label: 'Badge Icon',
+              options: [...badgeIconOptions],
+            },
             label: { type: 'text', label: 'Label' },
             sublabel: { type: 'text', label: 'Sub-label (optional)' },
           },
@@ -43,7 +47,11 @@ export const AwardsSectionConfig: ComponentConfig<AwardsSectionProps> = {
       type: 'array',
       label: 'Special Awards',
       arrayFields: {
-        icon: createMediaField({ label: 'Award Icon' }),
+        awardIcon: {
+          type: 'select',
+          label: 'Award Icon',
+          options: [...specialAwardIconOptions],
+        },
         title: { type: 'text', label: 'Title' },
         description: { type: 'textarea', label: 'Description' },
       },

@@ -11,8 +11,34 @@
 import React from 'react'
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 
+export const badgeIconOptions = [
+  { label: 'Honor', value: 'honor' },
+  { label: 'Merit', value: 'merit' },
+  { label: 'Semi Finalist', value: 'semi-finalist' },
+  { label: 'Finalist', value: 'finalist' },
+  { label: 'Champion', value: 'champion' },
+  { label: '1st Runner Up', value: '1st-runner' },
+  { label: '2nd Runner Up', value: '2nd-runner' },
+] as const
+
+export const specialAwardIconOptions = [
+  { label: 'Individual', value: 'individual' },
+  { label: 'Team', value: 'team' },
+] as const
+
+export type BadgeIconKey = (typeof badgeIconOptions)[number]['value'] | ''
+export type SpecialAwardIconKey = (typeof specialAwardIconOptions)[number]['value'] | ''
+
+function badgeIconUrl(key: string): string | null {
+  return key ? `/competition-assets/award-${key}.png` : null
+}
+
+function specialAwardIconUrl(key: string): string | null {
+  return key ? `/competition-assets/icon-${key}.svg` : null
+}
+
 export interface BadgeItem {
-  icon: MediaReference | null
+  badgeIcon: BadgeIconKey
   label: string
   sublabel: string
 }
@@ -25,7 +51,7 @@ export interface AwardGroup {
 }
 
 export interface SpecialAward {
-  icon: MediaReference | null
+  awardIcon: SpecialAwardIconKey
   title: string
   description: string
 }
@@ -48,9 +74,9 @@ export const defaultProps: AwardsSectionProps = {
       subtitle: '',
       variant: 'default',
       badges: [
-        { icon: null, label: 'Honor', sublabel: '' },
-        { icon: null, label: 'Merit', sublabel: '' },
-        { icon: null, label: 'Semi Finalist', sublabel: '' },
+        { badgeIcon: 'honor', label: 'Honor', sublabel: '' },
+        { badgeIcon: 'merit', label: 'Merit', sublabel: '' },
+        { badgeIcon: 'semi-finalist', label: 'Semi Finalist', sublabel: '' },
       ],
     },
     {
@@ -58,7 +84,7 @@ export const defaultProps: AwardsSectionProps = {
       subtitle: '',
       variant: 'default',
       badges: [
-        { icon: null, label: 'Finalist', sublabel: '' },
+        { badgeIcon: 'finalist', label: 'Finalist', sublabel: '' },
       ],
     },
     {
@@ -66,15 +92,15 @@ export const defaultProps: AwardsSectionProps = {
       subtitle: 'Global Awards',
       variant: 'final',
       badges: [
-        { icon: null, label: 'Global Champion', sublabel: '' },
-        { icon: null, label: 'Global 1st Runner Up', sublabel: '' },
-        { icon: null, label: 'Global 2nd Runner Up', sublabel: '' },
+        { badgeIcon: 'champion', label: 'Global Champion', sublabel: '' },
+        { badgeIcon: '1st-runner', label: 'Global 1st Runner Up', sublabel: '' },
+        { badgeIcon: '2nd-runner', label: 'Global 2nd Runner Up', sublabel: '' },
       ],
     },
   ],
   specialAwards: [
-    { icon: null, title: 'Individual Category', description: 'Top participants will receive individual honors, even if their teams may not win any awards.' },
-    { icon: null, title: 'Team category', description: 'Teams will be awarded based on the sum of their two highest individual scores.' },
+    { awardIcon: 'individual', title: 'Individual Category', description: 'Top participants will receive individual honors, even if their teams may not win any awards.' },
+    { awardIcon: 'team', title: 'Team category', description: 'Teams will be awarded based on the sum of their two highest individual scores.' },
   ],
   noteText: '',
   noteIcon: null,
@@ -132,8 +158,8 @@ export function AwardsSectionRender({
                     <div className="flex flex-wrap justify-center gap-12">
                       {group.badges.map((badge, bi) => (
                         <div key={bi} className="flex flex-col items-center gap-2.5 w-32">
-                          {badge.icon?.url && (
-                            <img src={badge.icon.url} alt={badge.label} className="w-full object-contain" />
+                          {badgeIconUrl(badge.badgeIcon) && (
+                            <img src={badgeIconUrl(badge.badgeIcon)!} alt={badge.label} className="w-full object-contain" />
                           )}
                           <span className="text-xs text-center text-[#222] font-medium">
                             {badge.label}
@@ -162,8 +188,8 @@ export function AwardsSectionRender({
                 style={{ boxShadow: '0 2px 4px -2px rgba(10,13,18,0.06), 0 4px 8px -2px rgba(10,13,18,0.1)' }}
               >
                 <div className="inline-flex items-center gap-2 bg-white rounded-full px-3 py-1 mb-3">
-                  {award.icon?.url && (
-                    <img src={award.icon.url} alt="" className="w-5 h-5" />
+                  {specialAwardIconUrl(award.awardIcon) && (
+                    <img src={specialAwardIconUrl(award.awardIcon)!} alt="" className="w-5 h-5" />
                   )}
                   <span className="font-bold text-base" style={{ color: '#f28a15' }}>
                     {award.title}
@@ -214,8 +240,8 @@ export function AwardsSectionRender({
               <div className="flex flex-wrap justify-center gap-12">
                 {group.badges.map((badge, bi) => (
                   <div key={bi} className="flex flex-col items-center gap-2.5 w-32">
-                    {badge.icon?.url && (
-                      <img src={badge.icon.url} alt={badge.label} className="w-full object-contain" />
+                    {badgeIconUrl(badge.badgeIcon) && (
+                      <img src={badgeIconUrl(badge.badgeIcon)!} alt={badge.label} className="w-full object-contain" />
                     )}
                     <span className="text-xs text-center text-[#222] font-medium">
                       {badge.label}

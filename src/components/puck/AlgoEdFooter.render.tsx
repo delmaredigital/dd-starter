@@ -40,7 +40,7 @@ export function AlgoEdFooterRender({
             - Tile width = 79 × φ ≈ 128 (large alpha = 1/φ of tile)
             - Tile height = 62 + 31 = 93 (row gap = half alpha height)
             - Small scale = 0.382 (1 − 1/φ)
-            - Small position: x=88.4 (centered in gap), y=23.7 (62 × 0.382)
+            - Small position: x=88.3 (centered in gap), y=23.7 (62 × 0.382)
             backgroundSize controls density (tile count across panel).
           */}
           <div
