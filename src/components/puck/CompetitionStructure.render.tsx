@@ -17,8 +17,7 @@
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { CompetitionCTA, safeHex, hexAlpha } from './shared'
 
-const CARD_SHADOW =
-  '0 4px 6px -2px rgba(10,13,18,0.03), 0 12px 16px -4px rgba(10,13,18,0.08)'
+const CARD_SHADOW = '0 4px 6px -2px rgba(10,13,18,0.03), 0 12px 16px -4px rgba(10,13,18,0.08)'
 
 /* ── Types ──────────────────────────────────────────────── */
 
@@ -194,9 +193,7 @@ export function CompetitionStructureRender({
                 className="rounded-xl px-8 pt-6 pb-6"
                 style={{ backgroundColor: '#f2f3f0', boxShadow: CARD_SHADOW }}
               >
-                {card.icon?.url && (
-                  <img src={card.icon.url} alt="" className="w-10 h-10 mb-3" />
-                )}
+                {card.icon?.url && <img src={card.icon.url} alt="" className="w-10 h-10 mb-3" />}
                 {/* Card heading — Figma 25px Bold #222 → 0.75× 18px = text-lg */}
                 {/* Heading→content: 20→15px ≈ mb-4 (16px) */}
                 <h3
@@ -221,10 +218,7 @@ export function CompetitionStructureRender({
                     className={j < card.items.length - 1 ? 'mb-9' : ''}
                   >
                     {/* Item name — Figma 22px SemiBold primaryColor → 0.75× 16px = text-base */}
-                    <div
-                      className="font-semibold text-base"
-                      style={{ lineHeight: '1.4', color }}
-                    >
+                    <div className="font-semibold text-base" style={{ lineHeight: '1.4', color }}>
                       {item.name}
                     </div>
                     {/* Item grades — Figma 18px Medium #222 → 0.75× 14px = text-sm */}
@@ -245,27 +239,17 @@ export function CompetitionStructureRender({
           className="mt-5 px-6 pt-6 pb-12"
           style={{ backgroundColor: '#f2f3f0', boxShadow: CARD_SHADOW }}
         >
-          {roundsIcon?.url && (
-            <img src={roundsIcon.url} alt="" className="w-10 h-10 mb-3" />
-          )}
+          {roundsIcon?.url && <img src={roundsIcon.url} alt="" className="w-10 h-10 mb-3" />}
           {/* Rounds heading — Figma 25px Bold #222 → 0.75× 18px = text-lg */}
           {/* Heading→round1: 34→26px ≈ mb-7 (28px) */}
-          <h3
-            className="font-bold mb-7 mt-0 text-lg"
-            style={{ lineHeight: '1.3', color: '#222' }}
-          >
+          <h3 className="font-bold mb-7 mt-0 text-lg" style={{ lineHeight: '1.3', color: '#222' }}>
             {roundsHeading}
           </h3>
 
           {roundsList.map((round, i) => (
             <div key={`round-${round.title}-${i}`}>
               {/* Divider — Figma 1px #222, spacing 34→26px each side ≈ my-6 (24px) */}
-              {i > 0 && (
-                <hr
-                  className="my-6 border-0 border-t"
-                  style={{ borderColor: '#222' }}
-                />
-              )}
+              {i > 0 && <hr className="my-6 border-0 border-t" style={{ borderColor: '#222' }} />}
               {/* Round title with concentric circle bullet */}
               {/* Figma: 20×20 outer #4E88C7 (primary lightened) + 10×10 inner (primary solid) */}
               {/* 0.75×: 15×15 outer, 8×8 inner. Gap to text: 32→24px ≈ gap-3 (12px) */}
@@ -273,17 +257,18 @@ export function CompetitionStructureRender({
               <div className="flex items-start gap-3">
                 <span
                   className="shrink-0 mt-1 rounded-full flex items-center justify-center"
-                  style={{ width: '15px', height: '15px', backgroundColor: hexAlpha(primaryColor, 0.6) }}
+                  style={{
+                    width: '15px',
+                    height: '15px',
+                    backgroundColor: hexAlpha(primaryColor, 0.2),
+                  }}
                 >
                   <span
                     className="rounded-full"
                     style={{ width: '8px', height: '8px', backgroundColor: color }}
                   />
                 </span>
-                <div
-                  className="font-bold mb-2 text-base"
-                  style={{ lineHeight: '1.5', color }}
-                >
+                <div className="font-bold mb-2 text-base" style={{ lineHeight: '1.5', color }}>
                   {round.title}
                 </div>
               </div>
@@ -294,9 +279,7 @@ export function CompetitionStructureRender({
                   className="mt-1 mb-2 text-base leading-relaxed"
                   style={{ color: '#222' }}
                 >
-                  {item.label && (
-                    <span className="font-semibold">{item.label} </span>
-                  )}
+                  {item.label && <span className="font-semibold">{item.label} </span>}
                   {item.text}
                 </p>
               ))}

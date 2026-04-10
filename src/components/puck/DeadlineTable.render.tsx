@@ -37,9 +37,9 @@ export const defaultProps: DeadlineTableProps = {
 }
 
 const TIER_WATERMARKS: Record<string, string> = {
-  priority: '/competition-assets/priority.svg',
-  regular: '/competition-assets/regular.svg',
-  late: '/competition-assets/late.svg',
+  priority: '/competition-assets/priority.png',
+  regular: '/competition-assets/regular.png',
+  late: '/competition-assets/late.png',
 }
 
 export function DeadlineTableRender({
