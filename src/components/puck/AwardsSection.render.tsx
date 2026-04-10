@@ -8,6 +8,7 @@
  *
  * 0.75× scale from Figma. See shared.tsx for typography reference.
  */
+import React from 'react'
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 
 export interface BadgeItem {
@@ -120,7 +121,11 @@ export function AwardsSectionRender({
             <div className="relative z-10 py-8 px-6">
               <div className="flex flex-wrap justify-around gap-8">
                 {defaultGroups.map((group, gi) => (
-                  <div key={gi} className="flex flex-col items-center">
+                  <React.Fragment key={gi}>
+                  {gi > 0 && (
+                    <div className="hidden lg:block self-stretch" style={{ width: '1px', backgroundColor: '#D0D4D9', marginTop: '10%', marginBottom: '10%' }} />
+                  )}
+                  <div className="flex flex-col items-center">
                     <h3 className="font-bold text-lg leading-tight text-[#222] mb-6 text-center">
                       {group.roundTitle}
                     </h3>
@@ -140,6 +145,7 @@ export function AwardsSectionRender({
                       ))}
                     </div>
                   </div>
+                  </React.Fragment>
                 ))}
               </div>
             </div>
