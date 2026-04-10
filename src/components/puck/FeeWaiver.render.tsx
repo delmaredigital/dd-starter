@@ -31,7 +31,7 @@ export function FeeWaiverRender({
           <div>
             <h3
               className="font-bold mt-0 mb-0"
-              style={{ fontSize: '16px', lineHeight: '20px' }}
+              style={{ fontSize: '16px' }}
             >
               Fee Waiver Policy
             </h3>

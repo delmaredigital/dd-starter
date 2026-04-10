@@ -154,11 +154,11 @@
   body {
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
   }
-  /* Page-level defaults — matches source body computed: Poppins 14px/20px/400, white bg */
+  /* Page-level defaults — Poppins, Figma standard 1.625 (≈1.6) line-height */
   article {
     font-family: var(--font-poppins), sans-serif;
     font-size: 14px;
-    line-height: 20px;
+    line-height: 1.625; /* leading-relaxed — Figma body text is 160%, this is closest stock Tailwind */
     background-color: #fff;
     color: #333;
   }

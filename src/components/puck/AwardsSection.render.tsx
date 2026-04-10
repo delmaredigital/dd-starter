@@ -98,7 +98,7 @@ export function AwardsSectionRender({
       <div className="max-w-[940px] mx-auto px-5 lg:px-0">
         <h2
           className="font-bold"
-          style={{ fontSize: '30px', lineHeight: '1.25' }}
+          style={{ fontSize: '30px', lineHeight: '1.3' }}
         >
           {heading}
         </h2>
@@ -112,7 +112,7 @@ export function AwardsSectionRender({
           >
             <div
               className="text-center mb-[6px] font-bold"
-              style={{ fontSize: '20px', lineHeight: '25px' }}
+              style={{ fontSize: '20px' }}
             >
               {group.roundTitle}
             </div>
@@ -130,7 +130,7 @@ export function AwardsSectionRender({
                   )}
                   <div
                     className="self-center mt-[10px]"
-                    style={{ fontSize: '16px', lineHeight: '25px' }}
+                    style={{ fontSize: '16px' }}
                   >
                     {badge.label}
                   </div>
@@ -194,7 +194,7 @@ export function AwardsSectionRender({
                   >
                     Note
                   </div>
-                  <div className="mt-[6px]" style={{ fontSize: '14px', lineHeight: '20px' }}>{noteText}</div>
+                  <div className="mt-[6px]" style={{ fontSize: '14px' }}>{noteText}</div>
                 </div>
               </div>
             )}

@@ -78,6 +78,10 @@ import {
   EligibilitySectionRender,
   defaultProps as eligibilitySectionDefaults,
 } from './EligibilitySection.render'
+import {
+  CompetitionFormatV2Render,
+  defaultProps as formatV2Defaults,
+} from './CompetitionFormatV2.render'
 
 // extendConfig erases component generics to PuckComponent<any>, which is incompatible
 // with our typed render functions due to contravariance. The plugin's own built-in
@@ -178,6 +182,11 @@ export const competitionComponentsServer = {
     label: 'Eligibility Section',
     defaultProps: eligibilitySectionDefaults,
     render: EligibilitySectionRender,
+  },
+  CompetitionFormatV2: {
+    label: 'Competition Format V2',
+    defaultProps: formatV2Defaults,
+    render: CompetitionFormatV2Render,
   },
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- see comment above
 } as any

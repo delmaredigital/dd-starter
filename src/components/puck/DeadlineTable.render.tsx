@@ -51,7 +51,7 @@ export function DeadlineTableRender({
     <section className="py-10">
       <div className="max-w-[940px] mx-auto px-5 lg:px-0">
         <h2
-          className="font-bold mb-8 text-3xl leading-tight text-[#222]"
+          className="font-bold mb-8 text-3xl leading-[1.3] text-[#222]"
         >
           {heading}
         </h2>
@@ -70,10 +70,10 @@ export function DeadlineTableRender({
                 />
                 <div className="relative z-10">
                   <div className="font-bold text-lg leading-[1.3]" style={{ color }}>{tier.title}</div>
-                  <p className="text-[15px] leading-[1.4] mt-3 mb-0 text-[#222]">
+                  <p className="text-[15px] mt-3 mb-0 text-[#222]">
                     <strong>Deadline: </strong>{tier.deadline}
                   </p>
-                  <p className="text-[15px] leading-[1.4] mt-3 mb-0 text-[#222]">
+                  <p className="text-[15px] mt-3 mb-0 text-[#222]">
                     <strong>Fees: </strong>{tier.fee}
                   </p>
                 </div>

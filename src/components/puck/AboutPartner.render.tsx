@@ -36,7 +36,7 @@ export function AboutPartnerRender({
         {/* Source .div-block-206: flex row on desktop (heading | divider | body), column on mobile */}
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-center mb-6">
           <h2
-            className="font-semibold text-white text-left lg:text-right m-0 text-2xl leading-tight lg:text-3xl"
+            className="font-semibold text-white text-left lg:text-right m-0 text-2xl leading-[1.3] lg:text-3xl"
           >
             {heading}
           </h2>
@@ -45,7 +45,7 @@ export function AboutPartnerRender({
           {/* Vertical divider — self-stretch to match sibling height dynamically */}
           <div className="hidden lg:block rounded self-stretch" style={{ width: '5px', backgroundColor: '#fff', marginLeft: '25px', marginRight: '25px', flexShrink: 0 }} />
           <p
-            className="text-white mb-0 whitespace-pre-line text-sm leading-[18px] lg:text-base lg:leading-[24px]"
+            className="text-white mb-0 whitespace-pre-line text-sm lg:text-base"
           >
             {body}
           </p>

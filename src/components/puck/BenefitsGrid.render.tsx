@@ -40,7 +40,7 @@ export function BenefitsGridRender({
     <section className="py-10">
       <div className="max-w-[940px] mx-auto px-5 lg:px-0 flex flex-col items-center">
         <div className="flex flex-col items-start">
-          <h2 className="text-3xl font-bold leading-tight mb-0 text-[#333]">{sectionHeading}</h2>
+          <h2 className="text-3xl font-bold leading-[1.3] mb-0 text-[#333]">{sectionHeading}</h2>
           <AccentBar primaryColor={color} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 md:gap-10 mt-10 mb-10 w-full">
@@ -49,8 +49,8 @@ export function BenefitsGridRender({
               {benefit.icon?.url && (
                 <img src={benefit.icon.url} alt={benefit.icon.alt || ''} className="w-[123px] h-[123px]" />
               )}
-              <div className="text-lg font-semibold leading-[25px] mt-5 mb-1.5" style={{ color }}>{benefit.heading}</div>
-              <p className="text-[15px] leading-[20px] m-0 text-[#808080]">{benefit.description}</p>
+              <div className="text-lg font-semibold leading-[1.3] mt-5 mb-1.5" style={{ color }}>{benefit.heading}</div>
+              <p className="text-[15px] m-0 text-[#808080]">{benefit.description}</p>
             </div>
           ))}
         </div>

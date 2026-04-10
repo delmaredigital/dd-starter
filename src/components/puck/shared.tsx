@@ -18,6 +18,17 @@
  *   Target scale: 0.75×. Deviations due to snapping to Tailwind stock sizes.
  *   Floor: 12px (text-xs) for readability. Pure 0.75× of Figma values below
  *   16px would produce sub-12px — we floor at 12px instead.
+ *
+ * Line-height patterns (from Figma audit, Tailwind stock):
+ *
+ *   Role                Figma     Tailwind          Notes
+ *   ─────────────────────────────────────────────────────────
+ *   Body text           160%      leading-relaxed   Global default on <article> (1.625)
+ *   All headings        130%      leading-[1.3]      Section headings, card sub-headings, round titles
+ *   Hero display        130%      leading-[1.3]      Same as headings
+ *
+ *   Body text inherits from globals.css <article> — no per-component override needed.
+ *   Headings should use leading-tight explicitly (Tailwind body default is looser).
  */
 const HEX_COLOR_RE = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/
 

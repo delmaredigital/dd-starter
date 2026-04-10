@@ -22,6 +22,7 @@ import { CompetitionNavConfig } from './CompetitionNav'
 import { ResponsiveImageSectionConfig } from './ResponsiveImageSection'
 import { HighlightBadgesConfig } from './HighlightBadges'
 import { EligibilitySectionConfig } from './EligibilitySection'
+import { CompetitionFormatV2Config } from './CompetitionFormatV2'
 
 export const competitionComponents = {
   CompetitionHero: CompetitionHeroConfig,
@@ -43,6 +44,7 @@ export const competitionComponents = {
   ResponsiveImageSection: ResponsiveImageSectionConfig,
   HighlightBadges: HighlightBadgesConfig,
   EligibilitySection: EligibilitySectionConfig,
+  CompetitionFormatV2: CompetitionFormatV2Config,
 }
 
 export const competitionCategories = {
@@ -68,6 +70,7 @@ export const competitionCategories = {
       'ResponsiveImageSection',
       'HighlightBadges',
       'EligibilitySection',
+      'CompetitionFormatV2',
     ] as string[],
     defaultExpanded: true,
   },

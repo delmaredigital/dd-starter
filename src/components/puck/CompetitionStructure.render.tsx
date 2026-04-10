@@ -205,7 +205,7 @@ export function CompetitionStructureRender({
 
                 {/* Plain text body */}
                 {card.body && (
-                  <p className="m-0 text-[15px] leading-relaxed" style={{ color: '#222' }}>
+                  <p className="m-0 text-[15px]" style={{ color: '#222' }}>
                     {card.body}
                   </p>
                 )}
@@ -276,7 +276,7 @@ export function CompetitionStructureRender({
               {(round.items ?? []).map((item, j) => (
                 <p
                   key={`detail-${item.label}-${j}`}
-                  className="mt-1 mb-2 text-base leading-relaxed"
+                  className="mt-1 mb-2 text-base"
                   style={{ color: '#222' }}
                 >
                   {item.label && <span className="font-semibold">{item.label} </span>}
