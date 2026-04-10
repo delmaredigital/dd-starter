@@ -74,6 +74,10 @@ import {
   HighlightBadgesRender,
   defaultProps as highlightBadgesDefaults,
 } from './HighlightBadges.render'
+import {
+  EligibilitySectionRender,
+  defaultProps as eligibilitySectionDefaults,
+} from './EligibilitySection.render'
 
 // extendConfig erases component generics to PuckComponent<any>, which is incompatible
 // with our typed render functions due to contravariance. The plugin's own built-in
@@ -169,6 +173,11 @@ export const competitionComponentsServer = {
     label: 'Highlight Badges',
     defaultProps: highlightBadgesDefaults,
     render: HighlightBadgesRender,
+  },
+  EligibilitySection: {
+    label: 'Eligibility Section',
+    defaultProps: eligibilitySectionDefaults,
+    render: EligibilitySectionRender,
   },
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- see comment above
 } as any

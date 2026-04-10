@@ -21,6 +21,7 @@ import { CategoryGridConfig } from './CategoryGrid'
 import { CompetitionNavConfig } from './CompetitionNav'
 import { ResponsiveImageSectionConfig } from './ResponsiveImageSection'
 import { HighlightBadgesConfig } from './HighlightBadges'
+import { EligibilitySectionConfig } from './EligibilitySection'
 
 export const competitionComponents = {
   CompetitionHero: CompetitionHeroConfig,
@@ -41,6 +42,7 @@ export const competitionComponents = {
   CompetitionNav: CompetitionNavConfig,
   ResponsiveImageSection: ResponsiveImageSectionConfig,
   HighlightBadges: HighlightBadgesConfig,
+  EligibilitySection: EligibilitySectionConfig,
 }
 
 export const competitionCategories = {
@@ -65,6 +67,7 @@ export const competitionCategories = {
       'CompetitionNav',
       'ResponsiveImageSection',
       'HighlightBadges',
+      'EligibilitySection',
     ] as string[],
     defaultExpanded: true,
   },
