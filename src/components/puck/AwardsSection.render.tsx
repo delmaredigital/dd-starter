@@ -145,11 +145,11 @@ export function AwardsSectionRender({
               style={{ left: '93%', top: '48%', width: '8.6%' }}
             />
             <div className="relative z-10 py-8 px-6">
-              <div className="flex flex-wrap justify-around gap-8">
+              <div className="flex flex-wrap lg:flex-nowrap justify-around gap-8">
                 {defaultGroups.map((group, gi) => (
                   <React.Fragment key={gi}>
                   {gi > 0 && (
-                    <div className="hidden lg:block self-stretch" style={{ width: '1px', backgroundColor: '#D0D4D9', marginTop: '10%', marginBottom: '10%' }} />
+                    <div className="hidden lg:block my-4" style={{ width: '1px', alignSelf: 'stretch', backgroundColor: '#D0D4D9' }} />
                   )}
                   <div className="flex flex-col items-center">
                     <h3 className="font-bold text-lg leading-tight text-[#222] mb-6 text-center">
