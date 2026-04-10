@@ -36,20 +36,29 @@ export function AlgoEdFooterRender({
           style={{ backgroundColor: color }}
         >
           {/*
-            Alpha pattern tile (127.825 × 93), derived from path 79 × 62:
-            - Tile width = 79 × φ ≈ 128 (large alpha = 1/φ of tile)
-            - Tile height = 62 + 31 = 93 (row gap = half alpha height)
-            - Small scale = 0.382 (1 − 1/φ)
-            - Small position: x=88.3 (centered in gap), y=23.7 (62 × 0.382)
-            backgroundSize controls density (tile count across panel).
+            Alpha pattern — 3 horizontal rows, middle row interleaved.
+            SVG tile (127.825 × 93) derived from path 79 × 62:
+            - Tile width = 79 × φ (large alpha = 1/φ of tile)
+            - Tile height = 62 + 31 (row gap = half alpha height)
+            - Small alpha: scale 0.382 (1−1/φ), x=88.3, y=23.7 (62×0.382)
+            - Vertically centered via translate(0 15.5) in SVG
+            Middle row offset = 63.9px = 88.3 + 79×0.382/2 − 79/2
+            (aligns large alpha center in row 2 under small alpha center in row 1)
           */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              backgroundImage: 'url(/competition-assets/alpha-pattern.svg)',
-              backgroundSize: 'auto calc(100% / 3)',
-            }}
-          />
+          <div className="absolute inset-0 pointer-events-none flex flex-col">
+            {[0, 1, 2].map(row => (
+              <div
+                key={row}
+                className="flex-1"
+                style={{
+                  backgroundImage: 'url(/competition-assets/alpha-pattern.svg)',
+                  backgroundSize: 'auto 100%',
+                  backgroundRepeat: 'repeat-x',
+                  backgroundPositionX: row === 1 ? 63.9 : 0,
+                }}
+              />
+            ))}
+          </div>
           <div className="relative z-10 flex flex-col items-center">
             <div className="text-white font-bold text-[34px] leading-14" style={{ fontFamily: 'serif' }}>
               About
