@@ -42,8 +42,7 @@ export function JoinCTARender({
           {/* Right column: heading + body + CTA */}
           <div className="flex flex-col justify-center items-start">
             <h2
-              className="font-bold mt-0"
-              style={{ fontSize: '26px', lineHeight: '35px' }}
+              className="font-bold mt-0 text-3xl leading-tight"
             >
               {heading}
             </h2>

@@ -106,21 +106,21 @@ export function CompetitionHeroRender({
         )}
         <div className="max-w-[940px] mx-auto px-5 lg:px-0 relative z-10">
           <h1 className="m-0">
-            <span className="block text-white font-bold uppercase text-[28px] leading-[1.3] sm:text-[45px]">{titleLine1}</span>
+            <span className="block text-white font-bold uppercase text-3xl leading-[1.3] sm:text-5xl">{titleLine1}</span>
             {titleLine2 && (
               <span className="bg-white inline-block my-5 px-2.5 py-[5px]">
-                <span className="block font-bold uppercase text-[28px] leading-[1.7] sm:text-[42px]" style={{ color: safeHex(highlightTextColor) }}>{titleLine2}</span>
+                <span className="block font-bold uppercase text-3xl leading-[1.7] sm:text-5xl" style={{ color: safeHex(highlightTextColor) }}>{titleLine2}</span>
               </span>
             )}
-            <span className="block text-white font-bold uppercase text-[25px] leading-[1.3] sm:text-[38px]">{titleLine3}</span>
+            <span className="block text-white font-bold uppercase text-3xl leading-[1.3] sm:text-5xl">{titleLine3}</span>
           </h1>
-          <p className="font-baskervville italic underline text-white mb-0 mt-4 sm:mt-5 text-[22px] leading-[30px] sm:text-[32px] sm:leading-[40px]">{audienceLabel}</p>
+          <p className="font-baskervville italic underline text-white mb-0 mt-4 sm:mt-5 text-xl leading-[30px] sm:text-2xl sm:leading-[36px]">{audienceLabel}</p>
           {statusText && (
             <div className="flex items-center my-6">
               {statusIcon?.url && <img src={statusIcon.url} alt="" className="mr-2.5 w-[54px] h-[54px]" />}
               <div>
-                <span className="block text-white font-semibold text-base leading-[22px] sm:text-lg sm:leading-6">{statusText}</span>
-                {statusSubtext && <span className="block text-white font-medium text-sm leading-[20px] sm:text-base sm:leading-6">{statusSubtext}</span>}
+                <span className="block text-white font-semibold text-lg leading-7">{statusText}</span>
+                {statusSubtext && <span className="block text-white font-medium text-[15px] leading-6">{statusSubtext}</span>}
               </div>
             </div>
           )}

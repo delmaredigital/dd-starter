@@ -36,7 +36,7 @@ export function AboutPartnerRender({
         {/* Source .div-block-206: flex row on desktop (heading | divider | body), column on mobile */}
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-center mb-[34px]">
           <h2
-            className="font-semibold text-white text-left lg:text-right m-0 text-[24px] leading-[24px] lg:text-[26px] lg:leading-[35px]"
+            className="font-semibold text-white text-left lg:text-right m-0 text-2xl leading-tight lg:text-3xl"
           >
             {heading}
           </h2>

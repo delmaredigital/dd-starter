@@ -97,8 +97,8 @@ export function AwardsSectionRender({
     <section style={{ paddingTop: '39px', paddingBottom: '39px' }}>
       <div className="max-w-[940px] mx-auto px-5 lg:px-0">
         <h2
-          className="font-bold text-center"
-          style={{ fontSize: '26px', lineHeight: '35px' }}
+          className="font-bold"
+          style={{ fontSize: '30px', lineHeight: '1.25' }}
         >
           {heading}
         </h2>

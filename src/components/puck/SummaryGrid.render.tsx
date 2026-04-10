@@ -2,9 +2,8 @@
  * SummaryGrid — render function and types.
  * Server-safe: no client-only imports.
  *
- * 6-column icon grid with competition overview cards.
- * Reference: docs/reference/webflow/harvard-quiz-bowl.html section.section-85
- * Source CSS: .section-85, .heading-131
+ * 3×2 feature grid. Each card: icon box + title inline, description below.
+ * Figma source: node 6373:7310
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { safeHex } from './shared'
@@ -38,27 +37,28 @@ export function SummaryGridRender({
   heading, cards, primaryColor,
 }: SummaryGridProps) {
   return (
-    <section style={{ marginTop: '50px', marginBottom: '50px' }}>
+    <section className="py-10">
       <div className="max-w-[940px] mx-auto px-5 lg:px-0">
-        <h2
-          className="font-bold text-center"
-          style={{ fontSize: '28px', color: '#3a3a3b', lineHeight: '22px', marginBottom: '19px' }}
-        >
+        <h2 className="text-3xl font-bold leading-tight text-[#333] mb-6">
           {heading}
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {cards.map((card, i) => (
-            <div key={i} className="flex flex-col items-center text-center">
-              {card.icon?.url && (
-                <img src={card.icon.url} alt={card.icon.alt || ''} className="w-16 h-16 mb-3" />
-              )}
-              <div
-                className="font-semibold mb-1"
-                style={{ fontSize: '16px', lineHeight: '25px', color: safeHex(primaryColor) }}
-              >
-                {card.title}
+            <div key={i}>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-lg bg-[#f2f3f0]">
+                  {card.icon?.url && (
+                    <img src={card.icon.url} alt={card.icon.alt || ''} className="w-6 h-6 object-contain" />
+                  )}
+                </div>
+                <span
+                  className="font-bold text-lg leading-7 capitalize tracking-[0.02em]"
+                  style={{ color: safeHex(primaryColor) }}
+                >
+                  {card.title}
+                </span>
               </div>
-              <p style={{ fontSize: '14px', color: '#3a3a3b', marginTop: '7px', marginBottom: 0 }}>
+              <p className="text-[15px] leading-7 text-[#222] m-0">
                 {card.description}
               </p>
             </div>

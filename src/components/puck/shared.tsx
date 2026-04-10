@@ -1,5 +1,23 @@
 /**
  * Shared primitives for competition Puck components.
+ *
+ * Typography scale — Figma designs at 1728px, scaled 0.75× for 940px container.
+ * All sizes use Tailwind stock classes. Floor: 12px (text-xs) for readability.
+ *
+ *   Role              Figma   Ours    Tailwind       Scale
+ *   ─────────────────────────────────────────────────────────
+ *   Hero title        65px    48px    text-5xl       0.74×
+ *   Section heading   40px    30px    text-3xl       0.75×
+ *   Audience label    32px    24px    text-2xl       0.75×
+ *   Subtitle/elig.    24px    18px    text-lg        0.75×
+ *   Card title        24px    18px    text-lg        0.75×
+ *   Body text         20px    15px    text-[15px]    0.75×
+ *   Small/caption     16px    12px    text-xs        0.75×
+ *
+ *   (mobile: text-3xl = 30px)
+ *   Target scale: 0.75×. Deviations due to snapping to Tailwind stock sizes.
+ *   Floor: 12px (text-xs) for readability. Pure 0.75× of Figma values below
+ *   16px would produce sub-12px — we floor at 12px instead.
  */
 const HEX_COLOR_RE = /^#[0-9a-fA-F]{3,8}$/
 

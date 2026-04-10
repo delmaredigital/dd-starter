@@ -33,9 +33,9 @@ export function TwoColumnFeatureRender({
 
   const textColumn = (
     <div className="flex flex-col justify-center items-start">
-      <h2 className="text-[22px] font-bold leading-[30px] mb-0 text-[#333]">{heading}</h2>
+      <h2 className="text-3xl font-bold leading-tight mb-0 text-[#333]">{heading}</h2>
       <AccentBar primaryColor={color} />
-      <p className="text-sm leading-5 mb-10 text-[#333] whitespace-pre-line">{body}</p>
+      <p className="text-[15px] leading-6 mb-10 text-[#333] whitespace-pre-line">{body}</p>
       <CompetitionCTA text={ctaText} href={ctaLink} bgColor={color} textColor="#ffffff" />
     </div>
   )
