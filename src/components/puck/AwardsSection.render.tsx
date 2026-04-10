@@ -148,20 +148,17 @@ export function AwardsSectionRender({
               {/* flex-col on mobile, flex-row on md+. No flex-wrap — breakpoint handles
                  the layout switch explicitly. This lets align-self:stretch work on the
                  divider (stretch only works in a non-wrapping single-line flex row). */}
-              <div className="flex flex-col md:flex-row justify-around gap-8">
+              <div className="flex flex-col md:flex-row gap-8">
                 {defaultGroups.map((group, gi) => (
                   <React.Fragment key={gi}>
-                  {/* Vertical divider: 1px #D0D4D9, centered between groups via flex gap.
-                     align-self:stretch makes it match sibling height. Hidden on mobile
-                     (flex-col) via hidden md:block. */}
                   {gi > 0 && (
                     <div className="hidden md:block my-4" style={{ width: '1px', alignSelf: 'stretch', backgroundColor: '#D0D4D9' }} />
                   )}
-                  <div className="flex flex-col items-center flex-1">
+                  <div className="flex flex-col" style={{ flex: `${group.badges.length} 1 0%` }}>
                     <h3 className="font-bold text-lg leading-tight text-[#222] mb-6 text-center">
                       {group.roundTitle}
                     </h3>
-                    <div className="flex flex-wrap justify-evenly gap-4 w-full max-w-xl mx-auto">
+                    <div className="flex flex-wrap justify-evenly gap-4 max-w-xl mx-auto">
                       {group.badges.map((badge, bi) => (
                         <div key={bi} className="flex flex-col items-center gap-2.5 w-32">
                           {badgeIconUrl(badge.badgeIcon) && (
