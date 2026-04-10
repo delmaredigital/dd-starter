@@ -41,7 +41,7 @@ export function EligibilitySectionRender({
           </p>
           {/* Horizontal divider on mobile, vertical on desktop */}
           <div className="block md:hidden w-[383px] max-w-full h-[5px] my-2 rounded" style={{ backgroundColor: color }} />
-          <div className="hidden md:block mx-5 rounded" style={{ width: '4px', height: '120px', backgroundColor: color }} />
+          <div className="hidden md:block rounded" style={{ width: '4px', height: '120px', backgroundColor: color }} />
           <ul className="list-disc pl-9 m-0 md:flex-1">
             {items.map((item, i) => (
               <li key={i} className="text-lg leading-[1.6] font-semibold" style={{ color }}>
