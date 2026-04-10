@@ -157,7 +157,7 @@ export function AwardsSectionRender({
                   {gi > 0 && (
                     <div className="hidden md:block my-4" style={{ width: '1px', alignSelf: 'stretch', backgroundColor: '#D0D4D9' }} />
                   )}
-                  <div className="flex flex-col items-center">
+                  <div className="flex flex-col items-center flex-1">
                     <h3 className="font-bold text-lg leading-tight text-[#222] mb-6 text-center">
                       {group.roundTitle}
                     </h3>
