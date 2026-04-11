@@ -164,10 +164,14 @@ export function CompetitionStructureRender({
             className="relative rounded-xl overflow-hidden"
             style={{ aspectRatio: '1447 / 456' }}
           >
+            {/* Figma crop: h 210.65%, top -79.67% → object-position y ≈ 72%
+               (vs default 50%). Reveals lower portion of the source — faces
+               framed at body level instead of cropping at heads. */}
             <img
               src={heroImage.url}
               alt={heroImage.alt || ''}
               className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: 'center 72%' }}
             />
             <div
               className="absolute inset-0"
