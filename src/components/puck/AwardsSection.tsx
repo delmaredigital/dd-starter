@@ -3,55 +3,68 @@
  */
 import type { ComponentConfig } from '@puckeditor/core'
 import { createMediaField } from '@delmaredigital/payload-puck/fields'
-import { AwardsSectionRender, defaultProps, badgeIconOptions, specialAwardIconOptions } from './AwardsSection.render'
+import { AwardsSectionRender, defaultProps, badgeIconOptions } from './AwardsSection.render'
 import type { AwardsSectionProps } from './AwardsSection.render'
 
-export type { AwardsSectionProps, AwardGroup, BadgeItem, SpecialAward } from './AwardsSection.render'
-export { AwardsSectionRender, defaultProps, badgeIconOptions, specialAwardIconOptions } from './AwardsSection.render'
+export type { AwardsSectionProps, BadgeItem, Round, FinalRound, SpecialAward } from './AwardsSection.render'
+export { AwardsSectionRender, defaultProps, badgeIconOptions } from './AwardsSection.render'
+
+const badgesArrayField = {
+  type: 'array' as const,
+  label: 'Badges',
+  arrayFields: {
+    badgeIcon: {
+      type: 'select' as const,
+      label: 'Badge Icon',
+      options: [...badgeIconOptions],
+    },
+    label: { type: 'text' as const, label: 'Label' },
+    sublabel: { type: 'text' as const, label: 'Sub-label (optional)' },
+  },
+}
 
 export const AwardsSectionConfig: ComponentConfig<AwardsSectionProps> = {
   label: 'Awards Section',
   fields: {
     heading: { type: 'text', label: 'Heading' },
     introText: { type: 'textarea', label: 'Intro Text' },
-    groups: {
-      type: 'array',
-      label: 'Award Groups',
-      arrayFields: {
-        roundTitle: { type: 'text', label: 'Round Title' },
-        subtitle: { type: 'text', label: 'Subtitle' },
-        variant: {
-          type: 'select',
-          label: 'Card Style',
-          options: [
-            { label: 'Default (white)', value: 'default' },
-            { label: 'Final (gold)', value: 'final' },
-          ],
-        },
-        badges: {
-          type: 'array',
-          label: 'Badges',
-          arrayFields: {
-            badgeIcon: {
-              type: 'select',
-              label: 'Badge Icon',
-              options: [...badgeIconOptions],
-            },
-            label: { type: 'text', label: 'Label' },
-            sublabel: { type: 'text', label: 'Sub-label (optional)' },
-          },
-        },
+    preliminary: {
+      type: 'object',
+      label: 'Preliminary Round',
+      objectFields: {
+        title: { type: 'text', label: 'Title' },
+        badges: badgesArrayField,
       },
     },
-    specialAwards: {
-      type: 'array',
-      label: 'Special Awards',
-      arrayFields: {
-        awardIcon: {
-          type: 'select',
-          label: 'Award Icon',
-          options: [...specialAwardIconOptions],
-        },
+    semiFinal: {
+      type: 'object',
+      label: 'Semi-Final Round',
+      objectFields: {
+        title: { type: 'text', label: 'Title' },
+        badges: badgesArrayField,
+      },
+    },
+    final: {
+      type: 'object',
+      label: 'Final Round',
+      objectFields: {
+        title: { type: 'text', label: 'Title' },
+        subtitle: { type: 'text', label: 'Subtitle (optional)' },
+        badges: badgesArrayField,
+      },
+    },
+    individualAward: {
+      type: 'object',
+      label: 'Individual Award',
+      objectFields: {
+        title: { type: 'text', label: 'Title' },
+        description: { type: 'textarea', label: 'Description' },
+      },
+    },
+    teamAward: {
+      type: 'object',
+      label: 'Team Award',
+      objectFields: {
         title: { type: 'text', label: 'Title' },
         description: { type: 'textarea', label: 'Description' },
       },

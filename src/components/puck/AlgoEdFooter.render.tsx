@@ -64,16 +64,11 @@ export function AlgoEdFooterRender({
               />
             ))}
           </div>
-          <div className="relative z-10 flex flex-col items-center">
-            <div className="text-white font-bold text-[34px] leading-14" style={{ fontFamily: 'serif' }}>
-              About
-            </div>
-            <img
-              src="/competition-assets/algoed-logo-text.svg"
-              alt="algoed"
-              className="w-44"
-            />
-          </div>
+          <img
+            src="/competition-assets/about-algoed.svg"
+            alt="About algoed"
+            className="relative z-10 w-44"
+          />
         </div>
 
         {/* Right: Description + CTA */}
