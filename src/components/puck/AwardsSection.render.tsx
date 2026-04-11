@@ -103,7 +103,7 @@ export const defaultProps: AwardsSectionProps = {
 // Reusable badge tile — used by all rounds (default + final)
 function BadgeTile({ badge }: { badge: BadgeItem }) {
   return (
-    <div className="flex flex-col items-center gap-2.5 w-32">
+    <div className="flex flex-col items-center gap-2.5 w-28">
       {badgeIconUrl(badge.badgeIcon) && (
         <img src={badgeIconUrl(badge.badgeIcon)!} alt={badge.label} className="w-full object-contain" />
       )}
