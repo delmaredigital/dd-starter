@@ -118,7 +118,7 @@ export function TwoColumnFeatureRender({
   return (
     <section className="py-10" style={bgColor ? { backgroundColor: bgColor } : undefined}>
       <div className="max-w-[940px] mx-auto px-5 lg:px-0">
-        <div className={`grid grid-cols-1 gap-6 ${isImageRight ? 'lg:grid-cols-[3fr_2fr]' : 'lg:grid-cols-[2fr_3fr]'}`}>
+        <div className={`grid grid-cols-1 gap-6 lg:gap-12 lg:items-center ${isImageRight ? 'lg:grid-cols-[3fr_2fr]' : 'lg:grid-cols-[2fr_3fr]'}`}>
           {isImageRight ? <>{textColumn}{imageColumn}</> : <>{imageColumn}{textColumn}</>}
         </div>
       </div>
