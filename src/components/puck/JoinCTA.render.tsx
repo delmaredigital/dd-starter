@@ -64,18 +64,32 @@ export function JoinCTARender({
         {/* Figma gap frame→text: 52→39px ≈ gap-10 (40px) */}
         {/* Figma: globe 42.6% / text 31.4% ≈ 1.35:1 ratio */}
         <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-10 items-center">
-          {/* Globe frame with circular photo */}
-          <div className="relative" style={{ aspectRatio: '736 / 498' }}>
+          {/* Globe frame — layered composition:
+             1. Map PNG (68KB pngquant, gray dotted world map, cover-scaled to frame)
+             2. Circles SVG (448B, 2 outline rings + 3 dots, positioned at Figma %)
+             3. Photo div with box-shadow halo (Figma drop-shadow 1.44/27.34 rgba(0,0,0,0.2))
+          */}
+          <div className="relative overflow-hidden" style={{ aspectRatio: '736 / 498' }}>
             <img
-              src="/competition-assets/join-globe-frame.svg"
+              src="/competition-assets/join-globe-frame-map.png"
               alt=""
-              className="absolute inset-0 w-full h-full"
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            />
+            {/* Circles: Figma Group 1000006325 at (171.45, 49.46) 412.95×412.95 in 736×498 frame */}
+            <img
+              src="/competition-assets/join-globe-frame-circles.svg"
+              alt=""
+              className="absolute pointer-events-none"
+              style={{ left: '23.29%', top: '9.93%', width: '56.11%', height: '82.92%' }}
             />
             {/* Photo circle — Figma inset: 21.49% 28.26% 18.47% 31.11% */}
             {photo?.url && (
               <div
                 className="absolute rounded-full overflow-hidden"
-                style={{ top: '21.49%', right: '28.26%', bottom: '18.47%', left: '31.11%' }}
+                style={{
+                  top: '21.49%', right: '28.26%', bottom: '18.47%', left: '31.11%',
+                  boxShadow: '1px 1px 27px rgba(0, 0, 0, 0.2)',
+                }}
               >
                 <img
                   src={photo.url}
