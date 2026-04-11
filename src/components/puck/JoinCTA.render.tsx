@@ -65,31 +65,38 @@ export function JoinCTARender({
         {/* Figma: globe 42.6% / text 31.4% ≈ 1.35:1 ratio */}
         <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-10 items-center">
           {/* Globe frame — layered composition:
-             1. Map PNG (68KB pngquant, gray dotted world map, cover-scaled to frame)
-             2. Circles SVG (448B, 2 outline rings + 3 dots, positioned at Figma %)
-             3. Photo div with box-shadow halo (Figma drop-shadow 1.44/27.34 rgba(0,0,0,0.2))
-          */}
+             1. Map PNG — 68KB gray dotted world map, cover-scaled to frame.
+             2. Circles SVG — 1.3KB, exported from Figma node 6373:8587 and
+                photo-stripped. Contains 2 navy rings, 3 navy dots, a white
+                filled circle with Figma's real drop-shadow filter (dx/dy
+                1.439, stdDeviation 13.669, alpha 0.2), and a thin white
+                stroke inside the fill (purpose unclear in Figma, kept
+                as-authored to match exactly).
+             3. Photo <div> at Figma Ellipse 442 insets
+                (21.49/28.26/18.47/31.11), rendered on top of the SVG so
+                the SVG's white circle becomes visible as a ring around
+                the photo. Shadow lives on the SVG white circle, not the
+                photo — matches Figma's semantic grouping, and scales with
+                the SVG viewBox at every viewport (unlike a fixed-pixel
+                CSS box-shadow).
+             Note: Figma's Ellipse 439 (white ring) and 442 (photo) have a
+             ~0.55px center drift in the source. We inherit that faithfully. */}
           <div className="relative overflow-hidden" style={{ aspectRatio: '736 / 498' }}>
             <img
               src="/competition-assets/join-globe-frame-map.png"
               alt=""
               className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             />
-            {/* Circles: Figma Group 1000006325 at (171.45, 49.46) 412.95×412.95 in 736×498 frame */}
             <img
               src="/competition-assets/join-globe-frame-circles.svg"
               alt=""
               className="absolute pointer-events-none"
               style={{ left: '23.29%', top: '9.93%', width: '56.11%', height: '82.92%' }}
             />
-            {/* Photo circle — Figma inset: 21.49% 28.26% 18.47% 31.11% */}
             {photo?.url && (
               <div
                 className="absolute rounded-full overflow-hidden"
-                style={{
-                  top: '21.49%', right: '28.26%', bottom: '18.47%', left: '31.11%',
-                  boxShadow: '1px 1px 27px rgba(0, 0, 0, 0.2)',
-                }}
+                style={{ top: '21.49%', right: '28.26%', bottom: '18.47%', left: '31.11%' }}
               >
                 <img
                   src={photo.url}
