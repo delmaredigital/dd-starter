@@ -38,7 +38,7 @@ export function HighlightBadgesRender({
   return (
     <section className="py-6 px-5 lg:px-0">
       <div
-        className="mx-auto max-w-[1270px] rounded-[18px] bg-white px-8 py-8"
+        className="mx-auto max-w-[1270px] rounded-xl bg-white px-8 py-8"
         style={{
           boxShadow: '0 5px 50px rgba(62,63,65,0.08), 0 -5px 50px rgba(62,63,65,0.08)',
         }}

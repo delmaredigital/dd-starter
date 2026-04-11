@@ -100,15 +100,21 @@ export const defaultProps: AwardsSectionProps = {
   noteIcon: null,
 }
 
-// Reusable badge tile — used by all rounds (default + final)
+// Reusable badge tile — used by all rounds (default + final).
+// Image has fixed width (105px ≈ Figma wreath 140 × 0.75).
+// Tile uses w-max + min-w-[105px]: width shrinks to content but never below
+// the image. Short labels ("Honor") keep tile ≈ 105px; long labels
+// ("Global 2nd Runner Up", with whitespace-nowrap) stretch the tile to fit
+// on one line. Matches Figma default (w=140 tile) vs final (w=175 tile)
+// behavior without needing two variants.
 function BadgeTile({ badge }: { badge: BadgeItem }) {
   return (
-    <div className="flex flex-col items-center gap-2.5 w-28">
+    <div className="flex w-max min-w-[105px] shrink-0 flex-col items-center gap-2.5">
       {badgeIconUrl(badge.badgeIcon) && (
-        <img src={badgeIconUrl(badge.badgeIcon)!} alt={badge.label} className="w-full object-contain" />
+        <img src={badgeIconUrl(badge.badgeIcon)!} alt={badge.label} className="block w-[105px]" />
       )}
-      <span className="text-xs text-center text-[#222] font-medium">{badge.label}</span>
-      {badge.sublabel && <span className="text-xs text-center text-[#666]">{badge.sublabel}</span>}
+      <span className="text-xs text-center whitespace-nowrap text-[#222] font-medium">{badge.label}</span>
+      {badge.sublabel && <span className="text-xs text-center whitespace-nowrap text-[#666]">{badge.sublabel}</span>}
     </div>
   )
 }
@@ -143,13 +149,13 @@ export function AwardsSectionRender({
 
         {/* Intro — Figma 20px Medium → 15px */}
         {introText && (
-          <p className="text-[15px] leading-relaxed text-[#222] mb-8 text-center">
+          <p className="text-[15px] leading-relaxed text-[#222] mb-5 text-center">
             {introText}
           </p>
         )}
 
         {/* Default round card — Preliminary + Semi-Final side by side */}
-        <div className="relative overflow-hidden rounded-3xl mb-10 bg-[#fff5e5]">
+        <div className="relative overflow-hidden rounded-2xl mb-4 bg-[#fff5e5]">
           <img
             src="/competition-assets/award-card-bg.svg"
             alt=""
@@ -190,13 +196,13 @@ export function AwardsSectionRender({
         </div>
 
         {/* Special Awards — fixed 2 cards (Individual + Team) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <SpecialAwardCard iconKey="individual" award={individualAward} />
           <SpecialAwardCard iconKey="team" award={teamAward} />
         </div>
 
         {/* Final round card */}
-        <div className="relative overflow-hidden rounded-3xl mb-10 bg-[#fff5e5]">
+        <div className="relative overflow-hidden rounded-2xl mb-10 bg-[#fff5e5]">
           <img
             src="/competition-assets/award-card-bg.svg"
             alt=""
