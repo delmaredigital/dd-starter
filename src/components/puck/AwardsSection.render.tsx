@@ -174,11 +174,17 @@ export function AwardsSectionRender({
             alt=""
             className="absolute inset-0 w-full h-full object-cover pointer-events-none"
           />
+          {/*
+            Decoration positions: SVGs are Figma-cropped to visible star pixels
+            (smaller than Figma's rotation bounding box). Width % uses SVG viewBox
+            width (not rotation bounds). Position uses rotation bounds top-left +
+            SVG mask x/y offset — reads exact placement from the SVG's own data.
+          */}
           <img
             src="/competition-assets/decor-medal.svg"
             alt=""
             className="absolute pointer-events-none"
-            style={{ left: '93%', top: '48%', width: '8.6%' }}
+            style={{ left: '94.79%', top: '54.35%', width: '5.06%' }}
           />
           <div className="relative z-10 py-8 px-6">
             {/*
@@ -221,23 +227,24 @@ export function AwardsSectionRender({
             alt=""
             className="absolute inset-0 w-full h-full object-cover pointer-events-none"
           />
+          {/* Decoration positions: see note on default card above. */}
           <img
             src="/competition-assets/decor-star.svg"
             alt=""
             className="absolute pointer-events-none"
-            style={{ left: '0.3%', top: '41%', width: '7.7%' }}
+            style={{ left: '1.46%', top: '45.86%', width: '5.67%' }}
           />
           <img
             src="/competition-assets/decor-trophy.svg"
             alt=""
             className="absolute pointer-events-none"
-            style={{ left: '91.3%', top: '52%', width: '10.7%' }}
+            style={{ left: '93.84%', top: '60.69%', width: '6.51%' }}
           />
           <img
             src="/competition-assets/decor-medal.svg"
             alt=""
             className="absolute pointer-events-none"
-            style={{ left: '84.4%', top: '39.8%', width: '8.6%' }}
+            style={{ left: '86.13%', top: '46.62%', width: '5.06%' }}
           />
           <div className="relative z-10 py-8 px-6">
             <h3 className="font-bold text-lg leading-tight text-[#222] mb-1 text-center">
