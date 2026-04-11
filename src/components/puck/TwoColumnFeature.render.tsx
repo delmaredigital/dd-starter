@@ -3,7 +3,14 @@
  * Server-safe: no client-only imports.
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
+import { FramedPayloadImage } from './FramedPayloadImage'
+import { PayloadImage } from './PayloadImage'
 import { CompetitionCTA, RichText, safeHex } from './shared'
+
+// The two-column layout collapses to 1col under lg (1024px). Above, each
+// image column is roughly half of the 940px container → ~460px. Tells the
+// browser to pick the smallest srcset candidate that fits.
+const TWO_COL_IMAGE_SIZES = '(max-width: 1023px) 100vw, 460px'
 
 export interface TwoColumnFeatureProps {
   heading: string
@@ -57,12 +64,44 @@ export function TwoColumnFeatureRender({
   )
 
   const isCard = imageStyle === 'card'
+  // Card sizing mode — intrinsic, not fixed-aspect.
+  //
+  // Figma's TwoColumnFeature cards are drawn at instance-specific aspect
+  // ratios: e.g. UNC about-unc at 419×328 (1.277), STEM League about-league
+  // at 344×231 (1.489). These aren't standard ratios; they're whatever the
+  // designer chose per instance, with `object-cover` cropping the image to
+  // the designer's box.
+  //
+  // Our implementation instead lets the uploaded image drive the card's
+  // intrinsic aspect (`width: 100%; height: auto`). Pros: "what you upload
+  // is what you see", zero editor cognitive load, no crop surprises. Cons:
+  // cards across pages may have different proportions depending on who
+  // uploaded what, and we diverge from Figma's per-instance frame choices.
+  //
+  // This divergence was evaluated 2026-04-11. Decision: defer. Figma-exact
+  // parity is not a product goal, and the intrinsic approach is fine for
+  // the current 2-page scale. If we later want design-system-level frame
+  // consistency, two canonical options:
+  //
+  //   1. Preset enum (4:3, 3:2, 16:9, 1:1) — `cardFrame` select field,
+  //      conditional via `resolveFields`, render with `<Image fill>` +
+  //      `object-cover` inside an `aspectRatio` box. Idiomatic for visual
+  //      page builders (Builder.io, Storyblok pattern). Approximates
+  //      Figma but not pixel-exact.
+  //
+  //   2. Free-form aspect prop — arbitrary width:height per instance.
+  //      Pixel-exact but worse editor UX.
+  //
+  // Either path needs a data migration to set the frame per existing card
+  // instance, and should probably be applied site-wide, not just to this
+  // component, so wait until there are enough components involved to
+  // make a single design-system decision.
   const imageColumn = (
     <div className="flex justify-center items-center">
       {featureImage?.url && (
-        <div className={isCard ? 'border-[10px] border-white rounded-[14px] shadow-[0_1px_17px_rgba(0,0,0,0.17)] overflow-hidden' : ''}>
-          <img src={featureImage.url} alt={featureImage.alt || ''} className={`max-w-full h-auto ${isCard ? 'rounded-[4px]' : ''}`} />
-        </div>
+        isCard
+          ? <FramedPayloadImage media={featureImage} sizes={TWO_COL_IMAGE_SIZES} />
+          : <PayloadImage media={featureImage} sizes={TWO_COL_IMAGE_SIZES} />
       )}
     </div>
   )
