@@ -55,6 +55,7 @@ Tool descriptions are self-documenting — the agent reads the description to un
 - **Preview mode**: Clicking "Preview" in the editor opens a full-page preview. To return to the editor, click the "Close Preview" button (top-right). The agent can do this via `evaluate_script` finding the button: `document.querySelectorAll('button').find(b => b.textContent.includes('Close Preview')).click()`
 - **Never navigate the user's editor tab to another URL.** Use `new_page` to open a separate tab for reference browsing (e.g., extracting source data from Webflow). Keep the Puck editor tab untouched.
 - **Cards also use MediaReference** for their `image` prop — same shape as Image component.
+- **Local file uploads**: see CLAUDE.md — STOP and ask user for a curl.
 
 ## Architecture
 

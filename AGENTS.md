@@ -18,7 +18,7 @@ You are an expert Payload CMS developer. When working with Payload projects, fol
 1. Open the Puck editor: `pages.algoed.co/p-kcCapdQH/puck-editor/pages/:id`
 2. Verify tools: `evaluate_script({ function: '() => window.__puckAgentTools?.map(t => t.name)' })`
 3. Use `get_component_schema` to understand fields BEFORE filling them
-4. Use `upload_image` for all media uploads (supports URL or base64, returns MediaReference)
+4. Use `upload_image` for URL/base64 uploads. For **local files on agent filesystem**: STOP, ask user for a curl from Chrome DevTools Network tab, then shell-upload to `POST /api/media` with `-F file=@/path -F alt=...`. Never base64-chunk through JS.
 5. Use `update_page` to set component props (live WYSIWYG preview)
 6. Use `save_page` to persist
 
