@@ -168,16 +168,19 @@ export function AwardsSectionRender({
               Mobile: grid-cols-1 stacks, divider hidden.
               Each badges row wraps internally when half-width is insufficient.
             */}
-            <div className="grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] md:grid-rows-[auto_auto] md:gap-x-8">
-              <h3 className="font-bold text-lg leading-tight text-[#222] mb-6 text-center md:col-start-1 md:row-start-1">
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] md:grid-rows-[auto_auto] md:gap-x-8 gap-y-6 md:gap-y-0">
+              {/* DOM order: title+badges pairs so mobile (single-col) flows
+                 title1 → badges1 → title2 → badges2. Desktop uses explicit
+                 col-start/row-start so DOM order doesn't affect layout. */}
+              <h3 className="font-bold text-lg leading-tight text-[#222] md:mb-6 text-center md:col-start-1 md:row-start-1">
                 {preliminary.title}
-              </h3>
-              <h3 className="font-bold text-lg leading-tight text-[#222] mb-6 text-center md:col-start-3 md:row-start-1">
-                {semiFinal.title}
               </h3>
               <div className="flex flex-wrap justify-evenly gap-4 max-w-xl mx-auto w-full md:col-start-1 md:row-start-2 md:self-center">
                 {preliminary.badges.map((b, i) => <BadgeTile key={i} badge={b} />)}
               </div>
+              <h3 className="font-bold text-lg leading-tight text-[#222] md:mb-6 text-center md:col-start-3 md:row-start-1">
+                {semiFinal.title}
+              </h3>
               <div className="flex flex-wrap justify-evenly gap-4 max-w-xl mx-auto w-full md:col-start-3 md:row-start-2 md:self-center">
                 {semiFinal.badges.map((b, i) => <BadgeTile key={i} badge={b} />)}
               </div>
