@@ -96,8 +96,17 @@ export function TwoColumnFeatureRender({
   // instance, and should probably be applied site-wide, not just to this
   // component, so wait until there are enough components involved to
   // make a single design-system decision.
+  // max-w-sm (384) ≈ the 40% grid column on a 940 content area
+  // (940 × 0.4 ≈ 376). Caps the image when stacked so it doesn't
+  // exceed its desktop width. Ratio source: Figma About League row
+  // (node 6373:8044), composite image 626 vs text 801 ≈ 56:44,
+  // rounded to 60/40. See shared.tsx for the 0.75 Figma→CSS scale.
+  //
+  // mx-auto: parent is a grid (not flex), so the cell doesn't
+  // auto-center narrower children. When max-w-sm caps the div
+  // below cell width on stacked viewports, auto margins center it.
   const imageColumn = (
-    <div className="flex justify-center items-center">
+    <div className="w-full max-w-sm mx-auto">
       {featureImage?.url && (
         isCard
           ? <FramedPayloadImage media={featureImage} sizes={TWO_COL_IMAGE_SIZES} />
@@ -109,7 +118,7 @@ export function TwoColumnFeatureRender({
   return (
     <section className="py-10" style={bgColor ? { backgroundColor: bgColor } : undefined}>
       <div className="max-w-[940px] mx-auto px-5 lg:px-0">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10">
+        <div className={`grid grid-cols-1 gap-6 ${isImageRight ? 'lg:grid-cols-[3fr_2fr]' : 'lg:grid-cols-[2fr_3fr]'}`}>
           {isImageRight ? <>{textColumn}{imageColumn}</> : <>{imageColumn}{textColumn}</>}
         </div>
       </div>

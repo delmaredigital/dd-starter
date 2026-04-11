@@ -56,8 +56,11 @@ export function FramedPayloadImage({
   // feedback_css_visual_debug.md in memory.
   //
   // Keep at 4. Do not "fix" to 14 based on reading Figma's export.
+  // `w-full` on the wrapper matters: inside a shrink-to-fit flex
+  // parent, the Image's `width: 100%` would otherwise resolve
+  // circularly to intrinsic width.
   return (
-    <div className={loaded ? FRAME_CLS : ''}>
+    <div className={`w-full ${loaded ? FRAME_CLS : ''}`}>
       <Image
         src={media.url}
         alt={resolvedAlt}
