@@ -39,6 +39,10 @@ import {
   defaultProps as awardsDefaults,
 } from './AwardsSection.render'
 import {
+  AwardsSectionLegacyRender,
+  defaultProps as awardsLegacyDefaults,
+} from './AwardsSectionLegacy.render'
+import {
   JoinCTARender,
   defaultProps as joinDefaults,
 } from './JoinCTA.render'
@@ -132,6 +136,11 @@ export const competitionComponentsServer = {
     label: 'Awards Section',
     defaultProps: awardsDefaults,
     render: AwardsSectionRender,
+  },
+  AwardsSectionLegacy: {
+    label: 'Awards Section (Legacy)',
+    defaultProps: awardsLegacyDefaults,
+    render: AwardsSectionLegacyRender,
   },
   JoinCTA: {
     label: 'Join CTA',

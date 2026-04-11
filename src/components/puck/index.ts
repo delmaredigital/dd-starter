@@ -12,6 +12,7 @@ import { CompetitionStructureConfig } from './CompetitionStructure'
 import { DeadlineTableConfig } from './DeadlineTable'
 import { CompetitionFormatConfig } from './CompetitionFormat'
 import { AwardsSectionConfig } from './AwardsSection'
+import { AwardsSectionLegacyConfig } from './AwardsSectionLegacy'
 import { JoinCTAConfig } from './JoinCTA'
 import { FeeWaiverConfig } from './FeeWaiver'
 import { AlgoEdFooterConfig } from './AlgoEdFooter'
@@ -34,6 +35,7 @@ export const competitionComponents = {
   DeadlineTable: DeadlineTableConfig,
   CompetitionFormat: CompetitionFormatConfig,
   AwardsSection: AwardsSectionConfig,
+  AwardsSectionLegacy: AwardsSectionLegacyConfig,
   JoinCTA: JoinCTAConfig,
   FeeWaiver: FeeWaiverConfig,
   AlgoEdFooter: AlgoEdFooterConfig,
@@ -60,6 +62,7 @@ export const competitionCategories = {
       'DeadlineTable',
       'CompetitionFormat',
       'AwardsSection',
+      'AwardsSectionLegacy',
       'JoinCTA',
       'FeeWaiver',
       'AlgoEdFooter',
