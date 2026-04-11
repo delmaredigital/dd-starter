@@ -92,16 +92,12 @@ export function CompetitionHeroRender({
       }}
     >
       <div className="relative overflow-hidden">
-        {/* Floating illustration — extends to viewport right edge */}
-        {heroImage?.url && (
-          <div className="lg:absolute flex items-end justify-end mb-6 lg:mb-0" style={{
-            left: `calc(50% + ${470 - (heroImageWidth ?? 400) + (heroImageRightOffset ?? 45)}px)`,
-            bottom: `${heroImageBottomGap ?? 8}px`,
-            width: `${heroImageWidth ?? 400}px`,
-          }}>
-            <img src={heroImage.url} alt={heroImage.alt || ''} className="max-w-full h-auto" />
-          </div>
-        )}
+        {/* Content-first ordering: text + CTA in DOM before the illustration.
+           Mobile: title, CTA, etc. render first, illustration below.
+           Desktop: illustration gets lg:absolute and overlaps the right side
+           of the text; DOM order is irrelevant for absolute-positioned
+           elements. Fixes the mobile issue where a 400px decorative image
+           pushed the title and CTA below the fold. */}
         <div className="max-w-[940px] mx-auto px-5 lg:px-0 relative z-10">
           <h1 className="m-0">
             <span className="block text-white font-bold uppercase text-3xl leading-[1.3] sm:text-5xl">{titleLine1}</span>
@@ -127,6 +123,20 @@ export function CompetitionHeroRender({
             <CompetitionCTA text={secondaryCtaText} href={secondaryCtaLink} bgColor="transparent" textColor="#ffffff" border="1px solid #ffffff" />
           </div>
         </div>
+        {/* Floating illustration — on desktop absolutely positioned to overlap
+           the right side of the text; on mobile appears below the text in
+           normal flow, centered. Margin-top provides breathing room from the
+           CTAs above on mobile. */}
+        {heroImage?.url && (
+          <div className="lg:absolute flex items-end justify-center lg:justify-end mt-6 lg:mt-0" style={{
+            left: `calc(50% + ${470 - (heroImageWidth ?? 400) + (heroImageRightOffset ?? 45)}px)`,
+            bottom: `${heroImageBottomGap ?? 8}px`,
+            width: `${heroImageWidth ?? 400}px`,
+            maxWidth: '100%',
+          }}>
+            <img src={heroImage.url} alt={heroImage.alt || ''} className="max-w-full h-auto" />
+          </div>
+        )}
       </div>
     </div>
       {hasBadgeStrip && (
