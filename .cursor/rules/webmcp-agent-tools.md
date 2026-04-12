@@ -56,6 +56,7 @@ Tool descriptions are self-documenting — the agent reads the description to un
 - **Never navigate the user's editor tab to another URL.** Use `new_page` to open a separate tab for reference browsing (e.g., extracting source data from Webflow). Keep the Puck editor tab untouched.
 - **Cards also use MediaReference** for their `image` prop — same shape as Image component.
 - **Local file uploads**: see CLAUDE.md — STOP and ask user for a curl.
+- **Stale SSR after deploy**: Live page may cache old HTML. Fix: reload Puck editor → re-publish.
 
 ## Architecture
 
