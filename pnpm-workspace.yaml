@@ -4,6 +4,8 @@ blockExoticSubdeps: true
 minimumReleaseAge: 10080
 resolutionMode: time-based
 
-# trustPolicy: no-downgrade — disabled for now; too many transitive deps
-# (semver, eslint-import-resolver-typescript, @mcp-b/*) lost provenance
-# on recent releases. Re-enable once the ecosystem stabilizes.
+minimumReleaseAgeExclude:
+  - "@chenglou/pretext"  # 0.0.5 needed for rich-inline; remove after Apr 16
+#
+# trustPolicy: no-downgrade — disabled; too many transitive deps lost
+# provenance on recent releases. Re-enable when ecosystem stabilizes.

@@ -5,7 +5,8 @@
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { FramedPayloadImage } from './FramedPayloadImage'
 import { PayloadImage } from './PayloadImage'
-import { CompetitionCTA, RichText, safeHex } from './shared'
+import { CompetitionCTA, safeHex } from './shared'
+import { PretextRichText } from './PretextRichText'
 
 // The two-column layout collapses to 1col under lg (1024px). Above, each
 // image column is roughly half of the 940px container → ~460px. Tells the
@@ -52,7 +53,7 @@ export function TwoColumnFeatureRender({
   const textColumn = (
     <div className="flex flex-col justify-center items-start">
       <h2 className="text-3xl font-bold leading-[1.3] mb-6 text-[#333]">{heading}</h2>
-      <RichText html={body} className="text-[15px] mb-6 text-[#333]" />
+      <PretextRichText html={body} className="text-[15px] mb-6 text-[#333]" />
       <div className="flex flex-wrap gap-4">
         {ctaVariant === 'outline'
           ? <CompetitionCTA text={ctaText} href={ctaLink} bgColor="transparent" textColor={color} border={`1px solid ${color}`} />
