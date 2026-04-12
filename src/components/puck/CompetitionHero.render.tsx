@@ -115,7 +115,9 @@ export function CompetitionHeroRender({
           <p className="font-baskervville italic underline text-white mb-0 mt-4 sm:mt-5 text-xl leading-[30px] sm:text-2xl sm:leading-[36px]">{audienceLabel}</p>
           {statusText && (
             <div className="flex items-center my-6">
-              <CalendarToday className="mr-2.5 w-[54px] h-[54px] text-white" />
+              <div className="mr-2.5 w-12 h-12 rounded-full border-2 border-white/45 flex items-center justify-center shrink-0">
+                <CalendarToday className="w-7 h-7 text-white" />
+              </div>
               <div>
                 <span className="block text-white font-semibold text-lg leading-7">{statusText}</span>
                 {statusSubtext && <span className="block text-white font-medium text-[15px] leading-6">{statusSubtext}</span>}
