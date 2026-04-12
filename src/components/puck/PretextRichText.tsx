@@ -20,6 +20,9 @@ type Block =
   | { type: 'list'; html: string }
 
 function splitIntoBlocks(html: string): Block[] {
+  if (typeof DOMParser === 'undefined') {
+    return [{ type: 'p', text: html.replace(/<[^>]+>/g, '') }]
+  }
   const doc = new DOMParser().parseFromString(html, 'text/html')
   const blocks: Block[] = []
   for (const el of doc.body.children) {
