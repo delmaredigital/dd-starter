@@ -121,7 +121,8 @@ function JustifiedParagraph({ text }: { text: string }) {
       {lines.map((line, i) => (
         <span
           key={i}
-          className={`block ${i < lines.length - 1 ? 'text-justify' : 'text-left'}`}
+          className="block text-justify"
+          style={i < lines.length - 1 ? { textAlignLast: 'justify' } : { textAlignLast: 'left' }}
         >
           {line}
         </span>
