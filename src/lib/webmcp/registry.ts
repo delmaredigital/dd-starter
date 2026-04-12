@@ -22,14 +22,14 @@ declare global {
 
 let registeredToolNames: string[] = []
 
-export function registerTools(tools: AgentTool[]) {
+export async function registerTools(tools: AgentTool[]) {
   unregisterTools()
 
   // 1. Expose on window (fallback for direct page.evaluate())
   window.__puckAgentTools = tools
 
   // 2. Mirror to navigator.modelContext (WebMCP standard path)
-  ensureWebMCP()
+  await ensureWebMCP()
 
   const mc = navigator.modelContext
   if (mc) {

@@ -1,15 +1,14 @@
 blockExoticSubdeps: true
 
-# Block packages published less than 7 days ago (supply chain protection)
-# Temporarily disabled — too many transitive deps blocked during @mcp-b migration
-# minimumReleaseAge: 10080
-# resolutionMode: time-based
+# Block packages published less than 7 days ago (supply chain protection).
+# If install fails with ERR_PNPM_NO_MATURE_MATCHING_VERSION, delete
+# pnpm-lock.yaml + node_modules and reinstall — stale lockfile resolution
+# is the usual cause, not the age setting itself.
+minimumReleaseAge: 10080
+resolutionMode: time-based
 
-# minimumReleaseAgeExclude:
-#   - "@chenglou/pretext"
-#   - "@tailwindcss/oxide-*"
-#   - "@next/swc-*"
-#   - "@mcp-b/*"
+minimumReleaseAgeExclude:
+  - "@chenglou/pretext"  # 0.0.5 (4 days old); remove after Apr 16
 #
 # trustPolicy: no-downgrade — disabled; too many transitive deps lost
 # provenance on recent releases. Re-enable when ecosystem stabilizes.

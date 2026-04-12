@@ -15,10 +15,13 @@ AI agents can co-edit pages with humans in the Puck visual editor via self-descr
 
 1. **Chrome 144+** (check `chrome://version`)
 2. **Enable remote debugging in Chrome**: go to `chrome://inspect/#remote-debugging` and enable it
-3. **MCP server configured in Claude Code** (already done for this project):
+3. **MCP servers configured in Claude Code** (already done for this project):
    ```bash
    claude mcp add chrome-devtools-live npx chrome-devtools-mcp@latest -- --autoConnect
+   claude mcp add webmcp-bridge npx @mcp-b/chrome-devtools-mcp@latest -- --autoConnect
    ```
+   `chrome-devtools-live` — browser automation (evaluate_script, click, etc.)
+   `webmcp-bridge` — discovers page-registered WebMCP tools (list_webmcp_tools, call_webmcp_tool). Both need `--autoConnect` to attach to your running Chrome.
 
 ### Connecting (each session)
 
