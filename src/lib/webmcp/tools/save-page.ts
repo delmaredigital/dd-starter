@@ -5,7 +5,7 @@ export function createSavePageTool(accessors: PuckStateAccessors) {
   return {
     name: 'save_page',
     description:
-      'Saves the current Puck editor state to the database. Optionally publishes it. Without publish, saves as draft (visible in editor but not on the live site). The page ID and API endpoint are read from the editor URL. After saving a new page, also set SEO metadata via payload_api (PATCH /api/pages/:id with meta.title, meta.description, meta.image) — these are Payload collection fields not visible in the Puck editor.',
+      'Saves Puck editor state to the database. Optionally publishes. Without publish, saves as draft. SEO (meta.title, meta.description, meta.image) is a Payload collection field — set it via payload_api, not puckData root props.',
     inputSchema: {
       type: 'object' as const,
       properties: {
