@@ -192,7 +192,7 @@ export function CompetitionFormatV2Render({
                     className="rounded-xl px-5 py-3"
                     style={{ backgroundColor: '#fff' }}
                   >
-                    <div className="font-bold text-base mb-2" style={{ color: '#222' }}>
+                    <div className="font-bold text-base mb-2" style={{ color }}>
                       {card.heading}
                     </div>
                     <RichText html={card.body} className="m-0 text-base text-[#222]" />
