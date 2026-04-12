@@ -75,7 +75,9 @@ export function AlgoEdFooterRender({
         </div>
 
         {/* Right: Description + CTA */}
-        <div className="flex items-center p-8 md:py-9 md:pl-28 md:pr-16">
+        {/* Right padding aligns text right edge with centered 5xl sections.
+            Narrow fallback: 1.25rem = px-5, matching other sections. */}
+        <div className="flex items-center p-8 md:py-9 md:pl-28 md:pr-[max(1.25rem,calc((100vw-1024px)/2))]">
           <div>
             <p
               className="font-semibold text-xl leading-8 mb-2.5"
