@@ -15,7 +15,7 @@
  * Round card bg: rgb(234,242,255), corners 16→12px = rounded-xl
  * Inner detail cards: white bg, corners 14→10.5px = rounded-xl
  */
-import { CompetitionCTA, safeHex } from './shared'
+import { CompetitionCTA, RichText, safeHex } from './shared'
 
 /* ── Types ──────────────────────────────────────────────── */
 
@@ -256,9 +256,7 @@ export function CompetitionFormatV2Render({
 
             {/* Additional body text — Figma 22px Regular #222, leading 1.6 → 0.75× 16px = text-base */}
             {round.body && (
-              <p className="m-0 text-base" style={{ color: '#222' }}>
-                {round.body}
-              </p>
+              <RichText html={round.body} className="m-0 text-base text-[#222]" />
             )}
           </div>
         ))}
