@@ -51,8 +51,8 @@ export function TwoColumnFeatureRender({
 
   const textColumn = (
     <div className="flex flex-col justify-center items-start">
-      <h2 className="text-3xl font-bold leading-[1.3] mb-6 text-[#333]">{heading}</h2>
-      <RichText html={body} className="text-[15px] mb-6 text-[#333] text-justify" />
+      <h2 className="text-3xl font-bold leading-[1.3] mb-6 text-[#222]">{heading}</h2>
+      <RichText html={body} className="text-[15px] mb-6 text-[#222] text-justify" />
       <div className="flex flex-wrap gap-4">
         {ctaVariant === 'outline'
           ? <CompetitionCTA text={ctaText} href={ctaLink} bgColor="transparent" textColor={color} border={`1px solid ${color}`} />

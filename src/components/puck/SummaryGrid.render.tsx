@@ -39,7 +39,7 @@ export function SummaryGridRender({
   return (
     <section className="py-10">
       <div className="max-w-5xl mx-auto px-5 lg:px-0">
-        <h2 className="text-3xl font-bold leading-[1.3] text-[#333] mb-5">
+        <h2 className="text-3xl font-bold leading-[1.3] text-[#222] mb-5">
           {heading}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
