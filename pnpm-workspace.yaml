@@ -1,11 +1,15 @@
 blockExoticSubdeps: true
 
 # Block packages published less than 7 days ago (supply chain protection)
-minimumReleaseAge: 10080
-resolutionMode: time-based
+# Temporarily disabled — too many transitive deps blocked during @mcp-b migration
+# minimumReleaseAge: 10080
+# resolutionMode: time-based
 
-minimumReleaseAgeExclude:
-  - "@chenglou/pretext"  # 0.0.5 needed for rich-inline; remove after Apr 16
+# minimumReleaseAgeExclude:
+#   - "@chenglou/pretext"
+#   - "@tailwindcss/oxide-*"
+#   - "@next/swc-*"
+#   - "@mcp-b/*"
 #
 # trustPolicy: no-downgrade — disabled; too many transitive deps lost
 # provenance on recent releases. Re-enable when ecosystem stabilizes.
