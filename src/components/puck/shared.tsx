@@ -122,14 +122,13 @@ export function CompetitionCTA({
       href={href}
       target={target}
       rel={target === '_blank' ? 'noopener noreferrer' : undefined}
-      className={`rounded-md text-sm font-bold leading-normal no-underline text-center shadow-sm py-3 px-5 hover:opacity-90 active:opacity-80 transition-opacity focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${fullWidth ? 'block w-full' : 'inline-block'}`}
+      className={`rounded-md text-sm font-bold leading-normal no-underline text-center shadow-sm py-3 px-5 hover:opacity-90 hover:bg-black/5 active:opacity-80 active:bg-black/10 transition ${fullWidth ? 'block w-full' : 'inline-block'}`}
       style={{
         color: textColor,
         backgroundColor: bgColor,
         padding,
         border,
-        '--tw-ring-color': bgColor === 'transparent' || bgColor === '#ffffff' ? textColor : bgColor,
-      } as React.CSSProperties}
+      }}
     >
       {text}
     </a>
