@@ -16,6 +16,7 @@
  * Inner detail cards: white bg, corners 14→10.5px = rounded-xl
  */
 import { CompetitionCTA, RichText, safeHex } from './shared'
+import { CalendarToday } from './icons'
 
 /* ── Types ──────────────────────────────────────────────── */
 
@@ -177,11 +178,7 @@ export function CompetitionFormatV2Render({
             {/* 0.75×: 24×24 icon, gap-1.5 (6px), 15px */}
             {round.dateLabel && (
               <div className="flex items-center gap-1.5 mb-4">
-                <img
-                  src="/competition-assets/calendar-today.svg"
-                  alt=""
-                  className="shrink-0 w-6 h-6"
-                />
+                <CalendarToday className="shrink-0 w-6 h-6 text-[#222]" />
                 <span className="text-[15px] font-bold" style={{ color: '#222' }}>
                   {round.dateLabel}
                 </span>

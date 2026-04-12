@@ -5,25 +5,19 @@
  * Content is identical across all competitions — not meaningfully configurable.
  * Source CSS: .section-103, .heading-149, .text-block-218, .div-block-310
  */
-import type { MediaReference } from '@delmaredigital/payload-puck/fields'
+import { CheckCircle } from './icons'
 
-export interface FeeWaiverProps {
-  icon: MediaReference | null
-}
+export interface FeeWaiverProps {}
 
-export const defaultProps: FeeWaiverProps = {
-  icon: null,
-}
+export const defaultProps: FeeWaiverProps = {}
 
-export function FeeWaiverRender({
-  icon,
-}: FeeWaiverProps) {
+export function FeeWaiverRender({}: FeeWaiverProps) {
   return (
     <section style={{ paddingTop: '40px', paddingBottom: '40px' }}>
       <div className="max-w-5xl mx-auto px-5 lg:px-0 flex flex-col items-start" style={{ gap: '12px' }}>
         <hr className="w-full border-t border-gray-300 m-0 mb-5" />
         <div className="flex items-start" style={{ gap: '10px' }}>
-          {icon?.url && <img src={icon.url} alt="" />}
+          <CheckCircle className="w-6 h-6 shrink-0 text-[#222]" />
           <div>
             <h3 className="font-bold text-xs mt-0 mb-0">
               Fee Waiver Policy

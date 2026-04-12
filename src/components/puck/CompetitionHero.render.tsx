@@ -4,6 +4,7 @@
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { CompetitionCTA, safeHex, hexAlpha } from './shared'
+import { CalendarToday } from './icons'
 
 export interface BadgeItem {
   label: string
@@ -114,7 +115,7 @@ export function CompetitionHeroRender({
           <p className="font-baskervville italic underline text-white mb-0 mt-4 sm:mt-5 text-xl leading-[30px] sm:text-2xl sm:leading-[36px]">{audienceLabel}</p>
           {statusText && (
             <div className="flex items-center my-6">
-              <img src="/competition-assets/status-calendar.svg" alt="" className="mr-2.5 w-[54px] h-[54px]" />
+              <CalendarToday className="mr-2.5 w-[54px] h-[54px] text-white" />
               <div>
                 <span className="block text-white font-semibold text-lg leading-7">{statusText}</span>
                 {statusSubtext && <span className="block text-white font-medium text-[15px] leading-6">{statusSubtext}</span>}
