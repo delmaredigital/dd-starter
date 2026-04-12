@@ -56,19 +56,29 @@ export function DeadlineTableRender({
           {heading}
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-6 lg:gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-6 lg:gap-10">
           <div className="flex flex-col gap-5">
             {tiers.map((tier, i) => (
               <div
                 key={i}
-                className="relative overflow-hidden rounded-xl bg-[#eaf2ff] px-8 py-6"
+                className="relative overflow-hidden rounded-xl bg-[#eaf2ff]"
               >
+                {/* Watermark — Figma ~115 CSS px, snapped to w-28 (112).
+                    PNG has rotation (4.65°) and fade baked into the
+                    exported pixels, so CSS only handles position.
+                    Anchored bottom-right; translated by 15%/10% of own
+                    size so the image bleeds past the card edge (matches
+                    Figma's crop ~15.4%/9.5%, rounded). Using translate(%)
+                    keeps the bleed proportional if size changes. Padding
+                    lives on the inner content div so the watermark's
+                    containing block is the card's outer frame. */}
                 <img
                   src={TIER_WATERMARKS[tier.variant] || TIER_WATERMARKS.priority}
                   alt=""
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-28 h-28 object-contain pointer-events-none"
+                  className="absolute bottom-0 right-0 w-28 h-28 object-contain pointer-events-none"
+                  style={{ transform: 'translate(12%, 4%)' }}
                 />
-                <div className="relative z-10">
+                <div className="relative z-10 px-8 py-6">
                   <div className="font-bold text-lg leading-[1.3]" style={{ color }}>{tier.title}</div>
                   <p className="text-[15px] mt-3 mb-0 text-[#222]">
                     <strong>Deadline: </strong>{tier.deadline}
