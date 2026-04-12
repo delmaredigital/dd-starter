@@ -146,6 +146,14 @@ export function CompetitionStructureRender({
   const roundsList = rounds ?? []
   const color = safeHex(primaryColor)
 
+  // Hero aspect ratio — drives both the image height (via CSS
+  // aspect-ratio) and the cards' 50% overlap (via negative margin).
+  // The trick: CSS margin-top % and aspect-ratio both resolve from
+  // the same parent width, so calc(-50% * H/W) = exactly half the
+  // hero's rendered height at any viewport. One ratio, two uses.
+  const HERO_W = 1447
+  const HERO_H = 456
+
   return (
     <section className="py-10">
       <div className="max-w-5xl mx-auto px-2.5 md:px-5 lg:px-0">
@@ -164,10 +172,20 @@ export function CompetitionStructureRender({
            3:1 with ~17px symmetric wiggle around the exact visible slice,
            so object-cover center-center renders the same faces Figma
            showed). No object-position needed. */}
+        {/* Hero image — aspect 1447/456. Cards below overlap 50% of hero
+            via negative margin. margin-top % is relative to parent width,
+            same base as aspect-ratio — so calc(-50% * 456/1447) = exactly
+            half the hero height at any viewport. Cards stay in flow.
+
+            CRITICAL: bottom 50% of this image is covered by cards.
+            Figma original was 54/46 — we simplified to 50/50. When
+            cropping hero images, ALL important content (faces, text,
+            key details) MUST be in the top 50%. Even 1px of misplaced
+            content into the bottom half will be hidden by cards. */}
         {heroImage?.url && (
           <div
             className="relative rounded-xl overflow-hidden"
-            style={{ aspectRatio: '1447 / 456' }}
+            style={{ aspectRatio: `${HERO_W} / ${HERO_H}` }}
           >
             <img
               src={heroImage.url}
@@ -183,21 +201,13 @@ export function CompetitionStructureRender({
           </div>
         )}
 
-        {/* Info cards — overlap hero bottom.
-            Figma: cards start at 54% of bg height, covering bottom 46%.
-            Overlap 209 Figma → 157px CSS. When cropping hero images,
-            account for bottom 46% being occluded by cards.
-            TODO: replace fixed -157px with 50% overlap (e.g., absolute
-            bottom-0 translate-y-1/2) so it scales responsively.
-            Note: Figma is 54/46 not 50/50 — switching to 50% means
-            4% more of the image top is visible. Crop hero images
-            accordingly (important content in top 50%, not top 54%). */}
+        {/* Info cards — overlap hero by 50% of hero height */}
         {/* Card: #F2F3F0, corners 14→10.5 ≈ rounded-xl, Shadow Large */}
         {/* Padding: L 44→33 ≈ px-8 (32px), T 29→22 ≈ pt-6 (24px) */}
         {cards.length > 0 && (
           <div
             className="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10"
-            style={{ marginTop: heroImage?.url ? '-157px' : '0' }}
+            style={{ marginTop: heroImage?.url ? `calc(-50% * ${HERO_H} / ${HERO_W})` : '0' }}
           >
             {cards.map((card, i) => (
               <div
