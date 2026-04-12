@@ -36,12 +36,23 @@ function splitIntoBlocks(html: string): Block[] {
   return blocks
 }
 
+function computedFont(cs: CSSStyleDeclaration): string {
+  return [cs.fontStyle, cs.fontVariant, cs.fontWeight,
+    `${cs.fontSize}/${cs.lineHeight}`, cs.fontFamily].filter(Boolean).join(' ')
+}
+
+function contentBoxWidth(el: HTMLElement, cs: CSSStyleDeclaration): number {
+  return el.getBoundingClientRect().width
+    - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight)
+    - parseFloat(cs.borderLeftWidth) - parseFloat(cs.borderRightWidth)
+}
+
 function createMeasurer(el: HTMLElement) {
   const span = document.createElement('span')
   span.style.visibility = 'hidden'
   span.style.position = 'absolute'
   span.style.whiteSpace = 'pre'
-  span.style.font = getComputedStyle(el).font
+  span.style.font = computedFont(getComputedStyle(el))
   document.body.appendChild(span)
   return {
     measure(word: string) {
@@ -59,7 +70,8 @@ function JustifiedParagraph({ text }: { text: string }) {
   const reflow = useCallback(async () => {
     if (!ref.current) return
     await document.fonts.ready
-    const width = ref.current.clientWidth
+    const cs = getComputedStyle(ref.current)
+    const width = contentBoxWidth(ref.current, cs)
     if (width <= 0) return
 
     const { measure, cleanup } = createMeasurer(ref.current)
