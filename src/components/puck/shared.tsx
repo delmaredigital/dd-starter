@@ -14,7 +14,7 @@
  *                                   CompetitionFooter, CompetitionHero
  *                                   content, SummaryGrid,
  *                                   CompetitionStructure, FeeWaiver,
- *                                   JoinCTA
+ *                                   JoinCTA, EligibilitySection
  *   C  large    max-w-6xl (1152)   TwoColumnFeature (About UNC, About
  *                                   League, Fostering), DeadlineTable
  *   full-bleed  no cap             CompetitionHero outer, AlgoEdFooter
@@ -76,7 +76,7 @@ export function RichText({ html, className }: { html: string; className?: string
   if (!html) return null
   return (
     <div
-      className={`prose prose-sm max-w-none ${className ?? ''}`}
+      className={`prose prose-sm max-w-none text-justify ${className ?? ''}`}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   )
