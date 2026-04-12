@@ -25,26 +25,19 @@ export const CompetitionFormatV2Config: ComponentConfig<CompetitionFormatV2Props
           label: 'Info Cards (Time, Duration, etc.)',
           arrayFields: {
             heading: { type: 'text', label: 'Card Heading' },
+            body: { type: 'richtext', label: 'Card Body' },
+          },
+        },
+        formatDetails: { type: 'richtext', label: 'Format Details (triggers "Format :" header)' },
+        formatCards: {
+          type: 'array',
+          label: 'Format Cards (also triggers "Format :" header)',
+          arrayFields: {
+            heading: { type: 'text', label: 'Card Heading' },
             body: { type: 'textarea', label: 'Card Body' },
           },
         },
-        formatText: { type: 'textarea', label: 'Format Description (empty to hide)' },
-        categoryCards: {
-          type: 'array',
-          label: 'Category Detail Cards',
-          arrayFields: {
-            heading: { type: 'text', label: 'Category Heading' },
-            body: { type: 'textarea', label: 'Category Body' },
-          },
-        },
-        bullets: {
-          type: 'array',
-          label: 'Additional Bullets',
-          arrayFields: {
-            text: { type: 'textarea', label: 'Bullet Text' },
-          },
-        },
-        body: { type: 'textarea', label: 'Additional Body Text (empty to hide)' },
+        body: { type: 'richtext', label: 'Body (paragraphs, bullets, etc.)' },
       },
     },
     ctaText: { type: 'text', label: 'Primary CTA Text (empty to hide)' },

@@ -30,9 +30,8 @@ export interface FormatRound {
   description: string
   dateLabel: string
   infoCards: DetailCard[]
-  formatText: string
-  categoryCards: DetailCard[]
-  bullets: { text: string }[]
+  formatDetails: string
+  formatCards: DetailCard[]
   body: string
 }
 
@@ -60,16 +59,15 @@ export const defaultProps: CompetitionFormatV2Props = {
       infoCards: [
         {
           heading: 'Time',
-          body: 'Asia Pacific: 12:00 noon Tokyo Time\nEurope, Middle East, Africa: 9:00 am London Time\nNorth America, South America: 11:00 am New York Time',
+          body: '<ul><li>Asia Pacific: 12:00 noon Tokyo Time</li><li>Europe, Middle East, Africa: 9:00 am London Time</li><li>North America, South America: 11:00 am New York Time</li></ul>',
         },
         {
           heading: 'Duration',
-          body: 'Lower Primary School Category: 45 minutes\nUpper Primary School Category: 1 hour',
+          body: '<ul><li>Lower Primary School Category: 45 minutes</li><li>Upper Primary School Category: 1 hour</li></ul>',
         },
       ],
-      formatText:
-        'Online challenge (multiple choice, fill in the blanks, and free-response questions)',
-      categoryCards: [
+      formatDetails: '<ul><li>Online challenge (multiple choice, fill in the blanks, and free-response questions)</li></ul>',
+      formatCards: [
         {
           heading: 'Lower Primary School Category (Grades K\u20132):',
           body: 'Focuses on number awareness and foundational math concepts, along with simple logic questions that develop early reasoning skills.',
@@ -79,11 +77,7 @@ export const defaultProps: CompetitionFormatV2Props = {
           body: 'Based on math and science concepts students are learning in school, combined with logic problems that build confidence and problem-solving skills.',
         },
       ],
-      bullets: [
-        { text: 'Each team member will individually attempt the same set of challenge' },
-        { text: 'The top two scores will be used to calculate the team\u2019s total score' },
-      ],
-      body: '',
+      body: '<ul><li>Each team member will individually attempt the same set of challenge</li><li>The top two scores will be used to calculate the team\u2019s total score</li></ul>',
     },
     {
       title: 'Semi-final round: Poster / video',
@@ -91,8 +85,8 @@ export const defaultProps: CompetitionFormatV2Props = {
         'The top 3 performing teams from each grade level in the preliminary round (18 teams in total) will be invited to compete in the global semi-final round',
       dateLabel: 'Deadline: 11:59pm Eastern Time (New York Time), April 3, 2027',
       infoCards: [],
-      formatText: '',
-      categoryCards: [
+      formatDetails: '',
+      formatCards: [
         {
           heading: 'Lower Primary School Category (Grades K\u20132):',
           body: 'Semi-finalist teams will have one week to create a poster with a solution to a science problem.',
@@ -102,7 +96,6 @@ export const defaultProps: CompetitionFormatV2Props = {
           body: 'Semi-finalist teams will have one week to develop a solution to a science problem and present their work through a recorded 5-minute video.',
         },
       ],
-      bullets: [],
       body: '',
     },
     {
@@ -111,9 +104,8 @@ export const defaultProps: CompetitionFormatV2Props = {
         'The top 5 performing team from the preliminary round in each of the Lower Primary and Upper Primary Categories will be invited to compete in the global final round',
       dateLabel: 'April 24, 2027 10:00am Eastern Time (New York Time)',
       infoCards: [],
-      formatText: '',
-      categoryCards: [],
-      bullets: [],
+      formatDetails: '',
+      formatCards: [],
       body: 'Finalist teams will have one week to refine and improve their solutions from the semi-final round based on judges\u2019 feedback, and present their final solution to a judging panel composed of UNC Medical Brigades students.',
     },
   ],
@@ -169,7 +161,7 @@ export function CompetitionFormatV2Render({
 
             {/* Description — Figma 20px Regular #222, leading 34px (1.7) → 0.75× 15px */}
             {round.description && (
-              <p className="mt-0 mb-2 text-[15px]" style={{ color: '#222' }}>
+              <p className="mt-0 mb-2 text-base" style={{ color: '#222' }}>
                 {round.description}
               </p>
             )}
@@ -179,14 +171,14 @@ export function CompetitionFormatV2Render({
             {round.dateLabel && (
               <div className="flex items-center gap-1.5 mb-4">
                 <CalendarToday className="shrink-0 w-6 h-6 text-[#222]" />
-                <span className="text-[15px] font-bold" style={{ color: '#222' }}>
+                <span className="text-base font-bold" style={{ color: '#222' }}>
                   {round.dateLabel}
                 </span>
               </div>
             )}
 
             {/* Divider line — Figma 1px line after date, gap-[22px] above → 0.75× 16px ≈ built into mb-4 above */}
-            {(round.dateLabel && ((round.infoCards ?? []).length > 0 || round.formatText || (round.categoryCards ?? []).length > 0 || round.body)) && (
+            {(round.dateLabel && ((round.infoCards ?? []).length > 0 || round.formatDetails || (round.formatCards ?? []).length > 0 || round.body)) && (
               <hr className="mb-4 border-0 border-t" style={{ borderColor: '#ddd' }} />
             )}
 
@@ -200,58 +192,44 @@ export function CompetitionFormatV2Render({
                     className="rounded-xl px-5 py-3"
                     style={{ backgroundColor: '#fff' }}
                   >
-                    <div className="font-bold text-[15px] mb-2" style={{ color: '#222' }}>
+                    <div className="font-bold text-base mb-2" style={{ color: '#222' }}>
                       {card.heading}
                     </div>
-                    <p className="m-0 text-[15px] whitespace-pre-line" style={{ color: '#222' }}>
-                      {card.body}
-                    </p>
+                    <RichText html={card.body} className="m-0 text-base text-[#222]" />
                   </div>
                 ))}
               </div>
             )}
 
-            {/* Format section — Figma 20px Bold primaryColor label + Regular text, leading 1.6 */}
-            {round.formatText && (
+            {/* Format section — "Format :" label shown when formatDetails or formatCards exist */}
+            {(round.formatDetails || (round.formatCards ?? []).length > 0) && (
               <div className="mb-5">
-                <p className="m-0 text-[15px]" style={{ color: '#222' }}>
-                  <span className="font-bold" style={{ color }}>Format: </span>
-                  {round.formatText}
-                </p>
-              </div>
-            )}
-
-            {/* Category detail cards — white bg, 14→10.5 ≈ rounded-xl */}
-            {/* Padding: L 27→20 ≈ px-5, T 16→12 ≈ py-3. Heading: SemiBold #222 */}
-            {(round.categoryCards ?? []).length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-                {(round.categoryCards ?? []).map((card, j) => (
-                  <div
-                    key={`cat-${card.heading}-${j}`}
-                    className="rounded-xl px-5 py-3"
-                    style={{ backgroundColor: '#fff' }}
-                  >
-                    <div className="font-semibold text-[15px] mb-2" style={{ color: '#222' }}>
-                      {card.heading}
-                    </div>
-                    <p className="m-0 text-[15px]" style={{ color: '#222' }}>
-                      {card.body}
-                    </p>
+                <div className="font-bold text-base mb-0" style={{ color }}>Format :</div>
+                {round.formatDetails && (
+                  <RichText html={round.formatDetails} className="m-0 text-base text-[#222]" />
+                )}
+                {(round.formatCards ?? []).length > 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    {(round.formatCards ?? []).map((card, j) => (
+                      <div
+                        key={`cat-${card.heading}-${j}`}
+                        className="rounded-xl px-5 py-3"
+                        style={{ backgroundColor: '#fff' }}
+                      >
+                        <div className="font-semibold text-base mb-2" style={{ color: '#222' }}>
+                          {card.heading}
+                        </div>
+                        <p className="m-0 text-base" style={{ color: '#222' }}>
+                          {card.body}
+                        </p>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                )}
               </div>
             )}
 
-            {/* Bullets — Figma 20px Regular #222, leading 1.6 */}
-            {(round.bullets ?? []).length > 0 && (
-              <ul className="mb-5 pl-5 text-[15px]" style={{ color: '#222' }}>
-                {(round.bullets ?? []).map((bullet, j) => (
-                  <li key={`bullet-${j}`} className="mb-1">{bullet.text}</li>
-                ))}
-              </ul>
-            )}
-
-            {/* Additional body text — Figma 22px Regular #222, leading 1.6 → 0.75× 16px = text-base */}
+            {/* Body — richtext (paragraphs, bullets, bold, whatever the round needs) */}
             {round.body && (
               <RichText html={round.body} className="m-0 text-base text-[#222]" />
             )}
