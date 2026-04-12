@@ -116,7 +116,7 @@ export function CompetitionHeroRender({
           {statusText && (
             <div className="flex items-center my-6">
               <div className="mr-2.5 w-12 h-12 rounded-full border-2 border-white/45 flex items-center justify-center shrink-0">
-                <CalendarToday className="w-7 h-7 text-white" />
+                <CalendarToday className="w-5 h-5 text-white" />
               </div>
               <div>
                 <span className="block text-white font-semibold text-lg leading-7">{statusText}</span>
