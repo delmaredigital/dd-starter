@@ -24,6 +24,7 @@ export interface TwoColumnFeatureProps {
   imageStyle: 'plain' | 'card'
   layout: 'image-right' | 'image-left'
   bgColor: string
+  headingColor: 'primary' | 'dark'
   primaryColor: string
 }
 
@@ -39,19 +40,20 @@ export const defaultProps: TwoColumnFeatureProps = {
   imageStyle: 'plain',
   layout: 'image-right',
   bgColor: '',
+  headingColor: 'primary',
   primaryColor: '#a31f35',
 }
 
 export function TwoColumnFeatureRender({
   heading, body, ctaText, ctaLink, ctaVariant, secondaryCtaText, secondaryCtaLink,
-  featureImage, imageStyle, layout, bgColor, primaryColor,
+  featureImage, imageStyle, layout, bgColor, headingColor, primaryColor,
 }: TwoColumnFeatureProps) {
   const color = safeHex(primaryColor)
   const isImageRight = layout === 'image-right'
 
   const textColumn = (
     <div className="flex flex-col justify-center items-start">
-      <h2 className="text-3xl font-bold leading-[1.3] mb-6 text-[#222]">{heading}</h2>
+      <h2 className="text-3xl font-bold leading-[1.3] mb-6" style={{ color: headingColor === 'primary' ? color : '#222' }}>{heading}</h2>
       <RichText html={body} className="text-[15px] mb-6 text-[#222] text-justify" />
       <div className="flex flex-wrap gap-4">
         {ctaVariant === 'outline'

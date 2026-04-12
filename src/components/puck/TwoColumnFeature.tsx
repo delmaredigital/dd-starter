@@ -45,6 +45,14 @@ export const TwoColumnFeatureConfig: ComponentConfig<TwoColumnFeatureProps> = {
       ],
     },
     bgColor: createOptionalColorField({ label: 'Section Background Color' }),
+    headingColor: {
+      type: 'radio',
+      label: 'Heading Color',
+      options: [
+        { label: 'Primary (brand)', value: 'primary' },
+        { label: 'Dark (#222)', value: 'dark' },
+      ],
+    },
     primaryColor: createColorField({ label: 'Brand Color' }),
   },
   defaultProps,
