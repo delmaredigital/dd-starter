@@ -41,6 +41,10 @@ Fetch the specific HS desktop frame, not the section root — the root includes
 all variants and produces duplicates. Ask the user for the exact Figma URL
 if the right frame isn't obvious.
 
+**Figma text has copy-paste errors.** Pages are cloned from a template — org/competition names often reference the wrong competition. Flag mismatches, don't silently copy them.
+
+**Figma text extraction:** Use `get_metadata` — text lives in `<text name="actual content">` nodes. Parse with Python stdlib: `json.load` → wrap in `<root>` → `xml.etree.ElementTree` → iterate `text` elements → `html.unescape(el.get('name'))`. If any names look like renamed layers (generic "heading", "label", etc.), fetch `get_design_context` for those nodes only.
+
 | Section node | Competition | HS desktop frame | Status |
 |---|---|---|---|
 | `6392:24638` | UNC | `6272:33298` | ✅ K-5 done, HS TBD |
