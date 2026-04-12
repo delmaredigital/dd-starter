@@ -35,39 +35,26 @@ AI agents can co-edit pages with humans in the Puck visual editor via self-descr
 
 ### Verifying tools are available
 
-The agent should run:
-```js
-evaluate_script({ function: '() => window.__puckAgentTools?.map(t => t.name)' })
-// Expected: ['get_page_state', 'get_component_schema', 'update_page', 'update_root_props', 'upload_image', 'save_page', 'payload_api']
-```
+Use `list_webmcp_tools` via the `webmcp-bridge` MCP server. Tools are self-documenting — their descriptions contain parameters, endpoints, and gotchas.
 
 ### Troubleshooting
 
-- **Tools return `null`**: Agent may be on the wrong page. Navigate to a Puck editor URL.
-- **MCP can't connect**: Check that remote debugging is enabled in `chrome://inspect/#remote-debugging`.
-- **Two Chrome DevTools MCPs conflict**: If the Chrome DevTools MCP plugin is also installed, disable it to avoid the plugin launching its own headless browser. The `chrome-devtools-live` server (with `--autoConnect`) is preferred.
-
-## Tool Philosophy
-
-- **Specialized tools** (get_page_state, update_page, update_root_props, upload_image, save_page): for operations with specialized logic — editor state manipulation, file uploads, MediaReference formatting.
-- **payload_api**: generic REST wrapper for simple CRUD that doesn't need specialized logic — folder creation, page creation, slug/metadata changes, querying. Tool description documents common endpoints and gotchas.
-
-Tool descriptions are self-documenting — the agent reads the description to understand parameters, gotchas, and when to use each tool. Check tool descriptions for the latest details.
+- **`list_webmcp_tools` returns empty**: User's Puck editor page may not be open or not fully loaded. Ask user to reload.
+- **MCP can't connect**: Check remote debugging at `chrome://inspect/#remote-debugging`.
+- **Bridge launches its own Chrome**: Missing `--autoConnect` flag. Reconfigure with `claude mcp add webmcp-bridge npx @mcp-b/chrome-devtools-mcp@latest -- --autoConnect`.
 
 ## Workflow Gotchas
-- **Preview mode**: Clicking "Preview" in the editor opens a full-page preview. To return to the editor, click the "Close Preview" button (top-right). The agent can do this via `evaluate_script` finding the button: `document.querySelectorAll('button').find(b => b.textContent.includes('Close Preview')).click()`
-- **Never navigate the user's editor tab to another URL.** Use `new_page` to open a separate tab for reference browsing (e.g., extracting source data from Webflow). Keep the Puck editor tab untouched.
-- **Cards also use MediaReference** for their `image` prop — same shape as Image component.
-- **Local file uploads**: see CLAUDE.md — STOP and ask user for a curl.
-- **Stale SSR after deploy**: Live page may cache old HTML. Fix: reload Puck editor → re-publish.
-- **Page slug = hero title, kebab-cased.** e.g. "Science & Medicine Competition" → `science-medicine-competition`. "Junior" prefix for K-5 variants.
+- **Never navigate the user's editor tab.** Use `new_page` for reference browsing.
+- **Local file uploads**: STOP and ask user for a curl from DevTools.
+- **Stale SSR after deploy**: reload Puck editor → re-publish.
+- **Page slug = hero title, kebab-cased.** "Junior" prefix for K-5 variants.
 
 ## Architecture
 
-Tools are registered client-side when the Puck editor loads, operating on the editor's in-memory state (not Payload API) so changes appear live. Component schemas auto-generate from the Puck config at runtime — new components are auto-discovered.
+Tools are registered via `navigator.modelContext.registerTool()` (WebMCP standard) when the Puck editor loads. The `webmcp-bridge` MCP server discovers them via CDP and exposes them as `list_webmcp_tools` / `call_webmcp_tool`. Tools operate on the editor's in-memory state (not Payload API) so changes appear live.
 
 ```
-src/lib/webmcp/            — Tool registry, polyfill, schema converter
+src/lib/webmcp/            — Tool registry, schema converter
 src/puck/webmcp-plugin.tsx — Puck plugin (bridges usePuck() to registry)
 src/components/puck/       — Custom competition components
 ```

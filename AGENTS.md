@@ -13,16 +13,13 @@ You are an expert Payload CMS developer. When working with Payload projects, fol
 
 ## ⚠️ PAGE EDITING — MANDATORY WORKFLOW ⚠️
 
-**When creating or editing Puck pages (assembling components, uploading images, filling props), you MUST use WebMCP tools. No exceptions.**
-
-1. Open the Puck editor: `pages.algoed.co/p-kcCapdQH/puck-editor/pages/:id`
-2. Verify tools: `evaluate_script({ function: '() => window.__puckAgentTools?.map(t => t.name)' })`
-3. Use `get_component_schema` to understand fields BEFORE filling them
-4. Use `upload_image` for URL/base64 uploads. For **local files on agent filesystem**: STOP, ask user for a curl from Chrome DevTools Network tab, then shell-upload to `POST /api/media` with `-F file=@/path -F alt=...`. Never base64-chunk through JS.
-5. Use `update_page` to set component props (live WYSIWYG preview)
-6. Use `save_page` to persist
+**All page editing goes through WebMCP tools exposed via the `webmcp-bridge` MCP server.** Use `list_webmcp_tools` to discover available tools and their descriptions — they are self-documenting. Call them via `call_webmcp_tool`. If tools aren't showing up, ask the user to check Chrome/MCP connection.
 
 **NEVER** manipulate puckData JSON directly via raw fetch/evaluate_script. That bypasses schema validation, produces wrong field names, misplaced images, and broken pages.
+
+**NEVER** use raw `fetch()` for Payload REST API calls. Use the `payload_api` WebMCP tool — its description documents all collection endpoints (`/api/pages`, `/api/payload-folders`, `/api/media`) and gotchas. Read the tool description before calling any API.
+
+For **local file uploads**: STOP and ask user for a curl from Chrome DevTools Network tab, then shell-upload to `POST /api/media` with `-F file=@/path -F alt=...`.
 
 Full docs: `.cursor/rules/webmcp-agent-tools.md`
 
