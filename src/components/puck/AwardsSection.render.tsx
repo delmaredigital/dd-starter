@@ -210,7 +210,7 @@ export function AwardsSectionRender({
               <div className="flex flex-wrap justify-evenly gap-4 max-w-xl mx-auto w-full md:col-start-3 md:row-start-2 md:self-center">
                 {semiFinal.badges.map((b, i) => <BadgeTile key={i} badge={b} />)}
               </div>
-              <div className="hidden md:block md:col-start-2 md:row-span-2 my-4 bg-[#D0D4D9]" />
+              <div className="hidden md:block md:col-start-2 md:row-span-2 my-4 bg-gray-300" />
             </div>
           </div>
         </div>

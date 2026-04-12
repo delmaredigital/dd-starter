@@ -88,7 +88,7 @@ export function CompetitionNavRender({
               </a>
             ))}
           </nav>
-          <div style={{ backgroundColor: '#e0e3de', width: '1px', height: '24px' }} />
+          <div className="w-px h-6 bg-gray-300" />
           {secondaryCtaText && (
             <a
               href={secondaryCtaLink}

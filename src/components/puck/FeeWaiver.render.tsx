@@ -9,39 +9,31 @@ import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 
 export interface FeeWaiverProps {
   icon: MediaReference | null
-  dividerImage: MediaReference | null
 }
 
 export const defaultProps: FeeWaiverProps = {
   icon: null,
-  dividerImage: null,
 }
 
 export function FeeWaiverRender({
-  icon, dividerImage,
+  icon,
 }: FeeWaiverProps) {
   return (
     <section style={{ paddingTop: '40px', paddingBottom: '40px' }}>
       <div className="max-w-5xl mx-auto px-5 lg:px-0 flex flex-col items-start" style={{ gap: '12px' }}>
-        {dividerImage?.url && (
-          <img src={dividerImage.url} alt="" className="w-full max-w-full mb-2" />
-        )}
+        <hr className="w-full border-t border-gray-300 m-0 mb-5" />
         <div className="flex items-start" style={{ gap: '10px' }}>
           {icon?.url && <img src={icon.url} alt="" />}
           <div>
-            <h3
-              className="font-bold mt-0 mb-0"
-              style={{ fontSize: '16px' }}
-            >
+            <h3 className="font-bold text-xs mt-0 mb-0">
               Fee Waiver Policy
             </h3>
-            <div className="mt-[7px]" style={{ fontSize: '12px' }}>
-              Fee waiver is available for individual low-income students. Please ask your school counselor or principal to send an email titled &apos;Fee Waiver Request&apos; to{' '}
-              <a href="mailto:waivers@algoed.co?subject=Fee%20Waiver%20Request" className="text-blue-700 underline">waivers@algoed.co</a>
-              {' '}from their official school email with your email address and confirm you need a waiver.
-              <br /><br />
-              <strong>All fee waivers must be requested before the regular deadline.</strong>
-            </div>
+            <p className="text-xs mt-5 mb-0 text-justify text-[#222]">
+              A fee waiver is available for individual low-income students. To request one, please ask your school counselor or principal to email support@algoed.co from their official school email with the subject line &quot;Fee Waiver Request.&quot; The email should include your email address and confirmation that you require a waiver.
+            </p>
+            <p className="text-xs font-semibold mt-5 mb-0 text-[#222]">
+              All fee waivers must be requested before the regular deadline.
+            </p>
           </div>
         </div>
       </div>
