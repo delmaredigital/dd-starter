@@ -22,7 +22,7 @@ export function FeeWaiverRender({
 }: FeeWaiverProps) {
   return (
     <section style={{ paddingTop: '40px', paddingBottom: '40px' }}>
-      <div className="max-w-6xl mx-auto px-5 lg:px-0 flex flex-col items-start" style={{ gap: '12px' }}>
+      <div className="max-w-5xl mx-auto px-5 lg:px-0 flex flex-col items-start" style={{ gap: '12px' }}>
         {dividerImage?.url && (
           <img src={dividerImage.url} alt="" className="w-full max-w-full mb-2" />
         )}

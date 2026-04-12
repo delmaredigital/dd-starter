@@ -101,7 +101,7 @@ export function CompetitionHeroRender({
            Horizontal padding (px-5 on mobile) is on the parent so both the
            text column and the stacked illustration share the same 20px
            breathing room from the viewport edges. */}
-        <div className="max-w-6xl mx-auto relative z-10">
+        <div className="max-w-5xl mx-auto relative z-10">
           <h1 className="m-0">
             <span className="block text-white font-bold uppercase text-3xl leading-[1.3] sm:text-5xl">{titleLine1}</span>
             {titleLine2 && (
@@ -147,7 +147,7 @@ export function CompetitionHeroRender({
       </div>
     </div>
       {hasBadgeStrip && (
-        <div className="max-w-6xl mx-auto px-5 lg:px-0 relative z-10 -mt-16 mb-8">
+        <div className="max-w-[960px] mx-auto px-5 lg:px-0 relative z-10 -mt-16 mb-8">
           <div
             className="rounded-[15px] bg-white px-5 py-5"
             style={{ boxShadow: '0 -5px 50px rgba(62,63,65,0.08), 0 5px 50px rgba(62,63,65,0.08)' }}

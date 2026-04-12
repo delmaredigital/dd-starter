@@ -1,10 +1,23 @@
 /**
  * Shared primitives for competition Puck components.
  *
- * Container: max-w-6xl (1152px). Matches Figma's canonical 1447×0.75 ≈ 1085,
- * the "How does the challenge work?" section base (node 6373:7055). 6xl is
- * also the 2026 marketing-page default. Reserve max-w-5xl (1024) if line
- * lengths start feeling too long.
+ * Section widths — Figma uses 3 tiers (plus full-bleed). 0.75 scale from
+ * a 1728 design frame. The rule is structural, not pixel-exact: 6xl is
+ * reserved for two-col sections where a dense text block sits next to an
+ * image and needs horizontal room to breathe. Single-col text, grids, and
+ * hero/CTA blocks drop to 5xl.
+ *
+ *   Tier        Tailwind           Sections
+ *   ────────────────────────────────────────────────────────────────
+ *   A  small    max-w-[960px]      AwardsSection, Step-into strip
+ *   B  medium   max-w-5xl (1024)   BenefitsGrid, CompetitionFormatV2,
+ *                                   CompetitionFooter, CompetitionHero
+ *                                   content, SummaryGrid,
+ *                                   CompetitionStructure, FeeWaiver,
+ *                                   JoinCTA
+ *   C  large    max-w-6xl (1152)   TwoColumnFeature (About UNC, About
+ *                                   League, Fostering), DeadlineTable
+ *   full-bleed  no cap             CompetitionHero outer, AlgoEdFooter
  *
  * Typography scale — Figma designs at 1728px, scaled 0.75×.
  * All sizes use Tailwind stock classes. Floor: 12px (text-xs) for readability.

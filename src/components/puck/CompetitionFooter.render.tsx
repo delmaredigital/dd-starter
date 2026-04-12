@@ -24,7 +24,7 @@ export function CompetitionFooterRender({
 
   return (
     <section style={{ backgroundColor: color, paddingTop: '31px', paddingBottom: '31px' }}>
-      <div className="max-w-[1200px] mx-auto px-5 lg:px-0">
+      <div className="max-w-5xl mx-auto px-5 lg:px-0">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mx-5 gap-5 lg:gap-0">
           <Link href="/legal/privacy-policy" className="no-underline">
             <h6 className="text-white font-medium m-0" style={{ fontSize: '16px', lineHeight: '18px' }}>

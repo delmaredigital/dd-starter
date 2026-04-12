@@ -156,7 +156,7 @@ export function AwardsSectionRender({
 }: AwardsSectionProps) {
   return (
     <section className="py-10">
-      <div className="max-w-6xl mx-auto px-5 lg:px-0">
+      <div className="max-w-[960px] mx-auto px-5 lg:px-0">
         {/* Heading — Figma 40px Bold → 30px (text-3xl) */}
         <h2 className="font-bold text-3xl leading-tight text-[#222] mb-3 text-center">
           {heading}
