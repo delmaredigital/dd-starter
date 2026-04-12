@@ -16,6 +16,7 @@
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { CompetitionCTA, safeHex } from './shared'
+import { usePrimaryColor } from './CompetitionColors'
 
 /* ── Types ──────────────────────────────────────────────── */
 
@@ -53,8 +54,9 @@ export function JoinCTARender({
   ctaLink,
   secondaryCtaText,
   secondaryCtaLink,
-  primaryColor,
+  primaryColor: propColor,
 }: JoinCTAProps) {
+  const primaryColor = usePrimaryColor(propColor)
   const color = safeHex(primaryColor)
 
   return (

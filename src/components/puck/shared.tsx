@@ -75,6 +75,15 @@ export function hexAlpha(hex: string, alpha: number): string {
   return `rgb(${r} ${g} ${b} / ${alpha})`
 }
 
+/** Tints hex into white at ratio (0-1). Returns CSS color-mix() value.
+ *  Callers should pair with TINT_FALLBACK as a CSS fallback for unsupported browsers. */
+export function tintOnWhite(hex: string, ratio: number): string {
+  return `color-mix(in srgb, ${safeHex(hex)} ${Math.round(ratio * 100)}%, white)`
+}
+
+/** Fallback bg for browsers without color-mix() — 10% of #222 on white. */
+export const TINT_FALLBACK_CLASS = 'bg-[#e9e9e9]'
+
 /** Renders CMS rich text HTML with prose styling. Content from Puck admin (trusted). */
 export function RichText({ html, className }: { html: string; className?: string }) {
   if (!html) return null

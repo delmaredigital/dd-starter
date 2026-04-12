@@ -5,7 +5,8 @@
  * Figma: stacked tier cards with watermark icon, full-width CTA.
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
-import { CompetitionCTA, safeHex } from './shared'
+import { CompetitionCTA, safeHex, tintOnWhite, TINT_FALLBACK_CLASS } from './shared'
+import { usePrimaryColor, useTintColor } from './CompetitionColors'
 
 export interface TierItem {
   title: string
@@ -43,8 +44,10 @@ const TIER_WATERMARKS: Record<string, string> = {
 }
 
 export function DeadlineTableRender({
-  heading, tiers, featureImage, ctaText, ctaLink, primaryColor,
+  heading, tiers, featureImage, ctaText, ctaLink, primaryColor: propColor,
 }: DeadlineTableProps) {
+  const primaryColor = usePrimaryColor(propColor)
+  const tintColor = useTintColor(propColor)
   const color = safeHex(primaryColor)
 
   return (
@@ -61,7 +64,8 @@ export function DeadlineTableRender({
             {tiers.map((tier, i) => (
               <div
                 key={i}
-                className="relative overflow-hidden rounded-xl bg-[#eaf2ff]"
+                className={`relative overflow-hidden rounded-xl ${TINT_FALLBACK_CLASS}`}
+                style={{ backgroundColor: tintOnWhite(tintColor, 0.10) }}
               >
                 {/* Watermark — Figma ~115 CSS px, snapped to w-28 (112).
                     PNG has rotation (4.65°) and fade baked into the

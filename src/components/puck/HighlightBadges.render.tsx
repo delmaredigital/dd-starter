@@ -6,6 +6,7 @@
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { safeHex } from './shared'
+import { usePrimaryColor } from './CompetitionColors'
 
 export interface BadgeItem {
   label: string
@@ -31,8 +32,9 @@ export const defaultProps: HighlightBadgesProps = {
 export function HighlightBadgesRender({
   heading,
   badges,
-  primaryColor,
+  primaryColor: propColor,
 }: HighlightBadgesProps) {
+  const primaryColor = usePrimaryColor(propColor)
   const color = safeHex(primaryColor, '#13294C')
 
   return (

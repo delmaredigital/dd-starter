@@ -57,6 +57,7 @@ Tool descriptions are self-documenting — the agent reads the description to un
 - **Cards also use MediaReference** for their `image` prop — same shape as Image component.
 - **Local file uploads**: see CLAUDE.md — STOP and ask user for a curl.
 - **Stale SSR after deploy**: Live page may cache old HTML. Fix: reload Puck editor → re-publish.
+- **Page slug = hero title, kebab-cased.** e.g. "Science & Medicine Competition" → `science-medicine-competition`. "Junior" prefix for K-5 variants.
 
 ## Architecture
 

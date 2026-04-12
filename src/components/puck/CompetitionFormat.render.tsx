@@ -4,6 +4,7 @@
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { CompetitionCTA, safeHex } from './shared'
+import { usePrimaryColor } from './CompetitionColors'
 
 export interface FormatBullet {
   text: string
@@ -61,8 +62,9 @@ export const defaultProps: CompetitionFormatProps = {
 }
 
 export function CompetitionFormatRender({
-  heading, formatImage, rounds, ctaText, ctaLink, primaryColor,
+  heading, formatImage, rounds, ctaText, ctaLink, primaryColor: propColor,
 }: CompetitionFormatProps) {
+  const primaryColor = usePrimaryColor(propColor)
   const color = safeHex(primaryColor)
 
   return (

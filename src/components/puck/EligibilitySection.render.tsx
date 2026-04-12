@@ -6,6 +6,7 @@
  * Mobile (Harvard pattern): stacks vertically with horizontal divider.
  */
 import { safeHex } from './shared'
+import { usePrimaryColor } from './CompetitionColors'
 
 export interface EligibilityItem {
   value: string
@@ -28,8 +29,9 @@ export const defaultProps: EligibilitySectionProps = {
 }
 
 export function EligibilitySectionRender({
-  introText, items, primaryColor,
+  introText, items, primaryColor: propColor,
 }: EligibilitySectionProps) {
+  const primaryColor = usePrimaryColor(propColor)
   const color = safeHex(primaryColor)
 
   return (

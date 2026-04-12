@@ -8,6 +8,7 @@
  */
 import Link from 'next/link'
 import { safeHex } from './shared'
+import { usePrimaryColor } from './CompetitionColors'
 
 export interface CompetitionFooterProps {
   primaryColor: string
@@ -18,8 +19,9 @@ export const defaultProps: CompetitionFooterProps = {
 }
 
 export function CompetitionFooterRender({
-  primaryColor,
+  primaryColor: propColor,
 }: CompetitionFooterProps) {
+  const primaryColor = usePrimaryColor(propColor)
   const color = safeHex(primaryColor)
 
   return (

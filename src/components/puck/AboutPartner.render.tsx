@@ -8,6 +8,7 @@
  * on the burgundy background. Omitted — negligible visual impact.
  */
 import { CompetitionCTA, safeHex } from './shared'
+import { usePrimaryColor } from './CompetitionColors'
 
 export interface AboutPartnerProps {
   heading: string
@@ -26,8 +27,9 @@ export const defaultProps: AboutPartnerProps = {
 }
 
 export function AboutPartnerRender({
-  heading, body, ctaText, ctaLink, primaryColor,
+  heading, body, ctaText, ctaLink, primaryColor: propColor,
 }: AboutPartnerProps) {
+  const primaryColor = usePrimaryColor(propColor)
   const color = safeHex(primaryColor)
 
   return (

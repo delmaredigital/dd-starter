@@ -6,6 +6,7 @@ import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { FramedPayloadImage } from './FramedPayloadImage'
 import { PayloadImage } from './PayloadImage'
 import { CompetitionCTA, RichText, safeHex } from './shared'
+import { usePrimaryColor } from './CompetitionColors'
 
 // The two-column layout collapses to 1col under lg (1024px). Above, each
 // image column is roughly half of the 940px container → ~460px. Tells the
@@ -46,8 +47,9 @@ export const defaultProps: TwoColumnFeatureProps = {
 
 export function TwoColumnFeatureRender({
   heading, body, ctaText, ctaLink, ctaVariant, secondaryCtaText, secondaryCtaLink,
-  featureImage, imageStyle, layout, bgColor, headingColor, primaryColor,
+  featureImage, imageStyle, layout, bgColor, headingColor, primaryColor: propColor,
 }: TwoColumnFeatureProps) {
+  const primaryColor = usePrimaryColor(propColor)
   const color = safeHex(primaryColor)
   const isImageRight = layout === 'image-right'
 

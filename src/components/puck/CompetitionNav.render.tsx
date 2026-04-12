@@ -10,6 +10,7 @@
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { safeHex } from './shared'
+import { usePrimaryColor } from './CompetitionColors'
 import { MobileNav } from './MobileNav'
 
 export interface NavLinkItem {
@@ -48,8 +49,9 @@ export const defaultProps: CompetitionNavProps = {
 
 export function CompetitionNavRender({
   partnerLogo, partnerLink, navLinks, ctaText, ctaLink,
-  secondaryCtaText, secondaryCtaLink, primaryColor,
+  secondaryCtaText, secondaryCtaLink, primaryColor: propColor,
 }: CompetitionNavProps) {
+  const primaryColor = usePrimaryColor(propColor)
   const color = safeHex(primaryColor)
   return (
     <nav

@@ -45,7 +45,6 @@ export const CompetitionFormatV2Config: ComponentConfig<CompetitionFormatV2Props
     secondaryCtaText: { type: 'text', label: 'Secondary CTA Text (empty to hide)' },
     secondaryCtaLink: { type: 'text', label: 'Secondary CTA Link' },
     primaryColor: createColorField({ label: 'Brand Color' }),
-    cardBgColor: createColorField({ label: 'Card Background Color' }),
   },
   defaultProps,
   render: CompetitionFormatV2Render,
