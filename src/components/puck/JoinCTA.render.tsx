@@ -46,8 +46,8 @@ export const defaultProps: JoinCTAProps = {
 /* ── Render ──────────────────────────────────────────────── */
 
 export function JoinCTARender({
-  heading,
-  body,
+  heading = defaultProps.heading,
+  body = defaultProps.body,
   photo,
   ctaText,
   ctaLink,
