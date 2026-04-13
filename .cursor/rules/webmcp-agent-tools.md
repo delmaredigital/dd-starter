@@ -48,6 +48,7 @@ Use `list_webmcp_tools` via the `webmcp-bridge` MCP server. Tools are self-docum
 - **Local file uploads**: STOP and ask user for a curl from DevTools.
 - **Stale SSR after deploy**: reload Puck editor → re-publish.
 - **Page slug = hero title, kebab-cased.** "Junior" prefix for K-5 variants.
+- **Skip fields that use defaults.** These components fall back to `defaultProps` when props are missing — don't pass them when creating pages: AwardsSection (heading, introText, all badges, teamAward, individualAward), JoinCTA (heading, body).
 
 ## Architecture
 
