@@ -164,6 +164,7 @@ export const plugins: Plugin[] = [
     enabled: Boolean(process.env.R2_BUCKET),
     collections: {
       media: {
+        prefix: 'pages',
         disablePayloadAccessControl: true,
         generateFileURL: ({ filename, prefix }) => {
           const key = prefix ? `${prefix}/${filename}` : filename
