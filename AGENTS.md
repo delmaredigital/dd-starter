@@ -51,6 +51,8 @@ if the right frame isn't obvious.
 - **Raw photos** (single image on a rectangle): Get node via `GET /v1/files/:key/nodes?ids=:id`, read `imageRef` from fills. A node with IMAGE + SOLID fills = photo + primary color overlay — take only the IMAGE ref. Look up raw source URL via `GET /v1/files/:key/images` → `meta.images[imageRef]`. This gives the original upload at max quality, no overlay baked in.
 - **Composites** (group of photos + SVG decorations): Export the parent group via `GET /v1/images/:key?ids=:nodeId&format=png&scale=2`. Key: find the group that has images + decorations but NOT text — one level too high includes section headings.
 - Do NOT use `get_design_context` for images — it decomposes groups into individual vector parts.
+- **Shared vs unique caveat**: decorative elements (frame textures, corner SVGs, background patterns) share `imageRef` across competitions. Actual photos have unique refs per school. Don't assume "same ref = shared image" — verify it's a photo, not decoration. Compare refs at the photo fill level, not the composite group level.
+- **About [school] photo**: unique per competition. Layout structure also varies (some use 419×328, others 392×330, some use different composite arrangements entirely).
 
 | Section node | Competition | HS desktop frame | Status |
 |---|---|---|---|
