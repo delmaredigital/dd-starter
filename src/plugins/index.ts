@@ -157,22 +157,47 @@ export const plugins: Plugin[] = [
   //
   // R2 bucket is already created (name: "public"), custom domain cdn.algoed.co
   // is set up, TLS min set to 1.2. Just need the API token to proceed.
-  ...(process.env.AWS_S3_BUCKET_NAME
+  // R2 storage — Cloudflare R2 via S3-compatible API.
+  // Public bucket with cdn.algoed.co custom domain. Media served directly
+  // from R2 (bypasses Next.js Router Vary headers, enables Cloudflare Polish).
+  ...(process.env.R2_BUCKET
     ? [
         s3Storage({
           collections: {
-            media: true,
+            media: {
+              disablePayloadAccessControl: true,
+              generateFileURL: ({ filename }) =>
+                `${process.env.R2_PUBLIC_URL}/media/${filename}`,
+            },
           },
-          bucket: process.env.AWS_S3_BUCKET_NAME,
+          bucket: process.env.R2_BUCKET,
           config: {
-            endpoint: process.env.AWS_ENDPOINT_URL,
-            region: process.env.AWS_DEFAULT_REGION || 'auto',
+            endpoint: process.env.R2_ENDPOINT,
+            region: 'auto',
             credentials: {
-              accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
-              secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
+              accessKeyId: process.env.R2_ACCESS_KEY_ID || '',
+              secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || '',
             },
           },
         }),
       ]
-    : []),
+    // Fallback: Railway Object Storage (Tigris) — keep for rollback
+    : process.env.AWS_S3_BUCKET_NAME
+      ? [
+          s3Storage({
+            collections: {
+              media: true,
+            },
+            bucket: process.env.AWS_S3_BUCKET_NAME,
+            config: {
+              endpoint: process.env.AWS_ENDPOINT_URL,
+              region: process.env.AWS_DEFAULT_REGION || 'auto',
+              credentials: {
+                accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
+              },
+            },
+          }),
+        ]
+      : []),
 ]
