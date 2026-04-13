@@ -2,9 +2,8 @@
  * BenefitsGrid — full editor config with field definitions.
  */
 import type { ComponentConfig } from '@puckeditor/core'
-import { createMediaField } from '@delmaredigital/payload-puck/fields'
 import { createColorField } from './fields'
-import { BenefitsGridRender, defaultProps } from './BenefitsGrid.render'
+import { BenefitsGridRender, defaultProps, benefitIconOptions } from './BenefitsGrid.render'
 import type { BenefitsGridProps } from './BenefitsGrid.render'
 
 export type { BenefitsGridProps, BenefitItem } from './BenefitsGrid.render'
@@ -18,7 +17,11 @@ export const BenefitsGridConfig: ComponentConfig<BenefitsGridProps> = {
       type: 'array',
       label: 'Benefits',
       arrayFields: {
-        icon: createMediaField({ label: 'Icon' }),
+        iconKey: {
+          type: 'select',
+          label: 'Icon',
+          options: benefitIconOptions,
+        },
         heading: { type: 'text', label: 'Heading' },
         description: { type: 'textarea', label: 'Description' },
       },

@@ -16,6 +16,7 @@
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { CompetitionCTA, safeHex, hexAlpha } from './shared'
+import { Groups, Category, Diversity2 } from './icons'
 
 const CARD_SHADOW = '0 4px 6px -2px rgba(10,13,18,0.03), 0 12px 16px -4px rgba(10,13,18,0.08)'
 
@@ -215,7 +216,8 @@ export function CompetitionStructureRender({
                 className="rounded-xl px-8 pt-6 pb-6"
                 style={{ backgroundColor: '#f2f3f0', boxShadow: CARD_SHADOW }}
               >
-                {card.icon?.url && <img src={card.icon.url} alt="" className="w-10 h-10 mb-3" />}
+                {i === 0 && <Groups className="w-11 h-11 mb-3 text-[#909090]" />}
+                {i === 1 && <Category className="w-11 h-11 mb-3 text-[#909090]" />}
                 {/* Card heading — Figma 25px Bold #222 → 0.75× 18px = text-lg */}
                 {/* Heading→content: 20→15px ≈ mb-4 (16px) */}
                 <h3
@@ -261,7 +263,7 @@ export function CompetitionStructureRender({
           className="mt-5 px-6 pt-6 pb-12"
           style={{ backgroundColor: '#f2f3f0', boxShadow: CARD_SHADOW }}
         >
-          {roundsIcon?.url && <img src={roundsIcon.url} alt="" className="w-10 h-10 mb-3" />}
+          <Diversity2 className="w-11 h-11 mb-3 text-[#909090]" />
           {/* Rounds heading — Figma 25px Bold #222 → 0.75× 18px = text-lg */}
           {/* Heading→round1: 34→26px ≈ mb-7 (28px) */}
           <h3 className="font-bold mb-7 mt-0 text-lg" style={{ lineHeight: '1.3', color: '#222' }}>
