@@ -3,14 +3,21 @@
  * Server-safe: no client-only imports.
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
-import { FramedPayloadImage } from './FramedPayloadImage'
-import { PayloadImage } from './PayloadImage'
+import { FramedImage } from './FramedImage'
 import { CompetitionCTA, RichText, safeHex } from './shared'
 
-// The two-column layout collapses to 1col under lg (1024px). Above, each
-// image column is roughly half of the 940px container → ~460px. Tells the
-// browser to pick the smallest srcset candidate that fits.
-const TWO_COL_IMAGE_SIZES = '(max-width: 1023px) 100vw, 460px'
+// Plain <img> instead of next/image — deliberate, do not switch back.
+//
+// We tried to use next/image with R2 CDN URLs but it's fundamentally incompatible
+// with Cloudflare Polish. Next.js <Image> forces all images through /_next/image
+// proxy on the app server, injecting Router Vary headers that Cloudflare sees as
+// "vary_header_present" and refuses to optimize. There's no way to opt out of the
+// proxy while keeping <Image> — the behavior appears to be an intentional design
+// choice by Next.js (their own image optimization competes with Cloudflare's).
+//
+// We chose Cloudflare Polish over next/image. Result: 3.5MB PNG → 391KB WebP at
+// the edge, automatic format negotiation, zero app-server image processing.
+// Card frame uses FramedImage (client component, deferred frame on load).
 
 export interface TwoColumnFeatureProps {
   heading: string
@@ -110,9 +117,16 @@ export function TwoColumnFeatureRender({
   const imageColumn = (
     <div className="w-full max-w-sm mx-auto">
       {featureImage?.url && (
-        isCard
-          ? <FramedPayloadImage media={featureImage} sizes={TWO_COL_IMAGE_SIZES} />
-          : <PayloadImage media={featureImage} sizes={TWO_COL_IMAGE_SIZES} />
+        isCard ? (
+          <FramedImage src={featureImage.url} alt={featureImage.alt || ''} />
+        ) : (
+          <img
+            src={featureImage.url}
+            alt={featureImage.alt || ''}
+            loading="lazy"
+            style={{ maxWidth: '100%', height: 'auto' }}
+          />
+        )
       )}
     </div>
   )
