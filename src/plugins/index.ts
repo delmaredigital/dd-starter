@@ -150,6 +150,12 @@ export const plugins: Plugin[] = [
         },
       },
     },
+    // Maps Payload folders to R2 path prefixes so files from different competitions
+    // don't collide and R2 stays browsable (pages/unc-chapel-hill/, pages/thurj/, etc.).
+    // Without this flag, doc prefix overrides collection prefix — loses 'pages/' base.
+    // TODO: uncomment when @payloadcms/storage-s3 ≥3.83.0. Then simplify Media.ts hook
+    // to set data.prefix = folder.name (without 'pages/' workaround).
+    // useCompositePrefixes: true,
     bucket: process.env.R2_BUCKET || '',
     config: {
       endpoint: process.env.R2_ENDPOINT,

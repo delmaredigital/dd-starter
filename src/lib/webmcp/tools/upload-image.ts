@@ -4,7 +4,7 @@ export function createUploadImageTool(_accessors: PuckStateAccessors) {
   return {
     name: 'upload_image',
     description:
-      'Uploads an image to the Payload media library. Provide either a URL (fetched client-side) or base64 data (for local files). Returns a mediaReference object — set the "image" prop in Image or Card components to this entire object (not just the id). The upload uses the current admin session for authentication. Note: URL fetch may fail for non-CDN origins due to CORS — prefer base64 for images from servers without permissive CORS headers.',
+      'Uploads an image to Payload media (R2 at cdn.algoed.co). Returns a mediaReference object — set the "image" prop to this entire object (not just the id). Prefix filenames with competition slug for uniqueness (e.g. "unc-hero-bg.png"). Provide either a URL or base64 data. URL may fail due to CORS — prefer base64 for non-CDN origins. If upload fails due to size limits, ask user for a curl with auth cookie to POST /api/media directly.',
     inputSchema: {
       type: 'object' as const,
       properties: {

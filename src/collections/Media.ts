@@ -23,6 +23,28 @@ export const Media: CollectionConfig = {
     read: anyone,
     update: authenticated,
   },
+  hooks: {
+    // Maps Payload folders to R2 storage paths so each competition's media lives in
+    // its own R2 directory (pages/unc-chapel-hill/, pages/thurj/, etc.) instead of
+    // all files sharing a flat prefix. Prevents filename collisions and keeps R2 browsable.
+    // Workaround: prepends 'pages/' because useCompositePrefixes (which combines
+    // collection + doc prefix) needs storage-s3 ≥3.83.0. See plugins/index.ts TODO.
+    beforeChange: [
+      async ({ data, req }) => {
+        if (data?.folder) {
+          const folder = await req.payload.findByID({
+            collection: 'payload-folders',
+            id: data.folder,
+            req,
+          })
+          if (folder?.name) {
+            data.prefix = `pages/${folder.name}`
+          }
+        }
+        return data
+      },
+    ],
+  },
   fields: [
     {
       name: 'alt',

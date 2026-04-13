@@ -21,6 +21,8 @@ You are an expert Payload CMS developer. When working with Payload projects, fol
 
 For **local file uploads**: STOP and ask user for a curl from Chrome DevTools Network tab, then shell-upload to `POST /api/media` with `-F file=@/path -F alt=...`.
 
+**Media filenames must be globally unique** — prefix with competition slug (e.g. `unc-hero-bg.png`). Folders map to R2 paths via `beforeChange` hook in `Media.ts`; unique names are defense in depth.
+
 Full docs: `.cursor/rules/webmcp-agent-tools.md`
 
 ## Core Principles
