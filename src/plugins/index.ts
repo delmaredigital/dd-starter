@@ -124,42 +124,19 @@ export const plugins: Plugin[] = [
       },
     },
   }),
-  // S3 storage — currently points at Railway Object Storage (Tigris backend).
+  // Cloudflare R2 storage via S3-compatible API.
+  // Bucket: "public", custom domain: cdn.algoed.co, prefix: pages/
+  // Files served directly from R2 (bypasses Next.js Router Vary headers,
+  // enables Cloudflare Polish). Previously used Railway Object Storage (Tigris)
+  // which was private-only — media went through /api/media/file/* (App Router),
+  // injecting Vary headers that broke Polish (cf-polished: vary_header_present).
   //
-  // TODO(r2-migration): planned migration to Cloudflare R2. The Railway bucket
-  // is private-only (Tigris doesn't expose public bucket ACL via Railway's UI),
-  // so media files are served through Next.js at /api/media/file/*. That route
-  // goes through the App Router, which injects Router Vary headers that break
-  // Cloudflare Polish (cf-polished: vary_header_present). Result: no automatic
-  // image optimization site-wide.
-  //
-  // R2 migration plan (blocked on obtaining an R2 API token — requires Super
-  // Administrator role on the Cloudflare account, which we don't have access
-  // to right now. Pick this up Monday / next session.):
-  //
-  //   1. Generate R2 API token (Account super admin needed)
-  //   2. Add R2_* env vars to Railway (keep AWS_* vars for rollback):
-  //        R2_ENDPOINT=https://14d2803ce132b824234cc406f58e0642.r2.cloudflarestorage.com
-  //        R2_BUCKET=public
-  //        R2_ACCESS_KEY_ID=<from token>
-  //        R2_SECRET_ACCESS_KEY=<from token>
-  //        R2_PUBLIC_URL=https://cdn.algoed.co
-  //   3. Switch this plugin config to use R2_* env vars
-  //   4. Add disablePayloadAccessControl: true + generateFileURL so media.url
-  //      points at https://cdn.algoed.co/media/<filename> directly (bypassing
-  //      Next.js and the Router Vary headers)
-  //   5. Copy existing files Railway bucket → R2 bucket via aws s3 sync (or
-  //      boto3 script with both sets of credentials)
-  //   6. One-time DB migration: rewrite media.url fields AND puckData
-  //      MediaReference URLs from /api/media/file/X → https://cdn.algoed.co/media/X
-  //   7. Deploy, verify uploads go to R2 + Polish activates
-  //   8. Cleanup: remove AWS_* env vars, optionally delete Railway bucket
-  //
-  // R2 bucket is already created (name: "public"), custom domain cdn.algoed.co
-  // is set up, TLS min set to 1.2. Just need the API token to proceed.
-  // R2 storage — Cloudflare R2 via S3-compatible API.
-  // Public bucket with cdn.algoed.co custom domain. Media served directly
-  // from R2 (bypasses Next.js Router Vary headers, enables Cloudflare Polish).
+  // Remaining migration steps:
+  //   1. Copy existing files Railway bucket → R2 bucket (aws s3 sync or boto3)
+  //   2. One-time DB migration: rewrite media.url fields AND puckData
+  //      MediaReference URLs from /api/media/file/X → https://cdn.algoed.co/pages/X
+  //   3. Verify uploads go to R2 + Polish activates
+  //   4. Cleanup: remove AWS_* env vars, delete Railway bucket
   s3Storage({
     enabled: Boolean(process.env.R2_BUCKET),
     collections: {
