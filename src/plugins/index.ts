@@ -139,6 +139,7 @@ export const plugins: Plugin[] = [
   //   4. Cleanup: remove AWS_* env vars, delete Railway bucket
   s3Storage({
     enabled: Boolean(process.env.R2_BUCKET),
+    alwaysInsertFields: true,
     collections: {
       media: {
         prefix: 'pages',

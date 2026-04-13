@@ -67,6 +67,7 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    pages: Page;
     posts: Post;
     media: Media;
     users: User;
@@ -77,7 +78,6 @@ export interface Config {
     apikeys: Apikey;
     passkeys: Passkey;
     'puck-templates': PuckTemplate;
-    pages: Page;
     redirects: Redirect;
     search: Search;
     'payload-kv': PayloadKv;
@@ -89,10 +89,11 @@ export interface Config {
   };
   collectionsJoins: {
     'payload-folders': {
-      documentsAndFolders: 'payload-folders' | 'posts' | 'media' | 'pages';
+      documentsAndFolders: 'payload-folders' | 'pages' | 'posts' | 'media';
     };
   };
   collectionsSelect: {
+    pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -103,7 +104,6 @@ export interface Config {
     apikeys: ApikeysSelect<false> | ApikeysSelect<true>;
     passkeys: PasskeysSelect<false> | PasskeysSelect<true>;
     'puck-templates': PuckTemplatesSelect<false> | PuckTemplatesSelect<true>;
-    pages: PagesSelect<false> | PagesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     search: SearchSelect<false> | SearchSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -161,49 +161,82 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
+ * via the `definition` "pages".
  */
-export interface Post {
+export interface Page {
   id: number;
   title: string;
-  heroImage?: (number | null) | Media;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  relatedPosts?: (number | Post)[] | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
+  /**
+   * Auto-generated from folder path + page segment
+   */
+  slug: string;
+  /**
+   * Puck editor data - managed via visual editor
+   */
+  puckData?:
     | {
-        id?: string | null;
-        name?: string | null;
-      }[]
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
     | null;
   /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   * Which editor was used to create this page
    */
-  generateSlug?: boolean | null;
-  slug: string;
+  editorVersion?: ('legacy' | 'puck') | null;
+  /**
+   * Overall page structure and layout style
+   */
+  pageLayout: 'default' | 'full-width' | 'landing';
+  /**
+   * Mark this page as the homepage
+   */
+  isHomepage?: boolean | null;
+  meta?: {
+    /**
+     * Override the page title for search engines
+     */
+    title?: string | null;
+    /**
+     * Description shown in search engine results
+     */
+    description?: string | null;
+    /**
+     * Image shown when sharing on social media
+     */
+    image?: (number | null) | Media;
+    /**
+     * Prevent search engines from indexing this page
+     */
+    noindex?: boolean | null;
+    /**
+     * Prevent search engines from following links on this page
+     */
+    nofollow?: boolean | null;
+    /**
+     * Exclude this page from the XML sitemap
+     */
+    excludeFromSitemap?: boolean | null;
+  };
+  /**
+   * Configure conversion tracking for analytics
+   */
+  conversionTracking?: {
+    /**
+     * Check this if this page represents a completed conversion (e.g., thank you page)
+     */
+    isConversionPage?: boolean | null;
+    /**
+     * Type of conversion this page represents
+     */
+    conversionType?: ('lead' | 'registration' | 'purchase' | 'donation' | 'newsletter' | 'contact' | 'custom') | null;
+    /**
+     * Monetary value of this conversion (0 for non-monetary conversions)
+     */
+    conversionValue?: number | null;
+  };
   /**
    * URL segment for this page (auto-generated from title if empty)
    */
@@ -247,6 +280,7 @@ export interface Media {
     };
     [k: string]: unknown;
   } | null;
+  prefix?: string | null;
   folder?: (number | null) | FolderInterface;
   updatedAt: string;
   createdAt: string;
@@ -333,6 +367,10 @@ export interface FolderInterface {
           value: number | FolderInterface;
         }
       | {
+          relationTo?: 'pages';
+          value: number | Page;
+        }
+      | {
           relationTo?: 'posts';
           value: number | Post;
         }
@@ -340,15 +378,11 @@ export interface FolderInterface {
           relationTo?: 'media';
           value: number | Media;
         }
-      | {
-          relationTo?: 'pages';
-          value: number | Page;
-        }
     )[];
     hasNextPage?: boolean;
     totalDocs?: number;
   };
-  folderType?: ('posts' | 'media' | 'pages')[] | null;
+  folderType?: ('pages' | 'posts' | 'media')[] | null;
   /**
    * URL path segment (e.g., "appeals" for /appeals/...)
    */
@@ -359,82 +393,49 @@ export interface FolderInterface {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
+ * via the `definition` "posts".
  */
-export interface Page {
+export interface Post {
   id: number;
   title: string;
-  /**
-   * Auto-generated from folder path + page segment
-   */
-  slug: string;
-  /**
-   * Overall page structure and layout style
-   */
-  pageLayout: 'default' | 'full-width' | 'landing';
-  /**
-   * Which editor was used to create this page
-   */
-  editorVersion?: ('legacy' | 'puck') | null;
-  /**
-   * Mark this page as the homepage
-   */
-  isHomepage?: boolean | null;
-  /**
-   * Puck editor data - managed via visual editor
-   */
-  puckData?:
-    | {
+  heroImage?: (number | null) | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
         [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  relatedPosts?: (number | Post)[] | null;
   meta?: {
-    /**
-     * Override the page title for search engines
-     */
     title?: string | null;
     /**
-     * Description shown in search engine results
-     */
-    description?: string | null;
-    /**
-     * Image shown when sharing on social media
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
-    /**
-     * Prevent search engines from indexing this page
-     */
-    noindex?: boolean | null;
-    /**
-     * Prevent search engines from following links on this page
-     */
-    nofollow?: boolean | null;
-    /**
-     * Exclude this page from the XML sitemap
-     */
-    excludeFromSitemap?: boolean | null;
+    description?: string | null;
   };
+  publishedAt?: string | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
   /**
-   * Configure conversion tracking for analytics
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
-  conversionTracking?: {
-    /**
-     * Check this if this page represents a completed conversion (e.g., thank you page)
-     */
-    isConversionPage?: boolean | null;
-    /**
-     * Type of conversion this page represents
-     */
-    conversionType?: ('lead' | 'registration' | 'purchase' | 'donation' | 'newsletter' | 'contact' | 'custom') | null;
-    /**
-     * Monetary value of this conversion (0 for non-monetary conversions)
-     */
-    conversionValue?: number | null;
-  };
+  generateSlug?: boolean | null;
+  slug: string;
   /**
    * URL segment for this page (auto-generated from title if empty)
    */
@@ -795,6 +796,10 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
+        relationTo: 'pages';
+        value: number | Page;
+      } | null)
+    | ({
         relationTo: 'posts';
         value: number | Post;
       } | null)
@@ -833,10 +838,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'puck-templates';
         value: number | PuckTemplate;
-      } | null)
-    | ({
-        relationTo: 'pages';
-        value: number | Page;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -894,6 +895,49 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  puckData?: T;
+  editorVersion?: T;
+  pageLayout?: T;
+  isHomepage?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        noindex?: T;
+        nofollow?: T;
+        excludeFromSitemap?: T;
+      };
+  conversionTracking?:
+    | T
+    | {
+        isConversionPage?: T;
+        conversionType?: T;
+        conversionValue?: T;
+      };
+  pageSegment?: T;
+  sortOrder?: T;
+  slugHistory?:
+    | T
+    | {
+        slug?: T;
+        changedAt?: T;
+        reason?: T;
+        id?: T;
+      };
+  folder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -940,6 +984,7 @@ export interface PostsSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   caption?: T;
+  prefix?: T;
   folder?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1150,49 +1195,6 @@ export interface PuckTemplatesSelect<T extends boolean = true> {
   thumbnail?: T;
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages_select".
- */
-export interface PagesSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  pageLayout?: T;
-  editorVersion?: T;
-  isHomepage?: T;
-  puckData?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-        noindex?: T;
-        nofollow?: T;
-        excludeFromSitemap?: T;
-      };
-  conversionTracking?:
-    | T
-    | {
-        isConversionPage?: T;
-        conversionType?: T;
-        conversionValue?: T;
-      };
-  pageSegment?: T;
-  sortOrder?: T;
-  slugHistory?:
-    | T
-    | {
-        slug?: T;
-        changedAt?: T;
-        reason?: T;
-        id?: T;
-      };
-  folder?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
