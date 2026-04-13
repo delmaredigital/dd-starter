@@ -160,44 +160,26 @@ export const plugins: Plugin[] = [
   // R2 storage — Cloudflare R2 via S3-compatible API.
   // Public bucket with cdn.algoed.co custom domain. Media served directly
   // from R2 (bypasses Next.js Router Vary headers, enables Cloudflare Polish).
-  ...(process.env.R2_BUCKET
-    ? [
-        s3Storage({
-          collections: {
-            media: {
-              disablePayloadAccessControl: true,
-              generateFileURL: ({ filename }) =>
-                `${process.env.R2_PUBLIC_URL}/media/${filename}`,
-            },
-          },
-          bucket: process.env.R2_BUCKET,
-          config: {
-            endpoint: process.env.R2_ENDPOINT,
-            region: 'auto',
-            credentials: {
-              accessKeyId: process.env.R2_ACCESS_KEY_ID || '',
-              secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || '',
-            },
-          },
-        }),
-      ]
-    // Fallback: Railway Object Storage (Tigris) — keep for rollback
-    : process.env.AWS_S3_BUCKET_NAME
-      ? [
-          s3Storage({
-            collections: {
-              media: true,
-            },
-            bucket: process.env.AWS_S3_BUCKET_NAME,
-            config: {
-              endpoint: process.env.AWS_ENDPOINT_URL,
-              region: process.env.AWS_DEFAULT_REGION || 'auto',
-              credentials: {
-                accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
-                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
-              },
-            },
-          }),
-        ]
-      : []),
+  s3Storage({
+    enabled: Boolean(process.env.R2_BUCKET),
+    collections: {
+      media: {
+        disablePayloadAccessControl: true,
+        generateFileURL: ({ filename, prefix }) => {
+          const key = prefix ? `${prefix}/${filename}` : filename
+          return `${process.env.R2_PUBLIC_URL}/${key}`
+        },
+      },
+    },
+    bucket: process.env.R2_BUCKET || '',
+    config: {
+      endpoint: process.env.R2_ENDPOINT,
+      region: 'auto',
+      forcePathStyle: true,
+      credentials: {
+        accessKeyId: process.env.R2_ACCESS_KEY_ID || '',
+        secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || '',
+      },
+    },
+  }),
 ]
