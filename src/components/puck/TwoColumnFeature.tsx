@@ -3,7 +3,7 @@
  */
 import type { ComponentConfig } from '@puckeditor/core'
 import { createMediaField } from '@delmaredigital/payload-puck/fields'
-import { createColorField, createOptionalColorField } from './fields'
+import { createColorField, createOptionalColorField, createRichTextField } from './fields'
 import { TwoColumnFeatureRender, defaultProps } from './TwoColumnFeature.render'
 import type { TwoColumnFeatureProps } from './TwoColumnFeature.render'
 
@@ -14,7 +14,7 @@ export const TwoColumnFeatureConfig: ComponentConfig<TwoColumnFeatureProps> = {
   label: 'Two Column Feature',
   fields: {
     heading: { type: 'text', label: 'Heading' },
-    body: { type: 'richtext', label: 'Body Text' },
+    body: createRichTextField({ label: 'Body Text' }),
     ctaText: { type: 'text', label: 'CTA Button Text (leave empty to hide)' },
     ctaLink: { type: 'text', label: 'CTA Button Link' },
     ctaVariant: {

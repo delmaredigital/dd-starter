@@ -2,7 +2,10 @@
  * Custom Puck field helpers for competition components.
  * Client-only — uses Puck editor components.
  */
-import { FieldLabel } from '@puckeditor/core'
+import { FieldLabel, RichTextMenu } from '@puckeditor/core'
+import type { RichtextField } from '@puckeditor/core'
+import { Color } from '@tiptap/extension-color'
+import { TextStyle } from '@tiptap/extension-text-style'
 
 /** Color picker that always returns valid hex. For fields that must have a color. */
 export function createColorField({ label }: { label: string }) {
@@ -68,5 +71,58 @@ export function createOptionalColorField({ label }: { label: string }) {
         {!value && <div style={{ fontSize: 12, color: '#888', marginTop: 4 }}>No color set (transparent)</div>}
       </FieldLabel>
     ),
+  }
+}
+
+const colorSelector = () => ({ hasColor: false })
+
+/** Richtext field with text color support via Tiptap Color extension. */
+export function createRichTextField({ label }: { label: string }): RichtextField<typeof colorSelector> {
+  return {
+    type: 'richtext',
+    label,
+    tiptap: {
+      extensions: [TextStyle, Color],
+      selector: colorSelector,
+    },
+    renderMenu: ({ children, editor }) => {
+      const currentColor = (editor?.getAttributes('textStyle')?.color as string) ?? null
+      return (
+        <RichTextMenu>
+          {children}
+          <RichTextMenu.Group>
+            <RichTextMenu.Control
+              active={Boolean(currentColor)}
+              title="Text Color"
+              icon={
+                <input
+                  type="color"
+                  value={currentColor ?? '#000000'}
+                  onChange={(e) => editor?.chain().focus().setColor(e.target.value).run()}
+                  style={{
+                    width: 16,
+                    height: 16,
+                    padding: 0,
+                    border: 'none',
+                    borderRadius: 2,
+                    cursor: 'pointer',
+                    background: 'transparent',
+                  }}
+                />
+              }
+              onClick={() => {}}
+            />
+            {currentColor && (
+              <RichTextMenu.Control
+                active={false}
+                title="Clear Color"
+                icon={<span style={{ fontSize: 12, lineHeight: 1 }}>✕</span>}
+                onClick={() => editor?.chain().focus().unsetColor().run()}
+              />
+            )}
+          </RichTextMenu.Group>
+        </RichTextMenu>
+      )
+    },
   }
 }

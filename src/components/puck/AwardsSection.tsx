@@ -3,6 +3,7 @@
  */
 import type { ComponentConfig } from '@puckeditor/core'
 import { createMediaField } from '@delmaredigital/payload-puck/fields'
+import { createRichTextField } from './fields'
 import { AwardsSectionRender, defaultProps, badgeIconOptions } from './AwardsSection.render'
 import type { AwardsSectionProps } from './AwardsSection.render'
 
@@ -27,7 +28,7 @@ export const AwardsSectionConfig: ComponentConfig<AwardsSectionProps> = {
   label: 'Awards Section',
   fields: {
     heading: { type: 'text', label: 'Heading' },
-    introText: { type: 'richtext', label: 'Intro Text' },
+    introText: createRichTextField({ label: 'Intro Text' }),
     preliminary: {
       type: 'object',
       label: 'Preliminary Round',

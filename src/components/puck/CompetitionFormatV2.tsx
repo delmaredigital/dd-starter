@@ -2,7 +2,7 @@
  * CompetitionFormatV2 — full editor config with field definitions.
  */
 import type { ComponentConfig } from '@puckeditor/core'
-import { createColorField } from './fields'
+import { createColorField, createRichTextField } from './fields'
 import { CompetitionFormatV2Render, defaultProps } from './CompetitionFormatV2.render'
 import type { CompetitionFormatV2Props } from './CompetitionFormatV2.render'
 
@@ -25,10 +25,10 @@ export const CompetitionFormatV2Config: ComponentConfig<CompetitionFormatV2Props
           label: 'Info Cards (Time, Duration, etc.)',
           arrayFields: {
             heading: { type: 'text', label: 'Card Heading' },
-            body: { type: 'richtext', label: 'Card Body' },
+            body: createRichTextField({ label: 'Card Body' }),
           },
         },
-        formatDetails: { type: 'richtext', label: 'Format Details (triggers "Format :" header)' },
+        formatDetails: createRichTextField({ label: 'Format Details (triggers "Format :" header)' }),
         formatCards: {
           type: 'array',
           label: 'Format Cards (also triggers "Format :" header)',
@@ -37,7 +37,7 @@ export const CompetitionFormatV2Config: ComponentConfig<CompetitionFormatV2Props
             body: { type: 'textarea', label: 'Card Body' },
           },
         },
-        body: { type: 'richtext', label: 'Body (paragraphs, bullets, etc.)' },
+        body: createRichTextField({ label: 'Body (paragraphs, bullets, etc.)' }),
       },
     },
     ctaText: { type: 'text', label: 'Primary CTA Text (empty to hide)' },
