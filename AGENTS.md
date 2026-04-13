@@ -23,6 +23,8 @@ For **local file uploads**: STOP and ask user for a curl from Chrome DevTools Ne
 
 **Media filenames must be globally unique** — prefix with competition slug (e.g. `unc-hero-bg.png`). Folders map to R2 paths via `beforeChange` hook in `Media.ts`; unique names are defense in depth.
 
+**Media naming**: clean, descriptive names. `raw` suffix only for archival source copies that need cropping/processing before production use — not for final assets.
+
 Full docs: `.cursor/rules/webmcp-agent-tools.md`
 
 ## Core Principles
@@ -52,7 +54,7 @@ if the right frame isn't obvious.
 - **Composites** (group of photos + SVG decorations): Export the parent group via `GET /v1/images/:key?ids=:nodeId&format=png&scale=2`. Key: find the group that has images + decorations but NOT text — one level too high includes section headings.
 - Do NOT use `get_design_context` for images — it decomposes groups into individual vector parts.
 - **Shared vs unique caveat**: decorative elements (frame textures, corner SVGs, background patterns) share `imageRef` across competitions. Actual photos have unique refs per school. Don't assume "same ref = shared image" — verify it's a photo, not decoration. Compare refs at the photo fill level, not the composite group level.
-- **About [school] photo**: unique per competition. Layout structure also varies (some use 419×328, others 392×330, some use different composite arrangements entirely).
+- **About [school] photo**: some competitions have school-specific campus photos (Boston, THURJ, Stanford), others use a shared generic red brick building (UNC, Rutgers, UCI, Rice). Shared photo goes to root; school-specific goes to competition folder.
 
 | Section node | Competition | HS desktop frame | Status |
 |---|---|---|---|
