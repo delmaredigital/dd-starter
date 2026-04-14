@@ -71,22 +71,22 @@ export const defaultProps: AwardsSectionProps = {
     badges: [
       { badgeIcon: 'honor', label: 'Honor', sublabel: '' },
       { badgeIcon: 'merit', label: 'Merit', sublabel: '' },
-      { badgeIcon: 'semi-finalist', label: 'Semi Finalist', sublabel: '' },
     ],
   },
   semiFinal: {
     title: 'Semi- Final Round',
     badges: [
-      { badgeIcon: 'finalist', label: 'Finalist', sublabel: '' },
+      { badgeIcon: 'semi-finalist', label: 'Semi Finalist', sublabel: '' },
     ],
   },
   final: {
     title: 'Final Round',
-    subtitle: 'Global Awards',
+    subtitle: '',
     badges: [
       { badgeIcon: 'champion', label: 'Global Champion', sublabel: '' },
       { badgeIcon: '1st-runner', label: 'Global 1st Runner Up', sublabel: '' },
       { badgeIcon: '2nd-runner', label: 'Global 2nd Runner Up', sublabel: '' },
+      { badgeIcon: 'finalist', label: 'Finalist', sublabel: '' },
     ],
   },
   individualAward: {

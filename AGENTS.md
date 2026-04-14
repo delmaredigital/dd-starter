@@ -36,7 +36,7 @@ Each competition has two pages (HS/MS + Junior). For each page:
 3. **Extract images** — `imageRef` for raw photos, group export at 2x for composites, SVG export + SVGO for vectors/timelines. Save to `docs/<competition>-review/` for user visual review.
 4. **Upload to Payload media** — create competition folder via `payload_api`, upload via curl with `_payload` JSON for folder assignment.
 5. **Create or open the Puck page** — check if the page exists first (`/api/pages?where[slug][equals]=...`). If it exists, navigate to it. If not, create via POST to `/api/pages`. Then open in the Puck editor.
-6. **Wire all components** — populate every component with text (from Figma `get_metadata`) and images (from uploaded media URLs). Use `update_page` via WebMCP.
+6. **Wire all components** — populate every component with text (from Figma `get_metadata`) and images (from uploaded media URLs). Use `update_page` via WebMCP. If a component's props match the defaults, do NOT set them explicitly — let defaultProps handle it. Explicit data overrides defaults and makes global changes harder (e.g. AwardsSection badges — fix defaults once vs patch every page).
 7. **Save, reload, publish** — always: `save_page` → reload editor (confirms persisted state) → click Publish. Default final step for every page edit. Verify the public URL loads correctly.
 
 The deliverable is a fully wired, published Puck page — not just uploaded images.
