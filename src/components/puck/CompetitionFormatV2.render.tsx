@@ -182,7 +182,7 @@ export function CompetitionFormatV2Render({
             {/* Info cards (Time/Duration) — white bg, rounded-xl, side by side */}
             {/* Gap: Figma 20→15px ≈ gap-4. Margin below: 42→32px ≈ mb-8 */}
             {(round.infoCards ?? []).length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 items-start">
                 {(round.infoCards ?? []).map((card, j) => (
                   <div
                     key={`info-${card.heading}-${j}`}
@@ -206,7 +206,7 @@ export function CompetitionFormatV2Render({
                   <RichText html={round.formatDetails} className="m-0 text-base text-[#222]" />
                 )}
                 {(round.formatCards ?? []).length > 0 && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 items-start">
                     {(round.formatCards ?? []).map((card, j) => (
                       <div
                         key={`cat-${card.heading}-${j}`}
