@@ -67,11 +67,12 @@ export function JoinCTARender({
         {/* Figma: globe 42.6% / text 31.4% ≈ 1.35:1 ratio */}
         <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-10 items-center">
           {/* Globe frame — center-anchored composition.
-             The map img drives the container's height via its intrinsic
-             width/height (1450×866 → aspect 1.6744, the source vector's
+             The map is a CSS-masked div: SVG used as mask-image with
+             backgroundColor set to 10% primaryColor tint. The SVG's
+             viewBox is 725×433 (aspect 1.6744, the source vector's
              natural shape — close to Winkel Tripel, not cropped, not
-             stretched, no object-fit trickery). Container has no explicit
-             aspect-ratio: it inherits from the map img's attributes.
+             stretched). aspectRatio set explicitly on the div since
+             mask-image divs have no intrinsic dimensions.
 
              Circles wrapper and photo are absolutely centered via
              50%/50% + translate(-50%, -50%). Pure geometric centering —
@@ -100,21 +101,18 @@ export function JoinCTARender({
              The photo is CSS-clipped to a circle via rounded-full —
              uploaded image can be any shape/size, object-cover fills
              the circle cleanly. Source image doesn't need to be round
-             or pixel-exact.
-
-             Future next/image: swap the map <img> for <Image src=
-             "/..." width={1450} height={866} />. Intrinsic-dimension
-             mode preserves the flow-sized behavior; no other code
-             changes needed. Same for the photo img: <Image src={photo.
-             url} width={photo.width} height={photo.height} />. */}
+             or pixel-exact. */}
           <div className="relative">
-            <img
-              src="/competition-assets/join-globe-frame-map.png"
-              alt=""
-              width={1450}
-              height={866}
-              loading="lazy"
-              className="block w-full h-auto pointer-events-none"
+            <div
+              className="block w-full pointer-events-none"
+              style={{
+                aspectRatio: '725 / 433',
+                backgroundColor: `color-mix(in srgb, var(--tint-color, ${color}) 10%, white)`,
+                WebkitMaskImage: 'url(/competition-assets/join-globe-frame-map.svg)',
+                WebkitMaskSize: '100% 100%',
+                maskImage: 'url(/competition-assets/join-globe-frame-map.svg)',
+                maskSize: '100% 100%',
+              }}
             />
             <div
               className="absolute"
