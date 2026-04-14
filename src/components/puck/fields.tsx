@@ -31,8 +31,12 @@ export function createColorField({ label }: { label: string }) {
   }
 }
 
-/** Toggle pill field for choosing between primary dark and primary bright. */
-export function createBrandPickerField({ label }: { label: string }) {
+/** Pill toggle field for choosing between options. Generic — used for brand picker, CTA style, etc. */
+export function createPillField({ label, options, defaultValue }: {
+  label: string
+  options: { label: string; value: string }[]
+  defaultValue: string
+}) {
   return {
     type: 'custom' as const,
     label,
@@ -42,7 +46,7 @@ export function createBrandPickerField({ label }: { label: string }) {
       value: string
       field: { label?: string }
     }) => {
-      const selected = value || 'bright'
+      const selected = value || defaultValue
       const pill = (val: string, text: string) => (
         <button
           type="button"
@@ -65,13 +69,24 @@ export function createBrandPickerField({ label }: { label: string }) {
       return (
         <FieldLabel label={field.label || label}>
           <div style={{ display: 'flex', gap: 4 }}>
-            {pill('bright', 'Bright')}
-            {pill('dark', 'Dark')}
+            {options.map(opt => pill(opt.value, opt.label))}
           </div>
         </FieldLabel>
       )
     },
   }
+}
+
+/** Brand picker: dark vs bright pill toggle. */
+export function createBrandPickerField({ label }: { label: string }) {
+  return createPillField({
+    label,
+    options: [
+      { label: 'Bright', value: 'bright' },
+      { label: 'Dark', value: 'dark' },
+    ],
+    defaultValue: 'bright',
+  })
 }
 
 /** Slider field for numeric values (e.g. opacity). Shows value label + range input. */

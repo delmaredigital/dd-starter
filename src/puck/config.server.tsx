@@ -14,15 +14,19 @@ export const puckServerConfig = extendConfig({
   base: baseConfig,
   components: competitionComponentsServer,
   root: {
-    render: ({ primaryDark, primaryBright, ctaBgSource, children }: { primaryDark?: string; primaryBright?: string; ctaBgSource?: string; children: ReactNode }) => (
+    render: ({ primaryDark, primaryBright, ctaStyle, children }: { primaryDark?: string; primaryBright?: string; ctaStyle?: string; children: ReactNode }) => {
+      const style = ctaStyle ?? 'dark'
+      const isBright = style === 'bright' || style === 'bright-dark'
+      return (
       <div style={{
         '--primary-dark': primaryDark || '#222',
         '--primary-bright': primaryBright || primaryDark || '#222',
-        '--cta-bg': (ctaBgSource ?? 'dark') === 'bright' ? 'var(--primary-bright)' : 'var(--primary-dark)',
-        '--cta-text': (ctaBgSource ?? 'dark') === 'bright' ? 'var(--primary-dark)' : '#ffffff',
+        '--cta-bg': isBright ? 'var(--primary-bright)' : 'var(--primary-dark)',
+        '--cta-text': style === 'bright-dark' ? 'var(--primary-dark)' : '#ffffff',
       } as React.CSSProperties}>
         {children}
       </div>
-    ),
+      )
+    },
   },
 })
