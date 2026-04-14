@@ -9,7 +9,6 @@
  *            .navigation-button-2, .navigation-divider
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
-import { BRAND_DARK } from './shared'
 import { MobileNav } from './MobileNav'
 
 export interface NavLinkItem {
@@ -46,7 +45,6 @@ export function CompetitionNavRender({
   partnerLogo, partnerLink, navLinks, ctaText, ctaLink,
   secondaryCtaText, secondaryCtaLink,
 }: CompetitionNavProps) {
-  const color = BRAND_DARK
   return (
     <nav
       className="w-full flex items-center relative"

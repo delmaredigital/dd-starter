@@ -9,6 +9,7 @@
  */
 import { Collapsible } from '@base-ui/react/collapsible'
 import type { NavLinkItem } from './CompetitionNav.render'
+import { BRAND_DARK } from './shared'
 
 interface MobileNavProps {
   navLinks: NavLinkItem[]
@@ -56,7 +57,7 @@ export function MobileNav({
               target="_blank"
               rel="noopener noreferrer"
               className="block no-underline text-white text-center text-base font-bold mt-2 mx-6 rounded-lg py-3 px-6"
-              style={{ backgroundColor: 'var(--primary-dark, #222)', lineHeight: '24px' }}
+              style={{ backgroundColor: BRAND_DARK, lineHeight: '24px' }}
             >
               {ctaText}
             </a>
