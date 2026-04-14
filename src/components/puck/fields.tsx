@@ -31,6 +31,40 @@ export function createColorField({ label }: { label: string }) {
   }
 }
 
+/** Slider field for numeric values (e.g. opacity). Shows value label + range input. */
+export function createSliderField({ label, min = 0, max = 100, step = 1, suffix = '%' }: {
+  label: string; min?: number; max?: number; step?: number; suffix?: string
+}) {
+  return {
+    type: 'custom' as const,
+    label,
+    render: ({ name, onChange, value, field }: {
+      name: string
+      onChange: (val: number) => void
+      value: number
+      field: { label?: string }
+    }) => (
+      <FieldLabel label={field.label || label}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <input
+            type="range"
+            name={name}
+            min={min}
+            max={max}
+            step={step}
+            value={value ?? min}
+            onChange={(e) => onChange(Number(e.target.value))}
+            style={{ flex: 1, height: 40, cursor: 'pointer' }}
+          />
+          <span style={{ fontSize: 12, minWidth: 40, textAlign: 'right' }}>
+            {value ?? min}{suffix}
+          </span>
+        </div>
+      </FieldLabel>
+    ),
+  }
+}
+
 /** Color picker with a clear button. Returns hex or empty string. For optional colors. */
 export function createOptionalColorField({ label }: { label: string }) {
   return {

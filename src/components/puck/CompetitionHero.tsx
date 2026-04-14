@@ -4,7 +4,7 @@
  */
 import type { ComponentConfig } from '@puckeditor/core'
 import { createMediaField } from '@delmaredigital/payload-puck/fields'
-import { createColorField, createOptionalColorField } from './fields'
+import { createColorField, createSliderField } from './fields'
 import { iconOptions } from './icons'
 import { CompetitionHeroRender, defaultProps } from './CompetitionHero.render'
 import type { CompetitionHeroProps } from './CompetitionHero.render'
@@ -31,9 +31,16 @@ export const CompetitionHeroConfig: ComponentConfig<CompetitionHeroProps> = {
     heroImageRightOffset: { type: 'number', label: 'Hero Image Right Offset (px past content edge, default 45)' },
     heroImageBottomGap: { type: 'number', label: 'Hero Image Bottom Gap (px from hero bottom, default 8)' },
     backgroundImage: createMediaField({ label: 'Background Image (behind overlay)' }),
-    overlayColor: createOptionalColorField({ label: 'Overlay Color (clear = use Primary Bright from root)' }),
-    overlayOpacity: { type: 'number', label: 'Overlay Opacity (0-100, default 90)' },
-    overlayCSS: { type: 'text', label: 'Overlay CSS Override (advanced — raw CSS gradient replaces color+opacity, e.g. "linear-gradient(rgba(75,156,211,0.8), rgba(75,156,211,1))")' },
+    overlaySource: {
+      type: 'radio',
+      label: 'Overlay Color',
+      options: [
+        { label: 'Primary Bright', value: 'bright' },
+        { label: 'Primary Dark', value: 'dark' },
+      ],
+    },
+    overlayTopOpacity: createSliderField({ label: 'Overlay Top Opacity (default 80%)', min: 0, max: 100, step: 5 }),
+    overlayBottomOpacity: createSliderField({ label: 'Overlay Bottom Opacity (default 100%)', min: 0, max: 100, step: 5 }),
     badgeStripHeading: { type: 'text', label: 'Badge Strip Heading (e.g. "Step into:" — leave empty to hide strip)' },
     badgeStripItems: {
       type: 'array',
