@@ -86,7 +86,7 @@ export function CompetitionNavRender({
               </a>
             ))}
           </nav>
-          <div className="w-px h-6 bg-gray-300" />
+          {navLinks.length > 0 && <div className="w-px h-6 bg-gray-300" />}
           <div className="flex items-center gap-4">
             <a
               href={ctaLink}
