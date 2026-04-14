@@ -16,7 +16,7 @@
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { CompetitionCTA, safeHex, hexAlpha } from './shared'
-import { Groups, Category, Diversity2 } from './icons'
+import { Groups, Category } from './icons'
 
 const CARD_SHADOW = '0 4px 6px -2px rgba(10,13,18,0.03), 0 12px 16px -4px rgba(10,13,18,0.08)'
 
@@ -34,25 +34,12 @@ export interface InfoCard {
   items: InfoCardItem[]
 }
 
-export interface RoundDetail {
-  label: string
-  text: string
-}
-
-export interface RoundItem {
-  title: string
-  items: RoundDetail[]
-}
-
 export interface CompetitionStructureProps {
   heading: string
   heroImage: MediaReference | null
   heroOverlayColor: string
   heroOverlayOpacity: number
   infoCards: InfoCard[]
-  roundsIcon: MediaReference | null
-  roundsHeading: string
-  rounds: RoundItem[]
   ctaText: string
   ctaLink: string
   secondaryCtaText: string
@@ -84,41 +71,6 @@ export const defaultProps: CompetitionStructureProps = {
       ],
     },
   ],
-  roundsIcon: null,
-  roundsHeading: 'What do teams need to do?',
-  rounds: [
-    {
-      title: 'Preliminary round: Test',
-      items: [
-        {
-          label: 'Middle School Category:',
-          text: 'No deep knowledge of any particular subject required. The test will focus on general knowledge, real problems, and critical thinking.',
-        },
-        {
-          label: 'High School Category:',
-          text: 'Requires basic biology, chemistry, physics, and math knowledge to solve problems. The test will focus on critical thinking and real world applications.',
-        },
-      ],
-    },
-    {
-      title: 'Semi-final round:',
-      items: [
-        {
-          label: '',
-          text: 'Semi-finalist teams will have one week to develop a solution to a science or engineering problem and present their work through a recorded video.',
-        },
-      ],
-    },
-    {
-      title: 'Final round: Live Zoom presentation',
-      items: [
-        {
-          label: '',
-          text: 'Finalist teams will have two weeks to come up with solution(s) to a science or engineering problem and present their solution to a judging panel.',
-        },
-      ],
-    },
-  ],
   ctaText: 'Register Now!',
   ctaLink: '/register',
   secondaryCtaText: 'Join the league',
@@ -134,9 +86,6 @@ export function CompetitionStructureRender({
   heroOverlayColor,
   heroOverlayOpacity,
   infoCards,
-  roundsIcon,
-  roundsHeading: roundsHeadingRaw,
-  rounds,
   ctaText,
   ctaLink,
   secondaryCtaText,
@@ -144,9 +93,7 @@ export function CompetitionStructureRender({
   primaryColor,
 }: CompetitionStructureProps) {
   const heading = headingRaw || defaultProps.heading
-  const roundsHeading = roundsHeadingRaw || defaultProps.roundsHeading
   const cards = infoCards ?? []
-  const roundsList = rounds ?? []
   const color = safeHex(primaryColor)
 
   // Hero aspect ratio — drives both the image height (via CSS
@@ -258,60 +205,16 @@ export function CompetitionStructureRender({
           </div>
         )}
 
-        {/* Rounds card — Figma #F2F3F0, no corners, Shadow Large */}
-        {/* Gap from info cards: 28→21px ≈ mt-5 (20px) */}
-        {/* Padding: L 33→25 ≈ px-6 (24px), T 29→22 ≈ pt-6 (24px), B 62→47 ≈ pb-12 (48px) */}
-        <div
-          className="mt-5 px-6 pt-6 pb-12"
-          style={{ backgroundColor: '#f2f3f0', boxShadow: CARD_SHADOW }}
-        >
-          <Diversity2 className="w-11 h-11 mb-3 text-[#909090]" />
-          {/* Rounds heading — Figma 25px Bold #222 → 0.75× 18px = text-lg */}
-          {/* Heading→round1: 34→26px ≈ mb-7 (28px) */}
-          <h3 className="font-bold mb-7 mt-0 text-lg" style={{ lineHeight: '1.3', color: '#222' }}>
-            {roundsHeading}
-          </h3>
-
-          {roundsList.map((round, i) => (
-            <div key={`round-${round.title}-${i}`}>
-              {/* Divider — Figma 1px #222, spacing 34→26px each side ≈ my-6 (24px) */}
-              {i > 0 && <hr className="my-6 border-0 border-t" style={{ borderColor: '#222' }} />}
-              {/* Round title with concentric circle bullet */}
-              {/* Figma: 20×20 outer #4E88C7 (primary lightened) + 10×10 inner (primary solid) */}
-              {/* 0.75×: 15×15 outer, 8×8 inner. Gap to text: 32→24px ≈ gap-3 (12px) */}
-              {/* Title: 22px Bold primaryColor → 0.75× 16px = text-base */}
-              <div className="flex items-start gap-3">
-                <span
-                  className="shrink-0 mt-1 rounded-full flex items-center justify-center"
-                  style={{
-                    width: '15px',
-                    height: '15px',
-                    backgroundColor: hexAlpha(primaryColor, 0.2),
-                  }}
-                >
-                  <span
-                    className="rounded-full"
-                    style={{ width: '8px', height: '8px', backgroundColor: color }}
-                  />
-                </span>
-                <div className="font-bold mb-2 text-base" style={{ lineHeight: '1.5', color }}>
-                  {round.title}
-                </div>
-              </div>
-              {/* Round items — Figma 22px Regular/SemiBold #222 → 0.75× 16px = text-base */}
-              {(round.items ?? []).map((item, j) => (
-                <p
-                  key={`detail-${item.label}-${j}`}
-                  className="mt-1 mb-2 text-base"
-                  style={{ color: '#222' }}
-                >
-                  {item.label && <span className="font-semibold">{item.label} </span>}
-                  {item.text}
-                </p>
-              ))}
-            </div>
-          ))}
-        </div>
+        {/*
+         * ⚠️ DO NOT REMOVE — Concentric circle bullet pattern for future reuse.
+         * 15px outer ring (primaryColor @ 20%) + 8px inner dot (primaryColor solid):
+         *
+         *   <span className="shrink-0 mt-1 rounded-full flex items-center justify-center"
+         *     style={{ width: '15px', height: '15px', backgroundColor: hexAlpha(primaryColor, 0.2) }}>
+         *     <span className="rounded-full"
+         *       style={{ width: '8px', height: '8px', backgroundColor: color }} />
+         *   </span>
+         */}
 
         {/* CTA buttons — Figma gap 38→29px ≈ gap-7 (28px), mt 52→39px ≈ mt-10 (40px) */}
         {/* Btn1: primaryColor bg, white text, 8→6px corners ≈ rounded-md */}

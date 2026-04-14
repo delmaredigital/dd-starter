@@ -7,7 +7,7 @@ import { createColorField } from './fields'
 import { CompetitionStructureRender, defaultProps } from './CompetitionStructure.render'
 import type { CompetitionStructureProps } from './CompetitionStructure.render'
 
-export type { CompetitionStructureProps, InfoCard, InfoCardItem, RoundItem, RoundDetail } from './CompetitionStructure.render'
+export type { CompetitionStructureProps, InfoCard, InfoCardItem } from './CompetitionStructure.render'
 export { CompetitionStructureRender, defaultProps } from './CompetitionStructure.render'
 
 export const CompetitionStructureConfig: ComponentConfig<CompetitionStructureProps> = {
@@ -36,23 +36,6 @@ export const CompetitionStructureConfig: ComponentConfig<CompetitionStructurePro
           arrayFields: {
             name: { type: 'text', label: 'Name' },
             grades: { type: 'text', label: 'Subtitle' },
-          },
-        },
-      },
-    },
-    roundsIcon: createMediaField({ label: 'Rounds Section Icon' }),
-    roundsHeading: { type: 'text', label: 'Rounds Heading (empty = default)', placeholder: defaultProps.roundsHeading },
-    rounds: {
-      type: 'array',
-      label: 'Rounds',
-      arrayFields: {
-        title: { type: 'text', label: 'Round Title' },
-        items: {
-          type: 'array',
-          label: 'Detail Items',
-          arrayFields: {
-            label: { type: 'text', label: 'Bold Prefix (optional)' },
-            text: { type: 'textarea', label: 'Description' },
           },
         },
       },
