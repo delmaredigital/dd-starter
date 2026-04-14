@@ -9,9 +9,10 @@ import React, { cache } from 'react'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
-import { HybridPageRenderer, type HybridPageData } from '@delmaredigital/payload-puck/render'
+import type { HybridPageData } from '@delmaredigital/payload-puck/render'
 import { puckServerConfig } from '@/puck/config.server'
 import { puckRenderLayouts } from '@/lib/puck/render-layouts'
+import { RscHybridPageRenderer } from '@/lib/puck/RscHybridPageRenderer'
 
 
 export async function generateStaticParams() {
@@ -66,7 +67,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <HybridPageRenderer
+      <RscHybridPageRenderer
         page={page as unknown as HybridPageData}
         config={puckServerConfig}
         layouts={puckRenderLayouts}

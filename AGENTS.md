@@ -13,7 +13,7 @@ You are an expert Payload CMS developer. When working with Payload projects, fol
 
 ## ⚠️ PAGE EDITING — MANDATORY WORKFLOW ⚠️
 
-**All page editing goes through WebMCP tools exposed via the `webmcp-bridge` MCP server.** Use `list_webmcp_tools` to discover available tools and their descriptions — they are self-documenting. Call them via `call_webmcp_tool`. If tools aren't showing up, ask the user to check Chrome/MCP connection.
+**All page editing goes through WebMCP tools exposed via the `webmcp-bridge` MCP server.** Use `list_webmcp_tools` to discover available tools and their descriptions — they are self-documenting. Call them via `call_webmcp_tool`. If tools aren't available (wrong page selected, not on Puck editor), **alert the user immediately** and ask them to navigate to the Puck editor page — or navigate there yourself via `select_page` / `navigate_page` if the editor tab exists. Do NOT fall back to raw curl/fetch as a workaround.
 
 **NEVER** manipulate puckData JSON directly via raw fetch/evaluate_script. That bypasses schema validation, produces wrong field names, misplaced images, and broken pages.
 
@@ -24,6 +24,22 @@ For **local file uploads**: STOP and ask user for a curl from Chrome DevTools Ne
 **Media filenames must be globally unique** — prefix with competition slug (e.g. `unc-hero-bg.png`). Folders map to R2 paths via `beforeChange` hook in `Media.ts`; unique names are defense in depth.
 
 **Media naming**: clean, descriptive names. `raw` suffix only for archival source copies that need cropping/processing before production use — not for final assets.
+
+**R2 re-uploads**: deleting and re-uploading with the same filename hits Cloudflare's edge cache. Ask user to purge the URL in Cloudflare dashboard.
+
+### Creating a Competition Page (end-to-end)
+
+Each competition has two pages (HS/MS + Junior). For each page:
+
+1. **Screenshot the Figma frame** — understand the full page visually before anything else.
+2. **Check shared vs unique images** — compare HS and Junior frames. Shared images (hero bg, logo, JoinCTA) upload once with no audience prefix. Audience-specific images (fostering, deadline, timelines) get `jr-` prefix for Junior.
+3. **Extract images** — `imageRef` for raw photos, group export at 2x for composites, SVG export + SVGO for vectors/timelines. Save to `docs/<competition>-review/` for user visual review.
+4. **Upload to Payload media** — create competition folder via `payload_api`, upload via curl with `_payload` JSON for folder assignment.
+5. **Create or open the Puck page** — check if the page exists first (`/api/pages?where[slug][equals]=...`). If it exists, navigate to it. If not, create via POST to `/api/pages`. Then open in the Puck editor.
+6. **Wire all components** — populate every component with text (from Figma `get_metadata`) and images (from uploaded media URLs). Use `update_page` via WebMCP.
+7. **Save, reload, publish** — always: `save_page` → reload editor (confirms persisted state) → click Publish. Default final step for every page edit. Verify the public URL loads correctly.
+
+The deliverable is a fully wired, published Puck page — not just uploaded images.
 
 Full docs: `.cursor/rules/webmcp-agent-tools.md`
 
@@ -38,12 +54,14 @@ Full docs: `.cursor/rules/webmcp-agent-tools.md`
 
 ### Figma Source
 
-File: `gsQOnwzRxVZA3Q6MMY1bnv` — "AlgoEd New (Copy)"
+File: `UvxPI6vPpl72ATLvSkbade` — "AlgoEd New" (team shared version)
 Master page: "Top 50 Schools League" (`6214:15184`) — start here.
 Each competition section contains multiple child frames (HS, Junior, Mobile).
 Fetch the specific HS desktop frame, not the section root — the root includes
 all variants and produces duplicates. Ask the user for the exact Figma URL
 if the right frame isn't obvious.
+
+**Prefer MCP tools over REST API.** Use Figma MCP (`get_metadata`, `get_design_context`, `get_screenshot`) and WebMCP (`payload_api`, `upload_image`) as default. REST API is justified only when MCP can't do the job — e.g. `imageRef` extraction from fills, composite PNG export, or `curl` uploads referencing local disk files. Read current state (screenshot, page data, Figma design) before any action — don't work from memory.
 
 **Figma text has copy-paste errors.** Pages are cloned from a template — org/competition names often reference the wrong competition. Flag mismatches, don't silently copy them.
 
@@ -53,31 +71,44 @@ if the right frame isn't obvious.
 - **Raw photos** (single image on a rectangle): Get node via `GET /v1/files/:key/nodes?ids=:id`, read `imageRef` from fills. A node with IMAGE + SOLID fills = photo + primary color overlay — take only the IMAGE ref. Look up raw source URL via `GET /v1/files/:key/images` → `meta.images[imageRef]`. This gives the original upload at max quality, no overlay baked in.
 - **Composites** (group of photos + SVG decorations): Export the parent group via `GET /v1/images/:key?ids=:nodeId&format=png&scale=2`. Key: find the group that has images + decorations but NOT text — one level too high includes section headings.
 
-**Competition page image types** (each is a separate upload):
-- **Hero background**: raw photo fill on full-width rectangle (+ color overlay in code). Extract via `imageRef`.
-- **Hero illustration**: large composite (SVG icons + photo) positioned absolute on right side of hero. ~400px rendered, source is larger. Export parent group at 2x. It's a top-level frame sibling, NOT nested inside the hero text group — hard to find programmatically. Ask user for the Figma node URL.
+**⚠️ Before extracting any image: check shared assets first.** Many images are shared across competitions and already uploaded. Do NOT re-export or re-upload shared assets — point pages to the existing URLs. Shared assets include: `shared-about-building.png` (generic campus), `shared-league-photos-2x.png` (About League composite), `challenge-hero-jr-raw.png` / `challenge-hero-hs-raw.png` (How it works hero photos). Benefits icons are static SVGs in `public/competition-assets/` selected via `iconKey` — no upload needed.
+
+**Competition page image types** (each is a separate upload unless shared):
+- **Hero background**: raw photo fill on full-width rectangle (+ color overlay in code). Extract via `imageRef`. **Per-competition unique.**
+- **Hero illustration**: varies by competition — some have photo+SVG composites (export group at 2x), others have pure SVG logos (export as SVG, SVGO optimize). Check the actual Figma node before assuming composite. It's a top-level frame sibling, NOT nested inside the hero text group. Ask user for the Figma node URL if hard to find.
 - **About [school] photo**: single photo in card frame. Some schools share a generic building; others have school-specific photos.
-- **TwoColumnFeature images** (fostering, deadline): composites of multiple photos + decorative frames. Export parent group at 2x, NOT individual photos.
-- **JoinCTA**: circular photo already framed in the component — just need the round photo source, not the globe/circles decoration.
-- **Partner logo**: single small image, extract via `imageRef`.
+- **About League photo**: **SHARED** — `shared-league-photos-2x.png`. Do not re-export.
+- **How it works hero photo**: **SHARED** — `challenge-hero-jr-raw.png` (K-5) or `challenge-hero-hs-raw.png` (HS). Do not re-export.
+- **TwoColumnFeature images** (fostering, deadline): composites of multiple photos + decorative frames. Export parent group at 2x, NOT individual photos. **Per-competition unique.**
+- **JoinCTA**: extract ONLY the circular photo via `imageRef` from the ellipse/rectangle fill. The globe frame, circles, and map decoration are already in component code — do NOT export the composite group.
+- **Partner logo**: single small image, extract via `imageRef`. **Per-competition unique.**
+- **Benefits icons**: static SVGs in `public/competition-assets/`, selected by `iconKey` in BenefitsGrid component. **No upload needed.**
 - **Timeline SVGs**: per-competition, unique dates. Always SVG, SVGO-optimized. Two versions: horizontal (desktop) + vertical (mobile). ALWAYS show user the export for visual confirmation before uploading — the timeline group is easily confused with the nearby deadline table section.
 - Do NOT use `get_design_context` for images — it decomposes groups into individual vector parts.
 - **Finding composites**: ask user for any element inside it (e.g. a photo URL). Walk up ancestors via REST API `find_ancestors(frame, nodeId)` to find the parent group at the right scope. Export at 2x, show user to confirm which section it belongs to — don't guess.
 - **PNG transparency**: Figma PNG export preserves alpha. Black in viewers = transparent, not broken.
-- **SVG optimization**: `npx svgo input.svg -o output.svg`. Always default settings.
+- **SVG optimization**: `npx svgo input.svg -o output.svg`. Always default settings. After export, check if the SVG contains `base64` data — if yes, it's an embedded raster image and should be exported as PNG instead.
 - **Shared vs unique caveat**: decorative elements (frame textures, corner SVGs, background patterns) share `imageRef` across competitions. Actual photos have unique refs per school. Don't assume "same ref = shared image" — verify it's a photo, not decoration. Compare refs at the photo fill level, not the composite group level.
-- **About [school] photo**: some competitions have school-specific campus photos (Boston, THURJ, Stanford), others use a shared generic red brick building (UNC, Rutgers, UCI, Rice). Shared photo goes to root; school-specific goes to competition folder.
+- **About [school] photo**: some competitions have school-specific campus photos (Boston, THURJ, Stanford), others use a shared generic red brick building (UNC, Rutgers, UCI, Rice). Shared photo goes to root; school-specific goes to competition folder. Some HS designs omit the About photo (text-only) — use the Junior About photo for both for now.
+
+**HS vs Junior images can differ.** Always check both frames — do NOT assume any image is shared. Compare imageRefs between HS and Junior for every image type. Hero bg and partner logo are often shared; everything else (fostering, deadline, JoinCTA, timelines, hero illustration) varies by competition.
+
+**Media naming**: no prefix = HS/MS (default), `jr-` prefix = Junior (e.g. `thurj-fostering-photos.png` vs `thurj-jr-fostering-photos.png`). Matches page slug pattern.
+
+**Visual review before upload**: save extracted images to `docs/<competition>-review/` so user can review in IDE. Never `/tmp/`.
 
 | Section node | Competition | HS desktop frame | Status |
 |---|---|---|---|
-| `6392:24638` | UNC | `6272:33298` | ✅ K-5 done, HS TBD |
-| `6392:29351` | THURJ | `6386:14219` | HS text done (no img), Junior TBD |
-| `6391:11413` | Boston | TBD | |
-| `6413:24208` | Stanford | TBD | |
-| `6272:26901` | UIUC | TBD | |
-| `6392:24639` | UCI | TBD | |
-| `6392:24640` | Rice University | TBD | |
-| `6391:14297` | Rutgers | TBD | |
+| Section node | Competition | HS desktop frame | Junior frame | Status |
+|---|---|---|---|---|
+| `6392:24638` | UNC | `6272:33298` | `6391:14298` | ✅ Both done |
+| `6392:29351` | THURJ | `6386:14219` | `6391:19998` | ✅ Both done |
+| `6391:11413` | Boston | `6272:25391` | `6293:12596` | ✅ Both done |
+| `6413:24208` | Stanford | `6413:24209` | `6413:25999` | ✅ Both done |
+| `6272:26901` | UIUC | `6272:26901` | `6486:11601` | ✅ Both done |
+| `6392:24639` | UCI | `6391:16219` | `6272:34603` | |
+| `6392:24640` | Rice University | `6391:18150` | `6382:11349` | |
+| `6391:14297` | Rutgers | `6391:11414` | `6275:621` | |
 
 ### Figma-to-CSS Convention
 

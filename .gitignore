@@ -56,3 +56,6 @@ public/puck-editor-styles.css
 
 # Claude Code
 .remember/
+
+# Git worktrees
+.worktrees/
