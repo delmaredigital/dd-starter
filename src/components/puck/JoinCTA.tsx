@@ -3,6 +3,7 @@
  */
 import type { ComponentConfig } from '@puckeditor/core'
 import { createMediaField } from '@delmaredigital/payload-puck/fields'
+import { createBrandPickerField } from './fields'
 import { JoinCTARender, defaultProps } from './JoinCTA.render'
 import type { JoinCTAProps } from './JoinCTA.render'
 
@@ -19,6 +20,7 @@ export const JoinCTAConfig: ComponentConfig<JoinCTAProps> = {
     ctaLink: { type: 'text', label: 'Primary CTA Link' },
     secondaryCtaText: { type: 'text', label: 'Secondary CTA Text (empty to hide)' },
     secondaryCtaLink: { type: 'text', label: 'Secondary CTA Link' },
+    circleSource: createBrandPickerField({ label: 'Globe Circle Color' }),
   },
   defaultProps,
   render: JoinCTARender,

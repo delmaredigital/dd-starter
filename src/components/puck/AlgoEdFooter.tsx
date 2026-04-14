@@ -5,6 +5,7 @@
  */
 import type { ComponentConfig } from '@puckeditor/core'
 import { createMediaField } from '@delmaredigital/payload-puck/fields'
+import { createBrandPickerField } from './fields'
 import { AlgoEdFooterRender, defaultProps } from './AlgoEdFooter.render'
 import type { AlgoEdFooterProps } from './AlgoEdFooter.render'
 
@@ -16,6 +17,7 @@ export const AlgoEdFooterConfig: ComponentConfig<AlgoEdFooterProps> = {
   fields: {
     logo: createMediaField({ label: 'AlgoEd Logo' }),
     backgroundImage: createMediaField({ label: 'Left Column Background Image' }),
+    bgSource: createBrandPickerField({ label: 'Background Color' }),
   },
   defaultProps,
   render: AlgoEdFooterRender,

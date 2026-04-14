@@ -27,6 +27,7 @@ export interface JoinCTAProps {
   ctaLink: string
   secondaryCtaText: string
   secondaryCtaLink: string
+  circleSource: string
 }
 
 /* ── Defaults ───────────────────────────────────────────── */
@@ -39,6 +40,7 @@ export const defaultProps: JoinCTAProps = {
   ctaLink: '/register',
   secondaryCtaText: 'Join the league',
   secondaryCtaLink: '/league',
+  circleSource: 'bright' as const,
 }
 
 /* ── Render ──────────────────────────────────────────────── */
@@ -51,10 +53,12 @@ export function JoinCTARender({
   ctaLink,
   secondaryCtaText,
   secondaryCtaLink,
+  circleSource,
 }: JoinCTAProps) {
   const heading = headingRaw || defaultProps.heading
   const body = bodyRaw || defaultProps.body
   const color = BRAND_DARK
+  const circleColor = (circleSource ?? 'bright') === 'dark' ? BRAND_DARK : BRAND_BRIGHT
 
   return (
     <section className="py-5 md:py-10">
@@ -121,7 +125,7 @@ export function JoinCTARender({
                 aspectRatio: '1 / 1',
               }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="413" height="413" fill="none" viewBox="0 0 413 413" className="block w-full h-auto pointer-events-none" style={{ color: BRAND_BRIGHT }}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="413" height="413" fill="none" viewBox="0 0 413 413" className="block w-full h-auto pointer-events-none" style={{ color: circleColor }}>
                 <g filter="url(#gc-shadow)"><circle cx="206.503" cy="206.503" r="160.451" fill="#fff"/><circle cx="206.503" cy="206.503" r="159.732" stroke="#fff" strokeWidth="1.439"/></g>
                 <circle cx="206.5" cy="206.5" r="205.061" stroke="currentColor" strokeWidth="2.878"/>
                 <circle cx="206.502" cy="206.502" r="182.961" stroke="currentColor" strokeWidth="1.03"/>

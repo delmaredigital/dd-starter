@@ -3,7 +3,7 @@
  */
 import type { ComponentConfig } from '@puckeditor/core'
 import { createMediaField } from '@delmaredigital/payload-puck/fields'
-import { createOptionalColorField } from './fields'
+import { createBrandPickerField } from './fields'
 import { CompetitionStructureRender, defaultProps } from './CompetitionStructure.render'
 import type { CompetitionStructureProps } from './CompetitionStructure.render'
 
@@ -15,7 +15,7 @@ export const CompetitionStructureConfig: ComponentConfig<CompetitionStructurePro
   fields: {
     heading: { type: 'text', label: 'Heading (empty = default)', placeholder: defaultProps.heading },
     heroImage: createMediaField({ label: 'Hero Image' }),
-    heroOverlayColor: createOptionalColorField({ label: 'Hero Overlay Color (clear = use Primary Bright)' }),
+    heroOverlaySource: createBrandPickerField({ label: 'Hero Overlay Color' }),
     heroOverlayOpacity: {
       type: 'number',
       label: 'Hero Overlay Opacity (0–1)',

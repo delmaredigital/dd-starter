@@ -7,14 +7,20 @@
  * Source CSS: .competition-footer, .heading-52, .heading-53, .heading-54, .container-50
  */
 import Link from 'next/link'
-import { BRAND_DARK } from './shared'
+import { BRAND_DARK, BRAND_BRIGHT } from './shared'
 
-export type CompetitionFooterProps = Record<string, never>
+export interface CompetitionFooterProps {
+  bgSource: string
+}
 
-export const defaultProps: CompetitionFooterProps = {}
+export const defaultProps: CompetitionFooterProps = {
+  bgSource: 'dark',
+}
 
-export function CompetitionFooterRender() {
-  const color = BRAND_DARK
+export function CompetitionFooterRender({
+  bgSource,
+}: CompetitionFooterProps) {
+  const color = (bgSource ?? 'dark') === 'bright' ? BRAND_BRIGHT : BRAND_DARK
 
   return (
     <section style={{ backgroundColor: color, paddingTop: '31px', paddingBottom: '31px' }}>

@@ -8,21 +8,24 @@
  * All assets in public/competition-assets/ (shared across competitions).
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
-import { CompetitionCTA, BRAND_DARK } from './shared'
+import { CompetitionCTA, BRAND_DARK, BRAND_BRIGHT } from './shared'
 
 export interface AlgoEdFooterProps {
   logo: MediaReference | null
   backgroundImage: MediaReference | null
+  bgSource: string
 }
 
 export const defaultProps: AlgoEdFooterProps = {
   logo: null,
   backgroundImage: null,
+  bgSource: 'dark',
 }
 
 export function AlgoEdFooterRender({
+  bgSource,
 }: AlgoEdFooterProps) {
-  const color = BRAND_DARK
+  const color = (bgSource ?? 'dark') === 'bright' ? BRAND_BRIGHT : BRAND_DARK
 
   return (
     <section>
