@@ -1,34 +1,21 @@
-'use client'
-
 /**
- * FramedImage — client component that defers the decorative frame
- * (white border + drop shadow) until the image loads, avoiding an
- * empty bordered box during fetch. Uses plain <img>, not next/image.
- *
- * See TwoColumnFeature.render.tsx comment for why we avoid next/image.
+ * FramedImage — decorative frame (white border + drop shadow) around
+ * an image. Server-rendered — no client state needed. The frame is
+ * always present; the img width/height attributes reserve space so
+ * the frame never wraps a 0×0 box.
  */
-import { useState, useRef, useEffect } from 'react'
 
 const FRAME_CLS =
   'border-[10px] border-white rounded-[14px] shadow-[0_1px_17px_rgba(0,0,0,0.17)] overflow-hidden'
 
-export function FramedImage({ src, alt }: { src: string; alt: string }) {
-  const [loaded, setLoaded] = useState(false)
-  const imgRef = useRef<HTMLImageElement>(null)
-
-  // If image loaded before hydration (cached), onLoad won't fire — check on mount.
-  useEffect(() => {
-    if (imgRef.current?.complete) setLoaded(true)
-  }, [])
-
+export function FramedImage({ src, alt, width, height }: { src: string; alt: string; width?: number; height?: number }) {
   return (
-    <div className={`w-full ${loaded ? FRAME_CLS : ''}`}>
+    <div className={`w-full ${FRAME_CLS}`}>
       <img
-        ref={imgRef}
         src={src}
         alt={alt}
-        loading="lazy"
-        onLoad={() => setLoaded(true)}
+        width={width}
+        height={height}
         style={{ width: '100%', height: 'auto', borderRadius: 4 }}
       />
     </div>

@@ -118,7 +118,7 @@ export function TwoColumnFeatureRender({
     <div className="w-full max-w-sm mx-auto">
       {featureImage?.url && (
         isCard ? (
-          <FramedImage src={featureImage.url} alt={featureImage.alt || ''} />
+          <FramedImage src={featureImage.url} alt={featureImage.alt || ''} width={featureImage.width} height={featureImage.height} />
         ) : (
           <img
             src={featureImage.url}
