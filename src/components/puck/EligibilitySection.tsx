@@ -2,7 +2,6 @@
  * EligibilitySection — full editor config with field definitions.
  */
 import type { ComponentConfig } from '@puckeditor/core'
-import { createColorField } from './fields'
 import { EligibilitySectionRender, defaultProps } from './EligibilitySection.render'
 import type { EligibilitySectionProps } from './EligibilitySection.render'
 
@@ -21,7 +20,6 @@ export const EligibilitySectionConfig: ComponentConfig<EligibilitySectionProps> 
       },
       defaultItemProps: { value: 'New item' },
     },
-    primaryColor: createColorField({ label: 'Brand Color' }),
   },
   defaultProps,
   render: EligibilitySectionRender,

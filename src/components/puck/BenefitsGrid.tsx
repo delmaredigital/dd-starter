@@ -2,7 +2,6 @@
  * BenefitsGrid — full editor config with field definitions.
  */
 import type { ComponentConfig } from '@puckeditor/core'
-import { createColorField } from './fields'
 import { BenefitsGridRender, defaultProps, benefitIconOptions } from './BenefitsGrid.render'
 import type { BenefitsGridProps } from './BenefitsGrid.render'
 
@@ -28,7 +27,6 @@ export const BenefitsGridConfig: ComponentConfig<BenefitsGridProps> = {
     },
     ctaText: { type: 'text', label: 'CTA Button Text (leave empty to hide)' },
     ctaLink: { type: 'text', label: 'CTA Button Link' },
-    primaryColor: createColorField({ label: 'Brand Color' }),
   },
   defaultProps,
   render: BenefitsGridRender,

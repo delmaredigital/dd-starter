@@ -3,7 +3,7 @@
 import { extendConfig } from '@delmaredigital/payload-puck/config/editor'
 import { fullConfig } from '@delmaredigital/payload-puck/config/editor'
 import { competitionComponents, competitionCategories } from '@/components/puck'
-import { createColorField } from '@/components/puck/fields'
+import { createColorField, createOptionalColorField } from '@/components/puck/fields'
 import type { ReactNode } from 'react'
 
 export const puckConfig = extendConfig({
@@ -12,17 +12,17 @@ export const puckConfig = extendConfig({
   categories: competitionCategories,
   root: {
     fields: {
-      primaryColor: createColorField({ label: 'Primary Brand Color' }),
-      secondaryColor: createColorField({ label: 'Tint Color (empty = 10% primary + 90% white)' }),
+      primaryDark: createColorField({ label: 'Primary Dark (text, borders, UI — required)' }),
+      primaryBright: createOptionalColorField({ label: 'Primary Bright (hero overlay, accents — optional)' }),
     },
     defaultProps: {
-      primaryColor: '',
-      secondaryColor: '',
+      primaryDark: '',
+      primaryBright: '',
     },
-    render: ({ primaryColor, secondaryColor, children }: { primaryColor?: string; secondaryColor?: string; children: ReactNode }) => (
+    render: ({ primaryDark, primaryBright, children }: { primaryDark?: string; primaryBright?: string; children: ReactNode }) => (
       <div style={{
-        '--brand-color': primaryColor || undefined,
-        '--tint-color': secondaryColor || primaryColor || undefined,
+        '--primary-dark': primaryDark || '#222',
+        '--primary-bright': primaryBright || primaryDark || '#222',
       } as React.CSSProperties}>
         {children}
       </div>

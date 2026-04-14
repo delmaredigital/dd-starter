@@ -15,7 +15,7 @@
  *   0 4px 6px -2px rgba(10,13,18,0.03), 0 12px 16px -4px rgba(10,13,18,0.08)
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
-import { CompetitionCTA, safeHex, hexAlpha } from './shared'
+import { CompetitionCTA, BRAND_DARK, BRAND_BRIGHT, hexAlpha } from './shared'
 import { Groups, Category } from './icons'
 
 const CARD_SHADOW = '0 4px 6px -2px rgba(10,13,18,0.03), 0 12px 16px -4px rgba(10,13,18,0.08)'
@@ -44,7 +44,6 @@ export interface CompetitionStructureProps {
   ctaLink: string
   secondaryCtaText: string
   secondaryCtaLink: string
-  primaryColor: string
 }
 
 /* ── Defaults ───────────────────────────────────────────── */
@@ -52,7 +51,7 @@ export interface CompetitionStructureProps {
 export const defaultProps: CompetitionStructureProps = {
   heading: 'How does the challenge work?',
   heroImage: null,
-  heroOverlayColor: '#13294C',
+  heroOverlayColor: '',
   heroOverlayOpacity: 0.7,
   infoCards: [
     {
@@ -75,7 +74,6 @@ export const defaultProps: CompetitionStructureProps = {
   ctaLink: '/register',
   secondaryCtaText: 'Join the league',
   secondaryCtaLink: '/league',
-  primaryColor: '#13294C',
 }
 
 /* ── Render ──────────────────────────────────────────────── */
@@ -90,11 +88,10 @@ export function CompetitionStructureRender({
   ctaLink,
   secondaryCtaText,
   secondaryCtaLink,
-  primaryColor,
 }: CompetitionStructureProps) {
   const heading = headingRaw || defaultProps.heading
   const cards = infoCards ?? []
-  const color = safeHex(primaryColor)
+  const color = BRAND_DARK
 
   // Hero aspect ratio — drives both the image height (via CSS
   // aspect-ratio) and the cards' 50% overlap (via negative margin).
@@ -145,7 +142,9 @@ export function CompetitionStructureRender({
             <div
               className="absolute inset-0"
               style={{
-                backgroundColor: hexAlpha(heroOverlayColor, heroOverlayOpacity),
+                backgroundColor: heroOverlayColor
+                  ? hexAlpha(heroOverlayColor, heroOverlayOpacity)
+                  : `color-mix(in srgb, ${BRAND_BRIGHT} ${Math.round(heroOverlayOpacity * 100)}%, transparent)`,
               }}
             />
           </div>

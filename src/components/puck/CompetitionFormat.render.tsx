@@ -3,7 +3,7 @@
  * Server-safe: no client-only imports.
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
-import { CompetitionCTA, safeHex } from './shared'
+import { CompetitionCTA, BRAND_DARK } from './shared'
 
 export interface FormatBullet {
   text: string
@@ -25,7 +25,6 @@ export interface CompetitionFormatProps {
   rounds: RoundDetail[]
   ctaText: string
   ctaLink: string
-  primaryColor: string
 }
 
 export const defaultProps: CompetitionFormatProps = {
@@ -57,13 +56,12 @@ export const defaultProps: CompetitionFormatProps = {
   ],
   ctaText: 'Competition Portal',
   ctaLink: '/portal',
-  primaryColor: '#a31f35',
 }
 
 export function CompetitionFormatRender({
-  heading, formatImage, rounds, ctaText, ctaLink, primaryColor,
+  heading, formatImage, rounds, ctaText, ctaLink,
 }: CompetitionFormatProps) {
-  const color = safeHex(primaryColor)
+  const color = BRAND_DARK
 
   return (
     <section style={{ paddingTop: '40px', paddingBottom: '40px' }}>

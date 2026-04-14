@@ -5,7 +5,7 @@
  * Figma: stacked tier cards with watermark icon, full-width CTA.
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
-import { CompetitionCTA, safeHex, TINT_FALLBACK_CLASS } from './shared'
+import { CompetitionCTA, BRAND_DARK, TINT_FALLBACK_CLASS } from './shared'
 
 export interface TierItem {
   title: string
@@ -20,7 +20,6 @@ export interface DeadlineTableProps {
   featureImage: MediaReference | null
   ctaText: string
   ctaLink: string
-  primaryColor: string
 }
 
 export const defaultProps: DeadlineTableProps = {
@@ -33,7 +32,6 @@ export const defaultProps: DeadlineTableProps = {
   featureImage: null,
   ctaText: 'REGISTER NOW!',
   ctaLink: '#',
-  primaryColor: '#a31f35',
 }
 
 const TIER_WATERMARKS: Record<string, string> = {
@@ -43,10 +41,10 @@ const TIER_WATERMARKS: Record<string, string> = {
 }
 
 export function DeadlineTableRender({
-  heading: headingRaw, tiers, featureImage, ctaText, ctaLink, primaryColor,
+  heading: headingRaw, tiers, featureImage, ctaText, ctaLink,
 }: DeadlineTableProps) {
   const heading = headingRaw || defaultProps.heading
-  const color = safeHex(primaryColor)
+  const color = BRAND_DARK
 
   return (
     <section className="py-5 md:py-10">
@@ -63,7 +61,7 @@ export function DeadlineTableRender({
               <div
                 key={i}
                 className={`relative overflow-hidden rounded-xl ${TINT_FALLBACK_CLASS}`}
-                style={{ backgroundColor: `color-mix(in srgb, var(--tint-color, ${color}) 10%, white)` }}
+                style={{ backgroundColor: `color-mix(in srgb, ${color} 10%, white)` }}
               >
                 {/* Watermark — Figma ~115 CSS px, snapped to w-28 (112).
                     PNG has rotation (4.65°) and fade baked into the

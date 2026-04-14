@@ -2,7 +2,7 @@
  * BenefitsGrid — render function and types.
  * Server-safe: no client-only imports.
  */
-import { CompetitionCTA, safeHex } from './shared'
+import { CompetitionCTA, BRAND_DARK } from './shared'
 
 export const benefitIconMap: Record<string, { src: string; label: string }> = {
   'hs-profile': { src: '/competition-assets/benefit-hs-profile.svg', label: 'Build your profile' },
@@ -26,7 +26,6 @@ export interface BenefitsGridProps {
   benefits: BenefitItem[]
   ctaText: string
   ctaLink: string
-  primaryColor: string
 }
 
 export const defaultProps: BenefitsGridProps = {
@@ -38,13 +37,12 @@ export const defaultProps: BenefitsGridProps = {
   ],
   ctaText: 'Competition Portal',
   ctaLink: '/portal',
-  primaryColor: '#a31f35',
 }
 
 export function BenefitsGridRender({
-  sectionHeading, benefits, ctaText, ctaLink, primaryColor,
+  sectionHeading, benefits, ctaText, ctaLink,
 }: BenefitsGridProps) {
-  const color = safeHex(primaryColor)
+  const color = BRAND_DARK
 
   return (
     <section className="py-5 md:py-10">

@@ -2,7 +2,7 @@
  * CompetitionFormatV2 — full editor config with field definitions.
  */
 import type { ComponentConfig } from '@puckeditor/core'
-import { createColorField, createRichTextField } from './fields'
+import { createRichTextField } from './fields'
 import { CompetitionFormatV2Render, defaultProps } from './CompetitionFormatV2.render'
 import type { CompetitionFormatV2Props } from './CompetitionFormatV2.render'
 
@@ -44,7 +44,6 @@ export const CompetitionFormatV2Config: ComponentConfig<CompetitionFormatV2Props
     ctaLink: { type: 'text', label: 'Primary CTA Link' },
     secondaryCtaText: { type: 'text', label: 'Secondary CTA Text (empty to hide)' },
     secondaryCtaLink: { type: 'text', label: 'Secondary CTA Link' },
-    primaryColor: createColorField({ label: 'Brand Color' }),
   },
   defaultProps,
   render: CompetitionFormatV2Render,

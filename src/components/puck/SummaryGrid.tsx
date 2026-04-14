@@ -2,7 +2,6 @@
  * SummaryGrid — full editor config with field definitions.
  */
 import type { ComponentConfig } from '@puckeditor/core'
-import { createColorField } from './fields'
 import { iconOptions } from './icons'
 import { SummaryGridRender, defaultProps } from './SummaryGrid.render'
 import type { SummaryGridProps } from './SummaryGrid.render'
@@ -23,7 +22,6 @@ export const SummaryGridConfig: ComponentConfig<SummaryGridProps> = {
         description: { type: 'textarea', label: 'Description' },
       },
     },
-    primaryColor: createColorField({ label: 'Brand Color' }),
   },
   defaultProps,
   render: SummaryGridRender,

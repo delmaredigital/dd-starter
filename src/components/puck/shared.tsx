@@ -83,6 +83,10 @@ export function hexAlpha(hex: string, alpha: number): string {
   return `rgb(${r} ${g} ${b} / ${alpha})`
 }
 
+/** CSS var references for the two-color brand system set on the Puck root. */
+export const BRAND_DARK = 'var(--primary-dark, #222)'
+export const BRAND_BRIGHT = 'var(--primary-bright, #222)'
+
 /** Fallback bg for browsers without color-mix() — 10% of #222 on white. */
 export const TINT_FALLBACK_CLASS = 'bg-[#e9e9e9]'
 
@@ -93,16 +97,6 @@ export function RichText({ html, className }: { html: string; className?: string
     <div
       className={`prose prose-sm max-w-none ${className ?? ''}`}
       dangerouslySetInnerHTML={{ __html: html }}
-    />
-  )
-}
-
-/** Accent bar — 184x7px colored bar matching source Rectangle 34624656 (semi-transparent brand color). */
-export function AccentBar({ primaryColor }: { primaryColor: string }) {
-  return (
-    <div
-      className="w-[184px] h-[7px] rounded mt-1.5 mb-5"
-      style={{ backgroundColor: safeHex(primaryColor) }}
     />
   )
 }

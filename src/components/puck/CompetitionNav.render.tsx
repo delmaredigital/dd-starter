@@ -9,7 +9,7 @@
  *            .navigation-button-2, .navigation-divider
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
-import { safeHex } from './shared'
+import { BRAND_DARK } from './shared'
 import { MobileNav } from './MobileNav'
 
 export interface NavLinkItem {
@@ -30,7 +30,6 @@ export interface CompetitionNavProps {
   ctaLink: string
   secondaryCtaText: string
   secondaryCtaLink: string
-  primaryColor: string
 }
 
 export const defaultProps: CompetitionNavProps = {
@@ -41,14 +40,13 @@ export const defaultProps: CompetitionNavProps = {
   ctaLink: '#',
   secondaryCtaText: 'More Competitions',
   secondaryCtaLink: 'https://app.algoed.co/explore-competitions',
-  primaryColor: '#a31f35',
 }
 
 export function CompetitionNavRender({
   partnerLogo, partnerLink, navLinks, ctaText, ctaLink,
-  secondaryCtaText, secondaryCtaLink, primaryColor,
+  secondaryCtaText, secondaryCtaLink,
 }: CompetitionNavProps) {
-  const color = safeHex(primaryColor)
+  const color = BRAND_DARK
   return (
     <nav
       className="w-full flex items-center relative"
@@ -117,7 +115,6 @@ export function CompetitionNavRender({
             navLinks={navLinks}
             ctaText={ctaText}
             ctaLink={ctaLink}
-            primaryColor={color}
           />
         </div>
       </div>

@@ -3,7 +3,6 @@
  */
 import type { ComponentConfig } from '@puckeditor/core'
 import { createMediaField } from '@delmaredigital/payload-puck/fields'
-import { createColorField } from './fields'
 import { DeadlineTableRender, defaultProps } from './DeadlineTable.render'
 import type { DeadlineTableProps } from './DeadlineTable.render'
 
@@ -35,7 +34,6 @@ export const DeadlineTableConfig: ComponentConfig<DeadlineTableProps> = {
     featureImage: createMediaField({ label: 'Feature Image (right column)' }),
     ctaText: { type: 'text', label: 'CTA Button Text (leave empty to hide)' },
     ctaLink: { type: 'text', label: 'CTA Button Link' },
-    primaryColor: createColorField({ label: 'Brand Color' }),
   },
   defaultProps,
   render: DeadlineTableRender,

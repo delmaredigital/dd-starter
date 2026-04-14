@@ -3,7 +3,7 @@
  */
 import type { ComponentConfig } from '@puckeditor/core'
 import { createMediaField } from '@delmaredigital/payload-puck/fields'
-import { createColorField, createOptionalColorField, createRichTextField } from './fields'
+import { createOptionalColorField, createRichTextField } from './fields'
 import { TwoColumnFeatureRender, defaultProps } from './TwoColumnFeature.render'
 import type { TwoColumnFeatureProps } from './TwoColumnFeature.render'
 
@@ -53,7 +53,6 @@ export const TwoColumnFeatureConfig: ComponentConfig<TwoColumnFeatureProps> = {
         { label: 'Dark (#222)', value: 'dark' },
       ],
     },
-    primaryColor: createColorField({ label: 'Brand Color' }),
   },
   defaultProps,
   render: TwoColumnFeatureRender,

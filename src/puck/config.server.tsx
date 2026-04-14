@@ -14,10 +14,10 @@ export const puckServerConfig = extendConfig({
   base: baseConfig,
   components: competitionComponentsServer,
   root: {
-    render: ({ primaryColor, secondaryColor, children }: { primaryColor?: string; secondaryColor?: string; children: ReactNode }) => (
+    render: ({ primaryDark, primaryBright, children }: { primaryDark?: string; primaryBright?: string; children: ReactNode }) => (
       <div style={{
-        '--brand-color': primaryColor || undefined,
-        '--tint-color': secondaryColor || primaryColor || undefined,
+        '--primary-dark': primaryDark || '#222',
+        '--primary-bright': primaryBright || primaryDark || '#222',
       } as React.CSSProperties}>
         {children}
       </div>

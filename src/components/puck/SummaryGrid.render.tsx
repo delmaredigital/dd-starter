@@ -5,7 +5,7 @@
  * 3×2 feature grid. Each card: icon box + title inline, description below.
  * Figma source: node 6373:7310
  */
-import { safeHex } from './shared'
+import { BRAND_DARK } from './shared'
 import { iconMap } from './icons'
 
 export interface SummaryCard {
@@ -17,7 +17,6 @@ export interface SummaryCard {
 export interface SummaryGridProps {
   heading: string
   cards: SummaryCard[]
-  primaryColor: string
 }
 
 export const defaultProps: SummaryGridProps = {
@@ -30,11 +29,10 @@ export const defaultProps: SummaryGridProps = {
     { iconName: 'EventList', title: 'Age categories', description: 'Middle School (Grades 6-8) and High School (Grades 9-12)' },
     { iconName: 'Public', title: 'World STEM League', description: 'Option to participate in World STEM League' },
   ],
-  primaryColor: '#850c10',
 }
 
 export function SummaryGridRender({
-  heading: headingRaw, cards, primaryColor,
+  heading: headingRaw, cards,
 }: SummaryGridProps) {
   const heading = headingRaw || defaultProps.heading
   return (
@@ -50,12 +48,12 @@ export function SummaryGridRender({
                 <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-lg bg-[#f2f3f0]">
                   {iconMap[card.iconName] && (() => {
                     const Icon = iconMap[card.iconName]!
-                    return <Icon className="w-6 h-6" style={{ color: safeHex(primaryColor) }} />
+                    return <Icon className="w-6 h-6" style={{ color: BRAND_DARK }} />
                   })()}
                 </div>
                 <span
                   className="font-bold text-lg leading-7 capitalize tracking-[0.02em]"
-                  style={{ color: safeHex(primaryColor) }}
+                  style={{ color: BRAND_DARK }}
                 >
                   {card.title}
                 </span>

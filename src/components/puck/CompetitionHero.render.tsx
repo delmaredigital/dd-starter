@@ -3,7 +3,7 @@
  * Server-safe: no client-only imports (no createMediaField).
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
-import { CompetitionCTA, safeHex, hexAlpha } from './shared'
+import { CompetitionCTA, BRAND_DARK, BRAND_BRIGHT, safeHex, hexAlpha } from './shared'
 import { CalendarToday, iconMap } from './icons'
 
 export interface BadgeItem {
@@ -16,7 +16,6 @@ export interface CompetitionHeroProps {
   titleLine2: string
   titleLine3: string
   audienceLabel: string
-  primaryColor: string
   highlightTextColor: string
   statusText: string
   statusSubtext: string
@@ -41,7 +40,6 @@ export const defaultProps: CompetitionHeroProps = {
   titleLine2: 'NAME HERE',
   titleLine3: 'COMPETITION 2026',
   audienceLabel: 'For Middle and High School Students',
-  primaryColor: '#a31f35',
   highlightTextColor: '#a31f35',
   statusText: 'Registration Open',
   statusSubtext: '',
@@ -63,19 +61,22 @@ export const defaultProps: CompetitionHeroProps = {
 
 export function CompetitionHeroRender({
   titleLine1, titleLine2, titleLine3, audienceLabel,
-  primaryColor, highlightTextColor, statusText, statusSubtext,
+  highlightTextColor, statusText, statusSubtext,
   ctaText, ctaLink, secondaryCtaText, secondaryCtaLink,
   heroImage, heroImageWidth, heroImageRightOffset, heroImageBottomGap,
   backgroundImage,
   overlayColor, overlayOpacity, overlayCSS,
   badgeStripHeading, badgeStripItems,
 }: CompetitionHeroProps) {
-  const color = safeHex(primaryColor)
+  const color = BRAND_DARK
   const bgImageUrl = backgroundImage?.url || ''
   const hasBadgeStrip = badgeStripItems && badgeStripItems.length > 0
 
-  const solid = hexAlpha(overlayColor || primaryColor, (overlayOpacity ?? 90) / 100)
-  const overlayLayer = overlayCSS || `linear-gradient(${solid}, ${solid})`
+  const overlayHex = overlayColor || undefined
+  const solid = overlayHex ? hexAlpha(overlayHex, (overlayOpacity ?? 90) / 100) : undefined
+  const opacity = (overlayOpacity ?? 90) / 100
+  const defaultOverlay = `linear-gradient(color-mix(in srgb, ${BRAND_BRIGHT} ${Math.round(opacity * 100)}%, transparent), color-mix(in srgb, ${BRAND_BRIGHT} ${Math.round(opacity * 100)}%, transparent))`
+  const overlayLayer = overlayCSS || (solid ? `linear-gradient(${solid}, ${solid})` : defaultOverlay)
 
   return (
     <section>

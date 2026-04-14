@@ -5,7 +5,7 @@
  * Figma: intro text + vertical divider + bullet list on light bg.
  * Mobile (Harvard pattern): stacks vertically with horizontal divider.
  */
-import { safeHex } from './shared'
+import { BRAND_DARK } from './shared'
 
 export interface EligibilityItem {
   value: string
@@ -14,7 +14,6 @@ export interface EligibilityItem {
 export interface EligibilitySectionProps {
   introText: string
   items: EligibilityItem[]
-  primaryColor: string
 }
 
 export const defaultProps: EligibilitySectionProps = {
@@ -24,13 +23,12 @@ export const defaultProps: EligibilitySectionProps = {
     { value: 'You want to challenge yourself and compete globally' },
     { value: 'You want to build a solid STEM profile' },
   ],
-  primaryColor: '#13294C',
 }
 
 export function EligibilitySectionRender({
-  introText, items, primaryColor,
+  introText, items,
 }: EligibilitySectionProps) {
-  const color = safeHex(primaryColor)
+  const color = BRAND_DARK
 
   return (
     <section className="bg-[#f2f3f0] py-4 md:py-8">

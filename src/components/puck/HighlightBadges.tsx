@@ -3,7 +3,6 @@
  */
 import type { ComponentConfig } from '@puckeditor/core'
 import { createMediaField } from '@delmaredigital/payload-puck/fields'
-import { createColorField } from './fields'
 import { HighlightBadgesRender, defaultProps } from './HighlightBadges.render'
 import type { HighlightBadgesProps } from './HighlightBadges.render'
 
@@ -23,7 +22,6 @@ export const HighlightBadgesConfig: ComponentConfig<HighlightBadgesProps> = {
       },
       defaultItemProps: { label: 'Topic', icon: null },
     },
-    primaryColor: createColorField({ label: 'Brand Color' }),
   },
   defaultProps,
   render: HighlightBadgesRender,

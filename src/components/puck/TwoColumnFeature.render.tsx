@@ -4,7 +4,7 @@
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { FramedImage } from './FramedImage'
-import { CompetitionCTA, RichText, safeHex } from './shared'
+import { CompetitionCTA, RichText, BRAND_DARK } from './shared'
 
 // Plain <img> instead of next/image — deliberate, do not switch back.
 //
@@ -32,7 +32,6 @@ export interface TwoColumnFeatureProps {
   layout: 'image-right' | 'image-left'
   bgColor: string
   headingColor: 'primary' | 'dark'
-  primaryColor: string
 }
 
 export const defaultProps: TwoColumnFeatureProps = {
@@ -48,14 +47,13 @@ export const defaultProps: TwoColumnFeatureProps = {
   layout: 'image-right',
   bgColor: '',
   headingColor: 'primary',
-  primaryColor: '#a31f35',
 }
 
 export function TwoColumnFeatureRender({
   heading, body, ctaText, ctaLink, ctaVariant, secondaryCtaText, secondaryCtaLink,
-  featureImage, imageStyle, layout, bgColor, headingColor, primaryColor,
+  featureImage, imageStyle, layout, bgColor, headingColor,
 }: TwoColumnFeatureProps) {
-  const color = safeHex(primaryColor)
+  const color = BRAND_DARK
   const isImageRight = layout === 'image-right'
 
   const textColumn = (

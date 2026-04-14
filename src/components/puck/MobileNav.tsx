@@ -14,14 +14,12 @@ interface MobileNavProps {
   navLinks: NavLinkItem[]
   ctaText: string
   ctaLink: string
-  primaryColor: string
 }
 
 export function MobileNav({
   navLinks,
   ctaText,
   ctaLink,
-  primaryColor,
 }: MobileNavProps) {
   return (
     <Collapsible.Root>
@@ -58,7 +56,7 @@ export function MobileNav({
               target="_blank"
               rel="noopener noreferrer"
               className="block no-underline text-white text-center text-base font-bold mt-2 mx-6 rounded-lg py-3 px-6"
-              style={{ backgroundColor: primaryColor, lineHeight: '24px' }}
+              style={{ backgroundColor: 'var(--primary-dark, #222)', lineHeight: '24px' }}
             >
               {ctaText}
             </a>

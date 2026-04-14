@@ -5,7 +5,7 @@
  * Figma source: node 6382:13196
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
-import { safeHex } from './shared'
+import { BRAND_DARK } from './shared'
 
 export interface BadgeItem {
   label: string
@@ -15,7 +15,6 @@ export interface BadgeItem {
 export interface HighlightBadgesProps {
   heading: string
   badges: BadgeItem[]
-  primaryColor: string
 }
 
 export const defaultProps: HighlightBadgesProps = {
@@ -25,15 +24,13 @@ export const defaultProps: HighlightBadgesProps = {
     { label: 'Medicine', icon: null },
     { label: 'Big Ideas', icon: null },
   ],
-  primaryColor: '#13294C',
 }
 
 export function HighlightBadgesRender({
   heading,
   badges,
-  primaryColor,
 }: HighlightBadgesProps) {
-  const color = safeHex(primaryColor, '#13294C')
+  const color = BRAND_DARK
 
   return (
     <section className="py-3 md:py-6 px-5 lg:px-0">

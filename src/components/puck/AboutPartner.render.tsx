@@ -7,14 +7,13 @@
  * and body. image-164 is display:none on desktop. Both are tiny white lines (~175 bytes)
  * on the burgundy background. Omitted — negligible visual impact.
  */
-import { CompetitionCTA, safeHex } from './shared'
+import { CompetitionCTA, BRAND_DARK } from './shared'
 
 export interface AboutPartnerProps {
   heading: string
   body: string
   ctaText: string
   ctaLink: string
-  primaryColor: string
 }
 
 export const defaultProps: AboutPartnerProps = {
@@ -22,13 +21,12 @@ export const defaultProps: AboutPartnerProps = {
   body: 'Engineers Without Borders is a non-profit that partners with people from countries around the globe, and works with them to find solutions that will improve quality of life in their communities.',
   ctaText: 'Learn More',
   ctaLink: '#',
-  primaryColor: '#a31f35',
 }
 
 export function AboutPartnerRender({
-  heading, body, ctaText, ctaLink, primaryColor,
+  heading, body, ctaText, ctaLink,
 }: AboutPartnerProps) {
-  const color = safeHex(primaryColor)
+  const color = BRAND_DARK
 
   return (
     <section className="overflow-hidden" style={{ backgroundColor: color, paddingTop: '45px', paddingBottom: '45px' }}>

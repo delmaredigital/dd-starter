@@ -3,7 +3,6 @@
  */
 import type { ComponentConfig } from '@puckeditor/core'
 import { createMediaField } from '@delmaredigital/payload-puck/fields'
-import { createColorField } from './fields'
 import { EligibilityStripRender, defaultProps } from './EligibilityStrip.render'
 import type { EligibilityStripProps } from './EligibilityStrip.render'
 
@@ -17,7 +16,6 @@ export const EligibilityStripConfig: ComponentConfig<EligibilityStripProps> = {
     rightText: { type: 'text', label: 'Right Text' },
     leftIcon: createMediaField({ label: 'Left Icon (shown on mobile only)' }),
     rightIcon: createMediaField({ label: 'Right Icon (shown on desktop only)' }),
-    primaryColor: createColorField({ label: 'Brand Color' }),
   },
   defaultProps,
   render: EligibilityStripRender,

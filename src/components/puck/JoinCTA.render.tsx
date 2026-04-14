@@ -15,7 +15,7 @@
  * 0.75× scale from Figma 1728px → 940px container, snapped to Tailwind stock.
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
-import { CompetitionCTA, safeHex } from './shared'
+import { CompetitionCTA, BRAND_DARK, BRAND_BRIGHT } from './shared'
 
 /* ── Types ──────────────────────────────────────────────── */
 
@@ -27,7 +27,6 @@ export interface JoinCTAProps {
   ctaLink: string
   secondaryCtaText: string
   secondaryCtaLink: string
-  primaryColor: string
 }
 
 /* ── Defaults ───────────────────────────────────────────── */
@@ -40,7 +39,6 @@ export const defaultProps: JoinCTAProps = {
   ctaLink: '/register',
   secondaryCtaText: 'Join the league',
   secondaryCtaLink: '/league',
-  primaryColor: '#13294C',
 }
 
 /* ── Render ──────────────────────────────────────────────── */
@@ -53,11 +51,10 @@ export function JoinCTARender({
   ctaLink,
   secondaryCtaText,
   secondaryCtaLink,
-  primaryColor,
 }: JoinCTAProps) {
   const heading = headingRaw || defaultProps.heading
   const body = bodyRaw || defaultProps.body
-  const color = safeHex(primaryColor)
+  const color = BRAND_DARK
 
   return (
     <section className="py-5 md:py-10">
@@ -124,7 +121,7 @@ export function JoinCTARender({
                 aspectRatio: '1 / 1',
               }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="413" height="413" fill="none" viewBox="0 0 413 413" className="block w-full h-auto pointer-events-none" style={{ color }}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="413" height="413" fill="none" viewBox="0 0 413 413" className="block w-full h-auto pointer-events-none" style={{ color: BRAND_BRIGHT }}>
                 <g filter="url(#gc-shadow)"><circle cx="206.503" cy="206.503" r="160.451" fill="#fff"/><circle cx="206.503" cy="206.503" r="159.732" stroke="#fff" strokeWidth="1.439"/></g>
                 <circle cx="206.5" cy="206.5" r="205.061" stroke="currentColor" strokeWidth="2.878"/>
                 <circle cx="206.502" cy="206.502" r="182.961" stroke="currentColor" strokeWidth="1.03"/>

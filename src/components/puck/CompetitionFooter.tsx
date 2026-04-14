@@ -1,9 +1,8 @@
 /**
  * CompetitionFooter — full editor config with field definitions.
- * Only primaryColor is configurable — links and copyright are shared across all competitions.
+ * Color comes from root-level --primary-dark CSS variable.
  */
 import type { ComponentConfig } from '@puckeditor/core'
-import { createColorField } from './fields'
 import { CompetitionFooterRender, defaultProps } from './CompetitionFooter.render'
 import type { CompetitionFooterProps } from './CompetitionFooter.render'
 
@@ -12,9 +11,7 @@ export { CompetitionFooterRender, defaultProps } from './CompetitionFooter.rende
 
 export const CompetitionFooterConfig: ComponentConfig<CompetitionFooterProps> = {
   label: 'Competition Footer',
-  fields: {
-    primaryColor: createColorField({ label: 'Brand Color' }),
-  },
+  fields: {},
   defaultProps,
   render: CompetitionFooterRender,
 }
