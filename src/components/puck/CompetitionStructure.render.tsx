@@ -129,13 +129,13 @@ export const defaultProps: CompetitionStructureProps = {
 /* ── Render ──────────────────────────────────────────────── */
 
 export function CompetitionStructureRender({
-  heading,
+  heading: headingRaw,
   heroImage,
   heroOverlayColor,
   heroOverlayOpacity,
   infoCards,
   roundsIcon,
-  roundsHeading,
+  roundsHeading: roundsHeadingRaw,
   rounds,
   ctaText,
   ctaLink,
@@ -143,6 +143,8 @@ export function CompetitionStructureRender({
   secondaryCtaLink,
   primaryColor,
 }: CompetitionStructureProps) {
+  const heading = headingRaw || defaultProps.heading
+  const roundsHeading = roundsHeadingRaw || defaultProps.roundsHeading
   const cards = infoCards ?? []
   const roundsList = rounds ?? []
   const color = safeHex(primaryColor)

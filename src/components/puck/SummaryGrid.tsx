@@ -13,7 +13,7 @@ export { SummaryGridRender, defaultProps } from './SummaryGrid.render'
 export const SummaryGridConfig: ComponentConfig<SummaryGridProps> = {
   label: 'Summary Grid',
   fields: {
-    heading: { type: 'text', label: 'Heading' },
+    heading: { type: 'text', label: 'Heading (empty = default)', placeholder: defaultProps.heading },
     cards: {
       type: 'array',
       label: 'Summary Cards',

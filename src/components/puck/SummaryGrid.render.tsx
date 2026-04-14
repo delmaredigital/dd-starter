@@ -34,8 +34,9 @@ export const defaultProps: SummaryGridProps = {
 }
 
 export function SummaryGridRender({
-  heading, cards, primaryColor,
+  heading: headingRaw, cards, primaryColor,
 }: SummaryGridProps) {
+  const heading = headingRaw || defaultProps.heading
   return (
     <section className="py-10">
       <div className="max-w-5xl mx-auto px-5 lg:px-0">

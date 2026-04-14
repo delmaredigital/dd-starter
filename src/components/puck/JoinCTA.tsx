@@ -13,8 +13,8 @@ export { JoinCTARender, defaultProps } from './JoinCTA.render'
 export const JoinCTAConfig: ComponentConfig<JoinCTAProps> = {
   label: 'Join CTA',
   fields: {
-    heading: { type: 'text', label: 'Heading' },
-    body: { type: 'textarea', label: 'Body Text' },
+    heading: { type: 'text', label: 'Heading (empty = default)', placeholder: defaultProps.heading },
+    body: { type: 'textarea', label: 'Body Text (empty = default)', placeholder: defaultProps.body },
     photo: createMediaField({ label: 'Circular Photo (inside globe frame)' }),
     ctaText: { type: 'text', label: 'Primary CTA Text (empty to hide)' },
     ctaLink: { type: 'text', label: 'Primary CTA Link' },

@@ -46,8 +46,8 @@ export const defaultProps: JoinCTAProps = {
 /* ── Render ──────────────────────────────────────────────── */
 
 export function JoinCTARender({
-  heading = defaultProps.heading,
-  body = defaultProps.body,
+  heading: headingRaw,
+  body: bodyRaw,
   photo,
   ctaText,
   ctaLink,
@@ -55,6 +55,8 @@ export function JoinCTARender({
   secondaryCtaLink,
   primaryColor,
 }: JoinCTAProps) {
+  const heading = headingRaw || defaultProps.heading
+  const body = bodyRaw || defaultProps.body
   const color = safeHex(primaryColor)
 
   return (

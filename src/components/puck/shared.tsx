@@ -51,6 +51,10 @@
  * Divider stroke: border-gray-300 (#d1d5db). Figma token --stroke-0 / Gray 200
  * (#D0D4D9), snapped to gray-300 (1.3 avg channel diff). Used for all section
  * dividers: nav vertical, awards vertical, fee waiver horizontal.
+ *
+ * Default fallback: `val || defaultProps.X` in render, `placeholder: defaultProps.X`
+ * in field def. One source of truth. Only for fields that must have a value (headings,
+ * body text). NOT for optional fields where empty = hide (CTAs, subtitles).
  */
 const HEX_COLOR_RE = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/
 

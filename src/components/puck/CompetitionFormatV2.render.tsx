@@ -118,7 +118,7 @@ export const defaultProps: CompetitionFormatV2Props = {
 /* ── Render ──────────────────────────────────────────────── */
 
 export function CompetitionFormatV2Render({
-  heading,
+  heading: headingRaw,
   rounds: rawRounds,
   ctaText,
   ctaLink,
@@ -126,6 +126,7 @@ export function CompetitionFormatV2Render({
   secondaryCtaLink,
   primaryColor,
 }: CompetitionFormatV2Props) {
+  const heading = headingRaw || defaultProps.heading
   const color = safeHex(primaryColor)
   const rounds = rawRounds ?? []
 

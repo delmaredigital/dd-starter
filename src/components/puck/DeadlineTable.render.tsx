@@ -43,8 +43,9 @@ const TIER_WATERMARKS: Record<string, string> = {
 }
 
 export function DeadlineTableRender({
-  heading, tiers, featureImage, ctaText, ctaLink, primaryColor,
+  heading: headingRaw, tiers, featureImage, ctaText, ctaLink, primaryColor,
 }: DeadlineTableProps) {
+  const heading = headingRaw || defaultProps.heading
   const color = safeHex(primaryColor)
 
   return (

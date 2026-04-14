@@ -151,8 +151,8 @@ function SpecialAwardCard({ iconKey, award }: { iconKey: 'individual' | 'team'; 
 }
 
 export function AwardsSectionRender({
-  heading = defaultProps.heading,
-  introText = defaultProps.introText,
+  heading: headingRaw,
+  introText: introTextRaw,
   preliminary = defaultProps.preliminary,
   semiFinal = defaultProps.semiFinal,
   final = defaultProps.final,
@@ -160,6 +160,8 @@ export function AwardsSectionRender({
   teamAward = defaultProps.teamAward,
   noteText, noteIcon,
 }: AwardsSectionProps) {
+  const heading = headingRaw || defaultProps.heading
+  const introText = introTextRaw || defaultProps.introText
   return (
     <section className="py-10">
       <div className="max-w-[960px] mx-auto px-5 lg:px-0">

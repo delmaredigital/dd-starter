@@ -12,7 +12,7 @@ export { CompetitionFormatV2Render, defaultProps } from './CompetitionFormatV2.r
 export const CompetitionFormatV2Config: ComponentConfig<CompetitionFormatV2Props> = {
   label: 'Competition Format V2',
   fields: {
-    heading: { type: 'text', label: 'Heading' },
+    heading: { type: 'text', label: 'Heading (empty = default)', placeholder: defaultProps.heading },
     rounds: {
       type: 'array',
       label: 'Rounds',

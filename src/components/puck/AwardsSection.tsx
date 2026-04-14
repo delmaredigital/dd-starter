@@ -27,7 +27,7 @@ const badgesArrayField = {
 export const AwardsSectionConfig: ComponentConfig<AwardsSectionProps> = {
   label: 'Awards Section',
   fields: {
-    heading: { type: 'text', label: 'Heading' },
+    heading: { type: 'text', label: 'Heading (empty = default)', placeholder: defaultProps.heading },
     introText: createRichTextField({ label: 'Intro Text' }),
     preliminary: {
       type: 'object',

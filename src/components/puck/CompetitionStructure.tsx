@@ -13,7 +13,7 @@ export { CompetitionStructureRender, defaultProps } from './CompetitionStructure
 export const CompetitionStructureConfig: ComponentConfig<CompetitionStructureProps> = {
   label: 'Competition Structure',
   fields: {
-    heading: { type: 'text', label: 'Heading' },
+    heading: { type: 'text', label: 'Heading (empty = default)', placeholder: defaultProps.heading },
     heroImage: createMediaField({ label: 'Hero Image' }),
     heroOverlayColor: createColorField({ label: 'Hero Overlay Color' }),
     heroOverlayOpacity: {
@@ -41,7 +41,7 @@ export const CompetitionStructureConfig: ComponentConfig<CompetitionStructurePro
       },
     },
     roundsIcon: createMediaField({ label: 'Rounds Section Icon' }),
-    roundsHeading: { type: 'text', label: 'Rounds Heading' },
+    roundsHeading: { type: 'text', label: 'Rounds Heading (empty = default)', placeholder: defaultProps.roundsHeading },
     rounds: {
       type: 'array',
       label: 'Rounds',

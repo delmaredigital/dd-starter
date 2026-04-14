@@ -13,7 +13,7 @@ export { DeadlineTableRender, defaultProps } from './DeadlineTable.render'
 export const DeadlineTableConfig: ComponentConfig<DeadlineTableProps> = {
   label: 'Deadline Table',
   fields: {
-    heading: { type: 'text', label: 'Heading' },
+    heading: { type: 'text', label: 'Heading (empty = default)', placeholder: defaultProps.heading },
     tiers: {
       type: 'array',
       label: 'Pricing Tiers',
