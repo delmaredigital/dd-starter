@@ -3,6 +3,7 @@ import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
+import { revalidatePath } from 'next/cache'
 
 import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
@@ -70,6 +71,17 @@ export default buildConfig({
     Posts,
     Media,
     Users,
+  ],
+  endpoints: [
+    {
+      path: '/revalidate-all',
+      method: 'post',
+      handler: async (req) => {
+        if (!req.user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+        revalidatePath('/', 'layout')
+        return Response.json({ revalidated: true })
+      },
+    },
   ],
   cors: [getServerSideURL()].filter(Boolean),
   // Storage: using local disk (Railway volume at /app/public/media).

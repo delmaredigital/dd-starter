@@ -36,6 +36,9 @@ Media:
   GET /api/media
   GET /api/media/:id
 
+Cache:
+  POST /api/revalidate-all — purges entire Next.js page cache. Use after direct DB edits or bulk updates that bypass Payload hooks.
+
 Discovery:
 - GET /api lists all available collections and globals
 
