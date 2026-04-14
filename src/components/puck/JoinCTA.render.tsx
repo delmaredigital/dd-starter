@@ -42,7 +42,7 @@ export const defaultProps: JoinCTAProps = {
   ctaLink: '/register',
   secondaryCtaText: 'Join the league',
   secondaryCtaLink: '/league',
-  circleSource: 'bright' as const,
+  circleSource: 'dark' as const,
   mapSource: 'dark' as const,
   mapIntensity: 30,
 }
@@ -64,7 +64,7 @@ export function JoinCTARender({
   const heading = headingRaw || defaultProps.heading
   const body = bodyRaw || defaultProps.body
   const color = BRAND_DARK
-  const circleColor = (circleSource ?? 'bright') === 'dark' ? BRAND_DARK : BRAND_BRIGHT
+  const circleColor = (circleSource ?? 'dark') === 'bright' ? BRAND_BRIGHT : BRAND_DARK
   const mapColor = (mapSource ?? 'dark') === 'bright' ? BRAND_BRIGHT : BRAND_DARK
   const mapPct = mapIntensity ?? 30
 
