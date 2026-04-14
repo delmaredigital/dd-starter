@@ -4,7 +4,7 @@ import { extendConfig } from '@delmaredigital/payload-puck/config/editor'
 import { fullConfig } from '@delmaredigital/payload-puck/config/editor'
 import { competitionComponents, competitionCategories } from '@/components/puck'
 import { createColorField, createOptionalColorField, createPillField } from '@/components/puck/fields'
-import { HERO_THEMES, resolveTheme } from './theme'
+import { HERO_THEMES, DEFAULT_HERO_THEME, resolveTheme } from './theme'
 import type { ReactNode } from 'react'
 
 export const puckConfig = extendConfig({
@@ -33,11 +33,11 @@ export const puckConfig = extendConfig({
     defaultProps: {
       primaryDark: '',
       primaryBright: '',
-      heroTheme: 'bright-white-dark',
+      heroTheme: DEFAULT_HERO_THEME,
       ctaStyle: 'dark',
     },
     render: ({ primaryDark, primaryBright, heroTheme, ctaStyle, children }: { primaryDark?: string; primaryBright?: string; heroTheme?: string; ctaStyle?: string; children: ReactNode }) => {
-      const t = resolveTheme(heroTheme ?? 'bright-white-dark')
+      const t = resolveTheme(heroTheme ?? DEFAULT_HERO_THEME)
       const cta = ctaStyle ?? 'dark'
       const ctaIsBright = cta === 'bright' || cta === 'bright-dark'
       return (

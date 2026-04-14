@@ -1,5 +1,7 @@
 /** Hero theme options and resolver — shared between client and server Puck configs. */
 
+export const DEFAULT_HERO_THEME = 'bright-white-dark'
+
 export const HERO_THEMES = [
   { label: 'Bright / White + Dark', value: 'bright-white-dark' },
   { label: 'Bright / White + Bright', value: 'bright-white-bright' },
@@ -12,7 +14,7 @@ export const HERO_THEMES = [
 ]
 
 export function resolveTheme(theme: string) {
-  const [overlay, highlightBg, highlightText] = (theme || 'bright-white-dark').split('-') as [string, string, string]
+  const [overlay, highlightBg, highlightText] = (theme || DEFAULT_HERO_THEME).split('-') as [string, string, string]
   const v = (token: string) =>
     token === 'dark' ? 'var(--primary-dark)' : token === 'bright' ? 'var(--primary-bright)' : '#ffffff'
   return {

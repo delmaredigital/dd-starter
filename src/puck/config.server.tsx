@@ -8,7 +8,7 @@
 import { baseConfig } from '@delmaredigital/payload-puck/config'
 import { extendConfig } from '@delmaredigital/payload-puck/config'
 import { competitionComponentsServer } from '@/components/puck/index.server'
-import { resolveTheme } from './theme'
+import { DEFAULT_HERO_THEME, resolveTheme } from './theme'
 import type { ReactNode } from 'react'
 
 export const puckServerConfig = extendConfig({
@@ -16,7 +16,7 @@ export const puckServerConfig = extendConfig({
   components: competitionComponentsServer,
   root: {
     render: ({ primaryDark, primaryBright, heroTheme, ctaStyle, children }: { primaryDark?: string; primaryBright?: string; heroTheme?: string; ctaStyle?: string; children: ReactNode }) => {
-      const t = resolveTheme(heroTheme ?? 'bright-white-dark')
+      const t = resolveTheme(heroTheme ?? DEFAULT_HERO_THEME)
       const cta = ctaStyle ?? 'dark'
       const ctaIsBright = cta === 'bright' || cta === 'bright-dark'
       return (
