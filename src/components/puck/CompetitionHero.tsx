@@ -4,7 +4,7 @@
  */
 import type { ComponentConfig } from '@puckeditor/core'
 import { createMediaField } from '@delmaredigital/payload-puck/fields'
-import { createColorField, createSliderField } from './fields'
+import { createColorField, createSliderField, createBrandPickerField } from './fields'
 import { iconOptions } from './icons'
 import { CompetitionHeroRender, defaultProps } from './CompetitionHero.render'
 import type { CompetitionHeroProps } from './CompetitionHero.render'
@@ -31,14 +31,7 @@ export const CompetitionHeroConfig: ComponentConfig<CompetitionHeroProps> = {
     heroImageRightOffset: { type: 'number', label: 'Hero Image Right Offset (px past content edge, default 45)' },
     heroImageBottomGap: { type: 'number', label: 'Hero Image Bottom Gap (px from hero bottom, default 8)' },
     backgroundImage: createMediaField({ label: 'Background Image (behind overlay)' }),
-    overlaySource: {
-      type: 'radio',
-      label: 'Overlay Color',
-      options: [
-        { label: 'Primary Bright', value: 'bright' },
-        { label: 'Primary Dark', value: 'dark' },
-      ],
-    },
+    overlaySource: createBrandPickerField({ label: 'Overlay Color' }),
     overlayTopOpacity: createSliderField({ label: 'Overlay Top Opacity (default 80%)', min: 0, max: 100, step: 5 }),
     overlayBottomOpacity: createSliderField({ label: 'Overlay Bottom Opacity (default 100%)', min: 0, max: 100, step: 5 }),
     badgeStripHeading: { type: 'text', label: 'Badge Strip Heading (e.g. "Step into:" — leave empty to hide strip)' },

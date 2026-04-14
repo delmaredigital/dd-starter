@@ -31,6 +31,49 @@ export function createColorField({ label }: { label: string }) {
   }
 }
 
+/** Toggle pill field for choosing between primary dark and primary bright. */
+export function createBrandPickerField({ label }: { label: string }) {
+  return {
+    type: 'custom' as const,
+    label,
+    render: ({ onChange, value, field }: {
+      name: string
+      onChange: (val: string) => void
+      value: string
+      field: { label?: string }
+    }) => {
+      const selected = value || 'bright'
+      const pill = (val: string, text: string) => (
+        <button
+          type="button"
+          onClick={() => onChange(val)}
+          style={{
+            flex: 1,
+            padding: '8px 12px',
+            fontSize: 12,
+            fontWeight: selected === val ? 600 : 400,
+            border: `1px solid ${selected === val ? '#333' : '#ccc'}`,
+            borderRadius: 4,
+            background: selected === val ? '#333' : '#fff',
+            color: selected === val ? '#fff' : '#333',
+            cursor: 'pointer',
+          }}
+        >
+          {text}
+        </button>
+      )
+      return (
+        <FieldLabel label={field.label || label}>
+          <div style={{ display: 'flex', gap: 4 }}>
+            {pill('bright', 'Bright')}
+            {pill('dark', 'Dark')}
+          </div>
+        </FieldLabel>
+      )
+    },
+  }
+}
+
 /** Slider field for numeric values (e.g. opacity). Shows value label + range input. */
 export function createSliderField({ label, min = 0, max = 100, step = 1, suffix = '%' }: {
   label: string; min?: number; max?: number; step?: number; suffix?: string

@@ -28,7 +28,7 @@ export interface CompetitionHeroProps {
   heroImageRightOffset: number
   heroImageBottomGap: number
   backgroundImage: MediaReference | null
-  overlaySource: 'bright' | 'dark'
+  overlaySource: string
   overlayTopOpacity: number
   overlayBottomOpacity: number
   badgeStripHeading: string
