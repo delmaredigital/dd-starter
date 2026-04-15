@@ -9,6 +9,7 @@ resolutionMode: time-based
 
 minimumReleaseAgeExclude:
   - "@chenglou/pretext"  # 0.0.5 (4 days old); remove after Apr 16
+  - "@delmaredigital/payload-page-tree"  # 0.3.13 (6 days old); rename bug fix
 #
 # trustPolicy: no-downgrade — disabled; too many transitive deps lost
 # provenance on recent releases. Re-enable when ecosystem stabilizes.
