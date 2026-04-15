@@ -53,6 +53,7 @@ export function TwoColumnFeatureRender({
   heading, body, ctaText, ctaLink, ctaVariant, secondaryCtaText, secondaryCtaLink,
   featureImage, imageStyle, layout, bgColor, headingColor,
 }: TwoColumnFeatureProps) {
+  console.log('[TwoColumnFeature] body:', typeof body, body)
   const color = BRAND_DARK
   const isImageRight = layout === 'image-right'
 

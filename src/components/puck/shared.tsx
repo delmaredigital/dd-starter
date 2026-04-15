@@ -110,6 +110,7 @@ export const TINT_FALLBACK_CLASS = 'bg-[#e9e9e9]'
  * provided the server config declares `fields`). Just render the value as a child.
  */
 export function RichText({ children, className }: { children: React.ReactNode; className?: string }) {
+  console.log('[RichText] type:', typeof children, 'value:', children)
   if (!children) return null
   return <div className={`prose prose-sm max-w-none ${className ?? ''}`}>{children}</div>
 }

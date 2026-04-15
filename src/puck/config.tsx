@@ -45,6 +45,7 @@ export const puckConfig = extendConfig({
       ctaStyle: DEFAULT_CTA_STYLE,
     },
     render: ({ primaryDark, primaryBright, heroTheme, heroTextStyle, highlightOverride, ctaStyle, children }: { primaryDark?: string; primaryBright?: string; heroTheme?: string; heroTextStyle?: string; highlightOverride?: string; ctaStyle?: string; children: ReactNode }) => {
+      console.log('[root render]', { heroTheme, heroTextStyle, highlightOverride, ctaStyle })
       const override = heroTextStyle === 'default' ? undefined : heroTextStyle
       const t = resolveTheme(heroTheme ?? DEFAULT_HERO_THEME, override)
       const c = resolveCtaStyle(ctaStyle ?? DEFAULT_CTA_STYLE)
