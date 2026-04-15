@@ -7,18 +7,13 @@
  * Right: description + outline CTA button.
  * All assets in public/competition-assets/ (shared across competitions).
  */
-import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { CompetitionCTA, BRAND_DARK, BRAND_BRIGHT } from './shared'
 
 export interface AlgoEdFooterProps {
-  logo: MediaReference | null
-  backgroundImage: MediaReference | null
   bgSource: string
 }
 
 export const defaultProps: AlgoEdFooterProps = {
-  logo: null,
-  backgroundImage: null,
   bgSource: 'dark',
 }
 
