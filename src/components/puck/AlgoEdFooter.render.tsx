@@ -7,7 +7,7 @@
  * Right: description + outline CTA button.
  * All assets in public/competition-assets/ (shared across competitions).
  */
-import { CompetitionCTA, BRAND_DARK, BRAND_BRIGHT } from './shared'
+import { CompetitionCTA, BRAND_DARK, BRAND_BRIGHT, CTA2_BG, CTA2_TEXT, CTA2_BORDER } from './shared'
 
 export interface AlgoEdFooterProps {
   bgSource: string
@@ -76,17 +76,17 @@ export function AlgoEdFooterRender({
           <div>
             <p
               className="font-semibold text-xl leading-8 mb-2.5"
-              style={{ color }}
+              style={{ color: BRAND_DARK }}
             >
               AlgoEd is a platform that hosts curated competitions for K-12 students.
             </p>
             <CompetitionCTA
               text="Explore Competitions"
               href="https://app.algoed.co/explore-competitions"
-              bgColor="#ffffff"
-              textColor={color}
+              bgColor={CTA2_BG}
+              textColor={CTA2_TEXT}
               target="_blank"
-              border={`1px solid ${color}`}
+              border={`1px solid ${CTA2_BORDER}`}
             />
           </div>
         </div>
