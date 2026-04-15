@@ -227,16 +227,19 @@ export const competitionComponentsServer = {
   AboutPartnerV2: {
     label: 'About Partner V2',
     defaultProps: aboutPartnerV2Defaults,
+    fields: { body: { type: 'richtext' as const } },
     render: AboutPartnerV2Render,
   },
   AboutLeague: {
     label: 'About League',
     defaultProps: aboutLeagueDefaults,
+    fields: { body: { type: 'richtext' as const } },
     render: AboutLeagueRender,
   },
   FosteringSection: {
     label: 'Fostering Section',
     defaultProps: fosteringDefaults,
+    fields: { body: { type: 'richtext' as const } },
     render: FosteringSectionRender,
   },
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- see comment above
