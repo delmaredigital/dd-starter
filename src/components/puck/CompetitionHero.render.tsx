@@ -24,8 +24,6 @@ export interface CompetitionHeroProps {
   secondaryCtaLink: string
   heroImage: MediaReference | null
   heroImageWidth: number
-  heroImageRightOffset: number
-  heroImageBottomGap: number
   backgroundImage: MediaReference | null
   overlayTopOpacity: number
   overlayBottomOpacity: number
@@ -45,9 +43,7 @@ export const defaultProps: CompetitionHeroProps = {
   secondaryCtaText: '',
   secondaryCtaLink: '',
   heroImage: null,
-  heroImageWidth: 400,
-  heroImageRightOffset: 45,
-  heroImageBottomGap: 2,
+  heroImageWidth: 450,
   backgroundImage: null,
   overlayTopOpacity: 80,
   overlayBottomOpacity: 100,
@@ -59,7 +55,7 @@ export function CompetitionHeroRender({
   titleLine1, titleLine2, titleLine3, audienceLabel,
   statusText, statusSubtext,
   ctaText, ctaLink, secondaryCtaText, secondaryCtaLink,
-  heroImage, heroImageWidth, heroImageRightOffset, heroImageBottomGap,
+  heroImage, heroImageWidth,
   backgroundImage,
   overlayTopOpacity, overlayBottomOpacity,
   badgeStripHeading, badgeStripItems,
@@ -136,9 +132,9 @@ export function CompetitionHeroRender({
             alt={heroImage.alt || ''}
             className="lg:absolute block mx-auto lg:mx-0 mt-6 lg:mt-0 max-w-full h-auto"
             style={{
-              left: `calc(50% + ${470 - (heroImageWidth ?? 400) + (heroImageRightOffset ?? 45)}px)`,
-              bottom: `${heroImageBottomGap ?? 8}px`,
-              width: `${heroImageWidth ?? 400}px`,
+              right: 0,
+              bottom: '2px',
+              width: `${heroImageWidth ?? 450}px`,
             }}
           />
         )}
