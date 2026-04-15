@@ -4,7 +4,7 @@
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import { FramedImage } from './FramedImage'
-import { CompetitionCTA, RichText, BRAND_DARK, CTA_BG, CTA_TEXT } from './shared'
+import { CompetitionCTA, RichText, BRAND_DARK, CTA_BG, CTA_TEXT, CTA2_BG, CTA2_TEXT, CTA2_BORDER } from './shared'
 
 // Plain <img> instead of next/image — deliberate, do not switch back.
 //
@@ -62,10 +62,10 @@ export function TwoColumnFeatureRender({
       <RichText html={body} className="text-[15px] mb-6 text-[#222] text-justify" />
       <div className="flex flex-wrap gap-4">
         {ctaVariant === 'outline'
-          ? <CompetitionCTA text={ctaText} href={ctaLink} bgColor="transparent" textColor={color} border={`1px solid ${color}`} />
+          ? <CompetitionCTA text={ctaText} href={ctaLink} bgColor={CTA2_BG} textColor={CTA2_TEXT} border={`1px solid ${CTA2_BORDER}`} />
           : <CompetitionCTA text={ctaText} href={ctaLink} bgColor={CTA_BG} textColor={CTA_TEXT} />
         }
-        <CompetitionCTA text={secondaryCtaText} href={secondaryCtaLink} bgColor="transparent" textColor={color} border={`1px solid ${color}`} />
+        <CompetitionCTA text={secondaryCtaText} href={secondaryCtaLink} bgColor={CTA2_BG} textColor={CTA2_TEXT} border={`1px solid ${CTA2_BORDER}`} />
       </div>
     </div>
   )

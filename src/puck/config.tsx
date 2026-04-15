@@ -4,7 +4,7 @@ import { extendConfig } from '@delmaredigital/payload-puck/config/editor'
 import { fullConfig } from '@delmaredigital/payload-puck/config/editor'
 import { competitionComponents, competitionCategories } from '@/components/puck'
 import { createColorField, createOptionalColorField, createPillField } from '@/components/puck/fields'
-import { HERO_THEMES, DEFAULT_HERO_THEME, resolveTheme } from './theme'
+import { HERO_THEMES, DEFAULT_HERO_THEME, CTA_STYLES, DEFAULT_CTA_STYLE, resolveTheme, resolveCtaStyle } from './theme'
 import type { ReactNode } from 'react'
 
 export const puckConfig = extendConfig({
@@ -29,28 +29,23 @@ export const puckConfig = extendConfig({
         ],
         defaultValue: 'default',
       }),
-      ctaStyle: createPillField({
+      ctaStyle: {
+        type: 'select' as const,
         label: 'CTA Button Style',
-        options: [
-          { label: 'Dark', value: 'dark' },
-          { label: 'Bright', value: 'bright' },
-          { label: 'Bright + Dark Text', value: 'bright-dark' },
-        ],
-        defaultValue: 'dark',
-      }),
+        options: CTA_STYLES,
+      },
     },
     defaultProps: {
       primaryDark: '',
       primaryBright: '',
       heroTheme: DEFAULT_HERO_THEME,
       heroTextStyle: 'default',
-      ctaStyle: 'dark',
+      ctaStyle: DEFAULT_CTA_STYLE,
     },
     render: ({ primaryDark, primaryBright, heroTheme, heroTextStyle, ctaStyle, children }: { primaryDark?: string; primaryBright?: string; heroTheme?: string; heroTextStyle?: string; ctaStyle?: string; children: ReactNode }) => {
       const override = heroTextStyle === 'default' ? undefined : heroTextStyle
       const t = resolveTheme(heroTheme ?? DEFAULT_HERO_THEME, override)
-      const cta = ctaStyle ?? 'dark'
-      const ctaIsBright = cta === 'bright' || cta === 'bright-dark'
+      const c = resolveCtaStyle(ctaStyle ?? DEFAULT_CTA_STYLE)
       return (
       <div style={{
         '--primary-dark': primaryDark || '#222',
@@ -59,8 +54,11 @@ export const puckConfig = extendConfig({
         '--hero-text': t.heroText,
         '--highlight-bg': t.highlightBg,
         '--highlight-text': t.highlightText,
-        '--cta-bg': ctaIsBright ? 'var(--primary-bright)' : 'var(--primary-dark)',
-        '--cta-text': cta === 'bright-dark' ? 'var(--primary-dark)' : '#ffffff',
+        '--cta-bg': c.bg,
+        '--cta-text': c.text,
+        '--cta2-bg': c.bg2,
+        '--cta2-text': c.text2,
+        '--cta2-border': c.border2,
       } as React.CSSProperties}>
         {children}
       </div>

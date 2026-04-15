@@ -8,7 +8,7 @@
 import { baseConfig } from '@delmaredigital/payload-puck/config'
 import { extendConfig } from '@delmaredigital/payload-puck/config'
 import { competitionComponentsServer } from '@/components/puck/index.server'
-import { DEFAULT_HERO_THEME, resolveTheme } from './theme'
+import { DEFAULT_HERO_THEME, DEFAULT_CTA_STYLE, resolveTheme, resolveCtaStyle } from './theme'
 import type { ReactNode } from 'react'
 
 export const puckServerConfig = extendConfig({
@@ -18,8 +18,7 @@ export const puckServerConfig = extendConfig({
     render: ({ primaryDark, primaryBright, heroTheme, heroTextStyle, ctaStyle, children }: { primaryDark?: string; primaryBright?: string; heroTheme?: string; heroTextStyle?: string; ctaStyle?: string; children: ReactNode }) => {
       const override = heroTextStyle === 'default' ? undefined : heroTextStyle
       const t = resolveTheme(heroTheme ?? DEFAULT_HERO_THEME, override)
-      const cta = ctaStyle ?? 'dark'
-      const ctaIsBright = cta === 'bright' || cta === 'bright-dark'
+      const c = resolveCtaStyle(ctaStyle ?? DEFAULT_CTA_STYLE)
       return (
       <div style={{
         '--primary-dark': primaryDark || '#222',
@@ -28,8 +27,11 @@ export const puckServerConfig = extendConfig({
         '--hero-text': t.heroText,
         '--highlight-bg': t.highlightBg,
         '--highlight-text': t.highlightText,
-        '--cta-bg': ctaIsBright ? 'var(--primary-bright)' : 'var(--primary-dark)',
-        '--cta-text': cta === 'bright-dark' ? 'var(--primary-dark)' : '#ffffff',
+        '--cta-bg': c.bg,
+        '--cta-text': c.text,
+        '--cta2-bg': c.bg2,
+        '--cta2-text': c.text2,
+        '--cta2-border': c.border2,
       } as React.CSSProperties}>
         {children}
       </div>
