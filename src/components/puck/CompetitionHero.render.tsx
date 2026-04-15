@@ -97,7 +97,7 @@ export function CompetitionHeroRender({
           <h1 className="m-0">
             <span className="block font-bold uppercase text-3xl leading-[1.3] sm:text-5xl" style={{ color: HERO_TEXT }}>{titleLine1}</span>
             {titleLine2 && (
-              <span className="inline-block my-5 px-2.5 py-[5px]" style={{ backgroundColor: HIGHLIGHT_BG }}>
+              <span className="inline-block my-5 px-2.5 py-[5px] rounded-lg sm:rounded-xl" style={{ backgroundColor: HIGHLIGHT_BG }}>
                 <span className="block font-bold uppercase text-3xl leading-[1.7] sm:text-5xl" style={{ color: HIGHLIGHT_TEXT }}>{titleLine2}</span>
               </span>
             )}
