@@ -60,6 +60,8 @@
  * rounded to nearest Tailwind step. Example: `py-5 md:py-10`, `gap-2 md:gap-4`.
  * `lg` is reserved for nav visibility and container padding only (`lg:px-0`).
  */
+import { RichTextBoundary } from './RichTextBoundary'
+
 const HEX_COLOR_RE = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/
 
 /** Validates a hex color string. Returns the color if valid, fallback otherwise. */
@@ -108,11 +110,17 @@ export const TINT_FALLBACK_CLASS = 'bg-[#e9e9e9]'
  * into a React element before it reaches the render function — both in the editor
  * (via getRichTextTransform) and on the server (via useRichtextProps in ServerRender,
  * provided the server config declares `fields`). Just render the value as a child.
+ *
+ * Wraps children in RichTextBoundary to catch TipTap crashes on empty strings —
+ * Puck's RichTextRender creates invalid ProseMirror nodes from "" content.
  */
 export function RichText({ children, className }: { children: React.ReactNode; className?: string }) {
-  console.log('[RichText] type:', typeof children, 'value:', children)
   if (!children) return null
-  return <div className={`prose prose-sm max-w-none ${className ?? ''}`}>{children}</div>
+  return (
+    <div className={`prose prose-sm max-w-none ${className ?? ''}`}>
+      <RichTextBoundary>{children}</RichTextBoundary>
+    </div>
+  )
 }
 
 /** CTA button link styled for competition pages. */

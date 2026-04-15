@@ -123,7 +123,6 @@ export function CompetitionFormatV2Render({
   secondaryCtaText,
   secondaryCtaLink,
 }: CompetitionFormatV2Props) {
-  console.log('[CompetitionFormatV2] rounds body types:', rawRounds?.map((r: any) => ({ body: typeof r?.body, formatDetails: typeof r?.formatDetails })))
   const heading = headingRaw || defaultProps.heading
   const color = BRAND_DARK
   const rounds = rawRounds ?? []

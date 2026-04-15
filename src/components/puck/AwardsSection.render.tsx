@@ -160,7 +160,6 @@ export function AwardsSectionRender({
   teamAward = defaultProps.teamAward,
   noteText, noteIcon,
 }: AwardsSectionProps) {
-  console.log('[AwardsSection] introText:', typeof introText, introText)
   const heading = headingRaw || defaultProps.heading
   return (
     <section className="py-5 md:py-10">
