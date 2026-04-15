@@ -55,22 +55,10 @@ function enqueueRevalidation(path: string, logger?: { info: (msg: string) => voi
 
 export const revalidatePage: CollectionAfterChangeHook<Page> = ({
   doc,
-  previousDoc,
-  req: { payload, context },
+  req: { payload },
 }) => {
-  if (!context.disableRevalidate) {
-    if (doc._status === 'published') {
-      enqueueRevalidation(`/${doc.slug}`, payload.logger)
-    }
-
-    if (previousDoc?.slug && previousDoc.slug !== doc.slug) {
-      enqueueRevalidation(`/${previousDoc.slug}`, payload.logger)
-    }
-
-    if (previousDoc?._status === 'published' && doc._status !== 'published') {
-      enqueueRevalidation(`/${doc.slug}`, payload.logger)
-    }
-  }
+  // TEMP: disabled to isolate folder rename crash
+  payload.logger.info(`[revalidatePage] skipped for ${doc.slug} (disabled for debugging)`)
   return doc
 }
 
