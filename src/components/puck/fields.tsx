@@ -124,7 +124,7 @@ export function createSliderField({ label, min = 0, max = 100, step = 1, suffix 
 }
 
 /** Color picker with a clear button. Returns hex or empty string. For optional colors. */
-export function createOptionalColorField({ label }: { label: string }) {
+export function createOptionalColorField({ label, emptyText = 'No color set (transparent)' }: { label: string; emptyText?: string }) {
   return {
     type: 'custom' as const,
     label,
@@ -160,7 +160,7 @@ export function createOptionalColorField({ label }: { label: string }) {
             </button>
           )}
         </div>
-        {!value && <div style={{ fontSize: 12, color: '#888', marginTop: 4 }}>No color set (transparent)</div>}
+        {!value && <div style={{ fontSize: 12, color: '#888', marginTop: 4 }}>{emptyText}</div>}
       </FieldLabel>
     ),
   }

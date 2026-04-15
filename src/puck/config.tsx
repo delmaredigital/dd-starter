@@ -14,7 +14,7 @@ export const puckConfig = extendConfig({
   root: {
     fields: {
       primaryDark: createColorField({ label: 'Primary Dark (text, borders, UI — required)' }),
-      primaryBright: createOptionalColorField({ label: 'Primary Bright (hero overlay, accents — optional)' }),
+      primaryBright: createOptionalColorField({ label: 'Primary Bright (hero overlay, accents — optional)', emptyText: 'Using Primary Dark' }),
       heroTheme: {
         type: 'select' as const,
         label: 'Hero Theme',
@@ -29,6 +29,7 @@ export const puckConfig = extendConfig({
         ],
         defaultValue: 'default',
       }),
+      highlightOverride: createOptionalColorField({ label: 'Override Highlight', emptyText: 'Using theme preset' }),
       ctaStyle: {
         type: 'select' as const,
         label: 'CTA Button Style',
@@ -40,9 +41,10 @@ export const puckConfig = extendConfig({
       primaryBright: '',
       heroTheme: DEFAULT_HERO_THEME,
       heroTextStyle: 'default',
+      highlightOverride: '',
       ctaStyle: DEFAULT_CTA_STYLE,
     },
-    render: ({ primaryDark, primaryBright, heroTheme, heroTextStyle, ctaStyle, children }: { primaryDark?: string; primaryBright?: string; heroTheme?: string; heroTextStyle?: string; ctaStyle?: string; children: ReactNode }) => {
+    render: ({ primaryDark, primaryBright, heroTheme, heroTextStyle, highlightOverride, ctaStyle, children }: { primaryDark?: string; primaryBright?: string; heroTheme?: string; heroTextStyle?: string; highlightOverride?: string; ctaStyle?: string; children: ReactNode }) => {
       const override = heroTextStyle === 'default' ? undefined : heroTextStyle
       const t = resolveTheme(heroTheme ?? DEFAULT_HERO_THEME, override)
       const c = resolveCtaStyle(ctaStyle ?? DEFAULT_CTA_STYLE)
@@ -52,7 +54,7 @@ export const puckConfig = extendConfig({
         '--primary-bright': primaryBright || primaryDark || '#222',
         '--hero-overlay': t.overlay,
         '--hero-text': t.heroText,
-        '--highlight-bg': t.highlightBg,
+        '--highlight-bg': highlightOverride || t.highlightBg,
         '--highlight-text': t.highlightText,
         '--cta-bg': c.bg,
         '--cta-text': c.text,

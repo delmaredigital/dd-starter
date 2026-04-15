@@ -3,14 +3,14 @@
 export const DEFAULT_HERO_THEME = 'bright-white-dark'
 
 export const HERO_THEMES = [
-  { label: 'Bright bg → white bar, dark text', value: 'bright-white-dark' },
-  { label: 'Bright bg → white bar, bright text', value: 'bright-white-bright' },
-  { label: 'Bright bg → dark bar, white text', value: 'bright-dark-white' },
-  { label: 'Bright bg → dark bar, bright text', value: 'bright-dark-bright' },
-  { label: 'Dark bg → white bar, dark text', value: 'dark-white-dark' },
-  { label: 'Dark bg → white bar, bright text', value: 'dark-white-bright' },
-  { label: 'Dark bg → bright bar, white text', value: 'dark-bright-white' },
-  { label: 'Dark bg → bright bar, dark text', value: 'dark-bright-dark' },
+  { label: 'Bright bg → white bar (highlight), dark text', value: 'bright-white-dark' },
+  { label: 'Bright bg → white bar (highlight), bright text', value: 'bright-white-bright' },
+  { label: 'Bright bg → dark bar (highlight), white text', value: 'bright-dark-white' },
+  { label: 'Bright bg → dark bar (highlight), bright text', value: 'bright-dark-bright' },
+  { label: 'Dark bg → white bar (highlight), dark text', value: 'dark-white-dark' },
+  { label: 'Dark bg → white bar (highlight), bright text', value: 'dark-white-bright' },
+  { label: 'Dark bg → bright bar (highlight), white text', value: 'dark-bright-white' },
+  { label: 'Dark bg → bright bar (highlight), dark text', value: 'dark-bright-dark' },
 ]
 
 export const CTA_STYLES = [
