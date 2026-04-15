@@ -3,23 +3,23 @@
 export const DEFAULT_HERO_THEME = 'bright-white-dark'
 
 export const HERO_THEMES = [
-  { label: 'Bright / White + Dark', value: 'bright-white-dark' },
-  { label: 'Bright / White + Bright', value: 'bright-white-bright' },
-  { label: 'Bright / Dark + White', value: 'bright-dark-white' },
-  { label: 'Bright / Dark + Bright', value: 'bright-dark-bright' },
-  { label: 'Dark / White + Dark', value: 'dark-white-dark' },
-  { label: 'Dark / White + Bright', value: 'dark-white-bright' },
-  { label: 'Dark / Bright + White', value: 'dark-bright-white' },
-  { label: 'Dark / Bright + Dark', value: 'dark-bright-dark' },
+  { label: 'Bright bg → white bar, dark text', value: 'bright-white-dark' },
+  { label: 'Bright bg → white bar, bright text', value: 'bright-white-bright' },
+  { label: 'Bright bg → dark bar, white text', value: 'bright-dark-white' },
+  { label: 'Bright bg → dark bar, bright text', value: 'bright-dark-bright' },
+  { label: 'Dark bg → white bar, dark text', value: 'dark-white-dark' },
+  { label: 'Dark bg → white bar, bright text', value: 'dark-white-bright' },
+  { label: 'Dark bg → bright bar, white text', value: 'dark-bright-white' },
+  { label: 'Dark bg → bright bar, dark text', value: 'dark-bright-dark' },
 ]
 
 export const CTA_STYLES = [
-  { label: 'Classic', value: 'classic' },
-  { label: 'Bright Forward', value: 'bright-forward' },
-  { label: 'Warm Contrast', value: 'warm-contrast' },
-  { label: 'Dark Signature', value: 'dark-signature' },
-  { label: 'Classic with Pop', value: 'classic-pop' },
-  { label: 'Full Identity', value: 'full-identity' },
+  { label: 'Classic — [dark bg, white text] + [white bg, dark text]', value: 'classic' },
+  { label: 'Bright Forward — [bright bg, white text] + [white bg, dark text]', value: 'bright-forward' },
+  { label: 'Warm Contrast — [bright bg, dark text] + [white bg, dark text]', value: 'warm-contrast' },
+  { label: 'Dark Signature — [dark bg, bright text] + [white bg, dark text]', value: 'dark-signature' },
+  { label: 'Classic with Pop — [dark bg, white text] + [bright bg, dark text]', value: 'classic-pop' },
+  { label: 'Full Identity — [dark bg, bright text] + [bright bg, dark text]', value: 'full-identity' },
 ]
 
 export const DEFAULT_CTA_STYLE = 'classic'
