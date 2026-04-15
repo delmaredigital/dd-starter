@@ -35,12 +35,13 @@ export const puckConfig = extendConfig({
         label: 'CTA Button Style',
         options: CTA_STYLES,
       },
-      heroCtaBright: {
-        type: 'radio' as const,
+      heroCtaColor: {
+        type: 'select' as const,
         label: 'Hero CTA Button Color',
         options: [
-          { label: 'Same as highlight bar (default)', value: 'false' },
-          { label: 'Bright accent color', value: 'true' },
+          { label: 'Highlight bg, highlight text (default)', value: 'default' },
+          { label: 'Bright bg, dark text', value: 'bright-dark' },
+          { label: 'Bright bg, white text', value: 'bright-white' },
         ],
       },
     },
@@ -51,12 +52,17 @@ export const puckConfig = extendConfig({
       heroTextStyle: 'default',
       highlightOverride: '',
       ctaStyle: DEFAULT_CTA_STYLE,
-      heroCtaBright: 'false',
+      heroCtaColor: 'default',
     },
-    render: ({ primaryDark, primaryBright, heroTheme, heroTextStyle, highlightOverride, ctaStyle, heroCtaBright, children }: { primaryDark?: string; primaryBright?: string; heroTheme?: string; heroTextStyle?: string; highlightOverride?: string; ctaStyle?: string; heroCtaBright?: string; children: ReactNode }) => {
+    render: ({ primaryDark, primaryBright, heroTheme, heroTextStyle, highlightOverride, ctaStyle, heroCtaColor, children }: { primaryDark?: string; primaryBright?: string; heroTheme?: string; heroTextStyle?: string; highlightOverride?: string; ctaStyle?: string; heroCtaColor?: string; children: ReactNode }) => {
       const override = heroTextStyle === 'default' ? undefined : heroTextStyle
       const t = resolveTheme(heroTheme ?? DEFAULT_HERO_THEME, override)
       const c = resolveCtaStyle(ctaStyle ?? DEFAULT_CTA_STYLE)
+      const heroCta = heroCtaColor === 'bright-dark'
+        ? { bg: 'var(--primary-bright)', text: 'var(--primary-dark)' }
+        : heroCtaColor === 'bright-white'
+        ? { bg: 'var(--primary-bright)', text: '#ffffff' }
+        : { bg: 'var(--highlight-bg)', text: 'var(--highlight-text)' }
       return (
       <div style={{
         '--primary-dark': primaryDark || '#222',
@@ -65,7 +71,8 @@ export const puckConfig = extendConfig({
         '--hero-text': t.heroText,
         '--highlight-bg': highlightOverride || t.highlightBg,
         '--highlight-text': t.highlightText,
-        '--hero-cta-bg': heroCtaBright === 'true' ? 'var(--primary-bright)' : 'var(--highlight-bg)',
+        '--hero-cta-bg': heroCta.bg,
+        '--hero-cta-text': heroCta.text,
         '--cta-bg': c.bg,
         '--cta-text': c.text,
         '--cta2-bg': c.bg2,

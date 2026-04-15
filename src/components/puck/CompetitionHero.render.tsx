@@ -3,7 +3,7 @@
  * Server-safe: no client-only imports (no createMediaField).
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
-import { CompetitionCTA, BRAND_DARK, HERO_OVERLAY, HERO_TEXT, HIGHLIGHT_BG, HIGHLIGHT_TEXT, HERO_CTA_BG } from './shared'
+import { CompetitionCTA, BRAND_DARK, HERO_OVERLAY, HERO_TEXT, HIGHLIGHT_BG, HIGHLIGHT_TEXT, HERO_CTA_BG, HERO_CTA_TEXT } from './shared'
 import { CalendarToday, iconMap } from './icons'
 
 export interface BadgeItem {
@@ -116,7 +116,7 @@ export function CompetitionHeroRender({
             </div>
           )}
           <div className="flex flex-wrap gap-4">
-            <CompetitionCTA text={ctaText} href={ctaLink} bgColor={HERO_CTA_BG} textColor={HIGHLIGHT_TEXT} />
+            <CompetitionCTA text={ctaText} href={ctaLink} bgColor={HERO_CTA_BG} textColor={HERO_CTA_TEXT} />
             <CompetitionCTA text={secondaryCtaText} href={secondaryCtaLink} bgColor="transparent" textColor={HERO_TEXT} border={`1px solid ${HERO_TEXT}`} />
           </div>
           {/* Illustration — inside max-w-5xl so right:0 anchors to container edge.
