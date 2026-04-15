@@ -24,6 +24,9 @@ import { ResponsiveImageSectionConfig } from './ResponsiveImageSection'
 import { HighlightBadgesConfig } from './HighlightBadges'
 import { EligibilitySectionConfig } from './EligibilitySection'
 import { CompetitionFormatV2Config } from './CompetitionFormatV2'
+import { AboutPartnerV2Config } from './AboutPartnerV2'
+import { AboutLeagueConfig } from './AboutLeague'
+import { FosteringSectionConfig } from './FosteringSection'
 
 export const competitionComponents = {
   CompetitionHero: CompetitionHeroConfig,
@@ -47,6 +50,9 @@ export const competitionComponents = {
   HighlightBadges: HighlightBadgesConfig,
   EligibilitySection: EligibilitySectionConfig,
   CompetitionFormatV2: CompetitionFormatV2Config,
+  AboutPartnerV2: AboutPartnerV2Config,
+  AboutLeague: AboutLeagueConfig,
+  FosteringSection: FosteringSectionConfig,
 }
 
 export const competitionCategories = {
@@ -74,6 +80,9 @@ export const competitionCategories = {
       'HighlightBadges',
       'EligibilitySection',
       'CompetitionFormatV2',
+      'AboutPartnerV2',
+      'AboutLeague',
+      'FosteringSection',
     ] as string[],
     defaultExpanded: true,
   },

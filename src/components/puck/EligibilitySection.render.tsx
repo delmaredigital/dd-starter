@@ -5,7 +5,7 @@
  * Figma: intro text + vertical divider + bullet list on light bg.
  * Mobile (Harvard pattern): stacks vertically with horizontal divider.
  */
-import { BRAND_DARK } from './shared'
+import { BRAND_DARK, SURFACE_GREY } from './shared'
 
 export interface EligibilityItem {
   value: string
@@ -31,7 +31,7 @@ export function EligibilitySectionRender({
   const color = BRAND_DARK
 
   return (
-    <section className="bg-[#f2f3f0] py-4 md:py-8">
+    <section className="py-4 md:py-8" style={{ backgroundColor: SURFACE_GREY }}>
       <div className="max-w-5xl mx-auto px-5 lg:px-0">
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
           <p className="text-lg leading-[1.6] text-[#222] font-medium m-0 md:w-5/12">

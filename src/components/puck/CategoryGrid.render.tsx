@@ -7,6 +7,7 @@
  * Source CSS: .section-88, .link-block-34, .heading-137, .text-block-174
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
+import { SURFACE_GREY } from './shared'
 
 export interface CategoryItem {
   name: string
@@ -50,7 +51,7 @@ export function CategoryGridRender({
               href={cat.link}
               className="no-underline rounded-[15px] flex justify-center items-center text-center"
               style={{
-                backgroundColor: '#f2f3f0',
+                backgroundColor: SURFACE_GREY,
                 backgroundImage: cat.backgroundImage?.url ? `url(${cat.backgroundImage.url})` : 'url(/competition-assets/category-card-bg.png)',
                 backgroundSize: 'auto',
                 backgroundPosition: '100% 100%',

@@ -86,6 +86,18 @@ import {
   CompetitionFormatV2Render,
   defaultProps as formatV2Defaults,
 } from './CompetitionFormatV2.render'
+import {
+  AboutPartnerV2Render,
+  defaultProps as aboutPartnerV2Defaults,
+} from './AboutPartnerV2.render'
+import {
+  AboutLeagueRender,
+  defaultProps as aboutLeagueDefaults,
+} from './AboutLeague.render'
+import {
+  FosteringSectionRender,
+  defaultProps as fosteringDefaults,
+} from './FosteringSection.render'
 
 // extendConfig erases component generics to PuckComponent<any>, which is incompatible
 // with our typed render functions due to contravariance. The plugin's own built-in
@@ -196,6 +208,21 @@ export const competitionComponentsServer = {
     label: 'Competition Format V2',
     defaultProps: formatV2Defaults,
     render: CompetitionFormatV2Render,
+  },
+  AboutPartnerV2: {
+    label: 'About Partner V2',
+    defaultProps: aboutPartnerV2Defaults,
+    render: AboutPartnerV2Render,
+  },
+  AboutLeague: {
+    label: 'About League',
+    defaultProps: aboutLeagueDefaults,
+    render: AboutLeagueRender,
+  },
+  FosteringSection: {
+    label: 'Fostering Section',
+    defaultProps: fosteringDefaults,
+    render: FosteringSectionRender,
   },
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- see comment above
 } as any

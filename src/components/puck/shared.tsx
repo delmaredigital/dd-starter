@@ -96,6 +96,9 @@ export const CTA2_BG = 'var(--cta2-bg, #ffffff)'
 export const CTA2_TEXT = 'var(--cta2-text, var(--primary-dark, #222))'
 export const CTA2_BORDER = 'var(--cta2-border, var(--primary-dark, #222))'
 
+/** Light grey surface used for card backgrounds and alternating sections. */
+export const SURFACE_GREY = '#f2f3f0'
+
 /** Fallback bg for browsers without color-mix() — 10% of #222 on white. */
 export const TINT_FALLBACK_CLASS = 'bg-[#e9e9e9]'
 

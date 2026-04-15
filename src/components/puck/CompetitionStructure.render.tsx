@@ -15,7 +15,7 @@
  *   0 4px 6px -2px rgba(10,13,18,0.03), 0 12px 16px -4px rgba(10,13,18,0.08)
  */
 import type { MediaReference } from '@delmaredigital/payload-puck/fields'
-import { CompetitionCTA, BRAND_DARK, HERO_OVERLAY, CTA_BG, CTA_TEXT, CTA2_BG, CTA2_TEXT, CTA2_BORDER } from './shared'
+import { CompetitionCTA, BRAND_DARK, HERO_OVERLAY, CTA_BG, CTA_TEXT, CTA2_BG, CTA2_TEXT, CTA2_BORDER, SURFACE_GREY } from './shared'
 import { Groups, Category } from './icons'
 
 const CARD_SHADOW = '0 4px 6px -2px rgba(10,13,18,0.03), 0 12px 16px -4px rgba(10,13,18,0.08)'
@@ -155,7 +155,7 @@ export function CompetitionStructureRender({
               <div
                 key={`card-${card.heading}-${i}`}
                 className="rounded-xl px-8 pt-6 pb-6"
-                style={{ backgroundColor: '#f2f3f0', boxShadow: CARD_SHADOW }}
+                style={{ backgroundColor: SURFACE_GREY, boxShadow: CARD_SHADOW }}
               >
                 {i === 0 && <Groups className="w-11 h-11 mb-3 text-[#909090]" />}
                 {i === 1 && <Category className="w-11 h-11 mb-3 text-[#909090]" />}

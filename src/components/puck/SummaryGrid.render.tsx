@@ -5,7 +5,7 @@
  * 3×2 feature grid. Each card: icon box + title inline, description below.
  * Figma source: node 6373:7310
  */
-import { BRAND_DARK } from './shared'
+import { BRAND_DARK, SURFACE_GREY } from './shared'
 import { iconMap } from './icons'
 
 export interface SummaryCard {
@@ -45,7 +45,7 @@ export function SummaryGridRender({
           {cards.map((card, i) => (
             <div key={i}>
               <div className="flex items-center gap-1.5 mb-2">
-                <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-lg bg-[#f2f3f0]">
+                <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-lg" style={{ backgroundColor: SURFACE_GREY }}>
                   {iconMap[card.iconName] && (() => {
                     const Icon = iconMap[card.iconName]!
                     return <Icon className="w-6 h-6" style={{ color: BRAND_DARK }} />
