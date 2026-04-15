@@ -40,7 +40,7 @@ export function MobileNav({
         className="absolute left-0 right-0 top-full z-40 flex flex-col items-center overflow-hidden bg-white transition-all duration-300 ease-out h-[var(--collapsible-panel-height)] data-[ending-style]:h-0 data-[starting-style]:h-0"
       >
         <nav className="flex flex-col items-center w-full py-6 gap-1">
-          {navLinks.map((link, i) => (
+          {(navLinks ?? []).map((link, i) => (
             <a
               key={i}
               href={link.href}

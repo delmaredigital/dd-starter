@@ -43,8 +43,12 @@ function enqueueRevalidation(path: string, logger?: { info: (msg: string) => voi
     debounceTimer = null
 
     for (const p of paths) {
-      savedLogger?.info(`Revalidating page at path: ${p}`)
-      revalidatePath(p)
+      try {
+        savedLogger?.info(`Revalidating page at path: ${p}`)
+        revalidatePath(p)
+      } catch (e) {
+        savedLogger?.info(`Revalidation failed for ${p}: ${e}`)
+      }
     }
   }, DEBOUNCE_MS)
 }
