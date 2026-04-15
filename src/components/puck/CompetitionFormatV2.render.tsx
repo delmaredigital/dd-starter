@@ -189,7 +189,7 @@ export function CompetitionFormatV2Render({
                     <div className="font-bold text-base mb-2" style={{ color }}>
                       {card.heading}
                     </div>
-                    <RichText html={card.body} className="m-0 text-base text-[#222]" />
+                    <RichText className="m-0 text-base text-[#222]">{card.body}</RichText>
                   </div>
                 ))}
               </div>
@@ -200,7 +200,7 @@ export function CompetitionFormatV2Render({
               <div className="mb-5">
                 <div className="font-bold text-base mb-0" style={{ color }}>Format :</div>
                 {round.formatDetails && (
-                  <RichText html={round.formatDetails} className="m-0 text-base text-[#222]" />
+                  <RichText className="m-0 text-base text-[#222]">{round.formatDetails}</RichText>
                 )}
                 {(round.formatCards ?? []).length > 0 && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 mt-2 md:mt-4 items-start">
@@ -225,7 +225,7 @@ export function CompetitionFormatV2Render({
 
             {/* Body — richtext (paragraphs, bullets, bold, whatever the round needs) */}
             {round.body && (
-              <RichText html={round.body} className="m-0 text-base text-[#222]" />
+              <RichText className="m-0 text-base text-[#222]">{round.body}</RichText>
             )}
           </div>
         ))}

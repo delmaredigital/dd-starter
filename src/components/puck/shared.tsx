@@ -102,15 +102,16 @@ export const SURFACE_GREY = '#f2f3f0'
 /** Fallback bg for browsers without color-mix() — 10% of #222 on white. */
 export const TINT_FALLBACK_CLASS = 'bg-[#e9e9e9]'
 
-/** Renders CMS rich text HTML with prose styling. Content from Puck admin (trusted). */
-export function RichText({ html, className }: { html: string; className?: string }) {
-  if (!html) return null
-  return (
-    <div
-      className={`prose prose-sm max-w-none ${className ?? ''}`}
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
-  )
+/**
+ * Renders Puck richtext fields with prose styling.
+ * Puck's pipeline (useRichtextProps / field transforms) converts richtext data
+ * into a React element before it reaches the render function — both in the editor
+ * (via getRichTextTransform) and on the server (via useRichtextProps in ServerRender,
+ * provided the server config declares `fields`). Just render the value as a child.
+ */
+export function RichText({ children, className }: { children: React.ReactNode; className?: string }) {
+  if (!children) return null
+  return <div className={`prose prose-sm max-w-none ${className ?? ''}`}>{children}</div>
 }
 
 /** CTA button link styled for competition pages. */

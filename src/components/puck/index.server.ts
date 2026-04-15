@@ -112,6 +112,7 @@ export const competitionComponentsServer = {
   TwoColumnFeature: {
     label: 'Two Column Feature',
     defaultProps: featureDefaults,
+    fields: { body: { type: 'richtext' as const } },
     render: TwoColumnFeatureRender,
   },
   BenefitsGrid: {
@@ -147,6 +148,7 @@ export const competitionComponentsServer = {
   AwardsSection: {
     label: 'Awards Section',
     defaultProps: awardsDefaults,
+    fields: { introText: { type: 'richtext' as const } },
     render: AwardsSectionRender,
   },
   AwardsSectionLegacy: {
@@ -207,6 +209,19 @@ export const competitionComponentsServer = {
   CompetitionFormatV2: {
     label: 'Competition Format V2',
     defaultProps: formatV2Defaults,
+    fields: {
+      rounds: {
+        type: 'array' as const,
+        arrayFields: {
+          infoCards: {
+            type: 'array' as const,
+            arrayFields: { body: { type: 'richtext' as const } },
+          },
+          formatDetails: { type: 'richtext' as const },
+          body: { type: 'richtext' as const },
+        },
+      },
+    },
     render: CompetitionFormatV2Render,
   },
   AboutPartnerV2: {

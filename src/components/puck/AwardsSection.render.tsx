@@ -152,7 +152,7 @@ function SpecialAwardCard({ iconKey, award }: { iconKey: 'individual' | 'team'; 
 
 export function AwardsSectionRender({
   heading: headingRaw,
-  introText: introTextRaw,
+  introText,
   preliminary = defaultProps.preliminary,
   semiFinal = defaultProps.semiFinal,
   final = defaultProps.final,
@@ -161,7 +161,6 @@ export function AwardsSectionRender({
   noteText, noteIcon,
 }: AwardsSectionProps) {
   const heading = headingRaw || defaultProps.heading
-  const introText = introTextRaw || defaultProps.introText
   return (
     <section className="py-5 md:py-10">
       <div className="max-w-[960px] mx-auto px-5 lg:px-0">
@@ -172,7 +171,7 @@ export function AwardsSectionRender({
 
         {/* Intro — Figma 20px Medium → 15px, supports rich text (e.g. <strong>) */}
         {introText && (
-          <RichText html={introText} className="text-[15px] leading-relaxed text-[#222] mb-5 text-center" />
+          <RichText className="text-[15px] leading-relaxed text-[#222] mb-5 text-center">{introText}</RichText>
         )}
 
         {/* Default round card — Preliminary + Semi-Final side by side */}
