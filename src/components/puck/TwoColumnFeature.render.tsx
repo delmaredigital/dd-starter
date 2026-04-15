@@ -121,7 +121,6 @@ export function TwoColumnFeatureRender({
           <img
             src={featureImage.url}
             alt={featureImage.alt || ''}
-            loading="lazy"
             style={{ maxWidth: '100%', height: 'auto' }}
           />
         )

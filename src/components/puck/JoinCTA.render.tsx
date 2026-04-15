@@ -146,7 +146,6 @@ export function JoinCTARender({
                 <img
                   src={photo.url}
                   alt={photo.alt || ''}
-                  loading="lazy"
                   className="absolute rounded-full object-cover pointer-events-none"
                   style={{
                     left: '50%',
