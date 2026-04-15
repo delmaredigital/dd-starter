@@ -12,7 +12,7 @@ const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
 
   if (image && typeof image === 'object' && 'url' in image) {
     const ogUrl = image.sizes?.og?.url || image.url || ''
-    url = ogUrl.startsWith('http') ? ogUrl : serverUrl + ogUrl
+    try { url = new URL(ogUrl).href } catch { url = serverUrl + ogUrl }
   }
 
   return url
