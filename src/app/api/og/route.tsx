@@ -176,11 +176,12 @@ export async function GET(req: Request) {
           {illustrationUrl ? (
             <img
               src={illustrationUrl}
-              width={540}
               style={{
                 position: 'absolute',
                 right: 0,
                 bottom: 52, /* tw-13, matches content padding */
+                width: '45%',
+                maxHeight: '50%',
                 objectFit: 'contain',
               }}
             />
