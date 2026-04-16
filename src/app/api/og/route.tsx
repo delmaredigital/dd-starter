@@ -197,8 +197,8 @@ export async function GET(req: Request) {
           >
             {/* Title — Poppins Bold, matches hero (CompetitionHero.render.tsx).
                May individually tweak later for OG-specific sizing. */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 /* tw-3, ratio-matched to 60px title */ }}>
-              <span style={{ fontFamily: 'Poppins', fontSize: 60, /* tw text-6xl */ fontWeight: 700, color: heroText, textTransform: 'uppercase', lineHeight: 1.3 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 /* tw-4, simulates Figma's mixed 1.3/1.55 line heights at uniform 1.2 */ }}>
+              <span style={{ fontFamily: 'Poppins', fontSize: 60, /* tw text-6xl */ fontWeight: 700, color: heroText, textTransform: 'uppercase' }}>
                 {titleLine1}
               </span>
               {titleLine2 && (
@@ -210,7 +210,7 @@ export async function GET(req: Request) {
                     fontSize: 60, /* tw text-6xl */
                     fontWeight: 700,
                     textTransform: 'uppercase',
-                    lineHeight: 1.3, /* matches hero leading-[1.3] */
+                    /* lineHeight: default 1.2 — gap: 16 simulates Figma's 1.55 on highlight */
                     color: highlightText,
                     backgroundColor: highlightBg,
                     padding: '6px 12px', /* scaled from hero py-[5px] px-2.5 at 60px */
@@ -220,7 +220,7 @@ export async function GET(req: Request) {
                   {titleLine2}
                 </span>
               )}
-              <span style={{ fontFamily: 'Poppins', fontSize: 60, /* tw text-6xl */ fontWeight: 700, color: heroText, textTransform: 'uppercase', lineHeight: 1.3 }}>
+              <span style={{ fontFamily: 'Poppins', fontSize: 60, /* tw text-6xl */ fontWeight: 700, color: heroText, textTransform: 'uppercase' }}>
                 {titleLine3}
               </span>
             </div>
