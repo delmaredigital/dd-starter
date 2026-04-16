@@ -13,7 +13,7 @@ You are an expert Payload CMS developer. When working with Payload projects, fol
 
 ## ⚠️ PAGE EDITING — MANDATORY WORKFLOW ⚠️
 
-**All page editing goes through WebMCP tools exposed via the `webmcp-bridge` MCP server.** Use `list_webmcp_tools` to discover available tools and their descriptions — they are self-documenting. Call them via `call_webmcp_tool`. If tools aren't available (wrong page selected, not on Puck editor), **alert the user immediately** and ask them to navigate to the Puck editor page — or navigate there yourself via `select_page` / `navigate_page` if the editor tab exists. Do NOT fall back to raw curl/fetch as a workaround.
+**All page editing goes through WebMCP tools exposed via the `webmcp-bridge` MCP server.** **After connecting, ALWAYS run `list_webmcp_tools` (unfiltered, `summary: false`) first** — full tool descriptions contain critical info (e.g. API endpoints, cache busting) that summaries truncate. Never skip this step. Call tools via `call_webmcp_tool`. If tools aren't available (wrong page selected, not on Puck editor), **alert the user immediately** and ask them to navigate to the Puck editor page — or navigate there yourself via `select_page` / `navigate_page` if the editor tab exists. Do NOT fall back to raw curl/fetch as a workaround.
 
 **NEVER** manipulate puckData JSON directly via raw fetch/evaluate_script. That bypasses schema validation, produces wrong field names, misplaced images, and broken pages.
 
