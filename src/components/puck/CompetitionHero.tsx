@@ -26,7 +26,6 @@ export const CompetitionHeroConfig: ComponentConfig<CompetitionHeroProps> = {
     secondaryCtaText: { type: 'text', label: 'Secondary CTA Text (leave empty to hide)' },
     secondaryCtaLink: { type: 'text', label: 'Secondary CTA Link' },
     heroImage: createMediaField({ label: 'Hero Illustration (floats right of content)' }),
-    heroImageWidth: { type: 'number', label: 'Illustration Width (px, default 450)' },
     backgroundImage: createMediaField({ label: 'Background Image (behind overlay)' }),
     overlayTopOpacity: createSliderField({ label: 'Overlay Top Opacity (default 80%)', min: 0, max: 100, step: 5 }),
     overlayBottomOpacity: createSliderField({ label: 'Overlay Bottom Opacity (default 100%)', min: 0, max: 100, step: 5 }),

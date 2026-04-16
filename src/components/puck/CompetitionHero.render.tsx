@@ -23,7 +23,6 @@ export interface CompetitionHeroProps {
   secondaryCtaText: string
   secondaryCtaLink: string
   heroImage: MediaReference | null
-  heroImageWidth: number
   backgroundImage: MediaReference | null
   overlayTopOpacity: number
   overlayBottomOpacity: number
@@ -43,7 +42,6 @@ export const defaultProps: CompetitionHeroProps = {
   secondaryCtaText: '',
   secondaryCtaLink: '',
   heroImage: null,
-  heroImageWidth: 450,
   backgroundImage: null,
   overlayTopOpacity: 80,
   overlayBottomOpacity: 100,
@@ -55,7 +53,7 @@ export function CompetitionHeroRender({
   titleLine1, titleLine2, titleLine3, audienceLabel,
   statusText, statusSubtext,
   ctaText, ctaLink, secondaryCtaText, secondaryCtaLink,
-  heroImage, heroImageWidth,
+  heroImage,
   backgroundImage,
   overlayTopOpacity, overlayBottomOpacity,
   badgeStripHeading, badgeStripItems,
@@ -126,17 +124,17 @@ export function CompetitionHeroRender({
             <CompetitionCTA text={ctaText} href={ctaLink} bgColor={HERO_CTA_BG} textColor={HERO_CTA_TEXT} />
             <CompetitionCTA text={secondaryCtaText} href={secondaryCtaLink} bgColor="transparent" textColor={HERO_CTA2_COLOR} border={`1px solid ${HERO_CTA2_COLOR}`} />
           </div>
-          {/* Illustration — inside max-w-5xl so right:0 anchors to container edge.
-             Desktop: absolutely positioned right-flush. Mobile: normal flow, centered. */}
+          {/* Illustration — responsive width. Desktop (md+): absolute, 45% of
+             container (matches OG generator). Mobile: in flow, centered, w-96
+             (384px) capped at container width. */}
           {heroImage?.url && (
             <img
               src={heroImage.url}
               alt={heroImage.alt || ''}
-              className="lg:absolute lg:z-0 block mx-auto lg:mx-0 mt-6 lg:mt-0 max-w-full h-auto"
+              className="md:absolute md:z-0 block mx-auto md:mx-0 mt-6 md:mt-0 h-auto w-96 max-w-full md:w-[45%]"
               style={{
                 right: 0,
                 bottom: '2px',
-                width: `${heroImageWidth ?? 450}px`,
               }}
             />
           )}
