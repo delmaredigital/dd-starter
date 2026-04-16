@@ -92,9 +92,10 @@ export async function GET(req: Request) {
   const overlayBottomOpacity = Math.round((hero?.overlayBottomOpacity ?? 100) * 2.55).toString(16).padStart(2, '0')
   const partnerLogoUrl = nav?.partnerLogo?.url || ''
 
-  // Read the laurel badge SVG as base64 for embedding
-  const badgeSvg = readFileSync(join(process.cwd(), 'public', 'competition-assets', 'og-proudly-hosted-badge.svg'))
-  const badgeBase64 = `data:image/svg+xml;base64,${badgeSvg.toString('base64')}`
+  // Laurel badge as rasterized PNG (SVG was too complex for Satori's XML parser).
+  // Pre-rendered at 2x (64px height) for sharpness in 1200×630 OG image.
+  const badgePng = readFileSync(join(process.cwd(), 'public', 'competition-assets', 'og-proudly-hosted-badge.png'))
+  const badgeBase64 = `data:image/png;base64,${badgePng.toString('base64')}`
 
   return new ImageResponse(
     (
@@ -211,7 +212,7 @@ export async function GET(req: Request) {
           ) : null}
         </div>
 
-        {/* Bottom: laurel badge */}
+        {/* Bottom: laurel badge (rasterized PNG — SVG was too complex for Satori) */}
         <div
           style={{
             position: 'absolute',
