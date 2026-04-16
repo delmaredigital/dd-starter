@@ -39,7 +39,22 @@ export function RscPageRenderer({
     )
   }
 
-  const content = <Render config={config} data={data} />
+  // Merge defaultProps into each component's props — Puck editor does this automatically,
+  // but the RSC renderer receives raw puckData without defaults applied.
+  // Shallow merge: { ...defaultProps, ...storedProps } — stored values win.
+  const mergedData = {
+    ...data,
+    content: data.content.map((item) => {
+      const componentConfig = (config.components as any)?.[item.type]
+      if (!componentConfig?.defaultProps) return item
+      return {
+        ...item,
+        props: { ...componentConfig.defaultProps, ...item.props },
+      }
+    }),
+  }
+
+  const content = <Render config={config} data={mergedData as PuckData} />
 
   const rootProps = data.root?.props as any
 
