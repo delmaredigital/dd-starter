@@ -36,11 +36,10 @@ export function CategoryGridRender({
   heading, categories,
 }: CategoryGridProps) {
   return (
-    <section style={{ paddingTop: '50px', paddingBottom: '50px' }}>
-      <div className="max-w-6xl mx-auto px-5 lg:px-0">
+    <section className="py-5 md:py-10">
+      <div className="max-w-6xl mx-auto px-3 md:px-5 lg:px-0">
         <h2
-          className="font-bold text-center mb-8"
-          style={{ fontSize: '26px', lineHeight: '35px' }}
+          className="font-bold text-center text-3xl leading-tight mb-5 md:mb-10"
         >
           {heading}
         </h2>
