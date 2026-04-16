@@ -86,8 +86,9 @@ export async function GET(req: Request) {
   const titleLine2 = hero?.titleLine2 || ''
   const titleLine3 = hero?.titleLine3 || ''
   const audienceLabel = hero?.audienceLabel || ''
-  // Resolve OG-sized image URLs via Payload media API — full-size images (7MB+) exceed
-  // Satori/Resvg's ~10MB SVG buffer limit. Query media by filename to get sizes.og.url.
+  // Resolve OG-sized images via Payload media API, then pre-fetch with Accept: webp
+  // to trigger Cloudflare Polish compression. Satori can't set headers on its own fetches,
+  // so we fetch ourselves and pass base64 data URIs.
   const resolveOgUrl = async (url: string | undefined) => {
     if (!url) return ''
     const filename = basename(new URL(url).pathname)
@@ -100,11 +101,20 @@ export async function GET(req: Request) {
     const doc = media.docs?.[0]
     return doc?.sizes?.og?.url || url
   }
-  const heroBgUrl = await resolveOgUrl(hero?.backgroundImage?.url)
-  const illustrationUrl = await resolveOgUrl(hero?.heroImage?.url)
+  const fetchAsDataUri = async (url: string | undefined) => {
+    if (!url) return ''
+    const resolved = await resolveOgUrl(url)
+    const res = await fetch(resolved, { headers: { Accept: 'image/webp,image/*' } })
+    if (!res.ok) return ''
+    const contentType = res.headers.get('content-type') || 'image/png'
+    const buf = await res.arrayBuffer()
+    return `data:${contentType};base64,${Buffer.from(buf).toString('base64')}`
+  }
+  const heroBgUrl = await fetchAsDataUri(hero?.backgroundImage?.url)
+  const illustrationUrl = await fetchAsDataUri(hero?.heroImage?.url)
+  const partnerLogoUrl = await fetchAsDataUri(nav?.partnerLogo?.url)
   const overlayTopOpacity = Math.round((hero?.overlayTopOpacity ?? 80) * 2.55).toString(16).padStart(2, '0')
   const overlayBottomOpacity = Math.round((hero?.overlayBottomOpacity ?? 100) * 2.55).toString(16).padStart(2, '0')
-  const partnerLogoUrl = nav?.partnerLogo?.url || ''
 
   // Laurel badge as rasterized PNG (SVG was too complex for Satori's XML parser).
   // Pre-rendered at 2x (64px height) for sharpness in 1200×630 OG image.
