@@ -53,6 +53,10 @@
  *   Hero adds lg because its 30→48px range (1.6×) is too large for one jump.
  *   Section headings (1.25×) and below need at most one step.
  *
+ *   Text alignment: md:text-justify (left-aligned on mobile, justified on desktop).
+ *   Justified text needs sufficient line length (~40+ chars) to space evenly —
+ *   narrow mobile columns produce visible word-spacing gaps.
+ *
  * Line-height patterns (from Figma audit, Tailwind stock):
  *
  *   Role                Figma     Tailwind          Notes
