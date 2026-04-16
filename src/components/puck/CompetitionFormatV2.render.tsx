@@ -129,11 +129,9 @@ export function CompetitionFormatV2Render({
 
   return (
     <section className="py-5 md:py-10">
-      <div className="max-w-5xl mx-auto px-2.5 md:px-5 lg:px-0">
-        {/* Heading — Figma 40px Bold #222 → 0.75× 30px. Gap to first card: 48→36px ≈ mb-9 */}
+      <div className="max-w-5xl mx-auto px-3 md:px-5 lg:px-0">
         <h2
-          className="font-bold text-center mb-5 md:mb-9"
-          style={{ fontSize: '30px', lineHeight: '1.3', color: '#222' }}
+          className="font-bold text-center text-3xl leading-tight text-[#222] mb-5 md:mb-10"
         >
           {heading}
         </h2>
@@ -142,26 +140,25 @@ export function CompetitionFormatV2Render({
         {rounds.map((round, i) => (
           <div
             key={`format-round-${round.title}-${i}`}
-            className={`rounded-xl px-5 py-4 md:px-12 md:py-7 ${TINT_FALLBACK_CLASS} ${i > 0 ? 'mt-6 md:mt-12' : ''}`}
+            className={`rounded-xl px-5 py-4 md:px-12 md:py-7 ${TINT_FALLBACK_CLASS} ${i > 0 ? 'mt-5 md:mt-10' : ''}`}
             style={{ backgroundColor: `color-mix(in srgb, ${color} 10%, white)` }}
           >
-            {/* Round title — Figma 26px Bold primaryColor, leading-normal → 0.75× 20px = text-xl */}
+            {/* Round title — Figma 26px Bold primaryColor → text-xl */}
             <h3
-              className="font-bold mt-0 mb-2 text-xl leading-normal"
+              className="font-bold mt-0 mb-2 text-xl leading-tight"
               style={{ color }}
             >
               {round.title}
             </h3>
 
-            {/* Description — Figma 20px Regular #222, leading 34px (1.7) → 0.75× 15px */}
+            {/* Description — Figma 20px Regular #222 → text-base */}
             {round.description && (
               <p className="mt-0 mb-2 text-base" style={{ color: '#222' }}>
                 {round.description}
               </p>
             )}
 
-            {/* Date label — Figma 32×32 calendar icon + 7px gap + 20px Bold #222, leading 1.7 */}
-            {/* 0.75×: 24×24 icon, gap-1.5 (6px), 15px */}
+            {/* Date label — Figma 32×32 icon + 20px Bold → w-6 h-6 + text-base */}
             {round.dateLabel && (
               <div className="flex items-center gap-1.5 mb-4">
                 <CalendarToday className="shrink-0 w-6 h-6 text-[#222]" />
@@ -171,13 +168,12 @@ export function CompetitionFormatV2Render({
               </div>
             )}
 
-            {/* Divider line — Figma 1px line after date, gap-[22px] above → 0.75× 16px ≈ built into mb-4 above */}
+            {/* Divider line */}
             {(round.dateLabel && ((round.infoCards ?? []).length > 0 || round.formatDetails || (round.formatCards ?? []).length > 0 || round.body)) && (
               <hr className="mb-4 border-0 border-t" style={{ borderColor: '#ddd' }} />
             )}
 
-            {/* Info cards (Time/Duration) — white bg, rounded-xl, side by side */}
-            {/* Gap: Figma 20→15px ≈ gap-4. Margin below: 42→32px ≈ mb-8 */}
+            {/* Info cards (Time/Duration) — nested card grid */}
             {(round.infoCards ?? []).length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-8 items-start">
                 {(round.infoCards ?? []).map((card, j) => (
@@ -230,9 +226,9 @@ export function CompetitionFormatV2Render({
           </div>
         ))}
 
-        {/* CTA buttons — same pattern as CompetitionStructure */}
+        {/* CTA buttons */}
         {(ctaText || secondaryCtaText) && (
-          <div className="flex flex-wrap justify-center gap-7 mt-10">
+          <div className="flex flex-wrap justify-center gap-5 md:gap-6 mt-5 md:mt-10">
             {ctaText && (
               <CompetitionCTA
                 text={ctaText}
