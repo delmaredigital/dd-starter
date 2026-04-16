@@ -114,6 +114,7 @@ export const plugins: Plugin[] = [
   }),
   // SEO
   seoPlugin({
+    collections: ['posts'], // Pages has its own SEO fields (without image picker, with OG preview)
     generateTitle,
     generateURL,
   }),
