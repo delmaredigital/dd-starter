@@ -38,6 +38,21 @@
  *   weight (font-semibold vs regular) differentiates, not size.
  *   Floor: 12px (text-xs) for readability.
  *
+ * Responsive type — display tiers scale at breakpoints, body tiers are fixed.
+ * Large text needs to shrink on mobile to fit narrow viewports.
+ * Small text (≤18px) reads fine at any width — scaling adds complexity for
+ * no perceptible benefit. UI labels, badges, buttons: always fixed.
+ *
+ *   Tier              Mobile       md (768)       lg (1024)      Tailwind
+ *   ─────────────────────────────────────────────────────────────────────────
+ *   Hero title        30px         36px           48px           text-3xl md:text-4xl lg:text-5xl
+ *   Section heading   24px         30px           —              text-2xl md:text-3xl
+ *   All others        fixed        —              —              (no responsive variant)
+ *
+ *   md is the universal type breakpoint (layout shifts to multi-column).
+ *   Hero adds lg because its 30→48px range (1.6×) is too large for one jump.
+ *   Section headings (1.25×) and below need at most one step.
+ *
  * Line-height patterns (from Figma audit, Tailwind stock):
  *
  *   Role                Figma     Tailwind          Notes
