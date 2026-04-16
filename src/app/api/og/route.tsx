@@ -19,10 +19,12 @@ import type { CompetitionNavProps } from '@/components/puck/CompetitionNav.rende
 
 const SIZE = { width: 1200, height: 630 }
 
-// Load Baskervville Italic for audience label (matches hero font-baskervville italic underline)
-const baskervvilleItalic = fetch(
-  new URL('./fonts/Baskervville-Italic.ttf', import.meta.url),
-).then((res) => res.arrayBuffer())
+// Load Baskervville Italic for audience label (matches hero font-baskervville italic underline).
+// Uses fs.readFileSync instead of fetch — import.meta.url resolves to a relative /_next/static path
+// which isn't fetchable in server context.
+import { readFileSync } from 'fs'
+import { join } from 'path'
+const baskervvilleItalic = readFileSync(join(process.cwd(), 'public', 'competition-assets', 'Baskervville-Italic.ttf'))
 
 /** Resolve theme token to actual hex color. In Satori there's no CSS var context. */
 function resolveColor(
@@ -91,10 +93,7 @@ export async function GET(req: Request) {
   const partnerLogoUrl = nav?.partnerLogo?.url || ''
 
   // Read the laurel badge SVG as base64 for embedding
-  const fs = await import('fs')
-  const path = await import('path')
-  const badgePath = path.join(process.cwd(), 'public', 'competition-assets', 'og-proudly-hosted-badge.svg')
-  const badgeSvg = fs.readFileSync(badgePath)
+  const badgeSvg = readFileSync(join(process.cwd(), 'public', 'competition-assets', 'og-proudly-hosted-badge.svg'))
   const badgeBase64 = `data:image/svg+xml;base64,${badgeSvg.toString('base64')}`
 
   return new ImageResponse(
@@ -230,7 +229,7 @@ export async function GET(req: Request) {
     {
       ...SIZE,
       fonts: [
-        { name: 'Baskervville', data: await baskervvilleItalic, weight: 400 as const, style: 'italic' as const },
+        { name: 'Baskervville', data: baskervvilleItalic, weight: 400 as const, style: 'italic' as const },
       ],
     },
   )
