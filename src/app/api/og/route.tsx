@@ -95,10 +95,11 @@ export async function GET(req: Request) {
       collection: 'media',
       where: { filename: { equals: filename } },
       limit: 1,
-      select: { sizes: true, url: true },
     })
     const doc = media.docs?.[0]
-    return doc?.sizes?.og?.url || url
+    const ogUrl = doc?.sizes?.og?.url || url
+    console.log(`[og] resolveOgUrl: ${url} → ${ogUrl}`)
+    return ogUrl
   }
   const fetchAsDataUri = async (url: string | undefined, label: string) => {
     if (!url) { console.log(`[og] ${label}: no url`); return '' }
