@@ -55,7 +55,7 @@ export function DeadlineTableRender({
           {heading}
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-5 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-5 md:gap-10">
           <div className="flex flex-col gap-5">
             {tiers.map((tier, i) => (
               <div

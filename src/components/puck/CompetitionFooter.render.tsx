@@ -25,7 +25,7 @@ export function CompetitionFooterRender({
   return (
     <section className="py-4 md:py-8" style={{ backgroundColor: color }}>
       <div className="max-w-5xl mx-auto px-3 md:px-5 lg:px-0">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-5 lg:gap-0">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-5 md:gap-0">
           <Link href="/legal/privacy-policy" className="no-underline">
             <h6 className="text-white font-medium text-base leading-tight m-0">
               PRIVACY POLICY

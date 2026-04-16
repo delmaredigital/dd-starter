@@ -27,7 +27,7 @@ export function AlgoEdFooterRender({
       {/* Golden ratio 1:1.618 (left dark block : right text). Figma
           measurement: left 637 / right 1091 ≈ 37:63. Was 3fr_5fr, a
           Fibonacci-approximation of golden — now stated directly. */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.618fr]">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_1.618fr]">
         {/* Left: About + Logo with tiled alpha pattern */}
         <div
           className="relative flex flex-col justify-center items-center pt-9 pb-14 px-6 overflow-hidden"
