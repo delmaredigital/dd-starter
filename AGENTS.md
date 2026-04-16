@@ -121,6 +121,13 @@ if the right frame isn't obvious.
 
 Figma designs at 1728px frame width. All sizing scales **× 0.75** to CSS. Prefer Tailwind design tokens over exact values, inferring designer intent. See `src/components/puck/shared.tsx` for scale table and section width tiers.
 
+### Direct DB Edits (puckData)
+
+WebMCP `update_page` is safe — it goes through Puck's editor path which handles defaults. For **direct SQL edits** to puckData:
+
+- Use `jsonb_set` to target the deepest specific field — don't replace a whole object/array if you only need one sub-field.
+- When you do replace a field, write the **complete** value. The server renderer shallow-merges `defaultProps` with stored props — a missing key gets the default, but a partial value (e.g. `tiers: [{title: "A"}]` missing `fee`/`variant`) overrides the default entirely.
+
 ### Code Validation
 
 - To validate typescript correctness after modifying code run `tsc --noEmit`
