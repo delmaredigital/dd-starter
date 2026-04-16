@@ -7,10 +7,10 @@ import { revalidateRedirects } from '@/hooks/revalidateRedirects'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
-// Using upstream plugin to test deadlock bug (missing `req` in cascadeSlugUpdates.ts:65).
-// Switch back to inlined copy once upstream fixes it:
-// import { pageTreePlugin } from '@/plugins/page-tree'
-import { pageTreePlugin } from '@delmaredigital/payload-page-tree'
+// Upstream has deadlock bug (delmaredigital/payload-page-tree#2) and
+// hardcoded /admin path (#3). Using inlined copy with fixes until resolved.
+// import { pageTreePlugin } from '@delmaredigital/payload-page-tree'
+import { pageTreePlugin } from '@/plugins/page-tree'
 import { createPuckPlugin } from '@delmaredigital/payload-puck/plugin'
 import { puckLayoutOptions } from '@/lib/puck/layout-options'
 import {
