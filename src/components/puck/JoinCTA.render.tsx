@@ -70,11 +70,9 @@ export function JoinCTARender({
 
   return (
     <section className="py-5 md:py-10">
-      <div className="max-w-5xl mx-auto px-2.5 md:px-5 lg:px-0">
+      <div className="max-w-5xl mx-auto px-3 md:px-5 lg:px-0">
         {/* Two-column: globe frame (left) + text (right) */}
-        {/* Figma gap frame→text: 52→39px ≈ gap-10 (40px) */}
-        {/* Figma: globe 42.6% / text 31.4% ≈ 1.35:1 ratio */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-5 md:gap-10 items-center">
           {/* Globe frame — center-anchored composition.
              The map is a CSS-masked div: SVG used as mask-image with
              backgroundColor set to 10% primaryColor tint. The SVG's
@@ -161,24 +159,18 @@ export function JoinCTARender({
 
           {/* Text column */}
           <div className="flex flex-col justify-center items-start">
-            {/* Heading — 40px Bold #222, leading 130% → text-3xl leading-[1.3] */}
             <h2
-              className="font-bold mt-0 mb-4 text-3xl leading-[1.3]"
-              style={{ color: '#222' }}
+              className="font-bold mt-0 mb-5 md:mb-6 text-3xl leading-tight text-[#222]"
             >
               {heading}
             </h2>
-            {/* Body — 20px Regular #222, leading 150% → text-[15px], inherits global 1.625 */}
-            {/* Figma 150% vs global 1.625 — close enough, 0.125 delta at 15px = 1.9px */}
             <p
-              className="whitespace-pre-line mb-6 text-[15px]"
-              style={{ color: '#222' }}
+              className="whitespace-pre-line mb-5 md:mb-6 text-base text-[#222]"
             >
               {body}
             </p>
-            {/* CTA buttons — same pattern as CompetitionStructure */}
             {(ctaText || secondaryCtaText) && (
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-5 md:gap-6">
                 {ctaText && (
                   <CompetitionCTA
                     text={ctaText}
