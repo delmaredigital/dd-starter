@@ -36,7 +36,7 @@ export interface JoinCTAProps {
 
 export const defaultProps: JoinCTAProps = {
   heading: 'Join the Challenge',
-  body: "This competition is more than a contest; it\u2019s a gateway to the world of STEM innovation.\n\nRegister now to begin your journey into the exciting field of engineering, where you\u2019ll apply creative problem-solving and technical skills to real-world challenges.",
+  body: "This competition is more than a contest; it\u2019s a gateway to the world of STEM innovation.\n\nRegister now to begin your journey into STEM, where you\u2019ll apply creative problem-solving and technical skills to real-world challenges.",
   photo: null,
   ctaText: 'Register Now!',
   ctaLink: '/register',
