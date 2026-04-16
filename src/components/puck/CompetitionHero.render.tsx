@@ -95,7 +95,7 @@ export function CompetitionHeroRender({
            breathing room from the viewport edges. */}
         <div className="max-w-5xl mx-auto relative z-10">
           <h1 className="m-0">
-            <span className="block font-bold uppercase text-3xl leading-tight sm:text-5xl" style={{ color: HERO_TEXT }}>{titleLine1}</span>
+            <span className="block font-bold uppercase text-3xl md:text-4xl lg:text-5xl leading-tight" style={{ color: HERO_TEXT }}>{titleLine1}</span>
             {/* Highlight bar — Figma uses leading-[1.7] on the middle title to
                 inflate the line box as visual padding. We use leading-tight (system
                 standard) and compensate with explicit py-3 + my-1:
@@ -105,12 +105,12 @@ export function CompetitionHeroRender({
                 Perceived text-to-text gap: Figma 28.1/25.9px, ours 28/28px (±2px) */}
             {titleLine2 && (
               <span className="inline-block my-1 px-2.5 py-3 rounded-[10px]" style={{ backgroundColor: HIGHLIGHT_BG }}>
-                <span className="block font-bold uppercase text-3xl leading-tight sm:text-5xl" style={{ color: HIGHLIGHT_TEXT }}>{titleLine2}</span>
+                <span className="block font-bold uppercase text-3xl md:text-4xl lg:text-5xl leading-tight" style={{ color: HIGHLIGHT_TEXT }}>{titleLine2}</span>
               </span>
             )}
-            <span className="block font-bold uppercase text-3xl leading-tight sm:text-5xl" style={{ color: HERO_TEXT }}>{titleLine3}</span>
+            <span className="block font-bold uppercase text-3xl md:text-4xl lg:text-5xl leading-tight" style={{ color: HERO_TEXT }}>{titleLine3}</span>
           </h1>
-          <p className="font-baskervville italic underline mb-0 mt-4 sm:mt-5 text-xl sm:text-2xl leading-normal" style={{ color: HERO_TEXT }}>{audienceLabel}</p>
+          <p className="font-baskervville italic underline mb-0 mt-4 md:mt-5 text-xl md:text-2xl leading-normal" style={{ color: HERO_TEXT }}>{audienceLabel}</p>
           {statusText && (
             <div className="flex items-center my-6">
               <div className="mr-2.5 w-12 h-12 rounded-full border-2 flex items-center justify-center shrink-0" style={{ borderColor: `color-mix(in srgb, ${HERO_TEXT} 45%, transparent)` }}>
@@ -166,7 +166,7 @@ export function CompetitionHeroRender({
                       return <Icon className="w-5 h-5 sm:w-6 sm:h-6" style={{ color }} />
                     })()}
                   </div>
-                  <span className="text-sm sm:text-lg font-semibold uppercase leading-tight"
+                  <span className="text-lg font-semibold uppercase leading-tight"
                     style={{ color }}>
                     {badge.label}
                   </span>

@@ -102,7 +102,7 @@ export function CompetitionStructureRender({
     <section className="py-5 md:py-10">
       <div className="max-w-5xl mx-auto px-3 md:px-5 lg:px-0">
         <h2
-          className="font-bold text-center text-3xl leading-tight text-[#222] mb-5 md:mb-10"
+          className="font-bold text-center text-2xl md:text-3xl leading-tight text-[#222] mb-5 md:mb-10"
         >
           {heading}
         </h2>

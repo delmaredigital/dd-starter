@@ -160,7 +160,7 @@ export function JoinCTARender({
           {/* Text column */}
           <div className="flex flex-col justify-center items-start">
             <h2
-              className="font-bold mt-0 mb-5 md:mb-6 text-3xl leading-tight text-[#222]"
+              className="font-bold mt-0 mb-5 md:mb-6 text-2xl md:text-3xl leading-tight text-[#222]"
             >
               {heading}
             </h2>

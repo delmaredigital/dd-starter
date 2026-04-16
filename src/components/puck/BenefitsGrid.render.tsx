@@ -48,7 +48,7 @@ export function BenefitsGridRender({
     <section className="py-5 md:py-10">
       <div className="max-w-5xl mx-auto px-3 md:px-5 lg:px-0 flex flex-col items-center">
         <div className="flex flex-col items-start">
-          <h2 className="text-3xl font-bold leading-tight mb-5 md:mb-10 text-[#222]">{sectionHeading}</h2>
+          <h2 className="text-2xl md:text-3xl font-bold leading-tight mb-5 md:mb-10 text-[#222]">{sectionHeading}</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-5 md:mb-10 w-full">
           {benefits.map((benefit, i) => (
