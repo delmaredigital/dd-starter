@@ -95,26 +95,26 @@ export async function GET(req: Request) {
       collection: 'media',
       where: { filename: { equals: filename } },
       limit: 1,
+      // sizes: OG variant URL. url: fallback. prefix: required by S3 plugin's
+      // afterRead hook to regenerate URLs with correct folder path.
+      select: { sizes: true, url: true, prefix: true },
     })
     const doc = media.docs?.[0]
-    const ogUrl = doc?.sizes?.og?.url || url
-    console.log(`[og] resolveOgUrl: ${url} → ${ogUrl}`)
-    return ogUrl
+    return doc?.sizes?.og?.url || url
   }
   const fetchAsDataUri = async (url: string | undefined, label: string) => {
-    if (!url) { console.log(`[og] ${label}: no url`); return '' }
+    if (!url) return ''
     const resolved = await resolveOgUrl(url)
-    console.log(`[og] ${label}: fetching ${resolved}`)
     try {
-      // Accept PNG/JPEG only — Satori can't decode webp. Triggers Cloudflare Polish
-      // lossless compression (~33% smaller than raw R2 file).
+      // Satori can't decode webp — request PNG/JPEG only. Cloudflare Polish
+      // optimizes losslessly (~33% smaller than raw R2 file). Polish won't
+      // convert PNG→JPEG regardless of Accept order; only webp/avif is negotiated.
       const res = await fetch(resolved, { headers: { Accept: 'image/png,image/jpeg,image/*' } })
-      if (!res.ok) { console.log(`[og] ${label}: fetch failed ${res.status}`); return '' }
+      if (!res.ok) { console.warn(`[og] ${label}: fetch ${res.status} for ${resolved}`); return '' }
       const contentType = res.headers.get('content-type') || 'image/png'
       const buf = await res.arrayBuffer()
-      console.log(`[og] ${label}: ${buf.byteLength} bytes, ${contentType}`)
       return `data:${contentType};base64,${Buffer.from(buf).toString('base64')}`
-    } catch (e) { console.error(`[og] ${label}: error`, e); return '' }
+    } catch (e) { console.error(`[og] ${label}:`, e); return '' }
   }
   const heroBgUrl = await fetchAsDataUri(hero?.backgroundImage?.url, 'heroBg')
   const illustrationUrl = await fetchAsDataUri(hero?.heroImage?.url, 'illustration')
@@ -148,8 +148,8 @@ export async function GET(req: Request) {
           />
         ) : null}
 
-        {/* Brand overlay — temporarily disabled for debugging image loading */}
-        {/* <div
+        {/* Brand overlay */}
+        <div
           style={{
             position: 'absolute',
             top: 0,
@@ -160,7 +160,7 @@ export async function GET(req: Request) {
               ? `linear-gradient(${overlayColor}${overlayTopOpacity}, ${overlayColor}${overlayBottomOpacity})`
               : overlayColor,
           }}
-        /> */}
+        />
 
         {/* Content layer — spacings derived from Figma OG card (250×145 → 1200×630) */}
         <div
