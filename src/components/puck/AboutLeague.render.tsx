@@ -25,7 +25,7 @@ export function AboutLeagueRender(props: AboutLeagueProps) {
   return (
     <TwoColumnFeatureRender
       {...props}
-      ctaVariant="outline"
+      ctaVariant="filled"
       secondaryCtaText=""
       secondaryCtaLink=""
       imageStyle="plain"
