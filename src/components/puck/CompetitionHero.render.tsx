@@ -81,7 +81,7 @@ export function CompetitionHeroRender({
         paddingBottom: hasBadgeStrip ? '6rem' : '2.5rem',
       }}
     >
-      <div className="relative overflow-hidden px-3 md:px-5 lg:px-0">
+      <div className="relative overflow-hidden px-3 md:px-5">
         {/* Content-first ordering: text + CTA in DOM before the illustration.
            Mobile: title, CTA, etc. render first, illustration below.
            Desktop: illustration gets lg:absolute and overlaps the right side
@@ -142,7 +142,7 @@ export function CompetitionHeroRender({
       </div>
     </div>
       {hasBadgeStrip && (
-        <div className="max-w-[960px] mx-auto px-3 md:px-5 lg:px-0 relative z-10 -mt-16 mb-8">
+        <div className="max-w-[960px] mx-auto px-3 md:px-5 relative z-10 -mt-16 mb-8">
           <div
             className="rounded-[15px] bg-white px-5 py-5"
             style={{ boxShadow: '0 -5px 50px rgba(62,63,65,0.08), 0 5px 50px rgba(62,63,65,0.08)' }}
