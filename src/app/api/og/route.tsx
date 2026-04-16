@@ -122,10 +122,9 @@ export async function GET(req: Request) {
   const overlayTopOpacity = Math.round((hero?.overlayTopOpacity ?? 80) * 2.55).toString(16).padStart(2, '0')
   const overlayBottomOpacity = Math.round((hero?.overlayBottomOpacity ?? 100) * 2.55).toString(16).padStart(2, '0')
 
-  // Laurel badge as rasterized PNG (SVG was too complex for Satori's XML parser).
-  // Pre-rendered at 2x (64px height) for sharpness in 1200×630 OG image.
-  const badgePng = readFileSync(join(process.cwd(), 'public', 'competition-assets', 'og-proudly-hosted-badge.png'))
-  const badgeBase64 = `data:image/png;base64,${badgePng.toString('base64')}`
+  // Laurel badge SVG — SVGO optimized, 19KB. Embedded as base64 data URI.
+  const badgeSvg = readFileSync(join(process.cwd(), 'public', 'competition-assets', 'og-proudly-hosted-badge.svg'))
+  const badgeBase64 = `data:image/svg+xml;base64,${badgeSvg.toString('base64')}`
 
   return new ImageResponse(
     (
@@ -172,7 +171,22 @@ export async function GET(req: Request) {
             padding: 52, /* tw-13, ratio-matched to Figma OG card */
           }}
         >
-          {/* Left: text */}
+          {/* Illustration first in DOM — Satori has no z-index, later elements paint on top.
+             Text must come after so it covers the illustration (same as hero's z-10 vs z-0). */}
+          {illustrationUrl ? (
+            <img
+              src={illustrationUrl}
+              width={540}
+              style={{
+                position: 'absolute',
+                right: 0,
+                bottom: 52, /* tw-13, matches content padding */
+                objectFit: 'contain',
+              }}
+            />
+          ) : null}
+
+          {/* Left: text — paints on top of illustration */}
           <div
             style={{
               display: 'flex',
@@ -218,20 +232,6 @@ export async function GET(req: Request) {
               </span>
             )}
           </div>
-
-          {/* Right: illustration — right-flush, 45% of frame width per Figma */}
-          {illustrationUrl ? (
-            <img
-              src={illustrationUrl}
-              width={540}
-              style={{
-                position: 'absolute',
-                right: 0,
-                bottom: 52, /* tw-13, matches content padding */
-                objectFit: 'contain',
-              }}
-            />
-          ) : null}
         </div>
 
         {/* Bottom: laurel badge — left padded, right edge flush to 50% midline */}
