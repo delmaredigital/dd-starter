@@ -15,7 +15,6 @@ import configPromise from '@payload-config'
 import { DEFAULT_HERO_THEME } from '@/puck/theme'
 import type { PuckPageData, CompetitionRootProps } from '@/puck/types'
 import type { CompetitionHeroProps } from '@/components/puck/CompetitionHero.render'
-import type { CompetitionNavProps } from '@/components/puck/CompetitionNav.render'
 
 const SIZE = { width: 1200, height: 630 }
 
@@ -25,6 +24,7 @@ const SIZE = { width: 1200, height: 630 }
 import { readFileSync } from 'fs'
 import { join, basename } from 'path'
 const baskervvilleItalic = readFileSync(join(process.cwd(), 'public', 'competition-assets', 'Baskervville-Italic.ttf'))
+const poppinsBold = readFileSync(join(process.cwd(), 'public', 'competition-assets', 'Poppins-Bold.ttf'))
 
 /** Resolve theme token to actual hex color. In Satori there's no CSS var context. */
 function resolveColor(
@@ -80,7 +80,6 @@ export async function GET(req: Request) {
   // Page content — cast to actual component prop types (defined in .render.tsx files).
   const content = puckData?.content || []
   const hero = content.find((c) => c.type === 'CompetitionHero')?.props as Partial<CompetitionHeroProps> | undefined
-  const nav = content.find((c) => c.type === 'CompetitionNav')?.props as Partial<CompetitionNavProps> | undefined
 
   const titleLine1 = hero?.titleLine1 || String(rootProps.title || 'Competition')
   const titleLine2 = hero?.titleLine2 || ''
@@ -101,20 +100,24 @@ export async function GET(req: Request) {
     const doc = media.docs?.[0]
     return doc?.sizes?.og?.url || url
   }
-  const fetchAsDataUri = async (url: string | undefined) => {
-    if (!url) return ''
+  const fetchAsDataUri = async (url: string | undefined, label: string) => {
+    if (!url) { console.log(`[og] ${label}: no url`); return '' }
     const resolved = await resolveOgUrl(url)
-    // Accept PNG/JPEG only — Satori can't decode webp. Triggers Cloudflare Polish
-    // lossless compression (~33% smaller than raw R2 file).
-    const res = await fetch(resolved, { headers: { Accept: 'image/png,image/jpeg,image/*' } })
-    if (!res.ok) return ''
-    const contentType = res.headers.get('content-type') || 'image/png'
-    const buf = await res.arrayBuffer()
-    return `data:${contentType};base64,${Buffer.from(buf).toString('base64')}`
+    console.log(`[og] ${label}: fetching ${resolved}`)
+    try {
+      // Accept PNG/JPEG only — Satori can't decode webp. Triggers Cloudflare Polish
+      // lossless compression (~33% smaller than raw R2 file).
+      const res = await fetch(resolved, { headers: { Accept: 'image/png,image/jpeg,image/*' } })
+      if (!res.ok) { console.log(`[og] ${label}: fetch failed ${res.status}`); return '' }
+      const contentType = res.headers.get('content-type') || 'image/png'
+      const buf = await res.arrayBuffer()
+      console.log(`[og] ${label}: ${buf.byteLength} bytes, ${contentType}`)
+      return `data:${contentType};base64,${Buffer.from(buf).toString('base64')}`
+    } catch (e) { console.error(`[og] ${label}: error`, e); return '' }
   }
-  const heroBgUrl = await fetchAsDataUri(hero?.backgroundImage?.url)
-  const illustrationUrl = await fetchAsDataUri(hero?.heroImage?.url)
-  const partnerLogoUrl = await fetchAsDataUri(nav?.partnerLogo?.url)
+  const heroBgUrl = await fetchAsDataUri(hero?.backgroundImage?.url, 'heroBg')
+  const illustrationUrl = await fetchAsDataUri(hero?.heroImage?.url, 'illustration')
+  // Partner logo removed from OG — too small, clutters the layout
   const overlayTopOpacity = Math.round((hero?.overlayTopOpacity ?? 80) * 2.55).toString(16).padStart(2, '0')
   const overlayBottomOpacity = Math.round((hero?.overlayBottomOpacity ?? 100) * 2.55).toString(16).padStart(2, '0')
 
@@ -131,7 +134,7 @@ export async function GET(req: Request) {
           height: '100%',
           display: 'flex',
           position: 'relative',
-          fontFamily: 'sans-serif',
+          /* no fontFamily — Satori uses built-in Noto Sans. Baskervville only on audience label. */
         }}
       >
         {/* Background: hero photo or solid color */}
@@ -144,8 +147,8 @@ export async function GET(req: Request) {
           />
         ) : null}
 
-        {/* Brand overlay */}
-        <div
+        {/* Brand overlay — temporarily disabled for debugging image loading */}
+        {/* <div
           style={{
             position: 'absolute',
             top: 0,
@@ -156,7 +159,7 @@ export async function GET(req: Request) {
               ? `linear-gradient(${overlayColor}${overlayTopOpacity}, ${overlayColor}${overlayBottomOpacity})`
               : overlayColor,
           }}
-        />
+        /> */}
 
         {/* Content layer — spacings derived from Figma OG card (250×145 → 1200×630) */}
         <div
@@ -177,19 +180,10 @@ export async function GET(req: Request) {
               flex: 1,
             }}
           >
-            {/* Partner logo */}
-            {partnerLogoUrl ? (
-              <img
-                src={partnerLogoUrl}
-                height={48}
-                style={{ objectFit: 'contain', objectPosition: 'left', marginBottom: 16 }}
-              />
-            ) : null}
-
-            {/* Title — font size, line-height, colors all match hero (CompetitionHero.render.tsx).
+            {/* Title — Poppins Bold, matches hero (CompetitionHero.render.tsx).
                May individually tweak later for OG-specific sizing. */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 /* tw-2.5 */ }}>
-              <span style={{ fontSize: 44, fontWeight: 700, color: heroText, textTransform: 'uppercase', lineHeight: 1.3 }}>
+              <span style={{ fontFamily: 'Poppins', fontSize: 44, fontWeight: 700, color: heroText, textTransform: 'uppercase', lineHeight: 1.3 }}>
                 {titleLine1}
               </span>
               {titleLine2 && (
@@ -197,6 +191,7 @@ export async function GET(req: Request) {
                   style={{
                     display: 'flex',
                     alignSelf: 'flex-start',
+                    fontFamily: 'Poppins',
                     fontSize: 44,
                     fontWeight: 700,
                     textTransform: 'uppercase',
@@ -210,7 +205,7 @@ export async function GET(req: Request) {
                   {titleLine2}
                 </span>
               )}
-              <span style={{ fontSize: 44, fontWeight: 700, color: heroText, textTransform: 'uppercase', lineHeight: 1.3 }}>
+              <span style={{ fontFamily: 'Poppins', fontSize: 44, fontWeight: 700, color: heroText, textTransform: 'uppercase', lineHeight: 1.3 }}>
                 {titleLine3}
               </span>
             </div>
@@ -256,6 +251,7 @@ export async function GET(req: Request) {
     {
       ...SIZE,
       fonts: [
+        { name: 'Poppins', data: poppinsBold, weight: 700 as const, style: 'normal' as const },
         { name: 'Baskervville', data: baskervvilleItalic, weight: 400 as const, style: 'italic' as const },
       ],
     },
