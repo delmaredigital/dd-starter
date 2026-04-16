@@ -25,9 +25,9 @@ export interface DeadlineTableProps {
 export const defaultProps: DeadlineTableProps = {
   heading: 'Registration Deadlines and Participation Fees',
   tiers: [
-    { title: 'Priority Deadline', deadline: 'January 5, 2026', fee: 'US$30 per student', variant: 'priority' },
-    { title: 'Regular Deadline', deadline: 'February 19, 2026', fee: 'US$40 per student', variant: 'regular' },
-    { title: 'Late Deadline', deadline: 'March 5, 2026', fee: 'US$50 per student', variant: 'late' },
+    { title: 'Priority Deadline', deadline: '{{Date}}', fee: 'US$ 35/student', variant: 'priority' },
+    { title: 'Regular Deadline', deadline: '{{Date}}', fee: 'US$ 45/student', variant: 'regular' },
+    { title: 'Late Deadline', deadline: '{{Date}}', fee: 'US$ 55/student', variant: 'late' },
   ],
   featureImage: null,
   ctaText: 'REGISTER NOW!',

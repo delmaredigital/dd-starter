@@ -29,7 +29,7 @@ export interface BenefitsGridProps {
 }
 
 export const defaultProps: BenefitsGridProps = {
-  sectionHeading: 'Why Join the Competition?',
+  sectionHeading: 'Why Join {{Competition Name}} Competition?',
   benefits: [
     { iconKey: 'hs-profile', heading: 'Build your profile', description: 'Build a strong academic profile for university and internships' },
     { iconKey: 'hs-experience', heading: 'Gain real-world experience', description: 'Work on challenges inspired by real global problems' },

@@ -22,12 +22,12 @@ export interface SummaryGridProps {
 export const defaultProps: SummaryGridProps = {
   heading: 'Summary',
   cards: [
-    { iconName: 'License', title: 'Preliminary Round', description: 'Online challenge with multiple choice and fill-in the blank questions' },
+    { iconName: 'License', title: 'Preliminary Round', description: 'Online test with multiple choice and fill-in the blank questions' },
     { iconName: 'RewardedAds', title: 'Semi-Final Round', description: 'Present science solution through recorded video' },
     { iconName: 'SportsScore', title: 'Final Round', description: 'Present science solution live on zoom' },
     { iconName: 'Groups', title: 'Team Size', description: '2-5 students from the same school' },
-    { iconName: 'EventList', title: 'Age categories', description: 'Middle School (Grades 6-8) and High School (Grades 9-12)' },
-    { iconName: 'Public', title: 'World STEM League', description: 'Option to participate in World STEM League' },
+    { iconName: 'EventList', title: 'Age categories', description: 'Middle School (Grades 6-8), High School (Grades 9-12)' },
+    { iconName: 'Public', title: 'World STEM League', description: 'Option to join World STEM League' },
   ],
 }
 

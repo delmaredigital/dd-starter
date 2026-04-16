@@ -16,7 +16,7 @@ export interface FosteringSectionProps {
 }
 
 export const defaultProps: FosteringSectionProps = {
-  heading: '',
+  heading: 'Distinguish Yourself at {{Competition Name}} Competition',
   body: '',
   featureImage: null,
   ctaText: 'REGISTER NOW!',
