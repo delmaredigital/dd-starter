@@ -9,49 +9,12 @@
  * (isHomepage flag or slug 'home' serving at /), this needs a special case to
  * revalidate '/' instead of '/home'. Currently / redirects to algoed.co so no
  * homepage revalidation is needed.
- *
- * Debounce: folder renames in payload-puck's page-tree trigger slug cascade
- * updates on every page in the folder. Each fires this hook, causing a burst
- * of revalidatePath calls that can OOM the server. We collect paths for 10s
- * and flush them sequentially after a 10s quiet period.
  */
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
 
 import { revalidatePath } from 'next/cache'
 
 import type { Page } from '../payload-types'
-
-const DEBOUNCE_MS = 10_000
-
-let pendingPaths: Set<string> | null = null
-let debounceTimer: ReturnType<typeof setTimeout> | null = null
-let savedLogger: { info: (msg: string) => void } | undefined
-
-function enqueueRevalidation(path: string, logger?: { info: (msg: string) => void }) {
-  if (logger) savedLogger = logger
-
-  if (!pendingPaths) {
-    pendingPaths = new Set()
-  }
-  pendingPaths.add(path)
-
-  // Reset timer on each call — flush only after quiet period
-  if (debounceTimer) clearTimeout(debounceTimer)
-  debounceTimer = setTimeout(() => {
-    const paths = pendingPaths!
-    pendingPaths = null
-    debounceTimer = null
-
-    for (const p of paths) {
-      try {
-        savedLogger?.info(`Revalidating page at path: ${p}`)
-        revalidatePath(p)
-      } catch (e) {
-        savedLogger?.info(`Revalidation failed for ${p}: ${e}`)
-      }
-    }
-  }, DEBOUNCE_MS)
-}
 
 export const revalidatePage: CollectionAfterChangeHook<Page> = ({
   doc,
@@ -60,15 +23,21 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
 }) => {
   if (!context.disableRevalidate) {
     if (doc._status === 'published') {
-      enqueueRevalidation(`/${doc.slug}`, payload.logger)
+      const path = `/${doc.slug}`
+      payload.logger.info(`Revalidating page at path: ${path}`)
+      revalidatePath(path)
     }
 
     if (previousDoc?.slug && previousDoc.slug !== doc.slug) {
-      enqueueRevalidation(`/${previousDoc.slug}`, payload.logger)
+      const oldPath = `/${previousDoc.slug}`
+      payload.logger.info(`Revalidating old page at path: ${oldPath}`)
+      revalidatePath(oldPath)
     }
 
     if (previousDoc?._status === 'published' && doc._status !== 'published') {
-      enqueueRevalidation(`/${doc.slug}`, payload.logger)
+      const path = `/${doc.slug}`
+      payload.logger.info(`Revalidating unpublished page at path: ${path}`)
+      revalidatePath(path)
     }
   }
   return doc
@@ -79,7 +48,7 @@ export const revalidateDeletePage: CollectionAfterDeleteHook<Page> = ({
   req: { context },
 }) => {
   if (!context.disableRevalidate) {
-    enqueueRevalidation(`/${doc?.slug}`)
+    revalidatePath(`/${doc?.slug}`)
   }
   return doc
 }
