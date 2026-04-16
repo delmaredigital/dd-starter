@@ -32,6 +32,7 @@
     "@better-auth/passkey": "^1.6.0",
     "@chenglou/pretext": "^0.0.5",
     "@delmaredigital/payload-better-auth": "^0.5.6",
+    "@delmaredigital/payload-page-tree": "0.3.13",
     "@delmaredigital/payload-puck": "^0.6.23",
     "@mcp-b/global": "^2.2.0",
     "@mcp-b/webmcp-types": "^2.2.0",
