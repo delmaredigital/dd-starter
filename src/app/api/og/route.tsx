@@ -169,7 +169,7 @@ export async function GET(req: Request) {
             display: 'flex',
             width: '100%',
             height: '100%',
-            padding: 56, /* tw-14 */
+            padding: 52, /* tw-13, ratio-matched to Figma OG card */
           }}
         >
           {/* Left: text */}
@@ -227,7 +227,7 @@ export async function GET(req: Request) {
               style={{
                 position: 'absolute',
                 right: 0,
-                bottom: 56, /* tw-14 */
+                bottom: 52, /* tw-13, matches content padding */
                 objectFit: 'contain',
               }}
             />
@@ -240,7 +240,7 @@ export async function GET(req: Request) {
           style={{
             position: 'absolute',
             bottom: 20, /* tw-5 */
-            left: 40, /* tw-10, slightly less than content padding */
+            left: 40, /* tw-10, slightly less than content padding (52) */
             width: 560, /* 600 - 40 = right edge at 50% midline */
           }}
         />
