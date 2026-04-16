@@ -95,7 +95,7 @@ export function DeadlineTableRender({
 
           {featureImage?.url && (
             <div className="flex items-center justify-center">
-              <img src={featureImage.url} alt={featureImage.alt || ''} className="max-w-full h-auto" />
+              <img src={featureImage.url} alt={featureImage.alt || ''} className="max-w-md md:max-w-full h-auto" />
             </div>
           )}
         </div>
