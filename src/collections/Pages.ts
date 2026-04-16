@@ -13,7 +13,10 @@ import { puckLayoutOptions } from '@/lib/puck/layout-options'
 import { revalidatePage, revalidateDeletePage } from '@/hooks/revalidatePage'
 
 const puckConfig = getPuckCollectionConfig({
-  includeSEO: false, // We define our own meta group below (without image picker, with OG preview)
+  // Hides the Puck plugin's built-in SEO form inputs — does NOT disable SEO itself.
+  // DB columns, sync, and meta tag rendering are unaffected.
+  // We define our own meta group below (without image picker, with OG preview).
+  includeSEO: false,
   includeConversion: true,
   includeEditorVersion: true,
   includePageLayout: true,
