@@ -28,8 +28,8 @@ export function EligibilityStripRender({
 }: EligibilityStripProps) {
   const color = BRAND_DARK
   return (
-    <section className="py-5 md:py-10">
-      <div className="max-w-6xl mx-auto px-3 md:px-5 lg:px-0">
+    <section className="py-5 md:py-10 px-3 md:px-5">
+      <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row justify-center items-start md:items-center">
           <div className="flex flex-col md:flex-row items-start md:items-center">
             {leftIcon?.url && <img src={leftIcon.url} alt="" className="block md:hidden mb-2" />}

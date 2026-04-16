@@ -69,8 +69,8 @@ export function JoinCTARender({
   const mapPct = mapIntensity ?? 30
 
   return (
-    <section className="py-5 md:py-10">
-      <div className="max-w-5xl mx-auto px-3 md:px-5 lg:px-0">
+    <section className="py-5 md:py-10 px-3 md:px-5">
+      <div className="max-w-5xl mx-auto">
         {/* Two-column: globe frame (left) + text (right) */}
         <div className="grid grid-cols-1 md:grid-cols-[1.35fr_1fr] gap-5 md:gap-10 items-center">
           {/* Globe frame — center-anchored composition.

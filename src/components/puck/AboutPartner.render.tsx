@@ -30,7 +30,8 @@ export function AboutPartnerRender({
 
   return (
     <section className="overflow-hidden" style={{ backgroundColor: color, paddingTop: '45px', paddingBottom: '45px' }}>
-      <div className="max-w-6xl mx-auto px-3 md:px-5 lg:px-0 flex flex-col items-stretch md:items-center">
+      <div className="px-3 md:px-5">
+      <div className="max-w-6xl mx-auto flex flex-col items-stretch md:items-center">
         {/* Source .div-block-206: flex row on desktop (heading | divider | body), column on mobile */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-center mb-6">
           <h2
@@ -55,6 +56,7 @@ export function AboutPartnerRender({
           textColor={color}
           target="_blank"
         />
+      </div>
       </div>
     </section>
   )

@@ -32,7 +32,8 @@ export function EligibilitySectionRender({
 
   return (
     <section className="py-5 md:py-10" style={{ backgroundColor: SURFACE_GREY }}>
-      <div className="max-w-5xl mx-auto px-3 md:px-5 lg:px-0">
+      <div className="px-3 md:px-5">
+      <div className="max-w-5xl mx-auto">
         <div className="flex flex-col md:flex-row items-start md:items-center gap-5 md:gap-6">
           <p className="text-lg leading-relaxed text-[#222] font-medium m-0 md:w-5/12">
             {introText}
@@ -48,6 +49,7 @@ export function EligibilitySectionRender({
             ))}
           </ul>
         </div>
+      </div>
       </div>
     </section>
   )

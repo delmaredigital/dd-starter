@@ -45,8 +45,8 @@ export function BenefitsGridRender({
   const color = BRAND_DARK
 
   return (
-    <section className="py-5 md:py-10">
-      <div className="max-w-5xl mx-auto px-3 md:px-5 lg:px-0 flex flex-col items-center">
+    <section className="py-5 md:py-10 px-3 md:px-5">
+      <div className="max-w-5xl mx-auto flex flex-col items-center">
         <div className="flex flex-col items-start">
           <h2 className="text-2xl md:text-3xl font-bold leading-tight mb-5 md:mb-10 text-[#222]">{sectionHeading}</h2>
         </div>
