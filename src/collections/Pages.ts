@@ -66,7 +66,7 @@ export const Pages: CollectionConfig = {
           name: 'ogPreview',
           type: 'ui',
           admin: {
-            components: { Field: '/src/components/OGPreview#OGPreviewField' },
+            components: { Field: '@/components/OGPreview#OGPreviewField' },
           },
         },
         { name: 'noindex', type: 'checkbox', label: 'No Index', admin: { description: 'Prevent search engines from indexing this page' } },
