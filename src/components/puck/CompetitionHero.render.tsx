@@ -131,7 +131,7 @@ export function CompetitionHeroRender({
             <img
               src={heroImage.url}
               alt={heroImage.alt || ''}
-              className="md:absolute md:z-0 block mx-auto md:mx-0 mt-6 md:mt-0 h-auto w-96 max-w-full md:w-[45%]"
+              className="md:absolute md:-z-10 block mx-auto md:mx-0 mt-6 md:mt-0 h-auto w-96 max-w-full md:w-[45%]"
               style={{
                 right: 0,
                 bottom: '2px',
