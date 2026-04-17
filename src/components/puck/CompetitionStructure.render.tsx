@@ -177,7 +177,9 @@ export function CompetitionStructureRender({
                 {(card.items ?? []).map((item, j) => (
                   <div
                     key={`item-${item.name}-${j}`}
-                    className={j < card.items.length - 1 ? 'mb-4 md:mb-8' : ''}
+                    className={
+                      j > 0 ? 'mt-4 md:mt-5 pt-4 md:pt-5 border-t border-gray-300' : ''
+                    }
                   >
                     {/* Item name — Figma 22px SemiBold primaryColor → text-base */}
                     <div className="font-semibold text-base leading-tight" style={{ color }}>

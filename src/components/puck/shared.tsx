@@ -69,8 +69,9 @@
  *   Headings should use leading-tight explicitly (Tailwind body default is looser).
  *
  * Divider stroke: border-gray-300 (#d1d5db). Figma token --stroke-0 / Gray 200
- * (#D0D4D9), snapped to gray-300 (1.3 avg channel diff). Used for all section
- * dividers: nav vertical, awards vertical, fee waiver horizontal.
+ * (#D0D4D9), snapped to gray-300 (1.3 avg channel diff). Used for nav vertical,
+ * awards vertical, fee waiver horizontal, list-item horizontal.
+ * List-item horizontal: mt-4 md:mt-5 pt-4 md:pt-5 border-t on items 2+.
  *
  * Default fallback: `val || defaultProps.X` in render, `placeholder: defaultProps.X`
  * in field def. One source of truth. Only for fields that must have a value (headings,
@@ -110,13 +111,6 @@
  *
  *   Notation: prefer Tailwind classes (text-3xl, mb-10) over inline styles.
  *   Reserve inline styles for computed values (color-mix, dynamic widths).
- *
- *   Known deviations (to normalise):
- *   - EligibilitySection: py-4/py-8 → should be py-5/py-10
- *   - Heading mb varies (mb-4 to mb-10) → standardise per tier above
- *   - CategoryGrid/ResponsiveImageSection: inline 26px heading → text-3xl
- *   - text-[15px] across 9 components → text-base (collapse to 4-bucket scale)
- *   - Some inline fontSize/lineHeight → convert to Tailwind classes
  */
 import { RichTextBoundary } from './RichTextBoundary'
 

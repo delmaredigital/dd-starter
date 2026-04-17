@@ -179,7 +179,7 @@ export function CompetitionFormatV2Render({
                 round.formatDetails ||
                 (round.formatCards ?? []).length > 0 ||
                 round.body) && (
-                <hr className="mb-4 border-0 border-t" style={{ borderColor: '#ddd' }} />
+                <hr className="mb-4 border-0 border-t border-gray-300" />
               )}
 
             {/* Info cards (Time/Duration) — nested card grid */}
