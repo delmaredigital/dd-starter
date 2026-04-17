@@ -36,8 +36,11 @@ Each competition has two pages (HS/MS + Junior). For each page:
 3. **Extract only what the user pointed** — `imageRef` lookup for raw photos, PNG 2x export for composite groups, SVG + SVGO for timelines. Save to `docs/<competition>-review/` for user to visually confirm before upload.
 4. **Upload to Payload media** — create competition folder via `payload_api`, upload via curl with `_payload` JSON for folder assignment.
 5. **Create or open the Puck page** — check if the page exists first (`/api/pages?where[slug][equals]=...`). If it exists, navigate to it. If not, create via POST to `/api/pages`. Then open in the Puck editor.
-6. **Wire all components** — populate every component with text (from Figma `get_metadata`) and images (from uploaded media URLs). Use `update_page` via WebMCP. If a component's props match the defaults, do NOT set them explicitly — let defaultProps handle it. Explicit data overrides defaults and makes global changes harder (e.g. AwardsSection badges — fix defaults once vs patch every page).
-7. **Save, reload, publish** — always: `save_page` → reload editor (confirms persisted state) → click Publish. Default final step for every page edit. Verify the public URL loads correctly.
+6. **Clone from the cleanest existing page as starting puckData** — do NOT hand-author from scratch. Pick the existing competition page with the least customization drift (most template placeholders intact, fewest explicit prop overrides). Heuristic: fetch candidate puck_data and count set props on each component; lower wins. Use that JSON as the base and overlay per-competition values (root: colors, heroTheme, folder, slug, title; component props: text overrides, image URLs).
+7. **Wire all components** — populate every component with text (from Figma `get_metadata`) and images (from uploaded media URLs). Use `update_page` via WebMCP. If a component's props match the defaults, do NOT set them explicitly — let defaultProps handle it. Explicit data overrides defaults and makes global changes harder (e.g. AwardsSection badges — fix defaults once vs patch every page).
+8. **Populate page-level meta** (separate from puck_data root) — `PATCH /api/pages/:id -d '{"meta":{"title":"…","description":"…"}}'`. `generateMeta.ts` reads `pages.meta_title` / `meta_description` columns, NOT `puckData.root.metaTitle`. Skipping this ships empty `<title>` + missing OG. The API path runs `afterChange: revalidatePage` so ISR invalidates for the edited page.
+9. **Grep for leftover placeholders** before publish: `grep -oE '{{[^}]+}}'` against the rendered HTML or puck_data — must return 0. Known vocabulary seen in templates: `{{Competition name}}`, `{{Competition Name}}`, `{{University name}}`, `{{Date}}`, `{{Date and time}}`, `{{university + student + profession}}`.
+10. **Save, reload, publish** — always: `save_page` → reload editor (confirms persisted state) → click Publish. Default final step for every page edit. Verify the public URL loads correctly.
 
 The deliverable is a fully wired, published Puck page — not just uploaded images.
 
@@ -185,11 +188,26 @@ Zero rows = safe. Any row means the next editor save will regress that page.
 - To validate typescript correctness after modifying code run `tsc --noEmit`
 - Generate import maps after creating or modifying components.
 
+### Media Sizes (all 7)
+
+`Media.ts` `imageSizes` generates **seven** variants on every upload: `thumbnail` (300w), `square` (500×500), `small` (600w), `medium` (900w), `large` (1400w), `xlarge` (1920w), `og` (1200×630 center-cropped). Each has its own `sizes_<name>_*` columns in the `media` table.
+
+Any R2 ↔ DB audit query MUST union across **all seven** `sizes_*_filename` columns — not just thumbnail/small/medium/large/og. Missing `square` + `xlarge` from an audit wrongly flags ~20% of every upload's files as orphans. `scripts/media-pipeline.py audit` gets this right.
+
+### Maintenance Scripts
+
+- **`scripts/puck-update.py`** — safe puckData writer; `--mode api` (PATCH via Payload, default) or `--mode sql` (both-table sync). Never write `pages.puck_data` alone (see "Editing puckData").
+- **`scripts/media-pipeline.py`** — media lifecycle commands: `check <id>` (per-row sanity), `reupload <id>` (full flow: download raw from R2 S3 API → verify MD5==ETag → delete → re-upload → verify byte-identity), `reupload-batch <file>`, `fix-ids` (walk all puckData, swap stale media IDs where URL resolves to a different current ID), `audit` (R2 ↔ DB + stale-ID drift).
+
 ### Folder Rename & Slug Propagation
 
 **Do NOT rename folders via the standard Payload admin form.** It saves the folder but intentionally skips slug cascade — pages keep stale URLs. Use the **page-tree view** (`/p-kcCapdQH/page-tree`) which sets `context.updateSlugs = true` to propagate slug changes to all linked pages. Alternatively: `POST /api/page-tree/regenerate-slugs?folderId=<id>`.
 
 `pathSegment` controls the URL piece, not `name`. The cascade hook (`cascadeSlugUpdates`) only fires when triggered through the tree view or API — never from the standard edit form. This is a safety measure to prevent accidental URL breakage.
+
+**⚠️ The cascade does NOT propagate to existing media.** Folder rename updates `payload_folders.name` + page slugs only. Existing `media.prefix` column stays at the old value and R2 object keys are not moved/renamed. Page URLs keep working (media is still served from old R2 paths), but you have drift: folder `name=washu-ewb` while media prefix is still `pages/wash-ewb/`. New uploads to the renamed folder go to the new path, creating a mixed state.
+
+To fully realign, run a media migration per-file: download raw bytes from R2 S3 API → DELETE media row → re-upload via Payload API (beforeChange hook writes the new prefix) → swap puckData URL refs. `scripts/media-pipeline.py reupload` implements this.
 
 ## Project Structure
 
