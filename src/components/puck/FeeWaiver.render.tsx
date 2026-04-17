@@ -21,10 +21,10 @@ export function FeeWaiverRender({}: FeeWaiverProps) {
           <div>
             <h3 className="font-bold text-xs m-0">Fee Waiver Policy</h3>
             <p className="text-xs mt-2.5 mb-0 md:text-justify text-[#222]">
-              A fee waiver is available for individual low-income students. To request one, please
-              ask your school counselor or principal to email support@algoed.co from their official
-              school email with the subject line &quot;Fee Waiver Request.&quot; The email should
-              include your email address and confirmation that you require a waiver.
+              Fee waiver is available for individual low-income students. Please ask your school
+              counselor or principal to send an email titled &apos;Fee Waiver Request&apos; to
+              waivers@algoed.co from their official school email with your email address and
+              confirm you need a waiver.
             </p>
             <p className="text-xs font-semibold mt-2.5 mb-0 text-[#222]">
               All fee waivers must be requested before the regular deadline.
