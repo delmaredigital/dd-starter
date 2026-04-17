@@ -50,6 +50,16 @@ When bumping versions of these packages, check if the patch in `patches/` still 
 - **`@delmaredigital/payload-puck`** — `FolderPickerField.js` hardcodes `/admin/page-tree`. Patched to derive admin prefix from URL. Upstream issue: filed informally, no tracking number yet.
 - **`@delmaredigital/payload-page-tree`** — Using inlined copy at `src/plugins/page-tree/` instead of npm package. Fixes: deadlock on folder edit-url cascade (missing `req`), hardcoded `/admin` in nav link and edit action. Upstream issues: delmaredigital/payload-page-tree#2, #3. When both are fixed upstream, switch import in `src/plugins/index.ts` back to `@delmaredigital/payload-page-tree` and delete the inlined copy.
 
+## Prettier — what to format
+
+**Rule**: format only files that don't exist on `main`. Leave files that exist on `main` alone, even when we've modified them.
+
+**Why**: `main` (the upstream starter) isn't prettier-clean — reformatting its lines in our branch creates conflicts on every future pull from upstream. Our new files live almost entirely under `src/puck/`, `src/components/puck/`, `src/lib/puck/`, `src/lib/webmcp/`, `src/plugins/page-tree/`, `src/app/api/og/`, `public/competition-assets/`.
+
+**Test**: `git show main:<path>` fails → new → format. Succeeds → leave it.
+
+**Batch command**: `git diff main...HEAD --name-only --diff-filter=A | grep -E '\.(ts|tsx|css|mjs|js)$' | xargs npx prettier --write`
+
 ## Core Principles
 
 1. **TypeScript-First**: Always use TypeScript with proper types from Payload
