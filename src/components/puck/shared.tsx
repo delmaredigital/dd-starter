@@ -205,7 +205,7 @@ export function CompetitionCTA({
   bgColor: string
   textColor: string
   padding?: string
-  target?: '_blank'
+  target?: '_blank' | '_self'
   border?: string
   fullWidth?: boolean
 }) {
@@ -213,8 +213,8 @@ export function CompetitionCTA({
   return (
     <a
       href={href}
-      target={target}
-      rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+      target={target ?? '_blank'}
+      rel={(target ?? '_blank') === '_blank' ? 'noopener noreferrer' : undefined}
       className={`rounded-md text-sm font-bold leading-normal no-underline text-center shadow-sm py-3 px-5 hover:opacity-90 hover:bg-black/5 active:opacity-80 active:bg-black/10 transition ${fullWidth ? 'block w-full' : 'inline-block'}`}
       style={{
         color: textColor,
