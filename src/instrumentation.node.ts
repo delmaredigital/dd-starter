@@ -1,18 +1,16 @@
-// OTel tracing bootstrap. Runs via Next.js `instrumentation` hook before any
-// route handler loads, so auto-instrumentations patch pg / http / fetch at
-// the module loader level.
+// OTel tracing bootstrap. Imported at top of src/instrumentation.ts so
+// auto-instrumentations patch http / undici / pg at module load time,
+// BEFORE Next.js loads them. See instrumentation.ts for the ordering
+// explanation and the vercel/next.js#80262 reference.
 //
-// OTEL_SEMCONV_STABILITY_OPT_IN controls which semantic convention attribute
-// names our instrumentations emit (both DB and HTTP).
+// OTEL_SEMCONV_STABILITY_OPT_IN controls which semantic convention
+// attribute names our instrumentations emit.
 //   unset        → OLD names only
 //   "database,http" → NEW stable names only ← what we use, matches algoed-new
 //
 // Our Collector (algoed-new/observability/otel-collector.yaml) keys
 // spanmetrics on the NEW names. "database,http" emits those only — no
 // redundant old-convention attrs.
-//
-// Set in code (not start cmd) because Next.js's instrumentation hook runs
-// before any server code — the env var is read when the SDK initializes below.
 process.env.OTEL_SEMCONV_STABILITY_OPT_IN ??= 'database,http'
 
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node'
@@ -37,8 +35,8 @@ const sdk = new NodeSDK({
   }),
   instrumentations: [
     getNodeAutoInstrumentations({
-      // Next.js handles its own HTTP server spans (BaseServer.handleRequest)
-      // with route-aware labeling. instrumentation-http's server-side span
+      // Next.js emits its own route-aware HTTP server spans via
+      // BaseServer.handleRequest. instrumentation-http's server-side span
       // would duplicate and lack next.route context — disable it.
       // instrumentation-http still handles OUTGOING HTTP for client spans.
       '@opentelemetry/instrumentation-http': {
@@ -53,4 +51,3 @@ const sdk = new NodeSDK({
 })
 
 sdk.start()
-console.log('[instrumentation.node] sdk.start() returned — traces should flow')

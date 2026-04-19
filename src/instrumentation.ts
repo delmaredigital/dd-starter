@@ -1,20 +1,22 @@
-// Next.js instrumentation hook — runs once per server process before any
-// route/handler code. We use it to boot the OTel tracing SDK.
+// Next.js instrumentation hook.
 //
-// NodeSDK is not compatible with the edge runtime, so we conditionally
-// import the node-only module. Logs travel via a separate Pino transport
-// (src/services/logger.ts) — this file only wires traces.
+// The SDK is loaded at MODULE TOP LEVEL rather than inside register(),
+// on purpose — register() runs lazily on first request, which is AFTER
+// Next.js has already loaded core modules (http, undici, fs). Auto-
+// instrumentations require patching those before load, so booting them
+// from inside register() is too late and HTTP server metrics never emit.
 //
-// Canonical pattern per Next.js docs:
-// https://nextjs.org/docs/app/guides/open-telemetry#manual-opentelemetry-configuration
-export async function register() {
-  // Plain console — our Pino logger depends on Node runtime but this hook
-  // can theoretically run under Edge too. Stay primitive here.
-  console.log(
-    `[instrumentation] register() called, NEXT_RUNTIME=${process.env.NEXT_RUNTIME ?? 'unset'}`,
-  )
-  if (process.env.NEXT_RUNTIME === 'nodejs') {
-    await import('./instrumentation.node')
-    console.log('[instrumentation] OTel NodeSDK bootstrapped')
-  }
+// Top-level import runs at instrumentation.ts load time, which happens
+// earlier in Next.js's boot sequence — before the server is constructed.
+// Pattern reported by stephenliang and confirmed by others in
+// https://github.com/vercel/next.js/issues/80262 as the fix for missing
+// http.server.request.duration metrics.
+//
+// Only applies to Node runtime; Edge runtime does not support NodeSDK.
+if (process.env.NEXT_RUNTIME === 'nodejs') {
+  await import('./instrumentation.node')
 }
+
+// register() is required by Next.js but we have nothing to do here —
+// SDK boot already happened at module top level above.
+export function register() {}
