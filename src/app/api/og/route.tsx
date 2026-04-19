@@ -221,12 +221,23 @@ export async function GET(req: Request) {
           />
         ) : null}
 
-        {/* Left: text — paints on top of illustration */}
+        {/* Left: text + badge column — space-between distributes gaps
+             equally between title, audience, and badge as content allows.
+             Alternatives considered:
+             - Fixed title→audience gap (audience glued as subtitle, auto gap
+               below): semantically cleaner but competes for space with badge
+               and may overlap under long titles.
+             - Proportional gap (e.g. 2:1 top:bottom via flex spacers): more
+               tuning, marginal visual benefit given tight OG card height.
+             - Fit-to-height (scale text/layout): true solution but requires
+               two-step Satori → SVG → resvg pipeline; too much machinery
+               for current content range.
+             space-between is simplest, overlap-proof, acceptable in 630px. */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'flex-start',
+            justifyContent: 'space-between',
             flex: 1,
           }}
         >
@@ -291,25 +302,20 @@ export async function GET(req: Request) {
                 color: heroText,
                 fontStyle: 'italic',
                 textDecoration: 'underline',
-                marginTop: 64 /* tw-16, 1.167× title */,
               }}
             >
               {audienceLabel}
             </span>
           )}
+
+          {/* Laurel badge — in-flow as 3rd child so space-between distributes
+               gaps equally among title, audience, badge. No overlap with text
+               above — layout is flow-aware. marginBottom: -32 preserves the
+               original absolute-positioned bottom (y=610) by offsetting from
+               the flex-default position (y=578, = 630 canvas - 52 padding). */}
+          <img src={badgeBase64} width={548} style={{ marginBottom: -32 }} />
         </div>
       </div>
-
-      {/* Bottom: laurel badge — left at content padding, right edge at 50% midline */}
-      <img
-        src={badgeBase64}
-        width={548} /* 600 midline - 52 padding */
-        style={{
-          position: 'absolute',
-          bottom: 20 /* tw-5 */,
-          left: 52 /* tw-13, matches content padding */,
-        }}
-      />
     </div>,
     {
       ...SIZE,
