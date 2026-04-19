@@ -53,3 +53,4 @@ const sdk = new NodeSDK({
 })
 
 sdk.start()
+console.log('[instrumentation.node] sdk.start() returned — traces should flow')
