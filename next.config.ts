@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
   // there's no runtime import for the ESM hook to intercept. Empirically
   // verified: either fix alone is insufficient; both together emit
   // db.client.operation.duration metrics.
-  serverExternalPackages: ['pg'],
+  serverExternalPackages: ['pg', 'drizzle-orm', '@payloadcms/drizzle'],
   images: {
     remotePatterns: [
       ...[NEXT_PUBLIC_SERVER_URL].map((item) => {
