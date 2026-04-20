@@ -47,6 +47,9 @@ importers:
       '@opentelemetry/exporter-trace-otlp-proto':
         specifier: ^0.215.0
         version: 0.215.0(@opentelemetry/api@1.9.1)
+      '@opentelemetry/instrumentation':
+        specifier: ^0.215.0
+        version: 0.215.0(@opentelemetry/api@1.9.1)
       '@opentelemetry/instrumentation-pg':
         specifier: ^0.67.0
         version: 0.67.0(@opentelemetry/api@1.9.1)
