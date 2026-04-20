@@ -41,6 +41,16 @@ process.env.OTEL_SEMCONV_STABILITY_OPT_IN ??= 'database,http';
 // (shared collector config across all algoed services).
 process.env.OTEL_NODE_RESOURCE_DETECTORS ??= 'all';
 
+// Register the ESM loader hook so @opentelemetry/instrumentation can patch
+// packages that are ESM-imported (e.g. Payload's @payloadcms/db-postgres
+// does `import pgDependency from 'pg'`, which bypasses `require-in-the-middle`).
+// Without this, instrumentation-pg, instrumentation-mysql2, etc. never fire
+// for modules loaded through Node's ESM loader. module.register is stable in
+// Node 24+ (we require ">=24" in package.json, so no experimental flag needed).
+// https://github.com/open-telemetry/opentelemetry-js/blob/main/doc/esm-support.md
+import { register } from 'node:module';
+register('@opentelemetry/instrumentation/hook.mjs', import.meta.url);
+
 // Known limitation: `http.server.request.duration` is emitted by
 // instrumentation-http WITHOUT the `http.route` label. Root cause:
 // instrumentation-http reads `http.route` from RPCMetadata on the active
