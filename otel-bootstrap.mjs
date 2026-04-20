@@ -51,13 +51,6 @@ process.env.OTEL_NODE_RESOURCE_DETECTORS ??= 'all';
 import { register } from 'node:module';
 register('@opentelemetry/instrumentation/hook.mjs', import.meta.url);
 
-// ═══════════════ DIAGNOSTIC (temporary) ═══════════════
-// Re-enable DEBUG diag logging to see whether instrumentation-pg's
-// patch is firing. Remove once DB metrics confirmed flowing.
-import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
-diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
-// ══════════════════════════════════════════════════════
-
 // Known limitation: `http.server.request.duration` is emitted by
 // instrumentation-http WITHOUT the `http.route` label. Root cause:
 // instrumentation-http reads `http.route` from RPCMetadata on the active
