@@ -216,7 +216,7 @@ export interface Post {
     | {
         slug: string;
         changedAt: string;
-        reason?: ('move' | 'rename' | 'regenerate' | 'restore' | 'manual') | null;
+        reason?: ('move' | 'rename' | 'regenerate' | 'restore' | 'manual' | 'edit-url') | null;
         id?: string | null;
       }[]
     | null;
@@ -447,7 +447,7 @@ export interface Page {
     | {
         slug: string;
         changedAt: string;
-        reason?: ('move' | 'rename' | 'regenerate' | 'restore' | 'manual') | null;
+        reason?: ('move' | 'rename' | 'regenerate' | 'restore' | 'manual' | 'edit-url') | null;
         id?: string | null;
       }[]
     | null;
@@ -537,6 +537,7 @@ export interface TwoFactor {
   secret: string;
   backupCodes: string;
   user: number | User;
+  verified?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1091,6 +1092,7 @@ export interface TwoFactorsSelect<T extends boolean = true> {
   secret?: T;
   backupCodes?: T;
   user?: T;
+  verified?: T;
   updatedAt?: T;
   createdAt?: T;
 }
