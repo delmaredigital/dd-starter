@@ -17,8 +17,10 @@ import { ImageResponse } from 'next/og'
 import { COMPETITION_IMAGE_FONTS } from '@/lib/competition-image/fonts'
 import { LAUREL_BADGE } from '@/lib/competition-image/assets'
 import { loadCompetitionImageData } from '@/lib/competition-image/loader'
+import { deriveSizes } from '@/lib/competition-image/proportions'
 
 const SIZE = { width: 1200, height: 630 }
+const SIZES = deriveSizes(60)
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
@@ -55,8 +57,10 @@ export async function GET(req: Request) {
   const titleLine3 = hero?.titleLine3 || ''
   const audienceLabel = hero?.audienceLabel || ''
 
-  const heroBgUrl = await fetchAsDataUri(hero?.backgroundImage?.url, 'heroBg')
-  const illustrationUrl = await fetchAsDataUri(hero?.heroImage?.url, 'illustration')
+  const [heroBgUrl, illustrationUrl] = await Promise.all([
+    fetchAsDataUri(hero?.backgroundImage?.url, 'heroBg'),
+    fetchAsDataUri(hero?.heroImage?.url, 'illustration'),
+  ])
   // Partner logo removed from OG — too small, clutters the layout
   const overlayTopOpacity = Math.round((hero?.overlayTopOpacity ?? 80) * 2.55)
     .toString(16)
@@ -158,14 +162,14 @@ export async function GET(req: Request) {
             style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: 16 /* tw-4, simulates Figma's mixed 1.3/1.55 line heights at uniform 1.2 */,
+              gap: SIZES.titleGap /* simulates Figma's mixed 1.3/1.55 line heights at uniform 1.2 */,
             }}
           >
             <span
               style={{
                 fontFamily: 'Poppins',
-                fontSize: 60,
-                /* tw text-6xl */ fontWeight: 700,
+                fontSize: SIZES.titleFont,
+                fontWeight: 700,
                 color: heroText,
                 textTransform: 'uppercase',
               }}
@@ -178,14 +182,14 @@ export async function GET(req: Request) {
                   display: 'flex',
                   alignSelf: 'flex-start',
                   fontFamily: 'Poppins',
-                  fontSize: 60 /* tw text-6xl */,
+                  fontSize: SIZES.titleFont,
                   fontWeight: 700,
                   textTransform: 'uppercase',
-                  /* lineHeight: default 1.2 — gap: 16 simulates Figma's 1.55 on highlight */
+                  /* lineHeight: default 1.2 — titleGap simulates Figma's 1.55 on highlight */
                   color: highlightText,
                   backgroundColor: highlightBg,
-                  padding: '6px 12px' /* scaled from hero py-[5px] px-2.5 at 60px */,
-                  borderRadius: 12 /* tw rounded-xl */,
+                  padding: SIZES.highlightPadding /* scaled from hero py-[5px] px-2.5 */,
+                  borderRadius: SIZES.highlightRadius,
                 }}
               >
                 {titleLine2}
@@ -194,8 +198,8 @@ export async function GET(req: Request) {
             <span
               style={{
                 fontFamily: 'Poppins',
-                fontSize: 60,
-                /* tw text-6xl */ fontWeight: 700,
+                fontSize: SIZES.titleFont,
+                fontWeight: 700,
                 color: heroText,
                 textTransform: 'uppercase',
               }}
@@ -209,7 +213,7 @@ export async function GET(req: Request) {
             <span
               style={{
                 fontFamily: 'Baskervville',
-                fontSize: 30 /* tw text-3xl, 0.5× title */,
+                fontSize: SIZES.audienceFont /* 0.5× title */,
                 color: heroText,
                 fontStyle: 'italic',
                 textDecoration: 'underline',
