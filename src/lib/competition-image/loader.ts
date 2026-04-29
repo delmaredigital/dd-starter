@@ -135,14 +135,13 @@ function createImageHelpers(payload: Awaited<ReturnType<typeof getPayload>>) {
   ): Promise<ResolvedImage | null> => {
     if (!url) return null
     const filename = basename(new URL(url).pathname)
+    // No `select` — Payload's nested `select` for sized variants drops
+    // width/height fields silently. Default response is small enough; clarity
+    // and reliability beat a few extra columns over the wire.
     const media = await payload.find({
       collection: 'media',
       where: { filename: { equals: filename } },
       limit: 1,
-      // sizes: variant URLs + dimensions. url/width/height: original-asset
-      // fallback. prefix: required by S3 plugin's afterRead hook to
-      // regenerate URLs with the correct folder path.
-      select: { sizes: true, url: true, width: true, height: true, prefix: true },
     })
     const doc = media.docs?.[0]
     const variant = doc?.sizes?.[sizeKey]
@@ -152,6 +151,9 @@ function createImageHelpers(payload: Awaited<ReturnType<typeof getPayload>>) {
     if (doc?.url && doc.width && doc.height) {
       return { url: doc.url, width: doc.width, height: doc.height }
     }
+    console.warn(
+      `[competition-image] resolveImageMeta: no dims for ${filename} (variant=${sizeKey}, doc=${!!doc})`,
+    )
     return null
   }
 

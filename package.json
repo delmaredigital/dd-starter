@@ -69,6 +69,7 @@
     "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
     "dotenv": "^16.6.1",
+    "entities": "^8.0.0",
     "geist": "^1.7.0",
     "graphql": "^16.13.2",
     "lucide-react": "^0.562.0",
