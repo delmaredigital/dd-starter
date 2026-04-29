@@ -38,11 +38,13 @@ const SIZES = deriveSizes(62)
 const w = (frac: number) => Math.round(frac * WIDTH)
 const h = (frac: number) => Math.round(frac * HEIGHT)
 
-// Solid containers (divs / bounding boxes — no intrinsic aspect).
+// Hero illustration — width-only constraint at ~60% canvas. Height comes
+// from the asset's intrinsic aspect (Satori reads it from the PNG/SVG
+// source the same way a browser would). Top pinned at Figma's original.
+// Bottom edge floats per asset; host pill renders on top in any case.
 const ILLUSTRATION = {
   top: h(803 / 2560),
-  width: w(666 / 1392),
-  height: h(380 / 2560), // bounding box; image objectFit: contain
+  width: w(835 / 1392),
 }
 const HOST_PILL = {
   top: h(1170 / 2560),
@@ -61,7 +63,7 @@ const RIBBON = {
 const TAIL_WIDTH = w(167 / 1392)
 const LAUREL = {
   top: h(1717 / 2560),
-  width: w(815 / 1392),
+  width: w(1044 / 1392) /* 75% canvas; Figma's 815 ≈ 58% read too small */,
 }
 
 // Tail-to-ribbon overlap, also expressed as canvas-width fractions so
@@ -159,13 +161,11 @@ export async function GET(req: Request) {
       {illustrationUrl ? (
         <img
           src={illustrationUrl}
+          width={ILLUSTRATION.width}
           style={{
             position: 'absolute',
             left: ILLUSTRATION_LEFT,
             top: ILLUSTRATION.top,
-            width: ILLUSTRATION.width,
-            height: ILLUSTRATION.height,
-            objectFit: 'contain',
           }}
         />
       ) : null}
