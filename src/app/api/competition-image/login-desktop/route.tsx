@@ -32,13 +32,14 @@ import { LAUREL_BADGE } from '@/lib/competition-image/assets'
 import { loadCompetitionImageData } from '@/lib/competition-image/loader'
 import { deriveSizes } from '@/lib/competition-image/proportions'
 
-// Three-tier red layering — tail body (brightest) → ribbon body (mid) →
-// tail fold-shadow (darkest). All derived from the same overlay color so
-// they shift together per theme. Geometric-mean ratio: each step ~29%
-// darker than the prior, giving visible separation between all three
-// layers at any brand color.
+// Four-tier red layering — overlay (90% alpha photo wash) → tail body
+// → ribbon body → tail fold-shadow. All derived from the same overlay
+// color so they shift together per theme. Tail is slightly darker than
+// the overlay (which reads brighter due to photo bleed-through),
+// ribbon body sits between tail and shadow, shadow is darkest.
+const TAIL_DARKEN = 0.85
 const SHADOW_DARKEN = 0.5
-const RIBBON_DARKEN = Math.sqrt(SHADOW_DARKEN) /* ≈ 0.7071, geometric mean of 1 and SHADOW_DARKEN */
+const RIBBON_DARKEN = Math.sqrt(TAIL_DARKEN * SHADOW_DARKEN) /* geometric mean ≈ 0.65 */
 
 // Ribbon tail shape — inline so the fill is theme-driven. Body uses the
 // hero overlay color (matches the photo-tint band on the canvas); the
@@ -153,6 +154,7 @@ export async function GET(req: Request) {
 
   const { hero, partnerLogo, colors, resolveImageMeta } = data
   const { overlayColor, highlightBg, highlightText, heroText } = colors
+  const tailBody = hexDarken(overlayColor, TAIL_DARKEN)
   const ribbonBody = hexDarken(overlayColor, RIBBON_DARKEN)
 
   const titleLine1 = hero?.titleLine1 || 'Competition'
@@ -207,7 +209,7 @@ export async function GET(req: Request) {
            behind the ribbon body — Satori has no z-index, paint order = DOM
            order). Body matches the hero overlay color. */}
       <RibbonTail
-        bodyColor={overlayColor}
+        bodyColor={tailBody}
         width={TAIL_WIDTH}
         left={LEFT_TAIL_LEFT}
         top={TAIL_TOP}
@@ -215,7 +217,7 @@ export async function GET(req: Request) {
 
       {/* 5. Right ribbon tail (mirrored) */}
       <RibbonTail
-        bodyColor={overlayColor}
+        bodyColor={tailBody}
         width={TAIL_WIDTH}
         left={RIGHT_TAIL_LEFT}
         top={TAIL_TOP}
