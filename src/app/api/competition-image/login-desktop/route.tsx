@@ -186,12 +186,13 @@ export async function GET(req: Request) {
       }}
     >
       {/* 1. Background photo (full bleed). preserveAspectRatio=slice gives
-           CSS object-fit:cover semantics in SVG. */}
+           CSS object-fit:cover semantics in SVG. CSS width/height duplicates
+           the SVG attribute so Satori's layout sees the box dimensions. */}
       {heroBgMeta ? (
         <svg
           width={WIDTH}
           height={HEIGHT}
-          style={{ position: 'absolute', top: 0, left: 0 }}
+          style={{ position: 'absolute', top: 0, left: 0, width: WIDTH, height: HEIGHT }}
         >
           <image
             href={heroBgMeta.url}
@@ -227,6 +228,8 @@ export async function GET(req: Request) {
             position: 'absolute',
             left: ILLUSTRATION_LEFT,
             bottom: HEIGHT - RIBBON.top,
+            width: ILLUSTRATION.width,
+            height: illustrationHeight,
           }}
         >
           <image
@@ -336,7 +339,11 @@ export async function GET(req: Request) {
             justifyContent: 'center',
           }}
         >
-          <svg width={partnerLogoBoxW} height={partnerLogoBoxH}>
+          <svg
+            width={partnerLogoBoxW}
+            height={partnerLogoBoxH}
+            style={{ width: partnerLogoBoxW, height: partnerLogoBoxH }}
+          >
             <image
               href={partnerLogoMeta.url}
               width={partnerLogoBoxW}
