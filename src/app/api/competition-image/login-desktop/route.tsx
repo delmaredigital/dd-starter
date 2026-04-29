@@ -188,10 +188,15 @@ export async function GET(req: Request) {
       {/* 1. Background photo (full bleed). preserveAspectRatio=slice gives
            CSS object-fit:cover semantics in SVG. CSS width/height duplicates
            the SVG attribute so Satori's layout sees the box dimensions. */}
+      {/* viewBox is required — Satori's inline-svg serializer has an
+           operator-precedence bug where a missing viewBox produces
+           width="Infinity" height="NaN" in the emitted data URI
+           (vercel/satori preprocess.ts ~L210). The viewBox values
+           don't matter; only its presence does. The inner <image>
+           uses 100%/100% which resolves against the styled box. */}
       {heroBgMeta ? (
         <svg
-          width={WIDTH}
-          height={HEIGHT}
+          viewBox="0 0 1 1"
           style={{ position: 'absolute', top: 0, left: 0, width: WIDTH, height: HEIGHT }}
         >
           <image
@@ -222,8 +227,7 @@ export async function GET(req: Request) {
            per-asset aspect. */}
       {illustrationMeta ? (
         <svg
-          width={ILLUSTRATION.width}
-          height={illustrationHeight}
+          viewBox="0 0 1 1"
           style={{
             position: 'absolute',
             left: ILLUSTRATION_LEFT,
@@ -336,8 +340,7 @@ export async function GET(req: Request) {
           }}
         >
           <svg
-            width={partnerLogoBoxW}
-            height={partnerLogoBoxH}
+            viewBox="0 0 1 1"
             style={{ width: partnerLogoBoxW, height: partnerLogoBoxH }}
           >
             <image
