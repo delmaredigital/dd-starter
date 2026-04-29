@@ -24,6 +24,8 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
   const slug = searchParams.get('slug') ?? ''
 
+  console.log(`[competition-image] og: rendering slug=${slug}`)
+
   const data = await loadCompetitionImageData(slug)
   if (!data) {
     return new ImageResponse(
