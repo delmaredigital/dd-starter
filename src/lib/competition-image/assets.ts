@@ -15,6 +15,3 @@ function svgToDataUri(filename: string): string {
 
 /** "Proudly hosted on algoed" laurel ribbon, used by OG and login templates. */
 export const LAUREL_BADGE = svgToDataUri('og-proudly-hosted-badge.svg')
-
-/** Ribbon end-streamer; mirror with scaleX(-1) for the right side. */
-export const RIBBON_TAIL = svgToDataUri('login-ribbon-tail.svg')

@@ -141,6 +141,19 @@ export function hexAlpha(hex: string, alpha: number): string {
   return `rgb(${r} ${g} ${b} / ${alpha})`
 }
 
+/**
+ * Darkens a hex color by `factor` (0..1). factor=0.6 multiplies each channel
+ * by 0.6 — i.e. 40% darker. Used where CSS color-mix isn't available
+ * (e.g. Satori's CSS subset).
+ */
+export function hexDarken(hex: string, factor: number): string {
+  const clean = normalizeHex(hex)
+  const r = Math.round(parseInt(clean.slice(0, 2), 16) * factor)
+  const g = Math.round(parseInt(clean.slice(2, 4), 16) * factor)
+  const b = Math.round(parseInt(clean.slice(4, 6), 16) * factor)
+  return `#${[r, g, b].map((v) => v.toString(16).padStart(2, '0')).join('')}`
+}
+
 /** CSS var references for the two-color brand system set on the Puck root. */
 export const BRAND_DARK = 'var(--primary-dark, #222)'
 export const BRAND_BRIGHT = 'var(--primary-bright, #222)'

@@ -19,10 +19,57 @@
  * consistently with OG (calibrated at 60).
  */
 import satori from 'satori'
+import { hexDarken } from '@/components/puck/shared'
 import { COMPETITION_IMAGE_FONTS } from '@/lib/competition-image/fonts'
-import { LAUREL_BADGE, RIBBON_TAIL } from '@/lib/competition-image/assets'
+import { LAUREL_BADGE } from '@/lib/competition-image/assets'
 import { loadCompetitionImageData } from '@/lib/competition-image/loader'
 import { deriveSizes } from '@/lib/competition-image/proportions'
+
+// Three-tier red layering — tail body (brightest) → ribbon body (mid) →
+// tail fold-shadow (darkest). All derived from the same overlay color so
+// they shift together per theme. Geometric-mean ratio: each step ~29%
+// darker than the prior, giving visible separation between all three
+// layers at any brand color.
+const SHADOW_DARKEN = 0.5
+const RIBBON_DARKEN = Math.sqrt(SHADOW_DARKEN) /* ≈ 0.7071, geometric mean of 1 and SHADOW_DARKEN */
+
+// Ribbon tail shape — inline so the fill is theme-driven. Body uses the
+// hero overlay color (matches the photo-tint band on the canvas); the
+// triangular fold at the corner uses a darker shade of the same color to
+// sell the "tucked behind" depth illusion. viewBox keeps the asset's
+// intrinsic 167:229 aspect; Satori scales width-only and computes height.
+function RibbonTail({
+  bodyColor,
+  width,
+  left,
+  top,
+  flip = false,
+}: {
+  bodyColor: string
+  width: number
+  left: number
+  top: number
+  flip?: boolean
+}) {
+  return (
+    <svg
+      width={width}
+      viewBox="0 0 167 229"
+      style={{
+        position: 'absolute',
+        left,
+        top,
+        ...(flip ? { transform: 'scaleX(-1)' } : {}),
+      }}
+    >
+      <path fill={bodyColor} d="M0 229h166.941V0H0l45.807 116.289z" />
+      <path
+        fill={hexDarken(bodyColor, SHADOW_DARKEN)}
+        d="m166.958 228.997-73.291-50.094h73.291z"
+      />
+    </svg>
+  )
+}
 
 // Canvas is the SVG unit space — design coordinates, not output pixels.
 // Browser scales the SVG to whatever container size it lands in.
@@ -98,7 +145,8 @@ export async function GET(req: Request) {
   }
 
   const { hero, partnerLogo, colors, fetchAsDataUri } = data
-  const { primaryDark, overlayColor, highlightBg, highlightText, heroText } = colors
+  const { overlayColor, highlightBg, highlightText, heroText } = colors
+  const ribbonBody = hexDarken(overlayColor, RIBBON_DARKEN)
 
   const titleLine1 = hero?.titleLine1 || 'Competition'
   const titleLine2 = hero?.titleLine2 || ''
@@ -172,32 +220,27 @@ export async function GET(req: Request) {
 
       {/* 4. Left ribbon tail (renders before ribbon so its right edge tucks
            behind the ribbon body — Satori has no z-index, paint order = DOM
-           order). */}
-      <img
-        src={RIBBON_TAIL}
+           order). Body matches the hero overlay color. */}
+      <RibbonTail
+        bodyColor={overlayColor}
         width={TAIL_WIDTH}
-        style={{
-          position: 'absolute',
-          left: LEFT_TAIL_LEFT,
-          top: TAIL_TOP,
-        }}
+        left={LEFT_TAIL_LEFT}
+        top={TAIL_TOP}
       />
 
       {/* 5. Right ribbon tail (mirrored) */}
-      <img
-        src={RIBBON_TAIL}
+      <RibbonTail
+        bodyColor={overlayColor}
         width={TAIL_WIDTH}
-        style={{
-          position: 'absolute',
-          left: RIGHT_TAIL_LEFT,
-          top: TAIL_TOP,
-          transform: 'scaleX(-1)',
-        }}
+        left={RIGHT_TAIL_LEFT}
+        top={TAIL_TOP}
+        flip
       />
 
-      {/* 6. Central title ribbon — solid primaryDark (the deep brand color,
-           independent of overlay theme so a `bright-…` themed page still
-           gets a dark ribbon anchor). Holds three title lines stacked. */}
+      {/* 6. Central title ribbon — geometric-mean darken of overlayColor,
+           sitting between the tail body and the fold shadow so all three
+           red layers read as a coherent depth stack. Holds three title
+           lines stacked. */}
       <div
         style={{
           position: 'absolute',
@@ -205,7 +248,7 @@ export async function GET(req: Request) {
           top: RIBBON.top,
           width: RIBBON.width,
           height: RIBBON.height,
-          background: primaryDark,
+          background: ribbonBody,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
