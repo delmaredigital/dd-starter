@@ -144,7 +144,7 @@ export async function GET(req: Request) {
     return new Response('Page not found', { status: 404 })
   }
 
-  const { hero, partnerLogo, colors, fetchAsDataUri } = data
+  const { hero, partnerLogo, colors, resolveImageMeta } = data
   const { overlayColor, highlightBg, highlightText, heroText } = colors
   const ribbonBody = hexDarken(overlayColor, RIBBON_DARKEN)
 
@@ -152,14 +152,23 @@ export async function GET(req: Request) {
   const titleLine2 = hero?.titleLine2 || ''
   const titleLine3 = hero?.titleLine3 || ''
 
-  // Larger canvas → use xlarge variant for backgrounds and illustrations;
-  // host logo is small and rarely benefits from xlarge so use medium.
-  // Three independent fetches — run in parallel.
-  const [heroBgUrl, illustrationUrl, partnerLogoUrl] = await Promise.all([
-    fetchAsDataUri(hero?.backgroundImage?.url, 'heroBg', 'xlarge'),
-    fetchAsDataUri(hero?.heroImage?.url, 'illustration', 'xlarge'),
-    fetchAsDataUri(partnerLogo?.url, 'partnerLogo', 'medium'),
+  // Resolve URLs + intrinsic dimensions (no fetching). The output SVG
+  // references each image via `<image href>` so the browser fetches them
+  // at render time — keeps the response payload tiny and lets Cloudflare
+  // Polish negotiate webp/avif transparently per client.
+  const [heroBgMeta, illustrationMeta, partnerLogoMeta] = await Promise.all([
+    resolveImageMeta(hero?.backgroundImage?.url, 'xlarge'),
+    resolveImageMeta(hero?.heroImage?.url, 'xlarge'),
+    resolveImageMeta(partnerLogo?.url, 'medium'),
   ])
+
+  // SVG `<image>` needs explicit width *and* height. Compute height from
+  // the source's intrinsic aspect so width remains the design knob.
+  const illustrationHeight = illustrationMeta
+    ? Math.round((ILLUSTRATION.width * illustrationMeta.height) / illustrationMeta.width)
+    : 0
+  const partnerLogoBoxW = HOST_PILL.width - 2 * HOST_PILL.padding
+  const partnerLogoBoxH = HOST_PILL.height - 2 * HOST_PILL.padding
 
   // Photo overlay — flat 90% alpha, sourced from Figma desktop frame
   // (rgba(154,0,0,0.9) = brand red at 0.9). Hex E6 = round(0.9 × 255).
@@ -176,19 +185,21 @@ export async function GET(req: Request) {
         position: 'relative',
       }}
     >
-      {/* 1. Background photo (full bleed) */}
-      {heroBgUrl ? (
-        <img
-          src={heroBgUrl}
+      {/* 1. Background photo (full bleed). preserveAspectRatio=slice gives
+           CSS object-fit:cover semantics in SVG. */}
+      {heroBgMeta ? (
+        <svg
           width={WIDTH}
           height={HEIGHT}
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            objectFit: 'cover',
-          }}
-        />
+          style={{ position: 'absolute', top: 0, left: 0 }}
+        >
+          <image
+            href={heroBgMeta.url}
+            width={WIDTH}
+            height={HEIGHT}
+            preserveAspectRatio="xMidYMid slice"
+          />
+        </svg>
       ) : null}
 
       {/* 2. Brand overlay */}
@@ -199,23 +210,31 @@ export async function GET(req: Request) {
           left: 0,
           width: WIDTH,
           height: HEIGHT,
-          background: heroBgUrl ? overlayFill : overlayColor,
+          background: heroBgMeta ? overlayFill : overlayColor,
         }}
       />
 
       {/* 3. Hero illustration (composite asset; decorative icons + landmark
            are baked into this PNG, no separate elements). Sits behind the
-           host logo pill which overlaps it from below. */}
-      {illustrationUrl ? (
-        <img
-          src={illustrationUrl}
+           host logo pill which overlaps it from below. Anchored by bottom
+           so its lower edge always meets the ribbon top regardless of
+           per-asset aspect. */}
+      {illustrationMeta ? (
+        <svg
           width={ILLUSTRATION.width}
+          height={illustrationHeight}
           style={{
             position: 'absolute',
             left: ILLUSTRATION_LEFT,
-            bottom: HEIGHT - RIBBON.top /* illustration bottom touches ribbon top */,
+            bottom: HEIGHT - RIBBON.top,
           }}
-        />
+        >
+          <image
+            href={illustrationMeta.url}
+            width={ILLUSTRATION.width}
+            height={illustrationHeight}
+          />
+        </svg>
       ) : null}
 
       {/* 4. Left ribbon tail (renders before ribbon so its right edge tucks
@@ -302,7 +321,7 @@ export async function GET(req: Request) {
 
       {/* 7. Host logo pill — white rounded rectangle on top of the ribbon
            top edge. Hide when no partnerLogo is set. */}
-      {partnerLogoUrl ? (
+      {partnerLogoMeta ? (
         <div
           style={{
             position: 'absolute',
@@ -317,14 +336,14 @@ export async function GET(req: Request) {
             justifyContent: 'center',
           }}
         >
-          <img
-            src={partnerLogoUrl}
-            style={{
-              maxWidth: HOST_PILL.width - 2 * HOST_PILL.padding,
-              maxHeight: HOST_PILL.height - 2 * HOST_PILL.padding,
-              objectFit: 'contain',
-            }}
-          />
+          <svg width={partnerLogoBoxW} height={partnerLogoBoxH}>
+            <image
+              href={partnerLogoMeta.url}
+              width={partnerLogoBoxW}
+              height={partnerLogoBoxH}
+              preserveAspectRatio="xMidYMid meet"
+            />
+          </svg>
         </div>
       ) : null}
 

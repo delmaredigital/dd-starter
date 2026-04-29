@@ -62,17 +62,32 @@ function resolveTheme(rootProps: PuckData['root']['props'] | undefined): Resolve
  */
 export type MediaSizeKey = 'thumbnail' | 'square' | 'small' | 'medium' | 'large' | 'xlarge' | 'og'
 
+/** Resolved image with dimensions, ready to embed as an SVG `<image>` ref. */
+export interface ResolvedImage {
+  url: string
+  width: number
+  height: number
+}
+
 export interface CompetitionImageData {
   rootProps: PuckData['root']['props'] | undefined
   hero: ReturnType<typeof findHero>
   partnerLogo: ReturnType<typeof findPartnerLogo>
   colors: ResolvedColors
-  /** Resolves a media URL to a data URI Satori can embed. */
+  /** Resolves a media URL to a data URI Satori can embed (used by OG / any
+   * template whose output is rasterized — resvg can't fetch remote URLs). */
   fetchAsDataUri: (
     url: string | undefined,
     label: string,
     sizeKey?: MediaSizeKey,
   ) => Promise<string>
+  /** Resolves a media URL to its CDN href + intrinsic dimensions. Used by
+   * templates that emit SVG with `<image href>` references — browser fetches
+   * the image at render time, so no server-side base64 inflation. */
+  resolveImageMeta: (
+    url: string | undefined,
+    sizeKey?: MediaSizeKey,
+  ) => Promise<ResolvedImage | null>
 }
 
 async function loadPage(slug: string) {
@@ -96,40 +111,64 @@ function findPartnerLogo(content: PuckData['content'] | undefined) {
 }
 
 /**
- * Build a fetcher that:
- *   1. Looks up the Payload media doc by filename so we can pick a sized variant.
- *   2. Fetches the resolved URL with `Accept: image/png,image/jpeg` — Satori
- *      can't decode webp, and CF Polish optimizes losslessly (~33% smaller).
- *   3. Returns a `data:` URI for inline embedding in Satori JSX.
+ * Builds the two image helpers each template needs. They share the same
+ * Payload media lookup; the difference is what they hand back:
  *
- * `sizeKey` selects which Media variant (e.g. 'og', 'xlarge'). Falls back to
- * the original when the variant is missing.
+ *   - `resolveImageMeta` → CDN URL + intrinsic dimensions (no fetch).
+ *     Used by SVG-output templates that embed `<image href>` for the
+ *     browser to fetch.
+ *   - `fetchAsDataUri` → pre-fetched bytes as a `data:` URI. Required
+ *     for rasterized templates (OG via resvg, which can't fetch URLs).
+ *
+ * `sizeKey` selects which Media variant (e.g. 'og', 'xlarge'); falls
+ * back to the original asset when the variant is missing.
  */
-function createImageFetcher(payload: Awaited<ReturnType<typeof getPayload>>) {
-  const resolveSizedUrl = async (
+function createImageHelpers(payload: Awaited<ReturnType<typeof getPayload>>) {
+  /**
+   * Looks up the Payload media doc by filename and returns the requested
+   * size variant's URL + dimensions. Falls back to the original (top-level
+   * url/width/height) when the variant doesn't exist. Returns null on miss.
+   */
+  const resolveImageMeta = async (
     url: string | undefined,
-    sizeKey: MediaSizeKey,
-  ): Promise<string> => {
-    if (!url) return ''
+    sizeKey: MediaSizeKey = 'og',
+  ): Promise<ResolvedImage | null> => {
+    if (!url) return null
     const filename = basename(new URL(url).pathname)
     const media = await payload.find({
       collection: 'media',
       where: { filename: { equals: filename } },
       limit: 1,
-      // sizes: variant URLs. url: fallback. prefix: required by S3 plugin's
-      // afterRead hook to regenerate URLs with correct folder path.
-      select: { sizes: true, url: true, prefix: true },
+      // sizes: variant URLs + dimensions. url/width/height: original-asset
+      // fallback. prefix: required by S3 plugin's afterRead hook to
+      // regenerate URLs with the correct folder path.
+      select: { sizes: true, url: true, width: true, height: true, prefix: true },
     })
-    return media.docs?.[0]?.sizes?.[sizeKey]?.url || url
+    const doc = media.docs?.[0]
+    const variant = doc?.sizes?.[sizeKey]
+    if (variant?.url && variant.width && variant.height) {
+      return { url: variant.url, width: variant.width, height: variant.height }
+    }
+    if (doc?.url && doc.width && doc.height) {
+      return { url: doc.url, width: doc.width, height: doc.height }
+    }
+    return null
   }
 
-  return async (
+  /**
+   * Pre-fetches an image and returns a `data:` URI for inline embedding.
+   * Used by templates whose output is rasterized (OG via ImageResponse →
+   * resvg, which can't fetch remote URLs). Sends `Accept: png,jpeg` so
+   * Cloudflare Polish stays in lossless mode (Satori can't decode webp).
+   */
+  const fetchAsDataUri = async (
     url: string | undefined,
     label: string,
     sizeKey: MediaSizeKey = 'og',
   ): Promise<string> => {
     if (!url) return ''
-    const resolved = await resolveSizedUrl(url, sizeKey)
+    const meta = await resolveImageMeta(url, sizeKey)
+    const resolved = meta?.url || url
     try {
       const res = await fetch(resolved, {
         headers: { Accept: 'image/png,image/jpeg,image/*' },
@@ -146,6 +185,8 @@ function createImageFetcher(payload: Awaited<ReturnType<typeof getPayload>>) {
       return ''
     }
   }
+
+  return { fetchAsDataUri, resolveImageMeta }
 }
 
 /**
@@ -168,6 +209,6 @@ export async function loadCompetitionImageData(slug: string): Promise<Competitio
     hero: findHero(content),
     partnerLogo: findPartnerLogo(content),
     colors: resolveTheme(rootProps),
-    fetchAsDataUri: createImageFetcher(payload),
+    ...createImageHelpers(payload),
   }
 }
