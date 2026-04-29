@@ -8,47 +8,24 @@
  *
  * Layout: hero bg + brand overlay → title block (left) → illustration (right) → laurel badge (bottom center)
  * Size: 1200×630 (standard OG)
+ *
+ * Shared loader, fonts, and assets live in `src/lib/competition-image/` so
+ * sibling templates (login-desktop, …) can reuse the Payload lookup, theme
+ * resolution, and image-as-data-URI plumbing without copy-paste drift.
  */
 import { ImageResponse } from 'next/og'
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
-import { DEFAULT_HERO_THEME } from '@/puck/theme'
-import type { PuckData } from '@/puck/types'
+import { COMPETITION_IMAGE_FONTS } from '@/lib/competition-image/fonts'
+import { LAUREL_BADGE } from '@/lib/competition-image/assets'
+import { loadCompetitionImageData } from '@/lib/competition-image/loader'
 
 const SIZE = { width: 1200, height: 630 }
-
-// Load Baskervville Italic for audience label (matches hero font-baskervville italic underline).
-// Uses fs.readFileSync instead of fetch — import.meta.url resolves to a relative /_next/static path
-// which isn't fetchable in server context.
-import { readFileSync } from 'fs'
-import { join, basename } from 'path'
-const baskervvilleItalic = readFileSync(
-  join(process.cwd(), 'public', 'competition-assets', 'Baskervville-Italic.ttf'),
-)
-const poppinsBold = readFileSync(
-  join(process.cwd(), 'public', 'competition-assets', 'Poppins-Bold.ttf'),
-)
-
-/** Resolve theme token to actual hex color. In Satori there's no CSS var context. */
-function resolveColor(token: string, primaryDark: string, primaryBright: string): string {
-  if (token === 'dark') return primaryDark
-  if (token === 'bright') return primaryBright
-  return '#ffffff'
-}
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
   const slug = searchParams.get('slug') ?? ''
 
-  const payload = await getPayload({ config: configPromise })
-  const result = await payload.find({
-    collection: 'pages',
-    limit: 1,
-    pagination: false,
-    where: { slug: { equals: slug } },
-  })
-  const page = result.docs?.[0]
-  if (!page) {
+  const data = await loadCompetitionImageData(slug)
+  if (!data) {
     return new ImageResponse(
       <div
         style={{
@@ -68,76 +45,14 @@ export async function GET(req: Request) {
     )
   }
 
-  // One cast at the Payload DB boundary — payload's JSON column is typed `any`.
-  // Downstream access is fully typed via PuckData = Data<Components, RootProps>.
-  const puckData = page.puckData as PuckData | undefined
-  const rootProps = puckData?.root?.props
-
-  // Brand colors
-  const primaryDark = rootProps?.primaryDark || '#222'
-  const primaryBright = rootProps?.primaryBright || primaryDark
-
-  // Hero theme → overlay color
-  const theme = rootProps?.heroTheme || DEFAULT_HERO_THEME
-  const [overlayToken, highlightBgToken, highlightTextToken] = theme.split('-')
-  const overlayColor = resolveColor(overlayToken, primaryDark, primaryBright)
-  const highlightBg = resolveColor(highlightBgToken, primaryDark, primaryBright)
-  const highlightText = resolveColor(highlightTextToken, primaryDark, primaryBright)
-  const oppositeOverlay = overlayToken === 'dark' ? 'bright' : 'dark'
-  const heroTextStyle = rootProps?.heroTextStyle || 'default'
-  const heroText =
-    heroTextStyle === 'white'
-      ? '#ffffff'
-      : heroTextStyle === 'primary'
-        ? resolveColor(oppositeOverlay, primaryDark, primaryBright)
-        : highlightBg
-
-  // Page content — typed discriminated union via Data<Components, RootProps>.
-  // `find` on type === 'CompetitionHero' narrows to CompetitionHeroProps automatically.
-  const content = puckData?.content ?? []
-  const hero = content.find((c) => c.type === 'CompetitionHero')?.props
+  const { rootProps, hero, colors, fetchAsDataUri } = data
+  const { overlayColor, highlightBg, highlightText, heroText } = colors
 
   const titleLine1 = hero?.titleLine1 || rootProps?.title || 'Competition'
   const titleLine2 = hero?.titleLine2 || ''
   const titleLine3 = hero?.titleLine3 || ''
   const audienceLabel = hero?.audienceLabel || ''
-  // Resolve OG-sized images via Payload media API, then pre-fetch with Accept: webp
-  // to trigger Cloudflare Polish compression. Satori can't set headers on its own fetches,
-  // so we fetch ourselves and pass base64 data URIs.
-  const resolveOgUrl = async (url: string | undefined) => {
-    if (!url) return ''
-    const filename = basename(new URL(url).pathname)
-    const media = await payload.find({
-      collection: 'media',
-      where: { filename: { equals: filename } },
-      limit: 1,
-      // sizes: OG variant URL. url: fallback. prefix: required by S3 plugin's
-      // afterRead hook to regenerate URLs with correct folder path.
-      select: { sizes: true, url: true, prefix: true },
-    })
-    const doc = media.docs?.[0]
-    return doc?.sizes?.og?.url || url
-  }
-  const fetchAsDataUri = async (url: string | undefined, label: string) => {
-    if (!url) return ''
-    const resolved = await resolveOgUrl(url)
-    try {
-      // Satori can't decode webp — request PNG/JPEG only. Cloudflare Polish
-      // optimizes losslessly (~33% smaller than raw R2 file). Polish won't
-      // convert PNG→JPEG regardless of Accept order; only webp/avif is negotiated.
-      const res = await fetch(resolved, { headers: { Accept: 'image/png,image/jpeg,image/*' } })
-      if (!res.ok) {
-        console.warn(`[og] ${label}: fetch ${res.status} for ${resolved}`)
-        return ''
-      }
-      const contentType = res.headers.get('content-type') || 'image/png'
-      const buf = await res.arrayBuffer()
-      return `data:${contentType};base64,${Buffer.from(buf).toString('base64')}`
-    } catch (e) {
-      console.error(`[og] ${label}:`, e)
-      return ''
-    }
-  }
+
   const heroBgUrl = await fetchAsDataUri(hero?.backgroundImage?.url, 'heroBg')
   const illustrationUrl = await fetchAsDataUri(hero?.heroImage?.url, 'illustration')
   // Partner logo removed from OG — too small, clutters the layout
@@ -147,12 +62,6 @@ export async function GET(req: Request) {
   const overlayBottomOpacity = Math.round((hero?.overlayBottomOpacity ?? 100) * 2.55)
     .toString(16)
     .padStart(2, '0')
-
-  // Laurel badge SVG — SVGO optimized, 19KB. Embedded as base64 data URI.
-  const badgeSvg = readFileSync(
-    join(process.cwd(), 'public', 'competition-assets', 'og-proudly-hosted-badge.svg'),
-  )
-  const badgeBase64 = `data:image/svg+xml;base64,${badgeSvg.toString('base64')}`
 
   return new ImageResponse(
     <div
@@ -313,21 +222,13 @@ export async function GET(req: Request) {
                above — layout is flow-aware. marginBottom: -32 preserves the
                original absolute-positioned bottom (y=610) by offsetting from
                the flex-default position (y=578, = 630 canvas - 52 padding). */}
-          <img src={badgeBase64} width={548} style={{ marginBottom: -32 }} />
+          <img src={LAUREL_BADGE} width={548} style={{ marginBottom: -32 }} />
         </div>
       </div>
     </div>,
     {
       ...SIZE,
-      fonts: [
-        { name: 'Poppins', data: poppinsBold, weight: 700 as const, style: 'normal' as const },
-        {
-          name: 'Baskervville',
-          data: baskervvilleItalic,
-          weight: 400 as const,
-          style: 'italic' as const,
-        },
-      ],
+      fonts: COMPETITION_IMAGE_FONTS,
     },
   )
 }
