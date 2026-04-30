@@ -122,7 +122,15 @@ See `.cursor/rules/puck-extension.md` — covers the Webflow → Puck flow, file
 When bumping versions of these packages, check if the patch in `patches/` still applies and if the upstream bug is fixed. If fixed upstream, remove the patch.
 
 - **`@delmaredigital/payload-puck`** — `FolderPickerField.js` hardcodes `/admin/page-tree`. Patched to derive admin prefix from URL. Upstream issue: filed informally, no tracking number yet.
-- **`@delmaredigital/payload-page-tree`** — Using inlined copy at `src/plugins/page-tree/` instead of npm package. Fixes: deadlock on folder edit-url cascade (missing `req`), hardcoded `/admin` in nav link and edit action. Upstream issues: delmaredigital/payload-page-tree#2, #3. When both are fixed upstream, switch import in `src/plugins/index.ts` back to `@delmaredigital/payload-page-tree` and delete the inlined copy.
+- **`@delmaredigital/payload-page-tree`** — Now on upstream `^0.3.14`, which fixes the cascade deadlock (issue #2) and hardcoded `/admin` (issue #3). The inlined copy at `src/plugins/page-tree/` is dead weight pending removal — runtime imports from the npm package via `src/plugins/index.ts`. Delete the inline directory in a follow-up cleanup commit.
+
+## Migrations on this fork
+
+When merging `upstream/main`, **patch upstream's migration `.ts` before committing**:
+- Switch import to `@payloadcms/db-postgres` (we don't use `db-vercel-postgres`).
+- Add `IF NOT EXISTS` to any `ALTER TYPE ... ADD VALUE` we may have shipped earlier.
+
+If upstream catches up to a change we shipped (e.g. `20260424_202032` superseded our `20260416_015924`), delete our preemptive file and run `DELETE FROM payload_migrations WHERE name = '<our-name>'` per env — then deploy. Upstream's (now-idempotent) migration becomes the canonical record. Reserves our migration history for genuine fork-only schema (e.g. `20260413_041646_r2_media_prefix_column`).
 
 ## Prettier — what to format
 
