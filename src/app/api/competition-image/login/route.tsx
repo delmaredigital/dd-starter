@@ -260,7 +260,11 @@ export async function GET(req: Request) {
   // Figma specs a uniform overlay for both login templates.
   const overlayFill = `${overlayColor}E6`
 
-  // Common style: title text styling shared by all three lines.
+  // Title text styling shared across all three lines. Each line is wrapped
+  // in a flex-row `justifyContent: 'center'` div so the text content
+  // (a span) is horizontally centered within the ribbon body width —
+  // textAlign alone doesn't center reliably in Satori for flex-column
+  // children that contain only text.
   const titleLineStyle = {
     fontFamily: 'Poppins',
     fontSize: titleFs,
@@ -270,6 +274,7 @@ export async function GET(req: Request) {
     textTransform: 'uppercase' as const,
     color: heroText,
   }
+  const lineCenterRow = { display: 'flex' as const, justifyContent: 'center' as const }
 
   const svg = await satori(
     <div
@@ -343,9 +348,11 @@ export async function GET(req: Request) {
               alignItems: 'stretch',
             }}
           >
-            <div style={titleLineStyle}>{titleLine1}</div>
+            <div style={lineCenterRow}>
+              <span style={titleLineStyle}>{titleLine1}</span>
+            </div>
             {titleLine2 && (
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div style={lineCenterRow}>
                 <span
                   style={{
                     ...titleLineStyle,
@@ -359,7 +366,9 @@ export async function GET(req: Request) {
                 </span>
               </div>
             )}
-            <div style={titleLineStyle}>{titleLine3}</div>
+            <div style={lineCenterRow}>
+              <span style={titleLineStyle}>{titleLine3}</span>
+            </div>
           </div>
         </div>
 
