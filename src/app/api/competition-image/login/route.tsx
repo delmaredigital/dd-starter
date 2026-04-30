@@ -315,14 +315,18 @@ export async function GET(req: Request) {
             flexDirection: 'column',
           }}
         >
-          {/* Left tail (DOM order before ribbon-body so it paints behind) */}
+          {/* Left tail — anchored top at ribbon vertical mid (not centered).
+               With height 64% of ribbon, the tail extends from 50% to 114%
+               of ribbon height; the bottom 14% peeks below the ribbon, where
+               the SVG fold-shadow triangle's top edge lands exactly at the
+               ribbon's bottom corner. (DOM order before ribbon-body so it
+               paints behind.) */}
           <RibbonTail
             bodyColor={tailBody}
             width={TAIL_WIDTH}
             height={TAIL_H_PCT}
             left={-TAIL_OUTSET}
             top="50%"
-            transform="translateY(-50%)"
           />
           {/* Right tail (mirrored) */}
           <RibbonTail
@@ -331,7 +335,6 @@ export async function GET(req: Request) {
             height={TAIL_H_PCT}
             right={-TAIL_OUTSET}
             top="50%"
-            transform="translateY(-50%)"
             flip
           />
           {/* Ribbon body: position relative gives it a stacking position so
