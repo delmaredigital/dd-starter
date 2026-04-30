@@ -31,14 +31,14 @@ import { RowLabel as RowLabel_ec255a65fa6fa8d1faeb09cf35284224 } from '@/Header/
 import { RowLabel as RowLabel_1f6ff6ff633e3695d348f4f3c58f1466 } from '@/Footer/RowLabel'
 import { LogoutButton as LogoutButton_aa8e4427b70b37c7820895ace344eb78 } from '@delmaredigital/payload-better-auth/components'
 import { SecurityNavLinks as SecurityNavLinks_e3642e6c1e5dbb92bcf178f42e87e19e } from '@delmaredigital/payload-better-auth/components/management'
-import { PageTreeNavLink as PageTreeNavLink_1f05417335d67c5e97f7c8c76ea192f3 } from '@/plugins/page-tree/exports/client'
+import { PageTreeNavLink as PageTreeNavLink_11b13d26a0022dae5ea66a055ed30952 } from '@delmaredigital/payload-page-tree/client'
 import { BeforeLogin as BeforeLogin_aa8e4427b70b37c7820895ace344eb78 } from '@delmaredigital/payload-better-auth/components'
 import { default as default_116afe01689361f25bab019beee1ee0a } from '@/components/admin/PuckProvider'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 import { LoginViewWrapper as LoginViewWrapper_76e4fd5e0c2ccc05732c17408c72107e } from '@delmaredigital/payload-better-auth/rsc'
 import { ApiKeysView as ApiKeysView_6234f869b6abd89bf631f5883bc67bd5 } from '@delmaredigital/payload-better-auth/rsc/api-key'
 import { PuckEditorView as PuckEditorView_3b27b37268b8e78cccc06ea6de889aa6 } from '@delmaredigital/payload-puck/rsc'
-import { PageTreeView as PageTreeView_830ebb35fcdc499acd5853d3d45659f6 } from '@/plugins/page-tree/exports/rsc'
+import { PageTreeView as PageTreeView_05df9824c06b5116cee652a5b2bbd184 } from '@delmaredigital/payload-page-tree/rsc'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
@@ -76,13 +76,13 @@ export const importMap = {
   "@/Footer/RowLabel#RowLabel": RowLabel_1f6ff6ff633e3695d348f4f3c58f1466,
   "@delmaredigital/payload-better-auth/components#LogoutButton": LogoutButton_aa8e4427b70b37c7820895ace344eb78,
   "@delmaredigital/payload-better-auth/components/management#SecurityNavLinks": SecurityNavLinks_e3642e6c1e5dbb92bcf178f42e87e19e,
-  "@/plugins/page-tree/exports/client#PageTreeNavLink": PageTreeNavLink_1f05417335d67c5e97f7c8c76ea192f3,
+  "@delmaredigital/payload-page-tree/client#PageTreeNavLink": PageTreeNavLink_11b13d26a0022dae5ea66a055ed30952,
   "@delmaredigital/payload-better-auth/components#BeforeLogin": BeforeLogin_aa8e4427b70b37c7820895ace344eb78,
   "@/components/admin/PuckProvider#default": default_116afe01689361f25bab019beee1ee0a,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
   "@delmaredigital/payload-better-auth/rsc#LoginViewWrapper": LoginViewWrapper_76e4fd5e0c2ccc05732c17408c72107e,
   "@delmaredigital/payload-better-auth/rsc/api-key#ApiKeysView": ApiKeysView_6234f869b6abd89bf631f5883bc67bd5,
   "@delmaredigital/payload-puck/rsc#PuckEditorView": PuckEditorView_3b27b37268b8e78cccc06ea6de889aa6,
-  "@/plugins/page-tree/exports/rsc#PageTreeView": PageTreeView_830ebb35fcdc499acd5853d3d45659f6,
+  "@delmaredigital/payload-page-tree/rsc#PageTreeView": PageTreeView_05df9824c06b5116cee652a5b2bbd184,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

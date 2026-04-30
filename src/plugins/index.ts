@@ -7,8 +7,6 @@ import { revalidateRedirects } from '@/hooks/revalidateRedirects'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
-// Issues #2 (deadlock) and #3 (hardcoded /admin) fixed upstream in v0.3.14.
-// Inline copy at src/plugins/page-tree/ is dead weight pending removal.
 import { pageTreePlugin } from '@delmaredigital/payload-page-tree'
 import { createPuckPlugin } from '@delmaredigital/payload-puck/plugin'
 import { puckLayoutOptions } from '@/lib/puck/layout-options'

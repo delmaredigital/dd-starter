@@ -122,7 +122,7 @@ See `.cursor/rules/puck-extension.md` — covers the Webflow → Puck flow, file
 When bumping versions of these packages, check if the patch in `patches/` still applies and if the upstream bug is fixed. If fixed upstream, remove the patch.
 
 - **`@delmaredigital/payload-puck`** — `FolderPickerField.js` hardcodes `/admin/page-tree`. Patched to derive admin prefix from URL. Upstream issue: filed informally, no tracking number yet.
-- **`@delmaredigital/payload-page-tree`** — Now on upstream `^0.3.14`, which fixes the cascade deadlock (issue #2) and hardcoded `/admin` (issue #3). The inlined copy at `src/plugins/page-tree/` is dead weight pending removal — runtime imports from the npm package via `src/plugins/index.ts`. Delete the inline directory in a follow-up cleanup commit.
+- **`@delmaredigital/payload-page-tree`** — On upstream `^0.3.14`, which fixes the cascade deadlock (issue #2) and hardcoded `/admin` (issue #3). No local patch.
 
 ## Migrations on this fork
 
@@ -136,7 +136,7 @@ If upstream catches up to a change we shipped (e.g. `20260424_202032` superseded
 
 **Rule**: format only files that don't exist on `main`. Leave files that exist on `main` alone, even when we've modified them.
 
-**Why**: `main` (the upstream starter) isn't prettier-clean — reformatting its lines in our branch creates conflicts on every future pull from upstream. Our new files live almost entirely under `src/puck/`, `src/components/puck/`, `src/lib/puck/`, `src/lib/webmcp/`, `src/plugins/page-tree/`, `src/app/api/og/`, `public/competition-assets/`.
+**Why**: `main` (the upstream starter) isn't prettier-clean — reformatting its lines in our branch creates conflicts on every future pull from upstream. Our new files live almost entirely under `src/puck/`, `src/components/puck/`, `src/lib/puck/`, `src/lib/webmcp/`, `src/lib/competition-image/`, `src/app/api/og/`, `src/app/api/competition-image/`, `public/competition-assets/`.
 
 **Test**: `git show main:<path>` fails → new → format. Succeeds → leave it.
 
