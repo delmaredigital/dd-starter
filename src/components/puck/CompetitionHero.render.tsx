@@ -111,25 +111,24 @@ export function CompetitionHeroRender({
           <div className="max-w-5xl mx-auto relative z-10">
             <h1 className="m-0">
               <span
-                className="block font-bold uppercase text-3xl md:text-4xl lg:text-5xl leading-tight"
+                className="block font-bold uppercase text-3xl md:text-4xl lg:text-5xl leading-[1.3]"
                 style={{ color: HERO_TEXT }}
               >
                 {titleLine1}
               </span>
-              {/* Highlight bar — Figma uses leading-[1.7] on the middle title to
-                inflate the line box as visual padding. We use leading-tight (system
-                standard) and compensate with explicit py-3 + my-1:
-                  Figma: 65px × 1.7 = 110.5px line box, 5px/2px external gaps
-                  Ours:  48px × 1.25 = 60px line box + 24px (py-3) = 84px bar
-                  my-1 (4px) = transparent sliver between title lines and bar edge
-                Perceived text-to-text gap: Figma 28.1/25.9px, ours 28/28px (±2px) */}
+              {/* Highlight bar — Figma uses lineHeight 1.70 on the middle line
+                  to inflate the line box as visual padding. Encoded directly via
+                  `leading-[1.7]` on the inner text, no margin/padding tricks.
+                  Lines 1+3 use 1.30 across all templates (login, OG, hero); only
+                  the pill inflation differs. See typography contract in
+                  `src/lib/competition-image/proportions.ts`. */}
               {titleLine2 && (
                 <span
-                  className="inline-block my-1 px-2.5 py-3 rounded-[10px]"
+                  className="inline-block px-2.5 rounded-[10px]"
                   style={{ backgroundColor: HIGHLIGHT_BG }}
                 >
                   <span
-                    className="block font-bold uppercase text-3xl md:text-4xl lg:text-5xl leading-tight"
+                    className="block font-bold uppercase text-3xl md:text-4xl lg:text-5xl leading-[1.7]"
                     style={{ color: HIGHLIGHT_TEXT }}
                   >
                     {titleLine2}
@@ -137,7 +136,7 @@ export function CompetitionHeroRender({
                 </span>
               )}
               <span
-                className="block font-bold uppercase text-3xl md:text-4xl lg:text-5xl leading-tight"
+                className="block font-bold uppercase text-3xl md:text-4xl lg:text-5xl leading-[1.3]"
                 style={{ color: HERO_TEXT }}
               >
                 {titleLine3}

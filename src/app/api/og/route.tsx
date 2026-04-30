@@ -10,7 +10,7 @@
  * Size: 1200×630 (standard OG)
  *
  * Shared loader, fonts, and assets live in `src/lib/competition-image/` so
- * sibling templates (login-desktop, …) can reuse the Payload lookup, theme
+ * sibling templates (login banner, …) can reuse the Payload lookup, theme
  * resolution, and image-as-data-URI plumbing without copy-paste drift.
  */
 import { ImageResponse } from 'next/og'
@@ -156,20 +156,19 @@ export async function GET(req: Request) {
             flex: 1,
           }}
         >
-          {/* Title — Poppins Bold, matches hero (CompetitionHero.render.tsx).
-               May individually tweak later for OG-specific sizing. */}
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: SIZES.titleGap /* simulates Figma's mixed 1.3/1.55 line heights at uniform 1.2 */,
-            }}
-          >
+          {/* Title — Poppins Bold. Per the typography contract in
+               `lib/competition-image/proportions.ts`: lines 1/3 use
+               lineHeight 1.30 (Figma), pill inflates to 1.55. The
+               line-heights themselves drive vertical rhythm, no flex
+               `gap` needed (which previously simulated this at uniform
+               1.2 and would cramp on title wrap). */}
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span
               style={{
                 fontFamily: 'Poppins',
                 fontSize: SIZES.titleFont,
                 fontWeight: 700,
+                lineHeight: 1.3,
                 color: heroText,
                 textTransform: 'uppercase',
               }}
@@ -184,8 +183,8 @@ export async function GET(req: Request) {
                   fontFamily: 'Poppins',
                   fontSize: SIZES.titleFont,
                   fontWeight: 700,
+                  lineHeight: 1.55 /* Figma pill inflation (vs 1.30 on lines) */,
                   textTransform: 'uppercase',
-                  /* lineHeight: default 1.2 — titleGap simulates Figma's 1.55 on highlight */
                   color: highlightText,
                   backgroundColor: highlightBg,
                   padding: SIZES.highlightPadding /* scaled from hero py-[5px] px-2.5 */,
@@ -200,6 +199,7 @@ export async function GET(req: Request) {
                 fontFamily: 'Poppins',
                 fontSize: SIZES.titleFont,
                 fontWeight: 700,
+                lineHeight: 1.3,
                 color: heroText,
                 textTransform: 'uppercase',
               }}

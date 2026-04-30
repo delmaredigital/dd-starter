@@ -43,32 +43,44 @@ export const SHADOW_DARKEN = 0.5
 // from the path `d` string so the ratios above auto-derive. Premature
 // while the SVG is stable; single source here is fine.
 
+/**
+ * width/height/left/right/top accept `number | string` so callers can pass
+ * either pixels or percentage strings ("50%", "64%"). Login banner positions
+ * the tail relative to its auto-sized ribbon parent via percentages.
+ */
 export function RibbonTail({
   bodyColor,
   width,
   height,
   left,
+  right,
   top,
+  transform,
   flip = false,
 }: {
   bodyColor: string
-  width: number
-  height: number
-  left: number
-  top: number
+  width: number | string
+  height: number | string
+  left?: number | string
+  right?: number | string
+  top: number | string
+  transform?: string
   flip?: boolean
 }) {
+  const flipT = flip ? 'scaleX(-1)' : ''
+  const combinedTransform = [flipT, transform].filter(Boolean).join(' ') || undefined
   return (
     <svg
-      width={width}
-      height={height}
       preserveAspectRatio="none"
       viewBox="0 0 167 229"
       style={{
         position: 'absolute',
-        left,
+        ...(left !== undefined ? { left } : {}),
+        ...(right !== undefined ? { right } : {}),
         top,
-        ...(flip ? { transform: 'scaleX(-1)' } : {}),
+        width,
+        height,
+        ...(combinedTransform ? { transform: combinedTransform } : {}),
       }}
     >
       <path fill={bodyColor} d="M0 229h166.941V0H0l45.807 116.289z" />

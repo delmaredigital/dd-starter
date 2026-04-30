@@ -11,6 +11,16 @@
  * (titleFont = 60). Calling `deriveSizes(60)` reproduces OG's prior
  * hardcoded pixel values exactly, so the OG output stays byte-identical
  * after refactoring.
+ *
+ * --- Title line-height contract (CONFIRMED FROM FIGMA, do not guess) ---
+ *   Lines 1 + 3: ALL templates use 1.30.
+ *   Highlight pill (line 2):
+ *     hero  (CompetitionHero.render.tsx)            = 1.70
+ *     og    (api/og/route.tsx)                      = 1.55
+ *     login (api/competition-image/login/route.tsx) = 1.30 (no inflation)
+ * Hero/OG inflate the pill for emphasis; login banner intentionally doesn't
+ * (compact ribbon, tight rhythm). Probe Figma textNode style.lineHeightPx /
+ * fontSize before changing any value above.
  */
 
 const RATIOS = {
