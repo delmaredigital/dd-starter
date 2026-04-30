@@ -128,13 +128,30 @@ function createImageHelpers(payload: Awaited<ReturnType<typeof getPayload>>) {
    * Looks up the Payload media doc by filename and returns the requested
    * size variant's URL + dimensions. Falls back to the original (top-level
    * url/width/height) when the variant doesn't exist. Returns null on miss.
+   *
+   * Robust to filenames with special characters: `new URL().pathname`
+   * percent-encodes spaces and other reserved chars (e.g. legacy uploads
+   * like `Untitled design (29).png`), but the Payload `media.filename`
+   * column stores the original unencoded name. We `decodeURIComponent` the
+   * basename for the lookup so encoded URLs find their DB row.
+   *
+   * Returned URLs are normalized via `new URL().href` so callers splicing
+   * into `<image href>` or passing to `fetch()` always get a valid
+   * percent-encoded URL even when the CMS stored a raw one with spaces.
    */
   const resolveImageMeta = async (
     url: string | undefined,
     sizeKey: MediaSizeKey = 'og',
   ): Promise<ResolvedImage | null> => {
     if (!url) return null
-    const filename = basename(new URL(url).pathname)
+    let parsed: URL
+    try {
+      parsed = new URL(url)
+    } catch {
+      console.warn(`[competition-image] resolveImageMeta: malformed URL ${url}`)
+      return null
+    }
+    const filename = decodeURIComponent(basename(parsed.pathname))
     // No `select` — Payload's nested `select` for sized variants drops
     // width/height fields silently. Default response is small enough; clarity
     // and reliability beat a few extra columns over the wire.
@@ -145,11 +162,12 @@ function createImageHelpers(payload: Awaited<ReturnType<typeof getPayload>>) {
     })
     const doc = media.docs?.[0]
     const variant = doc?.sizes?.[sizeKey]
+    const normalize = (raw: string) => new URL(raw).href
     if (variant?.url && variant.width && variant.height) {
-      return { url: variant.url, width: variant.width, height: variant.height }
+      return { url: normalize(variant.url), width: variant.width, height: variant.height }
     }
     if (doc?.url && doc.width && doc.height) {
-      return { url: doc.url, width: doc.width, height: doc.height }
+      return { url: normalize(doc.url), width: doc.width, height: doc.height }
     }
     console.warn(
       `[competition-image] resolveImageMeta: no dims for ${filename} (variant=${sizeKey}, doc=${!!doc})`,
@@ -170,7 +188,16 @@ function createImageHelpers(payload: Awaited<ReturnType<typeof getPayload>>) {
   ): Promise<string> => {
     if (!url) return ''
     const meta = await resolveImageMeta(url, sizeKey)
-    const resolved = meta?.url || url
+    // Fallback path: meta is null (DB miss). Normalize the raw URL too so
+    // `fetch` gets a percent-encoded URL even when CMS stored a raw one
+    // with spaces. Wrapped because malformed URL would throw.
+    let resolved: string
+    try {
+      resolved = meta?.url ?? new URL(url).href
+    } catch {
+      console.warn(`[competition-image] ${label}: malformed URL ${url}`)
+      return ''
+    }
     try {
       const res = await fetch(resolved, {
         headers: { Accept: 'image/png,image/jpeg,image/*' },
