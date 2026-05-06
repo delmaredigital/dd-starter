@@ -117,6 +117,17 @@ The split is required because `createMediaField` (used in `.tsx`) is client-only
 
 See `.cursor/rules/puck-extension.md` — covers the Webflow → Puck flow, file registry wiring, and WebMCP architecture.
 
+### Competition login image tuning (also a prompt for a future admin tuning tool)
+
+`/api/competition-image/login` supports `format=png` for visual tuning. Given a login image URL/slug, find the best `bottom` and `centerX` values and return the final URL.
+
+- `bottom` is the source-image y anchor placed on the ribbon box top. `bottom=1` anchors the source image bottom; `bottom=0.89` anchors the point 89% down the source image. Higher moves the illustration down into the ribbon; lower moves it up. Target: the school/photo card feels flush with the ribbon box while the bottom white border remains visible.
+- `centerX` is the source-image x anchor placed on the ribbon centerline. `centerX=0.5` anchors the source image midpoint; `centerX=0.56` anchors the point 56% across the source image. Higher shifts the whole illustration left; lower shifts it right. Target: the perceived school/photo card, including its left/right white border, centers over the ribbon box.
+- Source-image midpoint/bottom are often not the school/photo card midpoint/bottom because the exported canvas can include decorations outside that card. Tune to the card's visible white border, not the whole source canvas.
+- Procedure: use `format=png`, make cropped comparisons, tune sequentially rather than as a grid: first fix `centerX` and find `bottom`; then fix `bottom` and find `centerX`.
+- Use image analysis only for a first guess. Final approval is visual because each export can include different off-card decorations.
+- Output the chosen params, why nearby rejected values were worse, and the final inspection URL. Example: `/api/competition-image/login?slug=unc-mb/junior-science-competition&centerX=0.552&bottom=0.890&format=png`.
+
 ## Patched Dependencies
 
 When bumping versions of these packages, check if the patch in `patches/` still applies and if the upstream bug is fixed. If fixed upstream, remove the patch.
