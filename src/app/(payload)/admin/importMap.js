@@ -35,6 +35,7 @@ import { PageTreeNavLink as PageTreeNavLink_1f05417335d67c5e97f7c8c76ea192f3 } f
 import { BeforeLogin as BeforeLogin_aa8e4427b70b37c7820895ace344eb78 } from '@delmaredigital/payload-better-auth/components'
 import { default as default_116afe01689361f25bab019beee1ee0a } from '@/components/admin/PuckProvider'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
+import { ResetPasswordView as ResetPasswordView_aa8e4427b70b37c7820895ace344eb78 } from '@delmaredigital/payload-better-auth/components'
 import { LoginViewWrapper as LoginViewWrapper_76e4fd5e0c2ccc05732c17408c72107e } from '@delmaredigital/payload-better-auth/rsc'
 import { ApiKeysView as ApiKeysView_6234f869b6abd89bf631f5883bc67bd5 } from '@delmaredigital/payload-better-auth/rsc/api-key'
 import { PuckEditorView as PuckEditorView_3b27b37268b8e78cccc06ea6de889aa6 } from '@delmaredigital/payload-puck/rsc'
@@ -80,6 +81,7 @@ export const importMap = {
   "@delmaredigital/payload-better-auth/components#BeforeLogin": BeforeLogin_aa8e4427b70b37c7820895ace344eb78,
   "@/components/admin/PuckProvider#default": default_116afe01689361f25bab019beee1ee0a,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
+  "@delmaredigital/payload-better-auth/components#ResetPasswordView": ResetPasswordView_aa8e4427b70b37c7820895ace344eb78,
   "@delmaredigital/payload-better-auth/rsc#LoginViewWrapper": LoginViewWrapper_76e4fd5e0c2ccc05732c17408c72107e,
   "@delmaredigital/payload-better-auth/rsc/api-key#ApiKeysView": ApiKeysView_6234f869b6abd89bf631f5883bc67bd5,
   "@delmaredigital/payload-puck/rsc#PuckEditorView": PuckEditorView_3b27b37268b8e78cccc06ea6de889aa6,

@@ -5,9 +5,9 @@ AlgoEd's Top 50 Schools League competition pages, built on Payload CMS with Puck
 ## Deployment & URLs
 
 - **Domain**: `pages.algoed.co`
-- **Admin**: `pages.algoed.co/p-kcCapdQH` (obscured path — see `payload.config.ts` for change checklist)
-- **Puck editor**: `pages.algoed.co/p-kcCapdQH/puck-editor/pages/:id`
-- **Page tree** (for folder renames): `pages.algoed.co/p-kcCapdQH/page-tree`
+- **Admin**: `pages.algoed.co/admin`
+- **Puck editor**: `pages.algoed.co/admin/puck-editor/pages/:id`
+- **Page tree** (for folder renames): `pages.algoed.co/admin/page-tree`
 
 ## ⚠️ GIT RULES ⚠️
 
@@ -43,7 +43,7 @@ For **local file uploads**: try shell `curl POST /api/media` first (with user-su
 
 Run `list_webmcp_tools` (via `webmcp-bridge`, unfiltered, `summary: false`) at the start of any page-editing session. If it returns empty:
 
-1. **Ask the user to confirm a Puck editor tab is open** at `pages.algoed.co/p-kcCapdQH/puck-editor/pages/:id` and reload it. Tools register on editor load.
+1. **Ask the user to confirm a Puck editor tab is open** at `pages.algoed.co/admin/puck-editor/pages/:id` and reload it. Tools register on editor load.
 2. **Check the user's environment**: Chrome 144+ with remote debugging enabled at `chrome://inspect/#remote-debugging`.
 3. **If the MCP servers are not installed at all** (one-time setup — give the human these commands to run):
 
@@ -291,7 +291,7 @@ Any R2 ↔ DB audit query MUST union across **all seven** `sizes_*_filename` col
 
 ### Folder Rename & Slug Propagation
 
-**Do NOT rename folders via the standard Payload admin form.** It saves the folder but intentionally skips slug cascade — pages keep stale URLs. Use the **page-tree view** (`/p-kcCapdQH/page-tree`) which sets `context.updateSlugs = true` to propagate slug changes to all linked pages. Alternatively: `POST /api/page-tree/regenerate-slugs?folderId=<id>`.
+**Do NOT rename folders via the standard Payload admin form.** It saves the folder but intentionally skips slug cascade — pages keep stale URLs. Use the **page-tree view** (`/admin/page-tree`) which sets `context.updateSlugs = true` to propagate slug changes to all linked pages. Alternatively: `POST /api/page-tree/regenerate-slugs?folderId=<id>`.
 
 `pathSegment` controls the URL piece, not `name`. The cascade hook (`cascadeSlugUpdates`) only fires when triggered through the tree view or API — never from the standard edit form. This is a safety measure to prevent accidental URL breakage.
 
