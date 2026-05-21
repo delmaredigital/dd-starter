@@ -193,8 +193,10 @@ export function CompetitionHeroRender({
               />
             </div>
             {showSchoolDashboardPanel && (
+              // Compact callout: tighter than the hero's normal grouping rhythm so it
+              // reads as supporting CTA copy, not a separate content block.
               <div
-                className="mt-5 w-full md:w-[52%] border-l-4 px-4 py-4 md:px-5 md:py-5"
+                className="mt-4 md:mt-5 w-full md:w-[52%] border-l-4 px-4 py-4 md:px-5 md:py-5"
                 style={{
                   borderColor: HERO_CTA_BG,
                   backgroundColor: `color-mix(in srgb, ${HERO_TEXT} 10%, transparent)`,
