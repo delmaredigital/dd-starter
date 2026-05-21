@@ -200,23 +200,18 @@ export function CompetitionHeroRender({
                   backgroundColor: `color-mix(in srgb, ${HERO_TEXT} 10%, transparent)`,
                 }}
               >
-                <p className="m-0 flex items-start gap-2 text-base leading-relaxed">
-                  <School className="mt-1 h-5 w-5 shrink-0" style={{ color: HERO_TEXT }} />
-                  <span style={{ color: HERO_TEXT }}>
-                    <strong className="font-bold" style={{ color: HERO_TEXT }}>
-                      Teacher or school coordinator?
-                    </strong>{' '}
-                    Email{' '}
-                    <a
-                      href="mailto:schools@algoed.co"
-                      className="font-bold underline underline-offset-2"
-                      style={{ color: HERO_CTA_BG }}
-                    >
-                      schools@algoed.co
-                    </a>{' '}
-                    to create your School Dashboard. Manage, monitor &amp; analyze student
-                    communications, results and awards.
-                  </span>
+                <p className="m-0 text-base leading-relaxed" style={{ color: HERO_TEXT }}>
+                  <School className="mr-1.5 inline-block h-5 w-5 align-middle" />
+                  <strong className="font-bold">Teacher or school coordinator?</strong> Email{' '}
+                  <a
+                    href="mailto:schools@algoed.co"
+                    className="font-bold underline underline-offset-2"
+                    style={{ color: HERO_CTA_BG }}
+                  >
+                    schools@algoed.co
+                  </a>{' '}
+                  to create your School Dashboard. Manage, monitor &amp; analyze student
+                  communications, results and awards.
                 </p>
               </div>
             )}
