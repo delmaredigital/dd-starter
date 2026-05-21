@@ -13,6 +13,7 @@ import type { HybridPageData } from '@delmaredigital/payload-puck/render'
 import { puckServerConfig } from '@/puck/config.server'
 import { puckRenderLayouts } from '@/lib/puck/render-layouts'
 import { RscHybridPageRenderer } from '@/lib/puck/RscHybridPageRenderer'
+import type { PuckData } from '@/puck/types'
 
 
 export async function generateStaticParams() {
@@ -43,11 +44,15 @@ type Args = {
   params: Promise<{
     slug?: string[]
   }>
+  searchParams: Promise<{
+    schoolDashboard?: string
+  }>
 }
 
-export default async function Page({ params: paramsPromise }: Args) {
+export default async function Page({ params: paramsPromise, searchParams: searchParamsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug: slugSegments } = await paramsPromise
+  const searchParams = await searchParamsPromise
   // Join segments to support nested paths (e.g. /mit-ewb/engineering-competition)
   const slug = slugSegments ? slugSegments.map(decodeURIComponent).join('/') : 'home'
   const url = '/' + slug
@@ -68,7 +73,10 @@ export default async function Page({ params: paramsPromise }: Args) {
       {draft && <LivePreviewListener />}
 
       <RscHybridPageRenderer
-        page={page as unknown as HybridPageData}
+        page={withSchoolDashboardPreview(
+          page as unknown as HybridPageData,
+          searchParams.schoolDashboard === '1',
+        )}
         config={puckServerConfig}
         layouts={puckRenderLayouts}
         legacyRenderer={() => (
@@ -89,6 +97,23 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   })
 
   return generateMeta({ doc: page })
+}
+
+function withSchoolDashboardPreview(page: HybridPageData, enabled: boolean): HybridPageData {
+  const puckData = page.puckData as PuckData | null | undefined
+  if (!enabled || !puckData?.content) return page
+
+  return {
+    ...page,
+    puckData: {
+      ...puckData,
+      content: puckData.content.map((item) =>
+        item.type === 'CompetitionHero'
+          ? { ...item, props: { ...item.props, showSchoolDashboardPanel: true } }
+          : item,
+      ),
+    },
+  }
 }
 
 const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {

@@ -14,7 +14,7 @@ import {
   HERO_CTA_TEXT,
   HERO_CTA2_COLOR,
 } from './shared'
-import { CalendarToday, iconMap } from './icons'
+import { CalendarToday, iconMap, School } from './icons'
 
 export interface BadgeItem {
   label: string
@@ -38,6 +38,7 @@ export interface CompetitionHeroProps {
   overlayBottomOpacity: number
   badgeStripHeading: string
   badgeStripItems: BadgeItem[]
+  showSchoolDashboardPanel?: boolean
 }
 
 export const defaultProps: CompetitionHeroProps = {
@@ -57,6 +58,7 @@ export const defaultProps: CompetitionHeroProps = {
   overlayBottomOpacity: 100,
   badgeStripHeading: '',
   badgeStripItems: [],
+  showSchoolDashboardPanel: false,
 }
 
 export function CompetitionHeroRender({
@@ -76,6 +78,7 @@ export function CompetitionHeroRender({
   overlayBottomOpacity,
   badgeStripHeading,
   badgeStripItems,
+  showSchoolDashboardPanel,
 }: CompetitionHeroProps) {
   const color = BRAND_DARK
   const bgImageUrl = backgroundImage?.url || ''
@@ -189,6 +192,34 @@ export function CompetitionHeroRender({
                 border={`1px solid ${HERO_CTA2_COLOR}`}
               />
             </div>
+            {showSchoolDashboardPanel && (
+              <div
+                className="mt-5 md:mt-6 max-w-2xl border-l-4 px-5 py-5 md:px-6 md:py-6"
+                style={{
+                  borderColor: HERO_CTA_BG,
+                  backgroundColor: `color-mix(in srgb, ${HERO_TEXT} 10%, transparent)`,
+                }}
+              >
+                <p className="m-0 flex items-start gap-2 text-base leading-relaxed">
+                  <School className="mt-1 h-5 w-5 shrink-0" style={{ color: HERO_TEXT }} />
+                  <span style={{ color: HERO_TEXT }}>
+                    <strong className="font-bold" style={{ color: HERO_TEXT }}>
+                      Teacher or school coordinator?
+                    </strong>{' '}
+                    Email{' '}
+                    <a
+                      href="mailto:schools@algoed.co"
+                      className="font-bold underline underline-offset-2"
+                      style={{ color: HERO_CTA_BG }}
+                    >
+                      schools@algoed.co
+                    </a>{' '}
+                    to create your School Dashboard. Manage, monitor &amp; analyze student
+                    communications, results and awards.
+                  </span>
+                </p>
+              </div>
+            )}
             {/* Illustration — responsive width. Desktop (md+): absolute, 45% of
              container (matches OG generator). Mobile: in flow, centered, w-96
              (384px) capped at container width. */}
