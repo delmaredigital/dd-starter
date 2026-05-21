@@ -203,7 +203,7 @@ export function CompetitionHeroRender({
                 <strong className="font-bold">Teacher or school coordinator?</strong> Email{' '}
                 <a
                   href="mailto:schools@algoed.co"
-                  className="font-bold underline underline-offset-2"
+                  className="underline underline-offset-2"
                   style={{ color: HERO_CTA_BG }}
                 >
                   schools@algoed.co
