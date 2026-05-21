@@ -195,7 +195,7 @@ export function CompetitionHeroRender({
               className="mt-4 md:mt-5 w-full md:w-[52%] border-l-4 px-4 py-4 md:px-5 md:py-5"
               style={{
                 borderColor: HERO_CTA_BG,
-                backgroundColor: `color-mix(in srgb, ${HERO_TEXT} 10%, transparent)`,
+                backgroundColor: `color-mix(in srgb, ${HERO_OVERLAY} 85%, black)`,
               }}
             >
               <p className="m-0 text-sm leading-relaxed" style={{ color: HERO_TEXT }}>
