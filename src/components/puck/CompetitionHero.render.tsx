@@ -200,7 +200,7 @@ export function CompetitionHeroRender({
                   backgroundColor: `color-mix(in srgb, ${HERO_TEXT} 10%, transparent)`,
                 }}
               >
-                <p className="m-0 text-base leading-relaxed" style={{ color: HERO_TEXT }}>
+                <p className="m-0 text-sm leading-relaxed" style={{ color: HERO_TEXT }}>
                   <School className="mr-1.5 inline-block h-5 w-5 align-middle" />
                   <strong className="font-bold">Teacher or school coordinator?</strong> Email{' '}
                   <a
