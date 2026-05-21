@@ -194,7 +194,7 @@ export function CompetitionHeroRender({
             </div>
             {showSchoolDashboardPanel && (
               <div
-                className="mt-5 md:mt-6 w-full md:w-[52%] border-l-4 px-5 py-5 md:px-6 md:py-6"
+                className="mt-5 w-full md:w-[52%] border-l-4 px-4 py-4 md:px-5 md:py-5"
                 style={{
                   borderColor: HERO_CTA_BG,
                   backgroundColor: `color-mix(in srgb, ${HERO_TEXT} 10%, transparent)`,
