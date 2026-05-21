@@ -38,7 +38,6 @@ export interface CompetitionHeroProps {
   overlayBottomOpacity: number
   badgeStripHeading: string
   badgeStripItems: BadgeItem[]
-  showSchoolDashboardPanel?: boolean
 }
 
 export const defaultProps: CompetitionHeroProps = {
@@ -58,7 +57,6 @@ export const defaultProps: CompetitionHeroProps = {
   overlayBottomOpacity: 100,
   badgeStripHeading: '',
   badgeStripItems: [],
-  showSchoolDashboardPanel: false,
 }
 
 export function CompetitionHeroRender({
@@ -78,7 +76,6 @@ export function CompetitionHeroRender({
   overlayBottomOpacity,
   badgeStripHeading,
   badgeStripItems,
-  showSchoolDashboardPanel,
 }: CompetitionHeroProps) {
   const color = BRAND_DARK
   const bgImageUrl = backgroundImage?.url || ''
@@ -192,31 +189,29 @@ export function CompetitionHeroRender({
                 border={`1px solid ${HERO_CTA2_COLOR}`}
               />
             </div>
-            {showSchoolDashboardPanel && (
-              // Compact callout: tighter than the hero's normal grouping rhythm so it
-              // reads as supporting CTA copy, not a separate content block.
-              <div
-                className="mt-4 md:mt-5 w-full md:w-[52%] border-l-4 px-4 py-4 md:px-5 md:py-5"
-                style={{
-                  borderColor: HERO_CTA_BG,
-                  backgroundColor: `color-mix(in srgb, ${HERO_TEXT} 10%, transparent)`,
-                }}
-              >
-                <p className="m-0 text-sm leading-relaxed" style={{ color: HERO_TEXT }}>
-                  <School className="mr-1.5 inline-block h-5 w-5 align-middle" />
-                  <strong className="font-bold">Teacher or school coordinator?</strong> Email{' '}
-                  <a
-                    href="mailto:schools@algoed.co"
-                    className="font-bold underline underline-offset-2"
-                    style={{ color: HERO_CTA_BG }}
-                  >
-                    schools@algoed.co
-                  </a>{' '}
-                  to create your School Dashboard. Manage, monitor &amp; analyze student
-                  communications, results and awards.
-                </p>
-              </div>
-            )}
+            {/* Compact callout: tighter than the hero's normal grouping rhythm so it
+                reads as supporting CTA copy, not a separate content block. */}
+            <div
+              className="mt-4 md:mt-5 w-full md:w-[52%] border-l-4 px-4 py-4 md:px-5 md:py-5"
+              style={{
+                borderColor: HERO_CTA_BG,
+                backgroundColor: `color-mix(in srgb, ${HERO_TEXT} 10%, transparent)`,
+              }}
+            >
+              <p className="m-0 text-sm leading-relaxed" style={{ color: HERO_TEXT }}>
+                <School className="mr-1.5 inline-block h-5 w-5 align-middle" />
+                <strong className="font-bold">Teacher or school coordinator?</strong> Email{' '}
+                <a
+                  href="mailto:schools@algoed.co"
+                  className="font-bold underline underline-offset-2"
+                  style={{ color: HERO_CTA_BG }}
+                >
+                  schools@algoed.co
+                </a>{' '}
+                to create your School Dashboard. Manage, monitor &amp; analyze student
+                communications, results and awards.
+              </p>
+            </div>
             {/* Illustration — responsive width. Desktop (md+): absolute, 45% of
              container (matches OG generator). Mobile: in flow, centered, w-96
              (384px) capped at container width. */}
