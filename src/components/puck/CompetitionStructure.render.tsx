@@ -26,7 +26,7 @@ import {
   CTA2_BORDER,
   SURFACE_GREY,
 } from './shared'
-import { Groups, Category } from './icons'
+import { Groups, Category, Diversity2 } from './icons'
 
 const CARD_SHADOW = '0 4px 6px -2px rgba(10,13,18,0.03), 0 12px 16px -4px rgba(10,13,18,0.08)'
 
@@ -44,11 +44,23 @@ export interface InfoCard {
   items: InfoCardItem[]
 }
 
+export interface RoundDetail {
+  label: string
+  text: string
+}
+
+export interface RoundItem {
+  title: string
+  items: RoundDetail[]
+}
+
 export interface CompetitionStructureProps {
   heading: string
   heroImage: MediaReference | null
   heroOverlayOpacity: number
   infoCards: InfoCard[]
+  roundsHeading?: string
+  rounds?: RoundItem[]
   ctaText: string
   ctaLink: string
   secondaryCtaText: string
@@ -78,6 +90,8 @@ export const defaultProps: CompetitionStructureProps = {
       ],
     },
   ],
+  roundsHeading: '',
+  rounds: [],
   ctaText: 'Register Now!',
   ctaLink: '/register',
   secondaryCtaText: '',
@@ -91,6 +105,8 @@ export function CompetitionStructureRender({
   heroImage,
   heroOverlayOpacity,
   infoCards,
+  roundsHeading,
+  rounds,
   ctaText,
   ctaLink,
   secondaryCtaText,
@@ -98,6 +114,7 @@ export function CompetitionStructureRender({
 }: CompetitionStructureProps) {
   const heading = headingRaw || defaultProps.heading
   const cards = infoCards ?? []
+  const roundsList = rounds ?? []
   const color = BRAND_DARK
 
   // Hero aspect ratio — drives both the image height (via CSS
@@ -203,7 +220,52 @@ export function CompetitionStructureRender({
          *     <span className="rounded-full"
          *       style={{ width: '8px', height: '8px', backgroundColor: color }} />
          *   </span>
-         */}
+        */}
+
+        {roundsList.length > 0 && (
+          <div
+            className="mt-5 rounded-xl px-6 pt-6 pb-8 md:pb-10"
+            style={{ backgroundColor: SURFACE_GREY, boxShadow: CARD_SHADOW }}
+          >
+            <Diversity2 className="w-11 h-11 mb-3 text-[#909090]" />
+            {roundsHeading && (
+              <h3 className="font-bold mb-7 mt-0 text-lg leading-tight text-[#222]">
+                {roundsHeading}
+              </h3>
+            )}
+
+            {roundsList.map((round, i) => (
+              <div key={`round-${round.title}-${i}`}>
+                {i > 0 && <hr className="my-6 border-0 border-t border-gray-300" />}
+                <div className="flex items-start gap-3">
+                  <span
+                    className="shrink-0 mt-1 rounded-full flex items-center justify-center"
+                    style={{
+                      width: '15px',
+                      height: '15px',
+                      backgroundColor: 'color-mix(in srgb, currentColor 20%, transparent)',
+                      color,
+                    }}
+                  >
+                    <span
+                      className="rounded-full"
+                      style={{ width: '8px', height: '8px', backgroundColor: color }}
+                    />
+                  </span>
+                  <div className="font-bold mb-2 text-base leading-tight" style={{ color }}>
+                    {round.title}
+                  </div>
+                </div>
+                {(round.items ?? []).map((item, j) => (
+                  <p key={`detail-${item.label}-${j}`} className="mt-1 mb-2 text-base text-[#222]">
+                    {item.label && <span className="font-semibold">{item.label} </span>}
+                    {item.text}
+                  </p>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* CTA buttons */}
         {(ctaText || secondaryCtaText) && (

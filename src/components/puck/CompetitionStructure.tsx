@@ -10,6 +10,8 @@ export type {
   CompetitionStructureProps,
   InfoCard,
   InfoCardItem,
+  RoundDetail,
+  RoundItem,
 } from './CompetitionStructure.render'
 export { CompetitionStructureRender, defaultProps } from './CompetitionStructure.render'
 
@@ -42,6 +44,25 @@ export const CompetitionStructureConfig: ComponentConfig<CompetitionStructurePro
           arrayFields: {
             name: { type: 'text', label: 'Name' },
             grades: { type: 'text', label: 'Subtitle' },
+          },
+        },
+      },
+    },
+    roundsHeading: {
+      type: 'text',
+      label: 'Rounds Heading (empty to hide)',
+    },
+    rounds: {
+      type: 'array',
+      label: 'Rounds',
+      arrayFields: {
+        title: { type: 'text', label: 'Round Title' },
+        items: {
+          type: 'array',
+          label: 'Detail Items',
+          arrayFields: {
+            label: { type: 'text', label: 'Bold Prefix (optional)' },
+            text: { type: 'textarea', label: 'Description' },
           },
         },
       },
