@@ -44,6 +44,7 @@ export const AwardsSectionConfig: ComponentConfig<AwardsSectionProps> = {
       label: 'Preliminary Round',
       objectFields: {
         title: { type: 'text', label: 'Title' },
+        subtitle: { type: 'text', label: 'Subtitle (optional)' },
         badges: badgesArrayField,
       },
     },
@@ -52,6 +53,7 @@ export const AwardsSectionConfig: ComponentConfig<AwardsSectionProps> = {
       label: 'Semi-Final Round',
       objectFields: {
         title: { type: 'text', label: 'Title' },
+        subtitle: { type: 'text', label: 'Subtitle (optional)' },
         badges: badgesArrayField,
       },
     },

@@ -39,6 +39,7 @@ export interface BadgeItem {
 
 export interface Round {
   title: string
+  subtitle?: string
   badges: BadgeItem[]
 }
 
@@ -126,6 +127,19 @@ function BadgeTile({ badge }: { badge: BadgeItem }) {
   )
 }
 
+function hasRoundContent(round?: Round): boolean {
+  return Boolean(round?.title || round?.subtitle || round?.badges?.length)
+}
+
+function RoundHeading({ round }: { round: Round }) {
+  return (
+    <div className="flex flex-col items-center gap-1 md:mb-6 text-center">
+      {round.title && <h3 className="font-bold text-lg leading-tight text-[#222]">{round.title}</h3>}
+      {round.subtitle && <p className="text-xs text-[#666]">{round.subtitle}</p>}
+    </div>
+  )
+}
+
 // Special award card — icon hardcoded by type (individual/team).
 // Decoration (cup watermark) is positioned content-centered within Figma's
 // boolean-op bounds. SVGs are cropped to visible pixels; percentages reflect
@@ -178,6 +192,9 @@ export function AwardsSectionRender({
   noteIcon,
 }: AwardsSectionProps) {
   const heading = headingRaw || defaultProps.heading
+  const showPreliminary = hasRoundContent(preliminary)
+  const showSemiFinal = hasRoundContent(semiFinal)
+  const showSplitDefaultCard = showPreliminary && showSemiFinal
   return (
     <section className="py-5 md:py-10 px-3 md:px-5">
       <div className="max-w-[960px] mx-auto">
@@ -192,7 +209,7 @@ export function AwardsSectionRender({
           </RichText>
         )}
 
-        {/* Default round card — Preliminary + Semi-Final side by side */}
+        {/* Default round card — one or two award groups depending on configured content */}
         <div className="relative overflow-hidden rounded-2xl mb-4 md:mb-8 bg-[#fff5e5]">
           <img
             src="/competition-assets/award-card-bg.svg"
@@ -213,34 +230,45 @@ export function AwardsSectionRender({
             style={{ left: '94.79%', top: '54.35%', width: '5.06%' }}
           />
           <div className="relative z-10 py-8 px-6">
-            {/*
-              md+: explicit grid [1fr | 1px divider | 1fr] × [title | badges] rows.
-              Titles share row 1 (tallest wins), badges share row 2 (same Y across cols).
-              Mobile: grid-cols-1 stacks, divider hidden.
-              Each badges row wraps internally when half-width is insufficient.
-            */}
-            <div className="grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] md:grid-rows-[auto_auto] md:gap-x-8 gap-y-6 md:gap-y-0">
-              {/* DOM order: title+badges pairs so mobile (single-col) flows
-                 title1 → badges1 → title2 → badges2. Desktop uses explicit
-                 col-start/row-start so DOM order doesn't affect layout. */}
-              <h3 className="font-bold text-lg leading-tight text-[#222] md:mb-6 text-center md:col-start-1 md:row-start-1">
-                {preliminary.title}
-              </h3>
-              <div className="flex flex-col items-center gap-4 max-w-xl mx-auto w-full sm:flex-row sm:flex-wrap sm:justify-evenly md:col-start-1 md:row-start-2 md:self-center">
-                {preliminary.badges.map((b, i) => (
-                  <BadgeTile key={i} badge={b} />
-                ))}
+            {showSplitDefaultCard ? (
+              /*
+                md+: explicit grid [1fr | 1px divider | 1fr] × [title | badges] rows.
+                Titles share row 1 (tallest wins), badges share row 2 (same Y across cols).
+                Mobile: grid-cols-1 stacks, divider hidden.
+                Each badges row wraps internally when half-width is insufficient.
+              */
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] md:grid-rows-[auto_auto] md:gap-x-8 gap-y-6 md:gap-y-0">
+                {/* DOM order: title+badges pairs so mobile (single-col) flows
+                   title1 → badges1 → title2 → badges2. Desktop uses explicit
+                   col-start/row-start so DOM order doesn't affect layout. */}
+                <div className="md:col-start-1 md:row-start-1">
+                  <RoundHeading round={preliminary} />
+                </div>
+                <div className="flex flex-col items-center gap-4 max-w-xl mx-auto w-full sm:flex-row sm:flex-wrap sm:justify-evenly md:col-start-1 md:row-start-2 md:self-center">
+                  {preliminary.badges.map((b, i) => (
+                    <BadgeTile key={i} badge={b} />
+                  ))}
+                </div>
+                <div className="md:col-start-3 md:row-start-1">
+                  <RoundHeading round={semiFinal} />
+                </div>
+                <div className="flex flex-col items-center gap-4 max-w-xl mx-auto w-full sm:flex-row sm:flex-wrap sm:justify-evenly md:col-start-3 md:row-start-2 md:self-center">
+                  {semiFinal.badges.map((b, i) => (
+                    <BadgeTile key={i} badge={b} />
+                  ))}
+                </div>
+                <div className="hidden md:block md:col-start-2 md:row-span-2 my-4 bg-gray-300" />
               </div>
-              <h3 className="font-bold text-lg leading-tight text-[#222] md:mb-6 text-center md:col-start-3 md:row-start-1">
-                {semiFinal.title}
-              </h3>
-              <div className="flex flex-col items-center gap-4 max-w-xl mx-auto w-full sm:flex-row sm:flex-wrap sm:justify-evenly md:col-start-3 md:row-start-2 md:self-center">
-                {semiFinal.badges.map((b, i) => (
-                  <BadgeTile key={i} badge={b} />
-                ))}
+            ) : (
+              <div className="flex flex-col items-center gap-6">
+                <RoundHeading round={showPreliminary ? preliminary : semiFinal} />
+                <div className="flex flex-col items-center gap-4 max-w-xl mx-auto w-full sm:flex-row sm:flex-wrap sm:justify-evenly">
+                  {(showPreliminary ? preliminary : semiFinal).badges.map((b, i) => (
+                    <BadgeTile key={i} badge={b} />
+                  ))}
+                </div>
               </div>
-              <div className="hidden md:block md:col-start-2 md:row-span-2 my-4 bg-gray-300" />
-            </div>
+            )}
           </div>
         </div>
 
