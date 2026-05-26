@@ -22,6 +22,18 @@ export const benefitIconMap: Record<string, { src: string; label: string }> = {
     src: '/competition-assets/benefit-hs-collaborate.svg',
     label: 'Compete and Collaborate',
   },
+  'hpr-prestige': {
+    src: '/competition-assets/benefit-hpr-prestige.svg',
+    label: 'HPR prestige',
+  },
+  'hpr-research': {
+    src: '/competition-assets/benefit-hpr-research.svg',
+    label: 'HPR research',
+  },
+  'hpr-global': {
+    src: '/competition-assets/benefit-hpr-global.svg',
+    label: 'HPR global conversations',
+  },
   'jr-confidence': {
     src: '/competition-assets/benefit-jr-confidence.svg',
     label: 'Build STEM confidence',
