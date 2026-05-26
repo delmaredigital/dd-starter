@@ -175,7 +175,7 @@ if the right frame isn't obvious.
 
 **Figma text has copy-paste errors.** Pages are cloned from a template — org/competition names often reference the wrong competition. Flag mismatches, don't silently copy them.
 
-**Figma text extraction (canonical method — use this, don't reinvent):** REST `GET /v1/files/:key/nodes?ids=<frameId>` with `X-Figma-Token`. Walk the returned document tree recursively; for every node with `type == "TEXT"`, read the `characters` field (the actually-rendered text, including typos/whitespace/curly quotes/`{{placeholders}}`). Record each with its `absoluteBoundingBox.y`/`x` to infer which component slot it belongs to. Do NOT use the layer `name` field — layer names get renamed to generic things like "heading" and drop the actual content. `characters` is always the real rendered text.
+**Figma text extraction (canonical method — use this, don't reinvent):** REST `GET /v1/files/:key/nodes?ids=<frameId>` with `X-Figma-Token`. If the Figma token is missing or unknown, ask the user for the token before proceeding. Walk the returned document tree recursively; for every node with `type == "TEXT"`, read the `characters` field (the actually-rendered text, including typos/whitespace/curly quotes/`{{placeholders}}`). Record each with its `absoluteBoundingBox.y`/`x` to infer which component slot it belongs to. Do NOT use the layer `name` field — layer names get renamed to generic things like "heading" and drop the actual content. `characters` is always the real rendered text.
 
 **⚠️ Figma image extraction — human-points-node is MANDATORY**
 

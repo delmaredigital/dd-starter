@@ -14,6 +14,7 @@ export interface EligibilityItem {
 export interface EligibilitySectionProps {
   introText: string
   items: EligibilityItem[]
+  backgroundStyle?: 'grey' | 'white'
 }
 
 export const defaultProps: EligibilitySectionProps = {
@@ -23,13 +24,19 @@ export const defaultProps: EligibilitySectionProps = {
     { value: 'You want to challenge yourself and compete globally' },
     { value: 'You want to build a solid STEM profile' },
   ],
+  backgroundStyle: 'grey',
 }
 
-export function EligibilitySectionRender({ introText, items }: EligibilitySectionProps) {
+export function EligibilitySectionRender({
+  introText,
+  items,
+  backgroundStyle = defaultProps.backgroundStyle,
+}: EligibilitySectionProps) {
   const color = BRAND_DARK
+  const backgroundColor = backgroundStyle === 'white' ? '#fff' : SURFACE_GREY
 
   return (
-    <section className="py-5 md:py-10" style={{ backgroundColor: SURFACE_GREY }}>
+    <section className="py-5 md:py-10" style={{ backgroundColor }}>
       <div className="px-3 md:px-5">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-5 md:gap-6">

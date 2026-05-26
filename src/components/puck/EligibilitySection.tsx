@@ -20,6 +20,14 @@ export const EligibilitySectionConfig: ComponentConfig<EligibilitySectionProps> 
       },
       defaultItemProps: { value: 'New item' },
     },
+    backgroundStyle: {
+      type: 'radio',
+      label: 'Background',
+      options: [
+        { label: 'Grey (default)', value: 'grey' },
+        { label: 'White', value: 'white' },
+      ],
+    },
   },
   defaultProps,
   render: EligibilitySectionRender,
