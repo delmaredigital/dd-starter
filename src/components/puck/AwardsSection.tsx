@@ -64,6 +64,14 @@ export const AwardsSectionConfig: ComponentConfig<AwardsSectionProps> = {
         badges: badgesArrayField,
       },
     },
+    showSpecialAwards: {
+      type: 'radio',
+      label: 'Show middle award cards',
+      options: [
+        { label: 'Yes (default)', value: 'yes' },
+        { label: 'No', value: 'no' },
+      ],
+    },
     individualAward: {
       type: 'object',
       label: 'Individual Award',

@@ -57,6 +57,7 @@ export interface AwardsSectionProps {
   preliminary: Round
   semiFinal: Round
   final: FinalRound
+  showSpecialAwards?: 'yes' | 'no'
   individualAward: SpecialAward
   teamAward: SpecialAward
   noteText: string
@@ -88,6 +89,7 @@ export const defaultProps: AwardsSectionProps = {
       { badgeIcon: 'finalist', label: 'Finalist', sublabel: '' },
     ],
   },
+  showSpecialAwards: 'yes',
   individualAward: {
     title: 'Individual Category',
     description:
@@ -169,6 +171,7 @@ export function AwardsSectionRender({
   preliminary = defaultProps.preliminary,
   semiFinal = defaultProps.semiFinal,
   final = defaultProps.final,
+  showSpecialAwards = defaultProps.showSpecialAwards,
   individualAward = defaultProps.individualAward,
   teamAward = defaultProps.teamAward,
   noteText,
@@ -241,11 +244,12 @@ export function AwardsSectionRender({
           </div>
         </div>
 
-        {/* Special Awards — fixed 2 cards (Individual + Team) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 md:mb-8">
-          <SpecialAwardCard iconKey="individual" award={individualAward} />
-          <SpecialAwardCard iconKey="team" award={teamAward} />
-        </div>
+        {showSpecialAwards !== 'no' && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 md:mb-8">
+            <SpecialAwardCard iconKey="individual" award={individualAward} />
+            <SpecialAwardCard iconKey="team" award={teamAward} />
+          </div>
+        )}
 
         {/* Final round card */}
         <div className="relative overflow-hidden rounded-2xl mb-5 md:mb-10 bg-[#fff5e5]">
