@@ -21,6 +21,35 @@ export interface NavLinkItem {
 const NAV_CTA_BG = '#3247C6'
 const NAV_CTA_TINT = '#EBEDFC'
 
+export function NavCTAButton({
+  href,
+  text,
+  variant = 'primary',
+  className = '',
+}: {
+  href: string
+  text: string
+  variant?: 'primary' | 'secondary'
+  className?: string
+}) {
+  const isPrimary = variant === 'primary'
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`no-underline text-center rounded-md py-3 px-5 text-sm font-semibold leading-normal hover:opacity-90 active:opacity-80 transition-opacity ${className}`}
+      style={{
+        backgroundColor: isPrimary ? NAV_CTA_BG : NAV_CTA_TINT,
+        color: isPrimary ? '#fff' : NAV_CTA_BG,
+      }}
+    >
+      {text}
+    </a>
+  )
+}
+
 export interface CompetitionNavProps {
   partnerLogo: MediaReference | null
   partnerLink: string
@@ -93,25 +122,9 @@ export function CompetitionNavRender({
           </nav>
           {(navLinks ?? []).length > 0 && <div className="w-px h-6 bg-gray-300" />}
           <div className="flex items-center gap-4">
-            <a
-              href={ctaLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="no-underline text-white font-semibold text-center rounded-md py-3 px-5 text-sm leading-normal hover:opacity-90 active:opacity-80 transition-opacity"
-              style={{ backgroundColor: NAV_CTA_BG }}
-            >
-              {ctaText}
-            </a>
+            <NavCTAButton href={ctaLink} text={ctaText} />
             {secondaryCtaText && (
-              <a
-                href={secondaryCtaLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="no-underline font-semibold text-center rounded-md py-3 px-5 text-sm leading-normal hover:opacity-90 active:opacity-80 transition-opacity"
-                style={{ backgroundColor: NAV_CTA_TINT, color: NAV_CTA_BG }}
-              >
-                {secondaryCtaText}
-              </a>
+              <NavCTAButton href={secondaryCtaLink} text={secondaryCtaText} variant="secondary" />
             )}
           </div>
         </div>

@@ -8,8 +8,7 @@
  * Shown below lg breakpoint (≈991px source breakpoint).
  */
 import { Collapsible } from '@base-ui/react/collapsible'
-import type { NavLinkItem } from './CompetitionNav.render'
-import { BRAND_DARK } from './shared'
+import { NavCTAButton, type NavLinkItem } from './CompetitionNav.render'
 
 interface MobileNavProps {
   navLinks: NavLinkItem[]
@@ -52,15 +51,7 @@ export function MobileNav({ navLinks, ctaText, ctaLink }: MobileNavProps) {
             </a>
           ))}
           {ctaText && (
-            <a
-              href={ctaLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block no-underline text-white text-center text-base font-bold mt-2 mx-6 rounded-lg py-3 px-6"
-              style={{ backgroundColor: BRAND_DARK, lineHeight: '24px' }}
-            >
-              {ctaText}
-            </a>
+            <NavCTAButton href={ctaLink} text={ctaText} className="block mt-2 mx-6" />
           )}
         </nav>
       </Collapsible.Panel>
