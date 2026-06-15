@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import { Poppins, Baskervville } from 'next/font/google'
 import React from 'react'
 
@@ -44,6 +45,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Providers>
           {children}
         </Providers>
+        <GoogleAnalytics gaId="G-L8FBH1DRJR" />
       </body>
     </html>
   )
