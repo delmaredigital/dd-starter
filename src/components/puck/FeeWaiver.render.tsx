@@ -21,13 +21,23 @@ export function FeeWaiverRender({}: FeeWaiverProps) {
           <div>
             <h3 className="font-bold text-sm m-0">Fee Waiver Policy</h3>
             <p className="text-sm mt-2.5 mb-0 text-[#222]">
-              Fee waiver is available for individual low-income students. Please ask your school
-              counselor or principal to send an email titled &apos;Fee Waiver Request&apos; to
-              waivers@algoed.co from their official school email with your email address and
-              confirm you need a waiver.
+              Fee waiver is available for individual low-income students. Please ask your principal
+              (or school counsellor - only eligible for US schools) to send an email titled
+              &apos;Fee Waiver Request&apos; to waivers@algoed.co from their official school email
+              with your email address and confirm you need a waiver.
             </p>
             <p className="text-sm font-semibold mt-2.5 mb-0 text-[#222]">
-              All fee waivers must be requested before the regular deadline.
+              All fee waivers must be requested before the regular deadline. For the exact
+              eligibility rules on fee waivers please refer to{' '}
+              <a
+                className="underline"
+                href="https://docs.algoed.co/article/45-requesting-fee-waivers"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                this article
+              </a>
+              .
             </p>
           </div>
         </div>
