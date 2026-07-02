@@ -43,9 +43,6 @@ export interface InfoCard {
   heading: string
   body: string
   items: InfoCardItem[]
-  calloutHeading?: string
-  calloutBody?: string
-  calloutEmail?: string
 }
 
 export interface RoundDetail {
@@ -62,6 +59,7 @@ export interface CompetitionStructureProps {
   heading: string
   heroImage: MediaReference | null
   heroOverlayOpacity: number
+  calloutOverlayOpacity?: number
   infoCards: InfoCard[]
   roundsHeading?: string
   rounds?: RoundItem[]
@@ -77,15 +75,12 @@ export const defaultProps: CompetitionStructureProps = {
   heading: 'How does the challenge work?',
   heroImage: null,
   heroOverlayOpacity: 0.7,
+  calloutOverlayOpacity: 0.45,
   infoCards: [
     {
       icon: null,
       heading: 'Team size',
       body: 'Team size: 2-5 students per team (all team members must be from the same school)',
-      calloutHeading: "Can't find teammates at your school?",
-      calloutBody:
-        'Email support@algoed.co to apply for an exception to create multi-school teams.',
-      calloutEmail: 'support@algoed.co',
       items: [],
     },
     {
@@ -108,33 +103,13 @@ export const defaultProps: CompetitionStructureProps = {
 
 /* ── Render ──────────────────────────────────────────────── */
 
-function renderCalloutBody(body: string | undefined, email: string | undefined) {
-  if (!body && !email) return null
-  if (!body || !email || !body.includes(email)) {
-    return (
-      <>
-        {body}
-        {body && email ? ' ' : ''}
-        {email && <CalloutEmail email={email} />}
-      </>
-    )
-  }
-
-  const [before, after] = body.split(email)
-  return (
-    <>
-      {before}
-      <CalloutEmail email={email} />
-      {after}
-    </>
-  )
-}
+const TEAM_SIZE_CALLOUT_EMAIL = 'support@algoed.co'
 
 function CalloutEmail({ email }: { email: string }) {
   return (
     <a
       href={`mailto:${email}`}
-      className="font-semibold underline underline-offset-2"
+      className="underline underline-offset-2"
       style={{ color: HERO_CTA_BG }}
     >
       {email}
@@ -146,6 +121,7 @@ export function CompetitionStructureRender({
   heading: headingRaw,
   heroImage,
   heroOverlayOpacity,
+  calloutOverlayOpacity,
   infoCards,
   roundsHeading,
   rounds,
@@ -158,6 +134,7 @@ export function CompetitionStructureRender({
   const cards = infoCards ?? []
   const roundsList = rounds ?? []
   const color = BRAND_DARK
+  const calloutOpacity = calloutOverlayOpacity ?? defaultProps.calloutOverlayOpacity ?? 0.45
 
   // Hero aspect ratio — drives both the image height (via CSS
   // aspect-ratio) and the cards' 40% overlap (via negative margin).
@@ -232,21 +209,18 @@ export function CompetitionStructureRender({
                 {/* Plain text body */}
                 {card.body && <p className="m-0 text-base text-[#222]">{card.body}</p>}
 
-                {(card.calloutHeading || card.calloutBody || card.calloutEmail) && (
+                {i === 0 && (
                   <div
                     className="mt-2 md:mt-4 rounded-lg px-3 py-3 text-base font-medium leading-relaxed text-white"
                     style={{
-                      backgroundColor: `color-mix(in srgb, ${HERO_OVERLAY} 45%, transparent)`,
+                      backgroundColor: `color-mix(in srgb, ${HERO_OVERLAY} ${Math.round(calloutOpacity * 100)}%, transparent)`,
                     }}
                   >
-                    {card.calloutHeading && (
-                      <p className="m-0 font-bold">{card.calloutHeading}</p>
-                    )}
-                    {(card.calloutBody || card.calloutEmail) && (
-                      <p className="m-0">
-                        {renderCalloutBody(card.calloutBody, card.calloutEmail)}
-                      </p>
-                    )}
+                    <p className="m-0 font-bold">Can't find teammates at your school?</p>
+                    <p className="m-0">
+                      Email <CalloutEmail email={TEAM_SIZE_CALLOUT_EMAIL} /> to apply for an
+                      exception to create multi-school teams.
+                    </p>
                   </div>
                 )}
 
