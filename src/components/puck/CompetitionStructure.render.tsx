@@ -212,7 +212,7 @@ export function CompetitionStructureRender({
 
                 {i === 0 && (
                   <div
-                    className="mt-2 md:mt-4 rounded-lg px-3 py-3 text-base font-medium leading-relaxed"
+                    className="mt-2 md:mt-4 rounded-lg px-3 py-3 text-base leading-relaxed"
                     style={{
                       color: HERO_TEXT,
                       backgroundColor: `color-mix(in srgb, ${HERO_OVERLAY} ${Math.round(calloutOpacity * 100)}%, transparent)`,
