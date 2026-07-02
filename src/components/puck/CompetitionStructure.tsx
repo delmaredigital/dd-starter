@@ -31,6 +31,13 @@ export const CompetitionStructureConfig: ComponentConfig<CompetitionStructurePro
       max: 1,
       step: 0.05,
     },
+    calloutOverlayOpacity: {
+      type: 'number',
+      label: 'Team Size Callout Overlay Opacity (0–1)',
+      min: 0,
+      max: 1,
+      step: 0.05,
+    },
     infoCards: {
       type: 'array',
       label: 'Info Cards',

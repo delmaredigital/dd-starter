@@ -9,6 +9,10 @@ AlgoEd's Top 50 Schools League competition pages, built on Payload CMS with Puck
 - **Puck editor**: `pages.algoed.co/admin/puck-editor/pages/:id`
 - **Page tree** (for folder renames): `pages.algoed.co/admin/page-tree`
 
+## Visual Spacing Guide
+
+Before any visual/layout component work, read the spacing and typography guide in `src/components/puck/shared.tsx`.
+
 ## ⚠️ GIT RULES ⚠️
 
 **DEFAULT: NO commits, NO pushes. Ever.**

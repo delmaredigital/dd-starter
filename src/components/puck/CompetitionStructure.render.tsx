@@ -19,11 +19,13 @@ import {
   CompetitionCTA,
   BRAND_DARK,
   HERO_OVERLAY,
+  HERO_TEXT,
   CTA_BG,
   CTA_TEXT,
   CTA2_BG,
   CTA2_TEXT,
   CTA2_BORDER,
+  HERO_CTA_BG,
   SURFACE_GREY,
 } from './shared'
 import { Groups, Category, Diversity2 } from './icons'
@@ -58,6 +60,7 @@ export interface CompetitionStructureProps {
   heading: string
   heroImage: MediaReference | null
   heroOverlayOpacity: number
+  calloutOverlayOpacity?: number
   infoCards: InfoCard[]
   roundsHeading?: string
   rounds?: RoundItem[]
@@ -73,6 +76,7 @@ export const defaultProps: CompetitionStructureProps = {
   heading: 'How does the challenge work?',
   heroImage: null,
   heroOverlayOpacity: 0.7,
+  calloutOverlayOpacity: 0.45,
   infoCards: [
     {
       icon: null,
@@ -100,10 +104,25 @@ export const defaultProps: CompetitionStructureProps = {
 
 /* ── Render ──────────────────────────────────────────────── */
 
+const TEAM_SIZE_CALLOUT_EMAIL = 'support@algoed.co'
+
+function CalloutEmail({ email }: { email: string }) {
+  return (
+    <a
+      href={`mailto:${email}`}
+      className="underline underline-offset-2"
+      style={{ color: HERO_CTA_BG }}
+    >
+      {email}
+    </a>
+  )
+}
+
 export function CompetitionStructureRender({
   heading: headingRaw,
   heroImage,
   heroOverlayOpacity,
+  calloutOverlayOpacity,
   infoCards,
   roundsHeading,
   rounds,
@@ -116,6 +135,7 @@ export function CompetitionStructureRender({
   const cards = infoCards ?? []
   const roundsList = rounds ?? []
   const color = BRAND_DARK
+  const calloutOpacity = calloutOverlayOpacity ?? defaultProps.calloutOverlayOpacity ?? 0.45
 
   // Hero aspect ratio — drives both the image height (via CSS
   // aspect-ratio) and the cards' 40% overlap (via negative margin).
@@ -189,6 +209,22 @@ export function CompetitionStructureRender({
 
                 {/* Plain text body */}
                 {card.body && <p className="m-0 text-base text-[#222]">{card.body}</p>}
+
+                {i === 0 && (
+                  <div
+                    className="mt-2 md:mt-4 rounded-lg px-3 py-3 text-base font-medium leading-relaxed"
+                    style={{
+                      color: HERO_TEXT,
+                      backgroundColor: `color-mix(in srgb, ${HERO_OVERLAY} ${Math.round(calloutOpacity * 100)}%, transparent)`,
+                    }}
+                  >
+                    <p className="m-0 font-bold">Can't find teammates at your school?</p>
+                    <p className="m-0">
+                      Email <CalloutEmail email={TEAM_SIZE_CALLOUT_EMAIL} /> to apply for an
+                      exception to create multi-school teams.
+                    </p>
+                  </div>
+                )}
 
                 {/* Structured items (categories) */}
                 {(card.items ?? []).map((item, j) => (
