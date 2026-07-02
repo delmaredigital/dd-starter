@@ -24,6 +24,7 @@ import {
   CTA2_BG,
   CTA2_TEXT,
   CTA2_BORDER,
+  HERO_CTA_BG,
   SURFACE_GREY,
 } from './shared'
 import { Groups, Category, Diversity2 } from './icons'
@@ -42,6 +43,9 @@ export interface InfoCard {
   heading: string
   body: string
   items: InfoCardItem[]
+  calloutHeading?: string
+  calloutBody?: string
+  calloutEmail?: string
 }
 
 export interface RoundDetail {
@@ -78,6 +82,10 @@ export const defaultProps: CompetitionStructureProps = {
       icon: null,
       heading: 'Team size',
       body: 'Team size: 2-5 students per team (all team members must be from the same school)',
+      calloutHeading: "Can't find teammates at your school?",
+      calloutBody:
+        'Email support@algoed.co to apply for an exception to create multi-school teams.',
+      calloutEmail: 'support@algoed.co',
       items: [],
     },
     {
@@ -99,6 +107,40 @@ export const defaultProps: CompetitionStructureProps = {
 }
 
 /* ── Render ──────────────────────────────────────────────── */
+
+function renderCalloutBody(body: string | undefined, email: string | undefined) {
+  if (!body && !email) return null
+  if (!body || !email || !body.includes(email)) {
+    return (
+      <>
+        {body}
+        {body && email ? ' ' : ''}
+        {email && <CalloutEmail email={email} />}
+      </>
+    )
+  }
+
+  const [before, after] = body.split(email)
+  return (
+    <>
+      {before}
+      <CalloutEmail email={email} />
+      {after}
+    </>
+  )
+}
+
+function CalloutEmail({ email }: { email: string }) {
+  return (
+    <a
+      href={`mailto:${email}`}
+      className="font-semibold underline underline-offset-2"
+      style={{ color: HERO_CTA_BG }}
+    >
+      {email}
+    </a>
+  )
+}
 
 export function CompetitionStructureRender({
   heading: headingRaw,
@@ -189,6 +231,24 @@ export function CompetitionStructureRender({
 
                 {/* Plain text body */}
                 {card.body && <p className="m-0 text-base text-[#222]">{card.body}</p>}
+
+                {(card.calloutHeading || card.calloutBody || card.calloutEmail) && (
+                  <div
+                    className="mt-2 md:mt-4 rounded-lg px-3 py-3 text-base font-medium leading-relaxed text-white"
+                    style={{
+                      backgroundColor: `color-mix(in srgb, ${HERO_OVERLAY} 45%, transparent)`,
+                    }}
+                  >
+                    {card.calloutHeading && (
+                      <p className="m-0 font-bold">{card.calloutHeading}</p>
+                    )}
+                    {(card.calloutBody || card.calloutEmail) && (
+                      <p className="m-0">
+                        {renderCalloutBody(card.calloutBody, card.calloutEmail)}
+                      </p>
+                    )}
+                  </div>
+                )}
 
                 {/* Structured items (categories) */}
                 {(card.items ?? []).map((item, j) => (

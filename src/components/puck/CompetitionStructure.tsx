@@ -38,6 +38,9 @@ export const CompetitionStructureConfig: ComponentConfig<CompetitionStructurePro
         icon: createMediaField({ label: 'Icon' }),
         heading: { type: 'text', label: 'Card Heading' },
         body: { type: 'textarea', label: 'Plain Text (leave empty if using items)' },
+        calloutHeading: { type: 'text', label: 'Callout Heading (optional)' },
+        calloutBody: { type: 'textarea', label: 'Callout Body (optional)' },
+        calloutEmail: { type: 'text', label: 'Callout Email (optional)' },
         items: {
           type: 'array',
           label: 'Structured Items (optional)',
