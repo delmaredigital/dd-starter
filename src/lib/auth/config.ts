@@ -8,7 +8,9 @@ export const betterAuthOptions: Partial<BetterAuthOptions> = {
   // 'user' becomes 'users', 'session' becomes 'sessions', etc.
   user: {
     additionalFields: {
-      role: { type: 'string', defaultValue: 'user' },
+      // input: false keeps `role` server-only (payload-better-auth 0.8+): clients
+      // cannot set it at sign-up. Role is assigned server-side by firstUserAdmin.
+      role: { type: 'string', defaultValue: 'user', input: false },
     },
   },
   session: {

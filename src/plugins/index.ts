@@ -62,6 +62,11 @@ export const plugins: Plugin[] = [
       }),
     admin: {
       betterAuthOptions, // Required for management UI auto-detection
+      // payload-better-auth 0.9+: the default login view no longer imports the
+      // optional passkey peer. Point at the passkey-enabled wrapper to keep
+      // passkey sign-in on the admin login.
+      loginViewComponent:
+        '@delmaredigital/payload-better-auth/components/login-passkey#LoginViewWrapperWithPasskey',
       login: {
         enablePasskey: true, // Enable passkey sign-in option
         afterLoginPath: '/admin/page-tree', // Redirect to page tree after login
