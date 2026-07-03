@@ -220,9 +220,7 @@ export function CompetitionFormatV2Render({
                         <div className="font-semibold text-base mb-2" style={{ color: '#222' }}>
                           {card.heading}
                         </div>
-                        <p className="m-0 text-base" style={{ color: '#222' }}>
-                          {card.body}
-                        </p>
+                        <RichText className="m-0 text-base text-[#222]">{card.body}</RichText>
                       </div>
                     ))}
                   </div>

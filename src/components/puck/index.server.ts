@@ -167,6 +167,10 @@ export const competitionComponentsServer = {
             arrayFields: { body: { type: 'richtext' as const } },
           },
           formatDetails: { type: 'richtext' as const },
+          formatCards: {
+            type: 'array' as const,
+            arrayFields: { body: { type: 'richtext' as const } },
+          },
           body: { type: 'richtext' as const },
         },
       },

@@ -44,7 +44,7 @@ export const CompetitionFormatV2Config: ComponentConfig<CompetitionFormatV2Props
           label: 'Format Cards (also triggers "Format :" header)',
           arrayFields: {
             heading: { type: 'text', label: 'Card Heading' },
-            body: { type: 'textarea', label: 'Card Body' },
+            body: createRichTextField({ label: 'Card Body' }),
           },
         },
         body: createRichTextField({ label: 'Body (paragraphs, bullets, etc.)' }),
