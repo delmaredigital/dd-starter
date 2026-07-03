@@ -538,6 +538,8 @@ export interface TwoFactor {
   backupCodes: string;
   user: number | User;
   verified?: boolean | null;
+  failedVerificationCount?: number | null;
+  lockedUntil?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1093,6 +1095,8 @@ export interface TwoFactorsSelect<T extends boolean = true> {
   backupCodes?: T;
   user?: T;
   verified?: T;
+  failedVerificationCount?: T;
+  lockedUntil?: T;
   updatedAt?: T;
   createdAt?: T;
 }
