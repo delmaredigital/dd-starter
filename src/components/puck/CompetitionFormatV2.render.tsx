@@ -210,7 +210,7 @@ export function CompetitionFormatV2Render({
                   <RichText className="m-0 text-base text-[#222]">{round.formatDetails}</RichText>
                 )}
                 {(round.formatCards ?? []).length > 0 && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 mt-2 md:mt-4 items-start">
+                  <div className="grid grid-cols-1 gap-2 md:gap-4 mt-2 md:mt-4 items-start">
                     {(round.formatCards ?? []).map((card, j) => (
                       <div
                         key={`cat-${card.heading}-${j}`}
