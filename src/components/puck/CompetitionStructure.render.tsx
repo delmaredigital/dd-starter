@@ -18,8 +18,8 @@ import type { MediaReference } from '@delmaredigital/payload-puck/fields'
 import {
   CompetitionCTA,
   BRAND_DARK,
+  BRAND_BRIGHT,
   HERO_OVERLAY,
-  HERO_TEXT,
   CTA_BG,
   CTA_TEXT,
   CTA2_BG,
@@ -61,6 +61,7 @@ export interface CompetitionStructureProps {
   heroImage: MediaReference | null
   heroOverlayOpacity: number
   calloutOverlayOpacity?: number
+  calloutTextColor?: 'primary-dark' | 'primary-light' | 'white'
   infoCards: InfoCard[]
   roundsHeading?: string
   rounds?: RoundItem[]
@@ -77,6 +78,7 @@ export const defaultProps: CompetitionStructureProps = {
   heroImage: null,
   heroOverlayOpacity: 0.7,
   calloutOverlayOpacity: 0.45,
+  calloutTextColor: 'white',
   infoCards: [
     {
       icon: null,
@@ -106,6 +108,12 @@ export const defaultProps: CompetitionStructureProps = {
 
 const TEAM_SIZE_CALLOUT_EMAIL = 'support@algoed.co'
 
+function resolveCalloutTextColor(color: CompetitionStructureProps['calloutTextColor']) {
+  if (color === 'primary-dark') return BRAND_DARK
+  if (color === 'primary-light') return BRAND_BRIGHT
+  return '#ffffff'
+}
+
 function CalloutEmail({ email }: { email: string }) {
   return (
     <a
@@ -123,6 +131,7 @@ export function CompetitionStructureRender({
   heroImage,
   heroOverlayOpacity,
   calloutOverlayOpacity,
+  calloutTextColor,
   infoCards,
   roundsHeading,
   rounds,
@@ -136,6 +145,9 @@ export function CompetitionStructureRender({
   const roundsList = rounds ?? []
   const color = BRAND_DARK
   const calloutOpacity = calloutOverlayOpacity ?? defaultProps.calloutOverlayOpacity ?? 0.45
+  const resolvedCalloutTextColor = resolveCalloutTextColor(
+    calloutTextColor ?? defaultProps.calloutTextColor,
+  )
 
   // Hero aspect ratio — drives both the image height (via CSS
   // aspect-ratio) and the cards' 40% overlap (via negative margin).
@@ -214,7 +226,7 @@ export function CompetitionStructureRender({
                   <div
                     className="mt-2 md:mt-4 rounded-lg px-3 py-3 text-base leading-relaxed"
                     style={{
-                      color: HERO_TEXT,
+                      color: resolvedCalloutTextColor,
                       backgroundColor: `color-mix(in srgb, ${HERO_OVERLAY} ${Math.round(calloutOpacity * 100)}%, transparent)`,
                     }}
                   >

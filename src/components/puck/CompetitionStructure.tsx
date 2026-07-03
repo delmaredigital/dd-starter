@@ -33,10 +33,19 @@ export const CompetitionStructureConfig: ComponentConfig<CompetitionStructurePro
     },
     calloutOverlayOpacity: {
       type: 'number',
-      label: 'Team Size Callout Overlay Opacity (0–1)',
+      label: 'Team Size Callout Background Opacity (0–1)',
       min: 0,
       max: 1,
       step: 0.05,
+    },
+    calloutTextColor: {
+      type: 'radio',
+      label: 'Team Size Callout Text Color',
+      options: [
+        { label: 'White', value: 'white' },
+        { label: 'Primary Dark', value: 'primary-dark' },
+        { label: 'Primary Light', value: 'primary-light' },
+      ],
     },
     infoCards: {
       type: 'array',
