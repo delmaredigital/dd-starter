@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleTagManager } from '@next/third-parties/google'
 import { Poppins, Baskervville } from 'next/font/google'
 import React from 'react'
 
@@ -45,7 +45,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Providers>
           {children}
         </Providers>
-        <GoogleAnalytics gaId="G-L8FBH1DRJR" />
+        {/* GTM container GTM-P8KGZZL includes the GA4 tag for G-L8FBH1DRJR
+            (send_page_view on), so loading GTM replaces the previous direct
+            GoogleAnalytics component — loading both would double-configure
+            the same GA4 stream (ALG-152 audit). Click/conversion tags also
+            come from this container. */}
+        <GoogleTagManager gtmId="GTM-P8KGZZL" />
       </body>
     </html>
   )
