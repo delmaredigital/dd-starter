@@ -5,6 +5,7 @@ import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
+import { getContentReadOptions } from '@/utilities/getContentReadOptions'
 import React, { cache } from 'react'
 import RichText from '@/components/RichText'
 
@@ -87,15 +88,13 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 }
 
 const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
-  const { isEnabled: draft } = await draftMode()
-
   const payload = await getPayload({ config: configPromise })
+  const readOptions = await getContentReadOptions(payload)
 
   const result = await payload.find({
     collection: 'posts',
-    draft,
+    ...readOptions,
     limit: 1,
-    overrideAccess: draft,
     pagination: false,
     where: {
       slug: {

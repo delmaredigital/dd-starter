@@ -1,3 +1,4 @@
+import { admin } from '@/access/admin'
 import type { GlobalConfig } from 'payload'
 
 import { link } from '@/fields/link'
@@ -7,6 +8,7 @@ export const Footer: GlobalConfig = {
   slug: 'footer',
   access: {
     read: () => true,
+    update: admin,
   },
   fields: [
     {

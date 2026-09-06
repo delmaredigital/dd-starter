@@ -1,3 +1,6 @@
+import { admin } from '@/access/admin'
+import { adminOrPublished } from '@/access/adminOrPublished'
+import { cmsPluginAccess } from './cmsPluginAccess'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { searchPlugin } from '@payloadcms/plugin-search'
@@ -79,6 +82,15 @@ export const plugins: Plugin[] = [
   // Puck - visual page editor (must run BEFORE page-tree so Pages collection exists)
   createPuckPlugin({
     pagesCollection: 'pages',
+    collectionOverrides: {
+      access: {
+        read: adminOrPublished,
+        readVersions: admin,
+        create: admin,
+        update: admin,
+        delete: admin,
+      },
+    },
     layouts: puckLayoutOptions,
     // Built by 'build:puck-css' (Tailwind CLI) into public/ — same URL in dev
     // and production.
@@ -90,11 +102,24 @@ export const plugins: Plugin[] = [
     folderSlug: 'payload-folders',
     segmentFieldName: 'pathSegment',
     pageSegmentFieldName: 'pageSegment',
+    customizeFolderCollection: (collection) => ({
+      ...collection,
+      access: {
+        ...(typeof collection.access === 'object' && collection.access !== null
+          ? collection.access
+          : {}),
+        create: admin,
+        update: admin,
+        delete: admin,
+      },
+    }),
   }),
+  cmsPluginAccess,
   // Redirects
   redirectsPlugin({
     collections: ['pages', 'posts'],
     overrides: {
+      access: { create: admin, update: admin, delete: admin },
       // @ts-expect-error - This is a valid override, mapped fields don't resolve to the same type
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
@@ -124,6 +149,7 @@ export const plugins: Plugin[] = [
     collections: ['posts'],
     beforeSync: beforeSyncWithSearch,
     searchOverrides: {
+      access: { create: admin, update: admin, delete: admin },
       fields: ({ defaultFields }) => {
         return [...defaultFields, ...searchFields]
       },
