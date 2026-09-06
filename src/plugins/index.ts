@@ -149,7 +149,7 @@ export const plugins: Plugin[] = [
     collections: ['posts'],
     beforeSync: beforeSyncWithSearch,
     searchOverrides: {
-      access: { create: admin, update: admin, delete: admin },
+      access: { update: admin, delete: admin },
       fields: ({ defaultFields }) => {
         return [...defaultFields, ...searchFields]
       },

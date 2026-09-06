@@ -293,7 +293,9 @@ for (const identity of ['anonymous', 'user', 'admin']) {
       const req = await createLocalReq({ user: actors[identity] ?? undefined }, payload)
       for (const operation of ['create', 'update', 'delete'] as const) {
         const check = payload.collections[slug].config.access[operation]
-        expect(await check!({ req })).toBe(allowed)
+        // Search entries are created by the plugin, not by manual CMS requests.
+        const expected = slug === 'search' && operation === 'create' ? false : allowed
+        expect(await check!({ req })).toBe(expected)
       }
     })
   }
