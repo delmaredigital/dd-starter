@@ -15,7 +15,6 @@ interface HeaderClientProps {
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data: initialData }) => {
   const [data, setData] = useState<Header | null>(initialData || null)
-  const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
 
@@ -34,17 +33,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data: initialData })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
-  useEffect(() => {
-    if (headerTheme && headerTheme !== theme) setTheme(headerTheme)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [headerTheme])
-
   if (!data) {
     return null
   }
 
   return (
-    <header className={`container relative z-20 ${theme === 'dark' ? 'dark' : ''}`}>
+    <header className={`container relative z-20 ${headerTheme === 'dark' ? 'dark' : ''}`}>
       <div className="py-8 flex justify-between">
         <Link href="/">
           <Logo loading="eager" priority="high" className="invert dark:invert-0" />
