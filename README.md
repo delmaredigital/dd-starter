@@ -109,9 +109,17 @@ src/
 
 The Page Tree view (`/admin/page-tree`) provides a visual interface for organizing your content. Drag pages to reorder or nest them within folders.
 
-### Authentication
+### Authentication and roles
 
-Users are managed through Payload's admin panel with Better Auth handling the authentication flow. Roles (`user`, `admin`) control access to the admin panel and content.
+Better Auth handles sign-in; Payload's admin panel manages users. Public sign-up is enabled, so the role model is deliberately strict:
+
+| Role | Admin panel | Author content (pages, posts, media, globals, redirects, templates, folders) | Read published content |
+|------|-------------|-----------------------------------------------------------------------------|------------------------|
+| `admin` | yes | yes | yes |
+| `user` | no | no | yes |
+| anonymous | no | no | yes |
+
+The first account created becomes `admin`; every later sign-up is a `user` and cannot set its own role. Drafts, version history, the Page Tree endpoints, the job runner and draft preview are all admin-only. The access helpers live in `src/access/` and the integration tests in `tests/int/cms-access.int.spec.ts` pin this matrix.
 
 ## Development
 
@@ -119,8 +127,11 @@ Users are managed through Payload's admin panel with Better Auth handling the au
 # Start dev server
 pnpm dev
 
-# Type check
+# Type check + lint
 pnpm check
+
+# Integration tests (needs POSTGRES_URL; CI runs them against a Postgres service)
+pnpm test:int
 
 # Build for production
 pnpm build

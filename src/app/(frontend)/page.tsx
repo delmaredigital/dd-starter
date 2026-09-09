@@ -4,6 +4,7 @@ import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import { draftMode } from 'next/headers'
+import { getContentReadOptions } from '@/utilities/getContentReadOptions'
 import React, { cache } from 'react'
 import Link from 'next/link'
 
@@ -86,16 +87,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const queryHomepage = cache(async () => {
-  const { isEnabled: draft } = await draftMode()
   const payload = await getPayload({ config: configPromise })
+  const readOptions = await getContentReadOptions(payload)
 
   // First try to find a page marked as homepage
   const homepageResult = await payload.find({
     collection: 'pages',
-    draft,
+    ...readOptions,
     limit: 1,
     pagination: false,
-    overrideAccess: draft,
     where: {
       isHomepage: {
         equals: true,
@@ -110,10 +110,9 @@ const queryHomepage = cache(async () => {
   // Fallback: look for a page with slug 'home'
   const homeSlugResult = await payload.find({
     collection: 'pages',
-    draft,
+    ...readOptions,
     limit: 1,
     pagination: false,
-    overrideAccess: draft,
     where: {
       slug: {
         equals: 'home',

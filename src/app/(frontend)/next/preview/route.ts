@@ -1,5 +1,7 @@
-import type { CollectionSlug, PayloadRequest } from 'payload'
+import type { CollectionSlug } from 'payload'
 import { getPayload } from 'payload'
+
+import { isAdmin } from '@/access/admin'
 
 import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -32,10 +34,9 @@ export async function GET(req: NextRequest): Promise<Response> {
   let user
 
   try {
-    user = await payload.auth({
-      req: req as unknown as PayloadRequest,
-      headers: req.headers,
-    })
+    // payload.auth() resolves to { user, permissions }; only the user matters here.
+    const authResult = await payload.auth({ headers: req.headers })
+    user = authResult.user
   } catch (error) {
     payload.logger.error({ err: error }, 'Error verifying token for live preview')
     return new Response('You are not allowed to preview this page', { status: 403 })
@@ -43,12 +44,12 @@ export async function GET(req: NextRequest): Promise<Response> {
 
   const draft = await draftMode()
 
-  if (!user) {
+  // Only admins may enter draft mode. The cookie this sets outlives the session,
+  // so frontend reads re-check the user (see getContentReadOptions).
+  if (!isAdmin(user)) {
     draft.disable()
     return new Response('You are not allowed to preview this page', { status: 403 })
   }
-
-  // You can add additional checks here to see if the user is allowed to preview this page
 
   draft.enable()
 

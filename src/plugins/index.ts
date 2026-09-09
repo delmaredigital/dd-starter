@@ -19,6 +19,8 @@ import { betterAuth } from 'better-auth'
 
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
+import { admin, isAdmin } from '@/access/admin'
+import { adminOrPublished } from '@/access/adminOrPublished'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | DD Starter` : 'DD Starter'
@@ -79,6 +81,14 @@ export const plugins: Plugin[] = [
   // Puck - visual page editor (must run BEFORE page-tree so Pages collection exists)
   createPuckPlugin({
     pagesCollection: 'pages',
+    // Only admins author pages; the public reads published pages only.
+    access: {
+      read: adminOrPublished,
+      create: admin,
+      update: admin,
+      delete: admin,
+      readVersions: admin,
+    },
     layouts: puckLayoutOptions,
     // Built by 'build:puck-css' (Tailwind CLI) into public/ — same URL in dev
     // and production.
@@ -90,11 +100,24 @@ export const plugins: Plugin[] = [
     folderSlug: 'payload-folders',
     segmentFieldName: 'pathSegment',
     pageSegmentFieldName: 'pageSegment',
+    // Gate the /api/page-tree/* endpoints (the plugin also enforces collection
+    // access on every operation; this stops non-admins at the door).
+    access: ({ req }) => isAdmin(req.user),
+    customizeFolderCollection: (collection) => ({
+      ...collection,
+      access: {
+        ...((collection.access as Record<string, unknown> | undefined) ?? {}),
+        create: admin,
+        update: admin,
+        delete: admin,
+      },
+    }),
   }),
   // Redirects
   redirectsPlugin({
     collections: ['pages', 'posts'],
     overrides: {
+      access: { create: admin, update: admin, delete: admin },
       // @ts-expect-error - This is a valid override, mapped fields don't resolve to the same type
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
@@ -124,6 +147,8 @@ export const plugins: Plugin[] = [
     collections: ['posts'],
     beforeSync: beforeSyncWithSearch,
     searchOverrides: {
+      // The plugin syncs records itself; nobody creates them by hand.
+      access: { update: admin, delete: admin },
       fields: ({ defaultFields }) => {
         return [...defaultFields, ...searchFields]
       },

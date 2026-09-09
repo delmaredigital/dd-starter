@@ -70,13 +70,13 @@ export interface Config {
     posts: Post;
     media: Media;
     users: User;
+    'puck-templates': PuckTemplate;
     sessions: Session;
     accounts: Account;
     verifications: Verification;
     twoFactors: TwoFactor;
     apikeys: Apikey;
     passkeys: Passkey;
-    'puck-templates': PuckTemplate;
     pages: Page;
     redirects: Redirect;
     search: Search;
@@ -96,13 +96,13 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'puck-templates': PuckTemplatesSelect<false> | PuckTemplatesSelect<true>;
     sessions: SessionsSelect<false> | SessionsSelect<true>;
     accounts: AccountsSelect<false> | AccountsSelect<true>;
     verifications: VerificationsSelect<false> | VerificationsSelect<true>;
     twoFactors: TwoFactorsSelect<false> | TwoFactorsSelect<true>;
     apikeys: ApikeysSelect<false> | ApikeysSelect<true>;
     passkeys: PasskeysSelect<false> | PasskeysSelect<true>;
-    'puck-templates': PuckTemplatesSelect<false> | PuckTemplatesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     search: SearchSelect<false> | SearchSelect<true>;
@@ -476,6 +476,45 @@ export interface User {
   collection: 'users';
 }
 /**
+ * Reusable component templates for the visual editor
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "puck-templates".
+ */
+export interface PuckTemplate {
+  id: number;
+  /**
+   * A descriptive name for this template
+   */
+  name: string;
+  /**
+   * Optional description of what this template contains
+   */
+  description?: string | null;
+  /**
+   * Category for organizing templates (e.g., "Hero", "Footer", "CTA")
+   */
+  category?: string | null;
+  /**
+   * Serialized Puck component data
+   */
+  content:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Optional thumbnail URL for template preview
+   */
+  thumbnail?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Auto-generated from Better Auth schema (session)
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -591,45 +630,6 @@ export interface Passkey {
   backedUp: boolean;
   transports?: string | null;
   aaguid?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * Reusable component templates for the visual editor
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "puck-templates".
- */
-export interface PuckTemplate {
-  id: number;
-  /**
-   * A descriptive name for this template
-   */
-  name: string;
-  /**
-   * Optional description of what this template contains
-   */
-  description?: string | null;
-  /**
-   * Category for organizing templates (e.g., "Hero", "Footer", "CTA")
-   */
-  category?: string | null;
-  /**
-   * Serialized Puck component data
-   */
-  content:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  /**
-   * Optional thumbnail URL for template preview
-   */
-  thumbnail?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -811,6 +811,10 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
+        relationTo: 'puck-templates';
+        value: number | PuckTemplate;
+      } | null)
+    | ({
         relationTo: 'sessions';
         value: number | Session;
       } | null)
@@ -833,10 +837,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'passkeys';
         value: number | Passkey;
-      } | null)
-    | ({
-        relationTo: 'puck-templates';
-        value: number | PuckTemplate;
       } | null)
     | ({
         relationTo: 'pages';
@@ -1047,6 +1047,19 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "puck-templates_select".
+ */
+export interface PuckTemplatesSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  category?: T;
+  content?: T;
+  thumbnail?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "sessions_select".
  */
 export interface SessionsSelect<T extends boolean = true> {
@@ -1143,19 +1156,6 @@ export interface PasskeysSelect<T extends boolean = true> {
   backedUp?: T;
   transports?: T;
   aaguid?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "puck-templates_select".
- */
-export interface PuckTemplatesSelect<T extends boolean = true> {
-  name?: T;
-  description?: T;
-  category?: T;
-  content?: T;
-  thumbnail?: T;
   updatedAt?: T;
   createdAt?: T;
 }

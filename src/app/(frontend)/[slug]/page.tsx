@@ -4,6 +4,7 @@ import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
+import { getContentReadOptions } from '@/utilities/getContentReadOptions'
 import React, { cache } from 'react'
 
 import { generateMeta } from '@/utilities/generateMeta'
@@ -91,16 +92,14 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 }
 
 const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
-  const { isEnabled: draft } = await draftMode()
-
   const payload = await getPayload({ config: configPromise })
+  const readOptions = await getContentReadOptions(payload)
 
   const result = await payload.find({
     collection: 'pages',
-    draft,
+    ...readOptions,
     limit: 1,
     pagination: false,
-    overrideAccess: draft,
     where: {
       slug: {
         equals: slug,
